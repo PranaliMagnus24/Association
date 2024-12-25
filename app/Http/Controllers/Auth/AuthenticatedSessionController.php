@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if($request->user()->role === 'admin'){
-            return redirect('admin/index');
+            return redirect('/admin');
         }
 
 

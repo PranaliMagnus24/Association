@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  @include('admin.layouts.head')
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  @include('admin.layouts.header')
+ <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  @include('admin.layouts.sidebar')
+  <!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+<!--List Body-->
+<div class="container">
+    <div class="text-end mb-3">
+        <a href="{{ route('technology.add')}}" class="btn btn-primary">Add Technology</a>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Technologies List</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Sr no.</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach ($datas as $data)
+            <tr>
+            <td>{{$loop->iteration}}</td>
+                <td>{{$data->title}}</td>
+                <td>{{$data->desc}}</td>
+                <td>{{$data->status}}</td>
+
+                <td>
+                <a href="{{ route('technology.show', $data->id) }}" class="btn btn-outline-primary"><i class="bx bx-show" style="font-size: 20px;"></i></a>
+                    <a href="{{ route('technology.edit', $data->id)}}" class="btn btn-outline-success">  <i class="bx bx-pencil" style="font-size: 20px;"></i></a>
+                    <a href="{{ url('delete_technologies', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)"><i class="bx bx-trash" style="font-size: 20px;"></i></a>
+
+                </td>
+              </tr>
+            @endforeach
+                </tbody>
+            </table>
+            <div class="text-end mb-3">
+        {{$datas->links()}}
+        </div>
+        </div>
+    </div>
+</div>
+<!--List Body end-->
+
+     </main><!-- End #main -->
+     <script>
+    function conformation(ev){
+        ev.preventDefault();
+        var urlToRedirect = ev.currentTarget.getAttribute('href');
+        console.log(urlToRedirect);
+
+        swal({
+            title: "Are You Sure to Delete This",
+            text: "This delete will be permanent",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+
+        .then((willCancel)=>{
+
+            if(willCancel)
+        {
+            window.location.href=urlToRedirect;
+        }
+        })
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+  <!-- ======= Footer ======= -->
+  @include('admin.layouts.footer')
+
+</body>
+
+</html>
