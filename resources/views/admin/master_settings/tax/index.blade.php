@@ -70,22 +70,23 @@
 <!--List Body-->
 <div class="container">
 <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="get" action="{{url('fees_search')}}">
+      <form class="search-form d-flex align-items-center" method="get" action="{{url('tax_search')}}">
         @csrf
         <input type="text" name="search" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
-      <a href="{{ route('fee.add')}}" class="btn btn-primary">+</a>
+      <a href="{{ route('tax.add')}}" class="btn btn-primary">+</a>
     </div><!-- End Search Bar -->
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Technologies List</h5>
+            <h5 class="card-title">Tax List</h5>
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Sr no.</th>
-                        <th scope="col">Title</th>
+                        <th scope="col">Tax Name</th>
+                        <th scope="col">Percentage %</th>
                         <th scope="col">Description</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
@@ -95,14 +96,17 @@
                 @foreach ($datas as $data)
             <tr>
             <td>{{$loop->iteration}}</td>
-                <td>{{$data->title}}</td>
+                <td>{{$data->name}}</td>
+                <td>{{$data->percent}}
+                <span> % </span>
+                </td>
                 <td>{{$data->desc}}</td>
                 <td>{{$data->status}}</td>
 
                 <td>
-                <a href="{{ route('technology.show', $data->id) }}" class="btn btn-outline-primary"><i class="bx bx-show" style="font-size: 20px;"></i></a>
-                    <a href="{{ route('technology.edit', $data->id)}}" class="btn btn-outline-success">  <i class="bx bx-pencil" style="font-size: 20px;"></i></a>
-                    <a href="{{ url('delete_technologies', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)"><i class="bx bx-trash" style="font-size: 20px;"></i></a>
+                <a href="{{ route('tax.show', $data->id) }}" class="btn btn-outline-primary"><i class="bx bx-show" style="font-size: 20px;"></i></a>
+                    <a href="{{ route('tax.edit', $data->id)}}" class="btn btn-outline-success">  <i class="bx bx-pencil" style="font-size: 20px;"></i></a>
+                    <a href="{{ url('delete_tax', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)"><i class="bx bx-trash" style="font-size: 20px;"></i></a>
 
                 </td>
               </tr>

@@ -29,6 +29,15 @@
 
  <!---Add Member--->
          <div class="container">
+         @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  @endif
          <div class="text-end mb-3">
         <a href="{{ url('admin/fees')}}" class="btn btn-primary">Back</a>
          </div>
@@ -40,10 +49,16 @@
                 <div class="col-md-12">
                 <label for="inputName5" class="form-label">Application Fee</label>
                   <input type="text" class="form-control" name="application_fee" placeholder="Application fee" value="{{$data->application_fee}}">
+                  @error('application_fee')
+               <div class="text-danger">{{ $message }}</div>
+              @enderror
                 </div>
                 <div class="col-md-12">
                 <label for="inputName5" class="form-label">Subscription Fee</label>
                   <input type="text" class="form-control" name="subscription_fee" placeholder="Application fee" value="{{$data->subscription_fee}}">
+                  @error('subscription_fee')
+               <div class="text-danger">{{ $message }}</div>
+              @enderror
                 </div>
                 <div class="col-12">
                 <label for="inputName5" class="form-label">Fees Description</label>

@@ -5,10 +5,11 @@
   @include('admin.layouts.head')
 </head>
 <style>
-    .search-bar {
+      .search-bar {
         margin: 20px 0;
         display: flex;
-        justify-content: flex-center;
+        justify-content: flex-end;
+        align-items: center;
     }
 
     .search-form {
@@ -17,6 +18,8 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         overflow: hidden;
+        margin-right: 10px;
+        height: 35px;
     }
 
     .search-form input[type="text"] {
@@ -61,19 +64,19 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-    <div class="search-bar">
-  <form class="search-form d-flex align-items-center" method="get" action="{{url('membership_search')}}">
-  @csrf
-    <input type="text" name="search" placeholder="Search" title="Enter search keyword">
-    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-  </form>
-</div><!-- End Search Bar -->
+
 
 <!--List Body-->
 <div class="container">
-    <div class="text-end mb-3">
-        <a href="{{ route('membership.add')}}" class="btn btn-primary">Add Membership</a>
-    </div>
+<div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="get" action="{{url('fees_search')}}">
+        @csrf
+        <input type="text" name="search" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+      <a href="{{ route('fee.add')}}" class="btn btn-primary">+</a>
+    </div><!-- End Search Bar -->
+
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Membership List</h5>

@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Master_Settings\MembershiptypeController;
 use App\Http\Controllers\Master_Settings\TechnologyController;
 use App\Http\Controllers\Master_Settings\FeesController;
+use App\Http\Controllers\Master_Settings\TaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,7 @@ Route::get('/admin/technologies/{id}/edit', [TechnologyController::class, 'edit'
 Route::post('/admin/technologies/{id}', [TechnologyController::class, 'update'])->name('technology.update');
 Route::get('delete_technologies/{id}', [TechnologyController::class, 'delete'])->name('technology.delete');
 Route::get('/admin/technologies/{id}', [TechnologyController::class, 'show'])->name('technology.show');
+Route::get('technology_search', [TechnologyController::class, 'technology_search']);
 
 
 //Master Setting Fees
@@ -66,3 +68,13 @@ Route::post('admin/fees/{id}', [FeesController::class, 'update'])->name('fee.upd
 Route::get('delete_fee/{id}', [FeesController::class, 'delete'])->name('fee.delete');
 Route::get('admin/fees/{id}', [FeesController::class, 'show'])->name('fee.show');
 Route::get('fees_search', [FeesController::class, 'fees_search']);
+
+//Master Setting Tax
+Route::get('admin/tax', [TaxController::class, 'index'])->name('tax.index');
+Route::get('admin/tax/add', [TaxController::class, 'add'])->name('tax.add');
+Route::post('/admin/tax', [TaxController::class, 'store'])->name('tax.store');
+Route::get('/admin/tax/{id}/edit', [TaxController::class, 'edit'])->name('tax.edit');
+Route::post('/admin/tax/{id}', [TaxController::class, 'update'])->name('tax.update');
+Route::get('delete_tax/{id}', [TaxController::class, 'delete'])->name('tax.delete');
+Route::get('/admin/tax/{id}', [TaxController::class, 'show'])->name('tax.show');
+Route::get('tax_search', [TaxController::class, 'tax_search']);

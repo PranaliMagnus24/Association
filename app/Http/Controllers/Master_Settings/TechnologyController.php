@@ -64,4 +64,10 @@ class TechnologyController extends Controller
         $data = Technology::find($id);
         return view('admin.master_settings.technologies.show', compact('data'));
     }
+
+    public function technology_search(Request $request){
+        $search = $request->search;
+        $datas = Technology::where('title', 'LIKE', '%'.$search.'%')->orWhere('title', 'LIKE', '%'.$search.'%')->paginate(3);
+        return view('admin.master_settings.technologies.index', compact('datas'));
+      }
 }

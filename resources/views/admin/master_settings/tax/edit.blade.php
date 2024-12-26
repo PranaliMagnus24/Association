@@ -38,52 +38,40 @@
         </ul>
     </div>
 @endif
-
          <div class="text-end mb-3">
-        <a href="{{ url('admin/fees')}}" class="btn btn-primary">Back</a>
+        <a href="{{ url('admin/tax')}}" class="btn btn-primary">Back</a>
          </div>
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Add Fees</h5>
-              <form class="row g-3" method="POST" action="{{ route('fee.store') }}">
+              <h5 class="card-title">Edit Tax</h5>
+              <form class="row g-3" method="POST" action="{{ route('tax.update', $data->id) }}">
               @csrf
-              <div class="col-md-4">
-              <label for="inputName5" class="form-label">Membership Type</label>
-              <select name="#" id="inputState" class="form-select">
-                <option value="#">Select Membership Type</option>
-                <option value="#"></option>
-              </select>
-              </div>
                 <div class="col-md-12">
-                <label for="inputName5" class="form-label">Application Fee</label>
-                  <input type="text" class="form-control" name="application_fee" placeholder="Application fee"  value="{{ old('application_fee') }}">
-                  @error('application_fee')
-               <div class="text-danger">{{ $message }}</div>
-              @enderror
+                <label for="inputName5" class="form-label">Tax Name</label>
+                  <input type="text" class="form-control" name="name" placeholder="Your Tax Name" value="{{$data->name}}">
                 </div>
                 <div class="col-md-12">
-                <label for="inputName5" class="form-label">Subscription Fee</label>
-                  <input type="text" class="form-control" name="subscription_fee" placeholder="Subscription fee" value="{{ old('subscription_fee')}}">
-                  @error('subscription_fee')
+                <label for="inputName5" class="form-label">Percentage %</label>
+                  <input type="text" class="form-control" name="percent" placeholder="%" value="{{$data->percent}}">
+                  @error('percent')
                <div class="text-danger">{{ $message }}</div>
               @enderror
                 </div>
                 <div class="col-12">
-                <label for="inputName5" class="form-label">Fees Description</label>
-                <textarea class="form-control" placeholder="Description" id="floatingTextarea" style="height: 100px;" name="desc"></textarea>
+                <label for="inputName5" class="form-label">Tax Description</label>
+                <textarea class="form-control" placeholder="Description" id="floatingTextarea" style="height: 100px;" name="desc">{{ $data->desc }}</textarea>
                 </div>
                 <div class="col-md-4">
                 <label for="inputState" class="form-label">Status</label>
                   <select id="inputState" class="form-select" name="status">
                     <option selected>Select status</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-
+                    <option value="active" {{ $data->status == 'active' ? 'selected' : '' }}>Active</option>
+                  <option value="inactive" {{ $data->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
                   </select>
                 </div>
 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary" value="Update Technology">Update</button>
                 </div>
               </form>
             </div>

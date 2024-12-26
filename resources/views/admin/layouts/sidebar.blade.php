@@ -26,7 +26,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="{{url('admin/tax')}}">
               <i class="bi bi-circle"></i><span>Tax Settings</span>
             </a>
           </li>

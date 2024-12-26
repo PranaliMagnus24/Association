@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Fees extends Model
+class Tax extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'fees';
+
+    protected $table = 'tax';
     protected $fillable = [
-        'application_fee',
-        'subscription_fee',
+        'name',
         'desc',
+        'percent',
         'status',
     ];
 }

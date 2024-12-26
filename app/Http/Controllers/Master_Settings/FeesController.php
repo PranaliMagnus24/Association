@@ -22,9 +22,13 @@ class FeesController extends Controller
    //Store form
     public function store(Request $request){
         $request->validate([
-            'application_fee' => 'required|integer',
-            'subscription_fee' => 'required|integer',
-            'status' => 'required',
+            'application_fee' => 'required|numeric',
+            'subscription_fee' => 'required|numeric',
+        ], [
+            'application_fee.required' => 'The application fee field is required.',
+            'application_fee.numeric' => 'The application fee must be a numeric value.',
+            'subscription_fee.required' => 'The subscription fee field is required.',
+            'subscription_fee.numeric' => 'The subscription fee must be a numeric value.',
         ]);
         $data = new Fees;
         $data->application_fee = $request->application_fee;
@@ -55,6 +59,15 @@ class FeesController extends Controller
 
  //update
      public function update(Request $request,$id){
+        $request->validate([
+            'application_fee' => 'required|numeric',
+            'subscription_fee' => 'required|numeric',
+        ], [
+            'application_fee.required' => 'The application fee field is required.',
+            'application_fee.numeric' => 'The application fee must be a numeric value.',
+            'subscription_fee.required' => 'The subscription fee field is required.',
+            'subscription_fee.numeric' => 'The subscription fee must be a numeric value.',
+        ]);
         $data = Fees::find($id);
         $data->application_fee = $request->application_fee;
         $data->subscription_fee = $request->subscription_fee;
