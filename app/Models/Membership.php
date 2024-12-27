@@ -16,4 +16,9 @@ class Membership extends Model
         'desc',
         'status',
     ];
+
+    public function fees()
+    {
+        return $this->hasMany(Fees::class, 'membership_id', 'id');
+    }
 }

@@ -16,4 +16,9 @@ class Fees extends Model
         'desc',
         'status',
     ];
+
+    public function membership()
+    {
+        return $this->belongsTo(Membership::class, 'membership_id', 'id');
+    }
 }

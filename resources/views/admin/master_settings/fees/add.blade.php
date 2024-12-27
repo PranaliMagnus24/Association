@@ -49,10 +49,13 @@
               @csrf
               <div class="col-md-4">
               <label for="inputName5" class="form-label">Membership Type</label>
-              <select name="#" id="inputState" class="form-select">
+              <select name="membership_id" id="inputState" class="form-select">
                 <option value="#">Select Membership Type</option>
-                <option value="#"></option>
+                @foreach ($memberships as $membership)
+                <option value="{{ $membership->id }}">{{ $membership->title }}</option>
+                @endforeach
               </select>
+
               </div>
                 <div class="col-md-12">
                 <label for="inputName5" class="form-label">Application Fee</label>

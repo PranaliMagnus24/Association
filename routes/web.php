@@ -7,6 +7,7 @@ use App\Http\Controllers\Master_Settings\MembershiptypeController;
 use App\Http\Controllers\Master_Settings\TechnologyController;
 use App\Http\Controllers\Master_Settings\FeesController;
 use App\Http\Controllers\Master_Settings\TaxController;
+use App\Http\Controllers\Membership_form\MembershipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,3 +79,14 @@ Route::post('/admin/tax/{id}', [TaxController::class, 'update'])->name('tax.upda
 Route::get('delete_tax/{id}', [TaxController::class, 'delete'])->name('tax.delete');
 Route::get('/admin/tax/{id}', [TaxController::class, 'show'])->name('tax.show');
 Route::get('tax_search', [TaxController::class, 'tax_search']);
+
+
+//Membership Form
+Route::get('admin/membershipform', [MembershipController::class, 'index'])->name('member.index');
+Route::get('admin/membershipform/add', [MembershipController::class, 'add'])->name('member.add');
+Route::post('admin/membershipform', [MembershipController::class, 'store'])->name('member.register');
+Route::get('/admin/membershipform/{id}/edit', [MembershipController::class, 'edit'])->name('member.edit');
+Route::post('/admin/membershipform/{id}', [MembershipController::class, 'update'])->name('member.update');
+Route::get('delete_member/{id}', [MembershipController::class, 'delete'])->name('member.delete');
+Route::get('/admin/membershipform/{id}', [MembershipController::class, 'show'])->name('member.show');
+Route::get('membershipform_search', [MembershipController::class, 'member_search'])->name('member_search');

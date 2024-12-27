@@ -85,6 +85,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Sr no.</th>
+                        <th scope="col">Membership Type</th>
                         <th scope="col">Application Fee</th>
                         <th scope="col">Subscription Fee</th>
                         <th scope="col">Description</th>
@@ -95,7 +96,8 @@
                 <tbody>
                 @foreach ($datas as $data)
             <tr>
-            <td>{{$loop->iteration}}</td>
+                <td>{{$loop->iteration}}</td>
+                <td>{{ $data->membership->title ?? 'N/A' }}</td>
                 <td>{{$data->application_fee}}</td>
                 <td>{{$data->subscription_fee}}</td>
                 <td>{{$data->desc}}</td>

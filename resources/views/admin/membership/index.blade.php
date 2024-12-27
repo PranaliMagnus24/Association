@@ -1,3 +1,4 @@
+<h1>Membership</h1>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,52 +67,64 @@
     </div><!-- End Page Title -->
 
 
+
 <!--List Body-->
 <div class="container">
 <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="get" action="{{url('membership_search')}}">
+      <form class="search-form d-flex align-items-center" method="get" action="{{ route('member_search')}}">
         @csrf
         <input type="text" name="search" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
-      <a href="{{ route('membership.add')}}" class="btn btn-primary">+</a>
+      <a href="{{ route('member.add')}}" class="btn btn-primary">+</a>
     </div><!-- End Search Bar -->
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Membership List</h5>
+            <h5 class="card-title">Memeber's List</h5>
+            @php
+    $datas = App\Models\User::paginate(5);
+      @endphp
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Sr no.</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile No.</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Profile Picture</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($memberships as $membership)
-                    <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $membership->title }}</td>
-                        <td>{{ $membership->desc }}</td>
-                        <td>{{ $membership->status }}</td>
-                        <td>
-                        <a href="{{ route('memberships.show', $membership->id) }}" class="btn btn-outline-primary"><i class="bx bx-show" style="font-size: 20px;"></i></a>
-                            <a href="{{ route('memberships.edit', $membership->id)}}" class="btn btn-outline-success"><i class="bx bx-pencil" style="font-size: 20px;"></i></a>
-                            <form action="{{ route('memberships.destroy', $membership->id) }}" method="POST" style="display:inline;">
-                             @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-outline-danger" onclick="conformation(event)"><i class="bx bx-trash" style="font-size: 20px;"></i></button>
-                             </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                @foreach ($datas as $data)
+            <tr>
+                <td>{{$loop->iteration}}</td>
+                <td>{{$data->first_name}} &nbsp;{{$data->last_name}}</td>
+                <td>{{$data->email}}</td>
+                <td>{{$data->phone}}</td>
+                <td>{{$data->gender}}</td>
+                <td>
+    @if($data->profile_pic)
+        <img height="100" width="100" src="{{ url('upload/' . $data->profile_pic) }}" alt="Profile Picture">
+    @else
+        <img height="100" width="100" src="{{ url('upload/default-profile.jpg') }}" alt="Default Profile Picture">
+    @endif
+</td>
+
+                <td>
+                <a href="{{ route('member.show', $data->id) }}" class="btn btn-outline-primary"><i class="bx bx-show" style="font-size: 20px;"></i></a>
+                    <a href="{{ route('member.edit', $data->id)}}" class="btn btn-outline-success">  <i class="bx bx-pencil" style="font-size: 20px;"></i></a>
+                    <a href="{{ url('delete_member', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)"><i class="bx bx-trash" style="font-size: 20px;"></i></a>
+
+                </td>
+              </tr>
+            @endforeach
                 </tbody>
             </table>
             <div class="text-end mb-3">
-        {{$memberships->links()}}
+        {{$datas->links()}}
         </div>
         </div>
     </div>
@@ -119,11 +132,11 @@
 <!--List Body end-->
 
      </main><!-- End #main -->
-
      <script>
     function conformation(ev){
         ev.preventDefault();
-        var form = ev.currentTarget.closest('form');
+        var urlToRedirect = ev.currentTarget.getAttribute('href');
+        console.log(urlToRedirect);
 
         swal({
             title: "Are You Sure to Delete This",
@@ -132,14 +145,19 @@
             buttons: true,
             dangerMode: true,
         })
-        .then((willDelete) => {
-            if (willDelete) {
-                form.submit();
-            }
-        });
+
+        .then((willCancel)=>{
+
+            if(willCancel)
+        {
+            window.location.href=urlToRedirect;
+        }
+        })
     }
 </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
   <!-- ======= Footer ======= -->
   @include('admin.layouts.footer')
 

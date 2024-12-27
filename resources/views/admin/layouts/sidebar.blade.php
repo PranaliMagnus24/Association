@@ -38,6 +38,13 @@
         </ul>
       </li><!-- End Charts Nav -->
 
+      <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ url('admin/membershipform') }}">
+      <i class="bi bi-card-list"></i>
+      <span>Membership</span>
+    </a>
+  </li><!-- End Membership -->
+
   <li class="nav-item">
     <a class="nav-link collapsed" href="{{url('profile')}}">
       <i class="bi bi-person"></i>

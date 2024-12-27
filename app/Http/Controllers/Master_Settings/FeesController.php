@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Master_Settings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Fees;
+use App\Models\Membership;
 
 class FeesController extends Controller
 {
     public function index(){
+
         $datas = Fees::paginate(5);
         return view('admin.master_settings.fees.index', compact('datas'));
     }
@@ -16,7 +18,8 @@ class FeesController extends Controller
     //View add form
     public function add()
    {
-    return view('admin.master_settings.fees.add');
+    $memberships = Membership::all();
+    return view('admin.master_settings.fees.add', compact('memberships'));
    }
 
    //Store form
@@ -24,6 +27,7 @@ class FeesController extends Controller
         $request->validate([
             'application_fee' => 'required|numeric',
             'subscription_fee' => 'required|numeric',
+            'membership_id' => 'required|exists:membership,id',
         ], [
             'application_fee.required' => 'The application fee field is required.',
             'application_fee.numeric' => 'The application fee must be a numeric value.',
@@ -35,6 +39,7 @@ class FeesController extends Controller
         $data->subscription_fee = $request->subscription_fee;
         $data->desc = $request->desc;
         $data->status = $request->status;
+        $data->membership_id = $request->membership_id;
 
         $data->save();
 
@@ -73,6 +78,7 @@ class FeesController extends Controller
         $data->subscription_fee = $request->subscription_fee;
         $data->desc = $request->desc;
         $data->status = $request->status;
+        $data->membership_id = $request->membership_id;
         $data->save();
          toastr()->timeOut(5000)->closeButton()->addSuccess('Fees updated successfully!');
          return redirect()->route('fee.index');
