@@ -90,3 +90,10 @@ Route::post('/admin/membershipform/{id}', [MembershipController::class, 'update'
 Route::get('delete_member/{id}', [MembershipController::class, 'delete'])->name('member.delete');
 Route::get('/admin/membershipform/{id}', [MembershipController::class, 'show'])->name('member.show');
 Route::get('membershipform_search', [MembershipController::class, 'member_search'])->name('member_search');
+
+//Company Registration form
+Route::get('admin/companyform/add/{user_id}', [MembershipController::class, 'showCompanyForm'])->name('company.add');
+Route::post('admin/companyform', [MembershipController::class, 'companystore'])->name('company.register');
+Route::post('api/fetch-states', [MembershipController::class, 'fetchState']);
+
+Route::post('api/fetch-cities', [MembershipController::class, 'fetchCity']);

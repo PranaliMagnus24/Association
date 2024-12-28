@@ -15,4 +15,9 @@ class Technology extends Model
         'desc',
         'status',
     ];
+
+    public function companyPro()
+{
+    return $this->belongsTo(CompanyPro::class, 'tech_id', 'id');
+}
 }

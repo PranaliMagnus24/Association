@@ -130,149 +130,159 @@
 <!------------------------Company Details------------------------------------->
 
 <!---------------------------Company Profile----------------------------->
-                <div class="tab-pane fade pt-3" id="profile-edit">
-                <form action="{{ route('company.register')}}" method="POST" enctype="multipart/form-data">
-                @csrf
-                  <div class="row mb-3">
-                  <label class="col-md-4 col-lg-3 col-form-label">Select Company Type</label>
-                  <div class="col-md-8 col-lg-4">
-                    <select class="form-select" aria-label="Default select example" name="comp_type">
-                      <option selected>Select Company Type</option>
-                      <option value="">Product</option>
-                      <option value="">Service</option>
-                      <option value="">College/Institutional Organiational</option>
-                    </select>
-                  </div>
-                </div>
+<div class="tab-pane fade pt-3" id="profile-edit">
+    <form action="{{ route('company.register')}}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Company Name</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="comp_name" type="text" class="form-control" placeholder="your comapny name">
-                      </div>
-                    </div>
+        <div class="row mb-3">
+            <label class="col-md-4 col-lg-3 col-form-label">Select Company Type</label>
+            <div class="col-md-8 col-lg-4">
+                <select class="form-select" aria-label="Default select example" name="company_type">
+                    <option selected>Select Company Type</option>
+                    <option value="Product">Product</option>
+                    <option value="Service">Service</option>
+                    <option value="College/Institutional Organization">College/Institutional Organization</option>
+                </select>
+            </div>
+        </div>
 
+        <div class="row mb-3">
+            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Company Name</label>
+            <div class="col-md-8 col-lg-9">
+                <input name="company_name" type="text" class="form-control" placeholder="your company name">
+            </div>
+        </div>
 
+        <div class="row mb-3">
+            <label for="company" class="col-md-4 col-lg-3 col-form-label">Registration No/Udyog Aadhaar No.</label>
+            <div class="col-md-8 col-lg-9">
+                <input name="aadharcard_number" type="text" class="form-control" id="aadhar">
+            </div>
+        </div>
 
-                    <div class="row mb-3">
-                      <label for="company" class="col-md-4 col-lg-3 col-form-label">Registration No/Udyog Aadhaar No.</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="aadhar_no" type="text" class="form-control" id="aadhar">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="reg_date" class="col-md-4 col-lg-3 col-form-label">Registration Date</label>
-                      <div class="col-md-8 col-lg-3">
-                        <input name="reg_date" type="date" class="form-control" id="reg_date">
-                      </div>
-                      <label class="col-md-2 col-lg-3 col-form-label">Renewal Date</label>
-                     <div class="col-md-8 col-lg-3">
-                        <input name="ren_date" type="date" class="form-control" id="ren_date">
-                      </div>
-                    </div>
+        <div class="row mb-3">
+            <label for="reg_date" class="col-md-4 col-lg-3 col-form-label">Registration Date</label>
+            <div class="col-md-8 col-lg-3">
+                <input name="registration_date" type="date" class="form-control" id="reg_date">
+            </div>
+            <label class="col-md-2 col-lg-3 col-form-label" style="margin-bottom: 0;">Renewal Date</label>
+            <div class="col-md-8 col-lg-3">
+                <input name="renewal_date" type="date" class="form-control" id="ren_date">
+            </div>
+        </div>
 
+        <div class="row mb-3">
+            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Address</label>
+            <div class="col-md-8 col-lg-9">
+                <input name="address_one" type="text" class="form-control" id="Job" placeholder="Address Line 1">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="Job" class="col-md-4 col-lg-3 col-form-label"></label>
+            <div class="col-md-8 col-lg-9">
+                <input name="address_two" type="text" class="form-control" id="Job" placeholder="Address Line 2">
+            </div>
+        </div>
 
-                    <div class="row mb-3">
-                    <label for="Job" class="col-md-4 col-lg-3 col-form-label">Address</label>
-
-                      <div class="col-md-8 col-lg-9">
-                        <input name="add_one" type="text" class="form-control" id="Job" placeholder="Address Line 1">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="Job" class="col-md-4 col-lg-3 col-form-label"></label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="add_two" type="text" class="form-control" id="Job" placeholder="Address Line 2">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="Job" class="col-md-4 col-lg-3 col-form-label"></label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="city" type="text" class="form-control" id="Job" placeholder="City">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="Job" class="col-md-4 col-lg-3 col-form-label"></label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="state" type="text" class="form-control" id="Job" placeholder="State">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="Job" class="col-md-4 col-lg-3 col-form-label"></label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="zip_code" type="text" class="form-control" id="Job" placeholder="Zip">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="Job" class="col-md-4 col-lg-3 col-form-label"></label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="country" type="text" class="form-control" id="Job" placeholder="Country">
-                      </div>
-                    </div>
+        <div class="row mb-3">
+        <label for="Job" class="col-md-2 col-lg-3 col-form-label">Country</label>
+            <div class="col-md-8 col-lg-3">
+                <select name="country" id="country-dropdown" class="form-select" aria-label="Default select example">
+                <option value="">-- Select Country --</option>
+                @foreach ($countries as $country)
+                <option value="{{$country->id}}">{{$country->name}}</option>@endforeach
+                </select>
+            </div>
+            <label for="Job" class="col-md-2 col-lg-3 col-form-label">State</label>
+            <div class="col-md-8 col-lg-3">
+                <select name="state" id="state-dropdown" class="form-select" aria-label="Default select example">
+                    <option selected>Select State</option>
+                    <option value=""></option>
+                </select>
+            </div>
 
 
-                    <div class="row mb-3">
-                      <label for="Country" class="col-md-4 col-lg-3 col-form-label">Landline</label>
-                      <div class="col-md-8 col-lg-4">
-                        <input name="landline" type="text" class="form-control" id="Country">
-                      </div>
-                      <label class="col-md-2 col-lg-3 col-form-label">Number Of Employees</label>
-                     <div class="col-md-8 col-lg-2">
-                    <select class="form-select" aria-label="Default select example" name="no_emp">
-                      <option selected>Select number of employees</option>
-                      <option value="">1-10</option>
-                      <option value="">11-50</option>
-                      <option value="">51-500</option>
-                      <option value="">500+</option>
-                    </select>
-                    </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="comapany_year" class="col-md-4 col-lg-3 col-form-label">Company Establishment Year</label>
-                      <div class="col-md-8 col-lg-2">
-                        <input name="comp_year" type="text" class="form-control" id="Phone">
-                      </div>
-                    </div>
+        </div>
 
-                    <div class="row mb-3">
-                      <label for="about_comp" class="col-md-4 col-lg-3 col-form-label">About Company</label>
-                      <div class="col-md-8 col-lg-9">
-                      <div class="quill-editor-default" name="about_comp">
+        <div class="row mb-3">
+        <label for="Job" class="col-md-4 col-lg-3 col-form-label">City</label>
+            <div class="col-md-8 col-lg-3">
+                <select id="city-dropdown" name="city" class="form-select" aria-label="Default select example">
+                    <option selected>Select city</option>
+                    <option value=""></option>
+                </select>
+            </div>
+            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Zip code</label>
+            <div class="col-md-8 col-lg-3">
+                <input name="zipcode" type="text" class="form-control" id="Job" placeholder="Zip">
+            </div>
 
-                      </div>
-                      </div>
-                    </div><br><br>
+        </div>
 
-                    <div class="row mb-3">
-                      <label for="web_url" class="col-md-4 col-lg-3 col-form-label">Website URL</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="web_url" type="text" class="form-control" id="web_url">
-                      </div>
-                    </div>
+        <div class="row mb-3">
+            <label for="Country" class="col-md-4 col-lg-3 col-form-label">Landline</label>
+            <div class="col-md-8 col-lg-3">
+                <input name="landline" type="text" class="form-control" id="Country">
+            </div>
+            <label class="col-md-2 col-lg-3 col-form-label">Number Of Employees</label>
+            <div class="col-md-8 col-lg-3">
+                <select class="form-select" aria-label="Default select example" name="no_emp">
+                    <option selected>Select number of employees</option>
+                    <option value="1-10">1-10</option>
+                    <option value="11-50">11-50</option>
+                    <option value="51-500">51-500</option>
+                    <option value="500+">500+</option>
+                </select>
+            </div>
+        </div>
 
-                    <div class="row mb-3">
-                      <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Technologies</label>
-                      <div class="col-md-8 col-lg-3">
-                      <select class="selectpicker" multiple aria-label="size 3 select example" name="tech">
-                      <option selected>Select technologies</option>
-                      <option value="">java</option>
-                    </select>
-                      </div>
-                      <label for="logo" class="col-md-4 col-lg-3 col-form-label">Company Logo</label>
-                      <div class="col-md-8 col-lg-3">
-                     <input id="logo" name="comp_logo" type="file" class="form-control" accept="image/*">
-                     @if(!empty($data->comp_logo))
-      @if(file_exists('upload/'.$data->comp_logo))<img src="{{url('upload/'.$data->comp_logo)}}" style="height:100px; width:100px;">
-      @endif
-      @endif
-                   </div>
-                    </div>
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                  </form>
-                </div>
+        <div class="row mb-3">
+            <label for="comapany_year" class="col-md-4 col-lg-3 col-form-label">Company Establishment Year</label>
+            <div class="col-md-8 col-lg-3">
+                <input name="company_year" type="text" class="form-control" id="Phone">
+            </div>
+        </div>
 
+        <div class="row mb-3">
+            <label for="about_comp" class="col-md-4 col-lg-3 col-form-label">About Company</label>
+            <div class="col-md-8 col-lg-9">
+                <div class="quill-editor-default"></div>
+                <input type="hidden" name="about_comp" id="about_comp">
+            </div>
+        </div><br><br>
+
+        <div class="row mb-3">
+            <label for="web_url" class="col-md-4 col-lg-3 col-form-label">Website URL</label>
+            <div class="col-md-8 col-lg-9">
+                <input name="website_url" type="text" class="form-control" id="web_url">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Technologies</label>
+            <div class="col-md-8 col-lg-3">
+                <select name="technologies" id="technology" class="selectpicker" multiple aria-label="size 3 select example">
+               @foreach($technologies as $technology)
+                <option value="{{ $technology->id }}">{{ $technology->title }}</option>
+               @endforeach
+        </select>
+            </div>
+            <label for="logo" class="col-md-4 col-lg-3 col-form-label" style="margin-bottom: 0;">Company Logo</label>
+            <div class="col-md-8 col-lg-3">
+                <input id="logo" name="company_logo" type="file" class="form-control" accept="image/*">
+                @if(!empty($data->company_logo))
+                    @if(file_exists('upload/'.$data->company_logo))
+                        <img src="{{url('upload/'.$data->company_logo)}}" style="height:100px; width:100px;">
+                    @endif
+                @endif
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
 <!-------------------------End Company Profile------------------->
 
 
@@ -363,7 +373,98 @@
 
   <!-- ======= Footer ======= -->
   @include('admin.layouts.footer')
+  <script>
 
+$(document).ready(function () {
+
+    $('#country-dropdown').on('change', function () {
+
+        var idCountry = this.value;
+
+        $("#state-dropdown").html('');
+
+        $.ajax({
+
+            url: "{{url('api/fetch-states')}}",
+
+            type: "POST",
+
+            data: {
+
+                country_id: idCountry,
+
+                _token: '{{csrf_token()}}'
+
+            },
+
+            dataType: 'json',
+
+            success: function (result) {
+
+                $('#state-dropdown').html('<option value="">-- Select State --</option>');
+
+                $.each(result.states, function (key, value) {
+
+                    $("#state-dropdown").append('<option value="' + value
+
+                        .id + '">' + value.name + '</option>');
+
+                });
+
+                $('#city-dropdown').html('<option value="">-- Select City --</option>');
+
+            }
+
+        });
+
+    });
+
+
+    $('#state-dropdown').on('change', function () {
+
+        var idState = this.value;
+
+        $("#city-dropdown").html('');
+
+        $.ajax({
+
+            url: "{{url('api/fetch-cities')}}",
+
+            type: "POST",
+
+            data: {
+
+                state_id: idState,
+
+                _token: '{{csrf_token()}}'
+
+            },
+
+            dataType: 'json',
+
+            success: function (res) {
+
+                $('#city-dropdown').html('<option value="">-- Select City --</option>');
+
+                $.each(res.cities, function (key, value) {
+
+                    $("#city-dropdown").append('<option value="' + value
+
+                        .id + '">' + value.name + '</option>');
+
+                });
+
+            }
+
+        });
+
+    });
+
+
+
+});
+
+</script>
 </body>
 
 </html>
