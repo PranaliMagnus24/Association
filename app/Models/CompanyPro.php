@@ -11,7 +11,7 @@ class CompanyPro extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'companyprofile';
     protected $fillable = [
-'company_type','company_name','aadharcard_number','address_one','address_two','registration_date','renewal_date','city','state','country','landline','employee_number','company_year','about_company','website_url','technologies','company_logo','state_id','city_id','zip_id','country_id','tech_id','user_id',
+'company_type','company_name','aadharcard_number','address_one','address_two','registration_date','renewal_date','city','state','country','landline','employee_number','company_year','about_company','website_url','technologies','company_logo','state_id','city_id','zip_id','country_id','tech_id','user_id', 'membership_year','membership_id',
     ];
 
     public function technologies()
@@ -40,5 +40,10 @@ public function zips()
 public function user()
 {
     return $this->hasMany(User::class, 'user_id', 'id');
+}
+
+public function membershipyear()
+{
+    return $this->hasMany(Membershipyear::class, 'membershipyear_id', 'id');
 }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Master_Settings\MembershiptypeController;
 use App\Http\Controllers\Master_Settings\TechnologyController;
 use App\Http\Controllers\Master_Settings\FeesController;
 use App\Http\Controllers\Master_Settings\TaxController;
+use App\Http\Controllers\Master_Settings\MembershipYearController;
 use App\Http\Controllers\Membership_form\MembershipController;
 
 /*
@@ -80,6 +81,16 @@ Route::get('delete_tax/{id}', [TaxController::class, 'delete'])->name('tax.delet
 Route::get('/admin/tax/{id}', [TaxController::class, 'show'])->name('tax.show');
 Route::get('tax_search', [TaxController::class, 'tax_search']);
 
+
+//Master Setting Membership Year
+Route::get('admin/membershipyear', [MembershipYearController::class, 'index'])->name('membershipyear.index');
+Route::get('admin/membershipyear/add', [MembershipYearController::class, 'add'])->name('membershipyear.add');
+Route::post('/admin/membershipyear', [MembershipYearController::class, 'store'])->name('membershipyear.store');
+Route::get('/admin/membershipyear/{id}/edit', [MembershipYearController::class, 'edit'])->name('membershipyear.edit');
+Route::post('/admin/membershipyear/{id}', [MembershipYearController::class, 'update'])->name('membershipyear.update');
+Route::get('delete_membershipyear/{id}', [MembershipYearController::class, 'delete'])->name('membershipyear.delete');
+Route::get('/admin/membershipyear/{id}', [MembershipYearController::class, 'show'])->name('membershipyear.show');
+Route::get('membershipyear_search', [MembershipYearController::class, 'membershipyear_search']);
 
 //Membership Form
 Route::get('admin/membershipform', [MembershipController::class, 'index'])->name('member.index');

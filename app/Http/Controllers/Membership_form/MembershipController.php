@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\Technology;
 use App\Models\CompanyPro;
+use App\Models\Membershipyear;
 use App\Models\Zipcode;
 use Str;
 use File;
@@ -30,7 +31,8 @@ class MembershipController extends Controller
     public function add(){
         $technologies = Technology::all();
         $countries = Country::get(["name", "id"]);
-        return view('admin.membership.add', compact('technologies', 'countries'));
+        $memberships = Membershipyear::all();
+        return view('admin.membership.add', compact('technologies', 'countries','memberships'));
 
     }
 
@@ -49,6 +51,7 @@ class MembershipController extends Controller
             'last_name' => 'required|string',
             'phone' => 'required|numeric',
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'birth' => ['required', 'date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
         ], [
             'first_name.required' => 'First Name is required.',
             'first_name.string' => 'First Name must be a string',
@@ -123,6 +126,7 @@ class MembershipController extends Controller
             Rule::unique('users')->ignore($id)
         ],
         'middle_name' => 'nullable|string',
+        'birth' => ['required', 'date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
     ], [
         'first_name.required' => 'First Name is required.',
         'first_name.string' => 'First Name must be a string',
@@ -182,6 +186,24 @@ class MembershipController extends Controller
 
       //Store Company profile information
       public function companystore(Request $request){
+        $request->validate([
+              'company_type' => 'required|string',
+              'company_name' => 'required|string',
+              'aadharcard_number' => 'required',
+              'registration_date' => 'required|date',
+              'renewal_date' => 'required|date',
+              'address_one' => 'required',
+              'city' => 'required',
+              'state' => 'required',
+              'country' => 'required',
+              'zipcode' => 'required',
+              'company_year' => 'required',
+              'about_company' => 'required',
+              'website_url' => 'required',
+              'technologies' => 'required',
+              'membership_year' => 'required',
+
+        ]);
        $data = new CompanyPro;
        $data->company_type = $request->company_type;
        $data->company_name = $request->company_name;
@@ -204,8 +226,11 @@ class MembershipController extends Controller
        $data->city_id = $request->city_id;
        $data->country_id = $request->country_id;
        $data->tech_id = $request->tech_id;
+       $data->membership_year = $request->membership_year;
+       $data->default_year = $request->default_year;
        $data->user_id = $request->session()->get('user_id');
        $data->zip_id = $request->zip_id;
+       $data->membershipyear_id = $request->membershipyear_id;
 
         if(!empty($request->file('company_logo')))
         {

@@ -35,6 +35,11 @@
               <i class="bi bi-circle"></i><span>Fees Settings</span>
             </a>
           </li>
+          <li>
+            <a href="{{url('admin/membershipyear')}}">
+              <i class="bi bi-circle"></i><span>Membership Year Settings</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Charts Nav -->
 
