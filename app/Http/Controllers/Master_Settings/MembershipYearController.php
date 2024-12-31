@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master_Settings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Membershipyear;
+use Illuminate\Support\Facades\DB;
 
 class MembershipYearController extends Controller
 {
@@ -58,6 +59,7 @@ class MembershipYearController extends Controller
     public function delete($id){
         $data = Membershipyear::find($id);
         $data->delete();
+        // DB::table('membershipyear')->truncate();
          toastr()->timeOut(5000)->closeButton()->addSuccess('Membership year deleted successfully!');
          return redirect()->back();
      }
@@ -99,4 +101,6 @@ class MembershipYearController extends Controller
         $datas = Membershipyear::where('membership_year', 'LIKE', '%'.$search.'%')->orWhere('membership_year', 'LIKE', '%'.$search.'%')->paginate(3);
         return view('admin.master_settings.membership_year.index', compact('datas'));
       }
+
+
 }

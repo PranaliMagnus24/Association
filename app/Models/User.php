@@ -72,8 +72,11 @@ class User extends Authenticatable
         return $this->role === self::ROLE_USER;
     }
 
-    public function companyPro()
+
+
+    public function companyprofile()
     {
-        return $this->belongsTo(CompanyPro::class, 'user_id', 'id');
+        return $this->hasMany(CompanyPro::class, 'membershiptype_id', 'id');
     }
+
 }

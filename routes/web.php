@@ -9,6 +9,7 @@ use App\Http\Controllers\Master_Settings\FeesController;
 use App\Http\Controllers\Master_Settings\TaxController;
 use App\Http\Controllers\Master_Settings\MembershipYearController;
 use App\Http\Controllers\Membership_form\MembershipController;
+use App\Http\Controllers\Membership_form\CompanyProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,7 +105,11 @@ Route::get('membershipform_search', [MembershipController::class, 'member_search
 
 //Company Registration form
 Route::get('admin/companyform/add/{user_id}', [MembershipController::class, 'showCompanyForm'])->name('company.add');
-Route::post('admin/companyform', [MembershipController::class, 'companystore'])->name('company.register');
-Route::post('api/fetch-states', [MembershipController::class, 'fetchState']);
 
-Route::post('api/fetch-cities', [MembershipController::class, 'fetchCity']);
+Route::post('api/fetch-states', [CompanyProfileController::class, 'fetchState']);
+Route::post('api/fetch-cities', [CompanyProfileController::class, 'fetchCity']);
+Route::get('admin/companyregistration/{id?}', [CompanyProfileController::class, 'add'])->name('companyregister.add');
+Route::post('admin/companyregistration', [CompanyProfileController::class, 'companystore'])->name('company.register');
+Route::get('admin/companyregistration/edit/{id}', [CompanyProfileController::class, 'edit'])->name('company.edit');
+
+Route::put('admin/companyregistration/{id}', [CompanyProfileController::class, 'update'])->name('company.update');

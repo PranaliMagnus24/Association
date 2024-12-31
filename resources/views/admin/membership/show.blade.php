@@ -36,6 +36,10 @@
           <div class="card">
             <div class="card-body pt-3">
               <!-- Bordered Tabs -->
+              <div class="text-end mb-3">
+              <a href="{{ route('member.index')}}" class="btn btn-primary">Back</a>
+         </div>
+
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                 <li class="nav-item">
@@ -113,6 +117,37 @@
 
 <!---------------------------Company Profile----------------------------->
 <div class="tab-pane fade pt-3" id="profile-edit">
+     @php
+    $datas = App\Models\CompanyPro::paginate(5);
+    @endphp
+    <a href="{{ route('company.edit',$data->id) }}" class="btn btn-primary"> Edit</a>
+    <div class="row mb-3">
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Membership Type</strong></label>
+
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Company Type</strong></label>
+
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Membership</strong></label>
+
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Company Name</strong></label>
+
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Regis</strong></label>
+
+        </div>
+    </div>
+
+
 
 </div>
 <!-------------------------End Company Profile------------------->
