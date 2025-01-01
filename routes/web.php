@@ -28,9 +28,10 @@ Route::get('/', function () {
 
 Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 'verified']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -94,7 +95,9 @@ Route::get('/admin/membershipyear/{id}', [MembershipYearController::class, 'show
 Route::get('membershipyear_search', [MembershipYearController::class, 'membershipyear_search']);
 
 //Membership Form
-Route::get('admin/membershipform', [MembershipController::class, 'index'])->name('member.index');
+Route::middleware(['auth'])->group(function () {
+    Route::get('admin/membershipform', [MembershipController::class, 'index'])->name('member.index');
+});
 Route::get('admin/membershipform/add', [MembershipController::class, 'add'])->name('member.add');
 Route::post('admin/membershipform', [MembershipController::class, 'store'])->name('member.register');
 Route::get('/admin/membershipform/{id}/edit', [MembershipController::class, 'edit'])->name('member.edit');
@@ -103,13 +106,22 @@ Route::get('delete_member/{id}', [MembershipController::class, 'delete'])->name(
 Route::get('/admin/membershipform/{id}', [MembershipController::class, 'show'])->name('member.show');
 Route::get('membershipform_search', [MembershipController::class, 'member_search'])->name('member_search');
 
+Route::get('addcompany/{id?}', [CompanyProfileController::class, 'addcompany'])->name('new.company');
+
 //Company Registration form
 Route::get('admin/companyform/add/{user_id}', [MembershipController::class, 'showCompanyForm'])->name('company.add');
 
 Route::post('api/fetch-states', [CompanyProfileController::class, 'fetchState']);
 Route::post('api/fetch-cities', [CompanyProfileController::class, 'fetchCity']);
+
+
+Route::get('admin/companylist', [CompanyProfileController::class, 'index'])->name('company.list');
 Route::get('admin/companyregistration/{id?}', [CompanyProfileController::class, 'add'])->name('companyregister.add');
 Route::post('admin/companyregistration', [CompanyProfileController::class, 'companystore'])->name('company.register');
 Route::get('admin/companyregistration/edit/{id}', [CompanyProfileController::class, 'edit'])->name('company.edit');
 
 Route::put('admin/companyregistration/{id}', [CompanyProfileController::class, 'update'])->name('company.update');
+
+Route::get('delete_company/{id}', [CompanyProfileController::class, 'delete'])->name('company.delete');
+Route::get('/admin/companylist/{id}', [CompanyProfileController::class, 'show'])->name('company.show');
+

@@ -30,7 +30,7 @@
  <!---Add Member--->
          <div class="container">
          <div class="text-end mb-3">
-        <a href="{{ url('admin/membershipform')}}" class="btn btn-primary">Back</a>
+        <a href="{{ url('admin/companylist')}}" class="btn btn-primary">Back</a>
          </div>
           <div class="card">
             <div class="card-body">
@@ -38,8 +38,8 @@
               @if (isset($data))
 
     <form action="{{ route('company.update', $data->id) }}" method="POST" enctype="multipart/form-data">
-
-    @method('PUT')
+            @method('PUT')
+            @else
               <form action="{{ route('company.register')}}" method="POST" enctype="multipart/form-data">
               @endif
               @csrf
@@ -51,7 +51,7 @@
   <select class="form-select member_name" aria-label="Default select example" name="member_name" id="member_name">
      <option selected>Name</option>
     @foreach($users as $user)
-  <option value="{{ $user->id }}" @if(isset($user_id) && $user->id == $user_id) selected="selected" @endif>
+  <option value="{{ $user->id }}" @if((isset($user_id) && $user->id == $user_id) || (isset($data->user_id) && $user->id == $data->user_id)) selected="selected" @endif>
     {{ $user->first_name }}&nbsp;{{ $user->last_name }}
   </option>
         @endforeach
@@ -65,11 +65,14 @@
            <div class="col-md-8 col-lg-3">
              <select class="form-select membership_type" aria-label="Default select example" name="membership_type" id="membership_type">
                 <option selected>Membership Type</option>
-               @foreach($membershipstype as $membershiptype)
-             <option value="{{ $membershiptype->title }}">
-               {{ $membershiptype->title }}
-             </option>
-                   @endforeach
+                   @foreach($membershipstype as $membershiptype)
+                    <option value="{{ $membershiptype->title }}"
+                        @if(isset($data->membership_type) && $membershiptype->title == $data->membership_type)
+                            selected="selected"
+                        @endif>
+                        {{ $membershiptype->title }}
+                    </option>
+                @endforeach
                 </select>
                @error('membership_type')
                <span class="text-danger">{{ $message }}</span>
@@ -80,11 +83,11 @@
             <label class="col-md-4 col-lg-3 col-form-label">Company Type <span style="color: red">*</span></label>
 
             <div class="col-md-8 col-lg-3">
-                <select class="form-select" aria-label="Default select example" name="company_type" value="{{ old('company_type')}}">
+                <select class="form-select" aria-label="Default select example" name="company_type">
                     <option selected>Company Type</option>
-                    <option value="Product">Product</option>
-                    <option value="Service">Service</option>
-                    <option value="College/Institutional Organization">College/Institutional Organization</option>
+                    <option value="Product" @if((isset($data->company_type) && $data->company_type == 'Product') || old('company_type') == 'Product') selected @endif>Product</option>
+                    <option value="Service" @if((isset($data->company_type) && $data->company_type == 'Service') || old('company_type') == 'Service') selected @endif>Service</option>
+            <option value="College/Institutional Organization" @if((isset($data->company_type) && $data->company_type == 'College/Institutional Organization') || old('company_type') == 'College/Institutional Organization') selected @endif>College/Institutional Organization</option>
                 </select>
                 @error('company_type')
                 <span class="text-danger">{{$message}}</span>
@@ -107,7 +110,7 @@
         <span class="text-danger">{{ $message }}</span>
             @enderror
              </div>
-
+             <input type="hidden" name="default_year" id="defaultYearInput">
 </div>
 
 
@@ -124,7 +127,7 @@
         <div class="row mb-3">
             <label for="company" class="col-md-4 col-lg-3 col-form-label">Registration No/Udyog Aadhaar No. <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-9">
-                <input name="aadharcard_number" type="text" class="form-control" id="aadhar" value="{{ old('aadharcard_number')}}" placeholder="Registration or Aadhar number">
+                <input name="aadharcard_number" type="text" class="form-control" id="aadhar" value="{{ old('aadharcard_number', $data->aadharcard_number ?? '') }}" placeholder="Registration or Aadhar number">
                 @error('aadharcard_number')
                 <span class="text-danger">{{ $message}}</span>
                 @enderror
@@ -134,14 +137,14 @@
         <div class="row mb-3">
             <label for="reg_date" class="col-md-4 col-lg-3 col-form-label">Registration Date <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-3">
-                <input name="registration_date" type="date" class="form-control" id="reg_date" value="{{ now()->format('Y-m-d') }}">
+                <input name="registration_date" type="date" class="form-control" id="reg_date" value="{{ old('registration_date', $data->registration_date ?? now()->format('Y-m-d')) }}">
                 @error('registration_date')
                 <span class="text-danger">{{ $message}}</span>
                 @enderror
             </div>
             <label class="col-md-2 col-lg-3 col-form-label" style="margin-bottom: 0;">Renewal Date <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-3">
-                <input name="renewal_date" type="date" class="form-control renewal_date" id="ren_date" value="{{ old('renewal_date')}}">
+                <input name="renewal_date" type="date" class="form-control renewal_date" id="ren_date" value="{{ old('renewal_date', $data->renewal_date ?? '') }}">
                 @error('renewal_date')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -149,18 +152,15 @@
         </div>
 
         <div class="row mb-3">
-            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Address <span style="color: red">*</span></label>
+            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Address</label>
             <div class="col-md-8 col-lg-9">
-                <input name="address_one" type="text" class="form-control" id="Job" placeholder="Address Line 1" value="{{ old('address_one')}}">
-                @error('address_one')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
+                <input name="address_one" type="text" class="form-control" id="Job" placeholder="Address Line 1" value="{{ old('address_one', $data->address_one ?? '') }}">
             </div>
         </div>
         <div class="row mb-3">
             <label for="Job" class="col-md-4 col-lg-3 col-form-label"></label>
             <div class="col-md-8 col-lg-9">
-                <input name="address_two" type="text" class="form-control" id="Job" placeholder="Address Line 2" value="{{ old('address_two')}}">
+                <input name="address_two" type="text" class="form-control" id="Job" placeholder="Address Line 2" value="{{ old('address_two', $data->address_two ?? '') }}">
             </div>
         </div>
 
@@ -170,7 +170,9 @@
                 <select name="country" id="country-dropdown" class="form-select" aria-label="Default select example" value="{{ old('country')}}">
                 <option value="">-- Select Country --</option>
                 @foreach ($countries as $country)
-                <option value="{{$country->id}}">{{$country->name}}</option>@endforeach
+                <option value="{{$country->id}}">{{$country->name}}</option>
+
+                @endforeach
                 </select>
                 @error('country')
                 <span class="text-danger">{{$message}}</span>
@@ -201,12 +203,9 @@
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
-            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Zip code<span style="color: red">*</span></label>
+            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Zip code</label>
             <div class="col-md-8 col-lg-3">
-                <input name="zipcode" type="text" class="form-control" id="Job" placeholder="Zip code" value="{{ old('zipcode')}}">
-                @error('zipcode')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
+                <input name="zipcode" type="text" class="form-control" id="Job" placeholder="Zip code" value="{{ old('zipcode', $data->zipcode ?? '') }}">
             </div>
 
         </div>
@@ -214,7 +213,7 @@
         <div class="row mb-3">
             <label for="Country" class="col-md-4 col-lg-3 col-form-label">Landline</label>
             <div class="col-md-8 col-lg-3">
-                <input name="landline" type="text" class="form-control" id="Country" value="{{ old('landline')}}" placeholder="Landline or Mobile number">
+                <input name="landline" type="text" class="form-control" id="Country" value="{{ old('landline', $data->landline ?? '') }}" placeholder="Landline or Mobile number">
                 @error('landline')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -234,7 +233,7 @@
         <div class="row mb-3">
             <label for="comapany_year" class="col-md-4 col-lg-3 col-form-label">Company Establishment Year <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-3">
-                <input name="company_year" type="text" class="form-control" id="Phone" value="{{ old('company_year')}}" placeholder="Company Establishment Year">
+                <input name="company_year" type="text" class="form-control" id="Phone" value="{{ old('company_year', $data->company_year ?? '') }}" placeholder="Company Establishment Year">
                 @error('company_year')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -242,30 +241,23 @@
         </div>
 
         <div class="row mb-3">
-            <label for="about_comp" class="col-md-4 col-lg-3 col-form-label">About Company <span style="color: red">*</span></label>
+            <label for="about_comp" class="col-md-4 col-lg-3 col-form-label">About Company</label>
             <div class="col-md-8 col-lg-9">
             <div id="quill-editor" class="mb-3" style="height: 150px;">
                     </div>
-                    <textarea rows="3" class="mb-3 d-none" name="about_company" id="quill-editor-area" placeholder="Write here"></textarea>
-                @error('about_company')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-
+                    <textarea rows="3" class="mb-3 d-none" name="about_company" id="quill-editor-area" placeholder="Write here">{{ old('about_company', $data->about_company ?? '') }}</textarea>
             </div>
         </div>
 
         <div class="row mb-3">
-            <label for="web_url" class="col-md-4 col-lg-3 col-form-label">Website URL <span style="color: red">*</span></label>
+            <label for="web_url" class="col-md-4 col-lg-3 col-form-label">Website URL</label>
             <div class="col-md-8 col-lg-9">
-                <input name="website_url" type="text" class="form-control" id="web_url" value="{{ old('webisite_url')}}" placeholder="Website URL">
-                @error('website_url')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
+                <input name="website_url" type="text" class="form-control" id="web_url" value="{{ old('website_url', $data->website_url ?? '') }}" placeholder="Website URL">
             </div>
         </div>
 
         <div class="row mb-3">
-            <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Technologies <span style="color: red">*</span></label>
+            <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Technologies</label>
             <div class="col-md-8 col-lg-3">
                 <select name="technologies" id="technology" class="selectpicker" multiple aria-label="size 3 select example">
                @foreach($technologies as $technology)
@@ -275,7 +267,7 @@
             </div>
             <label for="logo" class="col-md-4 col-lg-3 col-form-label" style="margin-bottom: 0;">Company Logo</label>
             <div class="col-md-8 col-lg-3">
-                <input id="logo" name="company_logo" type="file" class="form-control" accept="image/*" value="{{ old('company_logo')}}">
+                <input id="logo" name="company_logo" type="file" class="form-control" accept="image/*" value="{{ old('company_logo', $data->company_logo ?? '') }}">
                 @if(!empty($data->company_logo))
       @if(file_exists('upload/'.$data->company_logo))<img src="{{url('upload/'.$data->company_logo)}}" style="height:100px; width:100px;">
       @endif
@@ -286,7 +278,7 @@
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
-    </form>
+           </form>
             </div>
           </div>
          </div>

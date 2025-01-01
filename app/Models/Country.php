@@ -15,6 +15,10 @@ class Country extends Model
 
     public function companyPro()
 {
-    return $this->belongsTo(CompanyPro::class, 'country_id', 'id');
+    return $this->belongsTo(CompanyPro::class, 'country', 'id');
+}
+public function user()
+{
+    return $this->belongsTo(User::class, 'country', 'id');
 }
 }

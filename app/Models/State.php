@@ -15,6 +15,11 @@ class State extends Model
 
     public function companyPro()
 {
-    return $this->belongsTo(CompanyPro::class, 'state_id', 'id');
+    return $this->belongsTo(CompanyPro::class, 'state', 'id');
+}
+
+public function user()
+{
+    return $this->belongsTo(User::class, 'state', 'id');
 }
 }

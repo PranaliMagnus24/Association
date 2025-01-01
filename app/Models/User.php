@@ -79,4 +79,22 @@ class User extends Authenticatable
         return $this->hasMany(CompanyPro::class, 'membershiptype_id', 'id');
     }
 
+
+    public function cities()
+{
+    return $this->belongsTo(City::class, 'city', 'id');
+}
+public function states()
+{
+    return $this->belongsTo(State::class, 'state', 'id');
+}
+public function countries()
+{
+    return $this->belongsTo(Country::class, 'country', 'id');
+}
+
+public function zips()
+{
+    return $this->belongsTo(Zipcode::class, 'zip_id', 'id');
+}
 }

@@ -3,7 +3,7 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
   <li class="nav-item">
-    <a class="nav-link " href="index.html">
+    <a class="nav-link " href="{{url('/admin')}}">
       <i class="bi bi-grid"></i>
       <span>Dashboard</span>
     </a>
@@ -43,12 +43,24 @@
         </ul>
       </li><!-- End Charts Nav -->
 
+
       <li class="nav-item">
-    <a class="nav-link collapsed" href="{{ url('admin/membershipform') }}">
-      <i class="bi bi-card-list"></i>
-      <span>Membership</span>
-    </a>
-  </li><!-- End Membership -->
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Membership</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url('admin/membershipform') }}">
+              <i class="bi bi-circle"></i><span>Membership list</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{url('admin/companylist')}}">
+              <i class="bi bi-circle"></i><span>Company list</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="{{url('profile')}}">

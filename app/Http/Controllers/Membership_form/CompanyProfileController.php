@@ -21,6 +21,13 @@ use Illuminate\Validation\Rule;
 class CompanyProfileController extends Controller
 {
 
+public function index()
+{
+
+    $datas = CompanyPro::paginate(5);
+    return view('admin.membership.company_profile.index', compact('datas'));
+}
+
 public function add(Request $request, $id=null)
 {
     $user_id = ($id != null)? $id: $request->session()->get('user_id');
@@ -39,15 +46,10 @@ public function companystore(Request $request){
           'aadharcard_number' => 'required',
           'registration_date' => 'required|date',
           'renewal_date' => 'required|date',
-          'address_one' => 'required',
           'city' => 'required',
           'state' => 'required',
           'country' => 'required',
-          'zipcode' => 'required',
           'company_year' => 'required',
-          'about_company' => 'required',
-          'website_url' => 'required',
-          'technologies' => 'required',
           'membership_year' => 'required',
 
     ]);
@@ -75,7 +77,14 @@ public function companystore(Request $request){
    $data->tech_id = $request->tech_id;
    $data->membership_year = $request->membership_year;
    $data->default_year = $request->default_year;
-   $data->user_id = $request->session()->get('user_id');
+
+    if ($request->member_name>0) {
+       // $data->user_id = $request->session()->get('user_id');
+        $data->user_id = $request->member_name;
+
+    } else {
+        $data->user_id = $request->session()->get('user_id');
+    }
    $data->zip_id = $request->zip_id;
    $data->membership_type = $request->membership_type;
    $data->membershiptype_id = $request->membershiptype_id;
@@ -95,6 +104,8 @@ public function companystore(Request $request){
     }
     if($data->save())
     {
+        $request->session()->forget('user_id');
+
         toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile added successfully!');
     return redirect()->route('member.index');
     }else{
@@ -103,6 +114,7 @@ public function companystore(Request $request){
     }
 
 }
+
 
 
 public function edit($id){
@@ -124,15 +136,10 @@ public function edit($id){
             'aadharcard_number' => 'required',
             'registration_date' => 'required|date',
             'renewal_date' => 'required|date',
-            'address_one' => 'required',
             'city' => 'required',
             'state' => 'required',
             'country' => 'required',
-            'zipcode' => 'required',
             'company_year' => 'required',
-            'about_company' => 'required',
-            'website_url' => 'required',
-            'technologies' => 'required',
             'membership_year' => 'required',
 
       ]);
@@ -191,5 +198,29 @@ public function fetchCity(Request $request)
 
 }
 
+public function addcompany(Request $request, $id=null)
+{
+    $user_id = ($id != null)? $id: $request->session()->get('user_id');
+    $technologies = Technology::all();
+    $countries = Country::get(["name", "id"]);
+    $memberships = Membershipyear::all();
+    $membershipstype = Membership::all();
+    $users = User::where('role', 'user')->get();
+    return view('admin.membership.company_profile.add', compact('technologies', 'countries','memberships','membershipstype', 'users', 'user_id'));
+
+}
+
+ public function delete($id){
+    $data = CompanyPro::find($id);
+    $data->delete();
+     toastr()->timeOut(5000)->closeButton()->addSuccess('Member deleted successfully!');
+     return redirect()->back();
+ }
+
+ public function show($id)
+    {
+        $data = CompanyPro::with('cities','states','countries','technologies')->find($id);
+        return view('admin.membership.company_profile.show', compact('data'));
+    }
 
 }

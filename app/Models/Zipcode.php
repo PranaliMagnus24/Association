@@ -17,4 +17,9 @@ class Zipcode extends Model
     {
         return $this->belongsTo(CompanyPro::class, 'zip_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'zip_id', 'id');
+    }
 }

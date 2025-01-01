@@ -71,13 +71,14 @@
 <!--List Body-->
 <div class="container">
 <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="get" action="{{ route('member_search')}}">
+    <form class="search-form d-flex align-items-center" method="get" action="{{ route('member_search')}}">
         @csrf
-        <input type="text" name="search" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-      <a href="{{ route('member.add')}}" class="btn btn-primary">+</a>
-    </div><!-- End Search Bar -->
+        <input type="text" name="search" placeholder="Search" title="Enter search keyword" class="form-control me-2">
+        <button type="submit" title="Search" class="btn btn-outline-secondary me-2"><i class="bi bi-search"></i></button>
+        <a href="{{ route('member.add')}}" class="btn btn-primary me-2">+</a>
+        <a href="{{ route('new.company')}}" class="btn btn-primary">Add Company</a>
+    </form>
+</div><!-- End Search Bar -->
 
     <div class="card">
         <div class="card-body">
@@ -89,6 +90,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Sr no.</th>
+                        <!-- <th scope="col">Membership Id</th> -->
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Mobile No.</th>

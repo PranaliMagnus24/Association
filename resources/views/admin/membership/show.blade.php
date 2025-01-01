@@ -110,6 +110,13 @@
                 <p>No profile picture available</p>
             @endif
         </div>
+
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Company List</strong></label>
+            <select name="" id="">
+                <option value="">Select Company</option>
+            </select>
+        </div>
     </div>
 </div>
 
@@ -120,34 +127,77 @@
      @php
     $datas = App\Models\CompanyPro::paginate(5);
     @endphp
-    <a href="{{ route('company.edit',$data->id) }}" class="btn btn-primary"> Edit</a>
-    <div class="row mb-3">
-        <div class="col-md-4 col-lg-4">
-            <label class="col-form-label"><strong>Membership Type</strong></label>
 
+    @if($companyExists)
+    <a href="{{ route('company.edit',$company->id ?? '') }}" class="btn btn-primary"> Edit</a>
+
+    <div class="row mb-3">
+    <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Membership Id</strong></label>
+            <p>{{ $company->membership_id}}</p>
         </div>
         <div class="col-md-4 col-lg-4">
             <label class="col-form-label"><strong>Company Type</strong></label>
-
+            <p>{{ $company->company_type}}</p>
         </div>
         <div class="col-md-4 col-lg-4">
             <label class="col-form-label"><strong>Membership</strong></label>
-
+            <p>{{ $company->membership_year}}</p>
         </div>
     </div>
 
     <div class="row mb-3">
         <div class="col-md-4 col-lg-4">
             <label class="col-form-label"><strong>Company Name</strong></label>
-
+            <p>{{ $company->company_name}}</p>
         </div>
         <div class="col-md-4 col-lg-4">
-            <label class="col-form-label"><strong>Regis</strong></label>
-
+            <label class="col-form-label"><strong>Registration No./Udyog Aadhaar No.</strong></label>
+            <p>{{ $company->aadharcard_number}}</p>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Registration Date</strong></label>
+            <p>{{ $company->registration_date}}</p>
         </div>
     </div>
 
+    <div class="row mb-3">
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Renewal Date</strong></label>
+            <p>{{ $company->renewal_date}}</p>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Address</strong></label>
+            <p>{{ $company->address_one}}</p>
+            <p>{{ $company->address_two}}</p>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Country</strong></label>
+            <p>{{ $company->countries->name}}</p>
+        </div>
+    </div>
 
+    <div class="row mb-3">
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>State</strong></label>
+            <p>{{ $company->states->name}}</p>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>City</strong></label>
+            <p>{{ $company->cities->name}}</p>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <label class="col-form-label"><strong>Zip Code</strong></label>
+            <p>{{ $company->zipcode}}</p>
+        </div>
+    </div>
+
+    @else
+    <span class="text-danger">
+        <strong>No company registered for this member.</strong>
+    </span>
+    <a href="{{ route('company.register') }}" class="btn btn-primary">Add Company</a>
+@endif
 
 </div>
 <!-------------------------End Company Profile------------------->

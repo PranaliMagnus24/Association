@@ -15,7 +15,11 @@ class City extends Model
 
     public function companyPro()
     {
-        return $this->belongsTo(CompanyPro::class, 'city_id', 'id');
+        return $this->belongsTo(CompanyPro::class, 'city', 'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'city', 'id');
     }
 
 }

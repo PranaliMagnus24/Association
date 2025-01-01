@@ -168,8 +168,9 @@ public function index()
     public function show($id)
     {
         $data = User::find($id);
-        $company = CompanyPro::where('user_id', $id)->first();
-        return view('admin.membership.show', compact('data', 'company'));
+        $company = CompanyPro::with('cities','states','countries')->where('user_id', $id)->first();
+        $companyExists = $company !== null;
+        return view('admin.membership.show', compact('data', 'company','companyExists'));
     }
 
     //Search member
