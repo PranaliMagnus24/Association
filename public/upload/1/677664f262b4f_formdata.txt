@@ -1,0 +1,377 @@
+ <form action="{{ route('member.register')}}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <h5 class="card-title">Member Registration</h5>
+        <div class="row mb-3">
+        <div class="col-md-4 col-lg-4">
+          <label for="firstName" class="col-form-label">First Name</label>
+         <input id="firstName" name="first_name" type="text"
+           class="form-control @error('first_name') is-invalid @enderror"
+           placeholder="First Name" value="{{ old('first_name') }}">
+          @error('first_name')
+        <span class="text-danger">{{ $message }}</span>
+         @enderror
+         </div>
+
+            <div class="col-md-4 col-lg-4">
+                <label for="middleName" class="col-form-label">Middle Name</label>
+                <input id="middleName" name="middle_name" type="text" class="form-control" placeholder="Middle Name" value="{{ old('middle_name') }}">
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <label for="lastName" class="col-form-label">Last Name</label>
+                <input id="lastName" name="last_name" type="text" class="form-control" placeholder="Last Name" value="{{ old('last_name') }}">
+                @error('last_name')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4 col-lg-4">
+                <label for="email" class="col-form-label">Email</label>
+                <input id="email" name="email" type="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
+                @error('email')
+                <span class="text-danger">{{ $message}}</span>
+                @enderror
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <label for="mobileNo" class="col-form-label">Mobile No.</label>
+                <input id="mobileNo" name="phone" type="tel" class="form-control" placeholder="Mobile No." value="{{ old('phone') }}">
+                @error('phone')
+                <span class="text-danger">{{ $message}}</span>
+                @enderror
+            </div>
+            <div class="col-md-4 col-lg-4">
+                        @php
+                         $maxDate = now()->subYears(18)->format('Y-m-d');
+                       @endphp
+                <label for="birth" class="col-form-label">Date of Birth</label>
+                <input id="birth" name="date_birth" type="date" class="form-control" placeholder="Date of Birth" max="{{ $maxDate }}">
+                @error('date_birth')
+                <span class="text-danger">{{ $message}}</span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4 col-lg-4">
+                <label for="gender" class="col-form-label">Gender</label>
+                <select id="gender" name="gender" class="form-select" aria-label="Default select example" value="{{ old('gender') }}">
+                    <option selected>Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <label for="profilePicture" class="col-form-label">Profile Picture</label>
+                <input id="profilePicture" name="profile_pic" type="file" class="form-control" accept="image/*" value="{{ old('profile_pic') }}">
+                @error('profile_pic')
+                <div class="alert alert-danger">{{ $message}}</div>
+                @enderror
+                @if(!empty($data->profile_pic))
+      @if(file_exists('upload/'.$data->profile_pic))<img src="{{url('upload/'.$data->profile_pic)}}" style="height:100px; width:100px;">
+      @endif
+      @endif
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function companystore(Request $request){
+    $request->validate([
+          'company_type' => 'required|string',
+          'company_name' => 'required|string',
+          'aadharcard_number' => 'required',
+          'registration_date' => 'required|date',
+          'renewal_date' => 'required|date',
+          'address_one' => 'required',
+          'city' => 'required',
+          'state' => 'required',
+          'country' => 'required',
+          'zipcode' => 'required',
+          'company_year' => 'required',
+          'about_company' => 'required',
+          'website_url' => 'required',
+          'technologies' => 'required',
+          'membership_year' => 'required',
+
+    ]);
+   $data = new CompanyPro;
+   $data->company_type = $request->company_type;
+   $data->company_name = $request->company_name;
+   $data->aadharcard_number = $request->aadharcard_number;
+   $data->registration_date = $request->registration_date;
+   $data->renewal_date = $request->renewal_date;
+   $data->address_one = $request->address_one;
+   $data->address_two = $request->address_two;
+   $data->city = $request->city;
+   $data->state = $request->state;
+   $data->country = $request->country;
+   $data->landline = $request->landline;
+   $data->employee_number = $request->employee_number;
+   $data->company_year = $request->company_year;
+   $data->about_company = $request->about_company;
+   $data->website_url = $request->website_url;
+   $data->technologies = $request->technologies;
+   $data->zipcode = $request->zipcode;
+   $data->state_id = $request->state_id;
+   $data->city_id = $request->city_id;
+   $data->country_id = $request->country_id;
+   $data->tech_id = $request->tech_id;
+   $data->membership_year = $request->membership_year;
+   $data->default_year = $request->default_year;
+   $data->user_id = $request->session()->get('user_id');
+   $data->zip_id = $request->zip_id;
+   $data->membership_type = $request->membership_type;
+   $data->membershiptype_id = $request->membershiptype_id;
+   $data->membershipyear_id = $request->membershipyear_id;
+
+    if(!empty($request->file('company_logo')))
+    {
+        if(!empty($company->company_logo) && file_exists('upload/' .$company->company_logo))
+        {
+            unlink('upload/' .$company->company_logo);
+        }
+        $file = $request->file('company_logo');
+        $randomStr = Str::random(30);
+        $filename = $randomStr . '.' .$file->getClientOriginalExtension();
+        $file->move('upload/',$filename);
+       $data->company_logo = $filename;
+    }
+    if($data->save())
+    {
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile added successfully!');
+    return redirect()->route('member.index');
+    }else{
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Failed to update Company profile!');
+        return redirect()->route('member.index');
+    }
+
+}
+
+
+
+
+
+/**
+
+ * Write code on Method
+
+ *
+
+ * @return response()
+
+ */
+
+public function fetchState(Request $request)
+
+{
+
+    $data['states'] = State::where("country_id", $request->country_id)
+
+                            ->get(["name", "id"]);
+
+
+
+    return response()->json($data);
+
+}
+
+/**
+
+ * Write code on Method
+
+ *
+
+ * @return response()
+
+ */
+
+public function fetchCity(Request $request)
+
+{
+
+    $data['cities'] = City::where("state_id", $request->state_id)
+
+                                ->get(["name", "id"]);
+
+
+
+    return response()->json($data);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  <script>
+
+$(document).ready(function () {
+
+    $('#country-dropdown').on('change', function () {
+
+        var idCountry = this.value;
+
+        $("#state-dropdown").html('');
+
+        $.ajax({
+
+            url: "{{url('api/fetch-states')}}",
+
+            type: "POST",
+
+            data: {
+
+                country_id: idCountry,
+
+                _token: '{{csrf_token()}}'
+
+            },
+
+            dataType: 'json',
+
+            success: function (result) {
+
+                $('#state-dropdown').html('<option value="">-- Select State --</option>');
+
+                $.each(result.states, function (key, value) {
+
+                    $("#state-dropdown").append('<option value="' + value
+
+                        .id + '">' + value.name + '</option>');
+
+                });
+
+                $('#city-dropdown').html('<option value="">-- Select City --</option>');
+
+            }
+
+        });
+
+    });
+
+
+    $('#state-dropdown').on('change', function () {
+
+        var idState = this.value;
+
+        $("#city-dropdown").html('');
+
+        $.ajax({
+
+            url: "{{url('api/fetch-cities')}}",
+
+            type: "POST",
+
+            data: {
+
+                state_id: idState,
+
+                _token: '{{csrf_token()}}'
+
+            },
+
+            dataType: 'json',
+
+            success: function (res) {
+
+                $('#city-dropdown').html('<option value="">-- Select City --</option>');
+
+                $.each(res.cities, function (key, value) {
+
+                    $("#city-dropdown").append('<option value="' + value
+
+                        .id + '">' + value.name + '</option>');
+
+                });
+
+            }
+
+        });
+
+    });
+
+
+
+});
+
+
+//Textarea
+document.addEventListener('DOMContentLoaded', function() {
+        if (document.getElementById('quill-editor-area')) {
+            var editor = new Quill('#quill-editor', {
+                theme: 'snow'
+            });
+            var quillEditor = document.getElementById('quill-editor-area');
+            editor.on('text-change', function() {
+                quillEditor.value = editor.root.innerHTML;
+            });
+
+            quillEditor.addEventListener('input', function() {
+                editor.root.innerHTML = quillEditor.value;
+            });
+        }
+    });
+
+
+//Renewal Date
+
+function updateRenewalDate() {
+    const membershipSelect = document.getElementById('membershipYearSelect');
+    const selectedOption = membershipSelect.options[membershipSelect.selectedIndex];
+    const renewalDateInput = document.getElementById('ren_date');
+
+    const currentDate = new Date();
+    const membershipValue = selectedOption.getAttribute('data-months') || 0;
+    const defaultValue = selectedOption.getAttribute('data-years');
+
+    if (defaultValue === "Month") {
+        currentDate.setMonth(currentDate.getMonth() + parseInt(membershipValue));
+    } else if (defaultValue === "Year") {
+        currentDate.setFullYear(currentDate.getFullYear() + parseInt(membershipValue));
+    } else if (defaultValue === "Lifetime") {
+        currentDate.setFullYear(currentDate.getFullYear() + 10);
+    }
+
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+
+    renewalDateInput.value = `${year}-${month}-${day}`;
+}
+
+
+</script>
+

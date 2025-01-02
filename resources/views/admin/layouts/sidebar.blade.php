@@ -49,9 +49,19 @@
           <i class="bi bi-menu-button-wide"></i><span>Membership</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+            <a href="{{ route('member.add') }}">
+              <i class="bi bi-circle"></i><span>Register New Member</span>
+            </a>
+          </li>
           <li>
             <a href="{{ url('admin/membershipform') }}">
               <i class="bi bi-circle"></i><span>Membership list</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('companyregister.add')}}">
+              <i class="bi bi-circle"></i><span>Register New Company </span>
             </a>
           </li>
           <li>
@@ -59,8 +69,17 @@
               <i class="bi bi-circle"></i><span>Company list</span>
             </a>
           </li>
+
         </ul>
       </li>
+
+
+      <li class="nav-item">
+    <a class="nav-link collapsed" href="{{url('admin/faq')}}">
+      <i class="bi bi-question-circle"></i>
+      <span>F.A.Q</span>
+    </a>
+  </li><!-- End Profile Page Nav -->
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="{{url('profile')}}">

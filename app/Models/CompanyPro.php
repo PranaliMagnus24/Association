@@ -58,6 +58,12 @@ public function membershiptype()
     return $this->belongsTo(User::class, 'membershiptype_id', 'id');
 }
 
+public function documents()
+{
+    return $this->hasMany(Documentupload::class, 'company_id');
+}
+
+
 
 
 
@@ -68,7 +74,10 @@ protected static function boot()
         parent::boot();
 
         static::creating(function ($model) {
-            $lastMembershipId = self::max('membership_id');
+
+            $lastMembershipId = CompanyPro::withTrashed()->OrderBy('membership_id','desc')->first()->membership_id;
+            // dd($lastMembershipId);
+            // die();
             $model->membership_id = $lastMembershipId ? $lastMembershipId + 1 : 1001;
         });
     }

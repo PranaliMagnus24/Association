@@ -104,9 +104,17 @@
                 <td>{{$data->renewal_date}}</td>
 
                 <td>
-                <a href="{{ route('company.show', $data->id)}}" class="btn btn-outline-primary"><i class="bx bx-show" style="font-size: 20px;"></i></a>
-                    <a href="{{ route('company.edit', $data->id)}}" class="btn btn-outline-success">  <i class="bx bx-pencil" style="font-size: 20px;"></i></a>
-                    <a href="{{ url('delete_company', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)"><i class="bx bx-trash" style="font-size: 20px;"></i></a>
+                <div class="action" style="display: flex; gap: 10px; align-items: center;">
+    <a href="{{ route('company.show', $data->id)}}" class="btn btn-outline-primary">
+        <i class="bx bx-show" style="font-size: 20px;"></i>
+    </a>
+    <a href="{{ route('company.edit', $data->id)}}" class="btn btn-outline-success">
+        <i class="bx bx-pencil" style="font-size: 20px;"></i>
+    </a>
+    <a href="{{ url('delete_company', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)">
+        <i class="bx bx-trash" style="font-size: 20px;"></i>
+    </a>
+</div>
 
                 </td>
               </tr>

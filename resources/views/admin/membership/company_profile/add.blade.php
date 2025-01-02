@@ -101,7 +101,9 @@
           <select class="form-select membership_year" aria-label="Default select example" name="membership_year" id="membershipYearSelect" onchange="updateRenewalDate()">
             <option selected>Membership</option>
             @foreach($memberships as $membership)
-            <option value="{{ $membership->id }}" data-months="{{ $membership->membership_year }}" data-years="{{ $membership->default_year }}">
+            <option value="{{ $membership->membership_year }}"
+                    data-months="{{ $membership->membership_year }}"
+                    data-years="{{ $membership->default_year }}">
                 {{ $membership->membership_year }} {{ $membership->default_year }}
             </option>
         @endforeach
@@ -110,7 +112,7 @@
         <span class="text-danger">{{ $message }}</span>
             @enderror
              </div>
-             <input type="hidden" name="default_year" id="defaultYearInput">
+             <input type="hidden" id="default_year" name="default_year" value="{{ old('default_year', $data->default_year ?? '') }}">
 </div>
 
 
@@ -261,7 +263,7 @@
             <div class="col-md-8 col-lg-3">
                 <select name="technologies" id="technology" class="selectpicker" multiple aria-label="size 3 select example">
                @foreach($technologies as $technology)
-                <option value="{{ $technology->id }}">{{ $technology->title }}</option>
+                <option value="{{ $technology->title }}">{{ $technology->title }}</option>
                @endforeach
         </select>
             </div>
@@ -274,6 +276,73 @@
       @endif
             </div>
         </div>
+        <!----------------------------------------------Documenst upload------------------->
+        <div class="container">
+  <h5 class="card-title text-center">Documents Upload</h5>
+  <br>
+  <div class="row mb-3">
+  <label for="" class="col-md-4 col-lg-3 col-form-label">Proof of company identity</label>
+
+    <div class="col-md-8 col-lg-3">
+      <input type="file" class="form-control" name="company_identity" value="{{ old('company_identity', $data->company_identity ?? '') }}">
+
+      @if(isset($data) && $data->documents->where('file_type', 'company_identity')->first())
+      @php
+          $doc = $data->documents->where('file_type', 'company_identity')->first();
+      @endphp
+      @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
+          <a href="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+      @else
+          <img src="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+      @endif
+  @endif
+    </div>
+    <label for="" class="col-md-4 col-lg-3 col-form-label">Aadhar card/Pan card</label>
+    <div class="col-md-8 col-lg-3">
+      <input type="file" class="form-control" name="aadharcard" value="{{ old('aadharcard', $data->aadharcard ?? '') }}">
+      @if(isset($data) && $data->documents->where('file_type', 'aadharcard')->first())
+      @php
+          $doc = $data->documents->where('file_type', 'aadharcard')->first();
+      @endphp
+      @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
+          <a href="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+      @else
+          <img src="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+      @endif
+  @endif
+    </div>
+  </div>
+  <div class="row mb-3">
+  <label for="" class="col-md-4 col-lg-3 col-form-label">Proof of company address</label>
+    <div class="col-md-8 col-lg-3">
+      <input type="file" class="form-control" name="company_address" value="{{ old('company_address', $data->company_address ?? '') }}">
+      @if(isset($data) && $data->documents->where('file_type', 'company_address')->first())
+      @php
+          $doc = $data->documents->where('file_type', 'company_address')->first();
+      @endphp
+      @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
+          <a href="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+      @else
+          <img src="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+      @endif
+  @endif
+    </div>
+    <label for="" class="col-md-4 col-lg-3 col-form-label">Letter of authority</label>
+    <div class="col-md-8 col-lg-3">
+      <input type="file" class="form-control" name="authority_letter" value="{{ old('authority_letter', $data->authority_letter ?? '') }}">
+      @if(isset($data) && $data->documents->where('file_type', 'authority_letter')->first())
+      @php
+          $doc = $data->documents->where('file_type', 'authority_letter')->first();
+      @endphp
+      @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
+          <a href="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+      @else
+          <img src="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+      @endif
+  @endif
+    </div>
+  </div>
+</div>
 
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Save</button>

@@ -140,6 +140,30 @@
             @endif
         </div>
     </div>
+
+    <div class="container">
+    <h5 class="card-title text-center">Documents Uploaded</h5>
+    <div class="row mb-3">
+        @foreach ($data->documents as $document)
+            <div class="col-md-4 col-lg-4">
+                <label class="col-form-label"><strong>{{ ucwords(str_replace('_', ' ', $document->file_type)) }}</strong></label>
+                @php
+                    $filePath = 'upload/' . $data->id . '/' . $document->file_name;
+                    $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+                @endphp
+                @if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
+                    <img src="{{ url($filePath) }}" style="height:100px; width:100px;" alt="{{ $document->file_type }}">
+                @elseif (in_array($fileExtension, ['pdf', 'doc', 'docx']))
+                    <a href="{{ url($filePath) }}" target="_blank" class="btn btn-primary">View {{ strtoupper($fileExtension) }}</a>
+                @else
+                    <p>Unsupported file format</p>
+                @endif
+            </div>
+        @endforeach
+    </div>
+</div>
+
+
     <div class="mb-3">
         <a href="{{ route('company.list') }}" class="btn btn-secondary">Back to List</a>
     </div>

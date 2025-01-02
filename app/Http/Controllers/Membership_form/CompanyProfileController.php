@@ -14,6 +14,7 @@ use App\Models\CompanyPro;
 use App\Models\Membershipyear;
 use App\Models\Zipcode;
 use App\Models\Membership;
+use App\Models\Documentupload;
 use Str;
 use File;
 use Illuminate\Validation\Rule;
@@ -41,18 +42,22 @@ public function add(Request $request, $id=null)
 
 public function companystore(Request $request){
     $request->validate([
-          'company_type' => 'required|string',
-          'company_name' => 'required|string',
-          'aadharcard_number' => 'required',
-          'registration_date' => 'required|date',
-          'renewal_date' => 'required|date',
-          'city' => 'required',
-          'state' => 'required',
-          'country' => 'required',
-          'company_year' => 'required',
-          'membership_year' => 'required',
-
+        'company_type' => 'required|string',
+        'company_name' => 'required|string',
+        'aadharcard_number' => 'required|string',
+        'registration_date' => 'required|date',
+        'renewal_date' => 'required|date',
+        'city' => 'required|string',
+        'state' => 'required|string',
+        'country' => 'required|string',
+        'company_year' => 'required|integer',
+        'membership_year' => 'required|integer',
+        'company_identity' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
+        'company_address' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
+        'aadharcard' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
+        'authority_letter' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
     ]);
+
    $data = new CompanyPro;
    $data->company_type = $request->company_type;
    $data->company_name = $request->company_name;
@@ -79,7 +84,6 @@ public function companystore(Request $request){
    $data->default_year = $request->default_year;
 
     if ($request->member_name>0) {
-       // $data->user_id = $request->session()->get('user_id');
         $data->user_id = $request->member_name;
 
     } else {
@@ -104,10 +108,78 @@ public function companystore(Request $request){
     }
     if($data->save())
     {
+        $companyFolder = 'upload/company_' . $data->id;
+        if (!file_exists($companyFolder)) {
+            mkdir($companyFolder, 0755, true);
+        }
+
+        $documents = [];
+
+        if ($request->hasFile('company_identity')) {
+            $file = $request->file('company_identity');
+            $filename = 'company_identity_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($companyFolder, $filename);
+
+            $documents[] = [
+                'company_id' => $data->id,
+                'file_name' => $filename,
+                'file_type' => 'company_identity',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        if ($request->hasFile('aadharcard')) {
+            $file = $request->file('aadharcard');
+            $filename = 'aadharcard_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($companyFolder, $filename);
+
+            $documents[] = [
+                'company_id' => $data->id,
+                'file_name' => $filename,
+                'file_type' => 'aadharcard',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        if ($request->hasFile('company_address')) {
+            $file = $request->file('company_address');
+            $filename = 'company_address_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($companyFolder, $filename);
+
+            $documents[] = [
+                'company_id' => $data->id,
+                'file_name' => $filename,
+                'file_type' => 'company_address',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        if ($request->hasFile('authority_letter')) {
+            $file = $request->file('authority_letter');
+            $filename = 'authority_letter_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($companyFolder, $filename);
+
+            $documents[] = [
+                'company_id' => $data->id,
+                'file_name' => $filename,
+                'file_type' => 'authority_letter',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
         $request->session()->forget('user_id');
 
-        toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile added successfully!');
-    return redirect()->route('member.index');
+        if (!empty($documents)) {
+            Documentupload::insert($documents);
+        }
+
+            toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile and documents added successfully!');
+            return redirect()->route('member.index');
+
     }else{
         toastr()->timeOut(5000)->closeButton()->addSuccess('Failed to update Company profile!');
         return redirect()->route('member.index');
@@ -128,26 +200,49 @@ public function edit($id){
  }
 
  public function update(Request $request, $id): RedirectResponse
-    {
-        $data = CompanyPro::find($id);
-        $request->validate([
-            'company_type' => 'required|string',
-            'company_name' => 'required|string',
-            'aadharcard_number' => 'required',
-            'registration_date' => 'required|date',
-            'renewal_date' => 'required|date',
-            'city' => 'required',
-            'state' => 'required',
-            'country' => 'required',
-            'company_year' => 'required',
-            'membership_year' => 'required',
+{
+    $data = CompanyPro::find($id);
 
-      ]);
-        $input = $request->all();
-        $data->update($input);
-         return redirect()->route('member.index')->with('success','Company profile updated successfully');
 
+    $request->validate([
+        'company_type' => 'required|string',
+        'company_name' => 'required|string',
+        'aadharcard_number' => 'required',
+        'registration_date' => 'required|date',
+        'renewal_date' => 'required|date',
+        'city' => 'required',
+        'state' => 'required',
+        'country' => 'required',
+        'company_year' => 'required',
+        'membership_year' => 'required',
+    ]);
+
+    $input = $request->all();
+    $data->update($input);
+
+    $documents = ['company_identity', 'company_address', 'aadharcard', 'authority_letter'];
+    foreach ($documents as $document) {
+        if ($request->hasFile($document)) {
+
+            $existingDocument = Documentupload::where('company_id', $id)->where('file_type', $document)->first();
+            if ($existingDocument && file_exists(public_path('upload/' . $existingDocument->file_name))) {
+                unlink(public_path('upload/' . $existingDocument->file_name));
+            }
+
+            $file = $request->file($document);
+            $fileName = uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('upload/' . $id), $fileName);
+
+            Documentupload::updateOrCreate(
+                ['company_id' => $id, 'file_type' => $document],
+                ['file_name' => $fileName]
+            );
+        }
     }
+
+    return redirect()->route('member.index')->with('success', 'Company profile and documents updated successfully');
+}
+
 
 
 /**
@@ -210,17 +305,39 @@ public function addcompany(Request $request, $id=null)
 
 }
 
- public function delete($id){
-    $data = CompanyPro::find($id);
-    $data->delete();
-     toastr()->timeOut(5000)->closeButton()->addSuccess('Member deleted successfully!');
-     return redirect()->back();
- }
+public function delete($id)
+{
+    $data = CompanyPro::with('documents')->find($id);
 
- public function show($id)
-    {
-        $data = CompanyPro::with('cities','states','countries','technologies')->find($id);
-        return view('admin.membership.company_profile.show', compact('data'));
+    if ($data) {
+        foreach ($data->documents as $document) {
+            $filePath = 'upload/company_' . $data->id . '/' . $document->file_name;
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+            $document->delete();
+        }
+        $data->delete();
+
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Company and related documents deleted successfully!');
+    } else {
+        toastr()->timeOut(5000)->closeButton()->addError('Company not found!');
     }
+
+    return redirect()->back();
+}
+
+
+public function show($id)
+{
+    $data = CompanyPro::with('cities', 'states', 'countries', 'technologies', 'documents')->find($id);
+
+    if (!$data) {
+        abort(404, 'Company profile not found');
+    }
+
+    return view('admin.membership.company_profile.show', compact('data'));
+}
+
 
 }

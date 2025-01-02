@@ -1,4 +1,3 @@
-<h1>Membership</h1>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,70 +70,46 @@
 <!--List Body-->
 <div class="container">
 <div class="search-bar">
-    <form class="search-form d-flex align-items-center" method="get" action="{{ route('member_search')}}">
+      <form class="search-form d-flex align-items-center" method="get" action="{{url('faq_search')}}">
         @csrf
-        <input type="text" name="search" placeholder="Search" title="Enter search keyword" class="form-control me-2">
-        <button type="submit" title="Search" class="btn btn-outline-secondary me-2"><i class="bi bi-search"></i></button>
-        <a href="{{ route('member.add')}}" class="btn btn-primary me-2">+</a>
-        <a href="{{ route('new.company')}}" class="btn btn-primary">Add Company</a>
-    </form>
-</div><!-- End Search Bar -->
+        <input type="text" name="search" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+      <a href="{{ route('faq.add')}}" class="btn btn-primary">+</a>
+    </div><!-- End Search Bar -->
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Memeber's List</h5>
-            @php
-    $datas = App\Models\User::paginate(5);
-      @endphp
+            <h5 class="card-title">F.A.Q List</h5>
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Sr no.</th>
-                        <!-- <th scope="col">Membership Id</th> -->
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Mobile No.</th>
-                        <th scope="col">Gender</th>
+                        <th scope="col">Questions</th>
+                        <th scope="col">Answers</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach ($datas as $data)
             <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{{$data->first_name}} &nbsp;{{$data->last_name}}</td>
-                <td>{{$data->email}}</td>
-                <td>{{$data->phone}}</td>
-                <td>{{$data->gender}}</td>
-
+            <td>{{$loop->iteration}}</td>
+                <td>{{$data->question}}</td>
+                <td>{{$data->answer}}</td>
+                <td>{{$data->status}}</td>
 
                 <td>
-    <div class="dropdown">
-        <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton{{$loop->iteration}}" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-three-dots-vertical"></i>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{$loop->iteration}}">
-            <li><a class="dropdown-item" href="{{ route('companyregister.add', $data->id)}}">Company Registration</a></li>
-        </ul>
-        <a href="{{ route('member.show', $data->id) }}" class="btn btn-outline-primary">
-        <i class="bx bx-show" style="font-size: 20px;"></i>
-    </a>
-    <a href="{{ route('member.edit', $data->id)}}" class="btn btn-outline-success">
-        <i class="bx bx-pencil" style="font-size: 20px;"></i>
-    </a>
-    <a href="{{ url('delete_member', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)">
-        <i class="bx bx-trash" style="font-size: 20px;"></i>
-    </a>
-    </div>
+                    <a href="{{ route('faq.edit', $data->id)}}" class="btn btn-outline-success">  <i class="bx bx-pencil" style="font-size: 20px;"></i></a>
+                    <a href="{{ url('delete_faq', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)"><i class="bx bx-trash" style="font-size: 20px;"></i></a>
 
-</td>
-
+                </td>
               </tr>
             @endforeach
                 </tbody>
             </table>
             <div class="text-end mb-3">
-        {{$datas->links()}}
+
         </div>
         </div>
     </div>
@@ -164,8 +139,6 @@
         }
         })
     }
-
-
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
