@@ -58,4 +58,17 @@ class FAQController extends Controller
 
        return redirect()->route('faq.index')->with('success', 'FAQ deleted successfully.');
    }
+
+
+   public function show($id)
+   {
+       $data = FAQ::find($id);
+       return view('admin.faq.show', compact('data'));
+   }
+
+   public function faq_search(Request $request){
+       $search = $request->search;
+       $datas = FAQ::where('question', 'LIKE', '%'.$search.'%')->orWhere('question', 'LIKE', '%'.$search.'%')->paginate(3);
+       return view('admin.faq.index', compact('datas'));
+     }
 }

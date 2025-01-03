@@ -73,7 +73,12 @@
         </ul>
       </li>
 
-
+      <li class="nav-item">
+    <a class="nav-link collapsed" href="{{url('admin/cms')}}">
+      <i class="bi bi-card-checklist"></i>
+      <span>C.M.S Page</span>
+    </a>
+  </li><!-- End Profile Page Nav -->
       <li class="nav-item">
     <a class="nav-link collapsed" href="{{url('admin/faq')}}">
       <i class="bi bi-question-circle"></i>

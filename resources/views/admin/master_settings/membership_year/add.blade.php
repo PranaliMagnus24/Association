@@ -34,7 +34,7 @@
  <!---Add Member--->
  <div class="container">
     <div class="text-end mb-3">
-        <a href="admin/membershipyear" class="btn btn-primary">Back</a>
+        <a href="{{route('membershipyear.index')}}" class="btn btn-primary">Back</a>
     </div>
     <div class="card">
         <div class="card-body">

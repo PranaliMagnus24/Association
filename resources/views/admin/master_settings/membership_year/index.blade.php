@@ -101,7 +101,7 @@
                 <td>
                 <a href="{{ route('membershipyear.show', $data->id) }}" class="btn btn-outline-primary"><i class="bx bx-show" style="font-size: 20px;"></i></a>
                     <a href="{{ route('membershipyear.edit', $data->id)}}" class="btn btn-outline-success">  <i class="bx bx-pencil" style="font-size: 20px;"></i></a>
-                    <a href="{{ url('delete_membershipyear', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)"><i class="bx bx-trash" style="font-size: 20px;"></i></a>
+                    <a href="{{ route('membershipyear.delete', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)"><i class="bx bx-trash" style="font-size: 20px;"></i></a>
 
                 </td>
               </tr>

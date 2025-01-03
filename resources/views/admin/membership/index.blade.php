@@ -122,7 +122,7 @@
     <a href="{{ route('member.edit', $data->id)}}" class="btn btn-outline-success">
         <i class="bx bx-pencil" style="font-size: 20px;"></i>
     </a>
-    <a href="{{ url('delete_member', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)">
+    <a href="{{ route('member.delete', $data->id)}}" class="btn btn-outline-danger" onclick="conformation(event)">
         <i class="bx bx-trash" style="font-size: 20px;"></i>
     </a>
     </div>
