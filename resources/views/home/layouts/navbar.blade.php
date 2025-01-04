@@ -18,8 +18,17 @@
 
                         <div class="col-lg-6 col-sm-5 col-5 text-end">
                             <div class="preheader-right">
-                                <a title="Login" class="btn-auth btn-auth-rev" href="register.html">Login</a>
-                                <a title="Register" class="btn-auth btn-auth" href="register.html">Signup</a>
+
+                                @if(Auth::check())
+            <p>Welcome, {{ Auth::user()->name }}!</p>
+            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        @else
+            <a href="{{ route('home.membershipregistration') }}" class="btn-auth btn-auth-rev" title="Login">Login</a>
+        @endif
+                                <a title="Register" class="btn-auth btn-auth" href="{{route('home.companyregistration')}}">Become a member</a>
                             </div>
                         </div>
                     </div>
@@ -59,7 +68,7 @@
 
                             <ul class="codeboxr-main-menu">
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="{{url('/')}}">Home</a>
                                 </li>
                                 <li><a href="about.html">About</a></li>
                                 <li><a href="event.html">Event</a></li>
@@ -107,6 +116,9 @@
                                 <li class="menu-item-depth-0">
                                     <a href="contact.html">Contact</a>
                                 </li>
+
+
+
                             </ul>
                         </div>
                         <!-- /.menu-wrapper -->

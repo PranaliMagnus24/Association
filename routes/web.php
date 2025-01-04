@@ -13,6 +13,7 @@ use App\Http\Controllers\Membership_form\CompanyProfileController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\CMSController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CompanyRegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,12 +27,7 @@ use App\Http\Controllers\HomeController;
 */
 
 
-///Home Controller
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
-
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified']);
-
-
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'role:admin']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -154,6 +150,25 @@ Route::get('cms/{id}', [CMSController::class, 'show'])->name('cms.show');
 });
 
 
+
+///Home Controller
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/registration', [HomeController::class, 'membershipregistration'])->name('home.membershipregistration');
+Route::post('/', [HomeController::class, 'membershipregistrationstore'])->name('membershipregistration.store');
+
+//Company Registration
+Route::get('/comapny/registration/{id?}', [CompanyRegistrationController::class, 'companyregistration'])->name('home.companyregistration');
+
+Route::post('companyregistration', [CompanyRegistrationController::class, 'companystore'])->name('company.store');
+Route::get('companyregistration/edit/{id}', [CompanyRegistrationController::class, 'edit'])->name('company.edit');
+
+Route::put('companyregistration/{id}', [CompanyRegistrationController::class, 'update'])->name('company.update');
+
+Route::get('delete_company/{id}', [CompanyRegistrationController::class, 'delete'])->name('company.delete');
+Route::get('companylist/{id}', [CompanyRegistrationController::class, 'show'])->name('company.show');
+
+Route::post('api/fetch-states', [CompanyRegistrationController::class, 'fetchState']);
+Route::post('api/fetch-cities', [CompanyRegistrationController::class, 'fetchCity']);
 
 
 

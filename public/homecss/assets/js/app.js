@@ -210,7 +210,7 @@ jQuery(document).ready(function($) {
     }); //end Testimonial JS
 
     //Nice select JS
-    $('select').niceSelect();
+   // $('select').niceSelect();
 
     // Event Details CarouselJS
     $('.event-thumbnail-carousel').owlCarousel({

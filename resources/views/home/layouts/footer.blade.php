@@ -131,7 +131,7 @@
     <script class="script-js" src="{{asset('homecss/assets/vendors/jquery-waypoints/jquery.waypoints.min.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/counterup/jquery.counterup.min.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/smooth-scroll/jquery.smooth-scroll.min.js')}}"></script>
-    <script class="script-js" src="{{asset('homecss/assets/vendors/nice-select/jquery.nice-select.min.js')}}"></script>
+    <!-- <script class="script-js" src="{{asset('homecss/assets/vendors/nice-select/jquery.nice-select.min.js')}}"></script> -->
     <script class="script-js" src="{{asset('homecss/assets/vendors/countdown/jquery.countdown.min.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/jquery-validate/jquery.validate.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/awesome-notifications/index.var.js')}}"></script>
