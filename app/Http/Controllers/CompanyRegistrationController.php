@@ -39,14 +39,11 @@ class CompanyRegistrationController extends Controller
             'aadharcard_number' => 'required|string',
             'registration_date' => 'required|date',
             'renewal_date' => 'required|date',
-            'zipcode' => 'numeric',
-            'landline' => 'numeric',
-            'website_url' => 'url',
+
             'city' => 'required|string',
             'state' => 'required|string',
             'country' => 'required|string',
-            'company_year' => 'required|integer',
-            'membership_year' => 'required|integer',
+
             'company_identity' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
             'company_address' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
             'aadharcard' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
@@ -172,12 +169,10 @@ class CompanyRegistrationController extends Controller
                 Documentupload::insert($documents);
             }
 
-                toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile and documents added successfully!');
-                return redirect()->route('home.index');
+                return redirect()->route('home.index')->with('success','Company profile and documents added successfully!');
 
         }else{
-            toastr()->timeOut(5000)->closeButton()->addSuccess('Failed to update Company profile!');
-            return redirect()->route('home.index');
+            return redirect()->route('home.index')->with('Failed to update Company profile!');
         }
 
     }

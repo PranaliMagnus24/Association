@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Str;
 use File;
 
@@ -21,13 +22,18 @@ class HomeController extends Controller
     }
 
 
+    public function membershiplogin()
+    {
+        return view('home.member_login');
+    }
+
     public function membershipregistrationstore(Request $request){
 
         $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'phone' => 'required|numeric',
-            'password' => 'required',
+            'password' => 'required|string|min:8',
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
 
         ], [
@@ -42,7 +48,7 @@ class HomeController extends Controller
         $data->first_name = $request->first_name;
         $data->middle_name = $request->middle_name;
         $data->last_name = $request->last_name;
-        $data->password = $request->password;
+        $data->password = Hash::make($request->password);
         $data->email = $request->email;
         $data->phone = $request->phone;
 
@@ -65,7 +71,10 @@ class HomeController extends Controller
 
         $data->save();
 
-        return redirect()->route('home.membershipregistration')->with('success', 'Member register successfully.');
+        $request->session()->put('user_id', $data->id);
+
+        return redirect()->route('home.companyregistration', ['user_id' => $data->id])
+            ->with('success', 'Member registered successfully. Please complete your company registration.');
 
     }
 

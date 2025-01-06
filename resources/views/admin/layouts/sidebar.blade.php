@@ -40,6 +40,18 @@
               <i class="bi bi-circle"></i><span>Membership Year Settings</span>
             </a>
           </li>
+
+          <li>
+            <a href="{{route('setting.index')}}">
+              <i class="bi bi-circle"></i><span>General Settings</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{{route('email.index')}}">
+              <i class="bi bi-circle"></i><span>Email Settings</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Charts Nav -->
 

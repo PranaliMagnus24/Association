@@ -104,8 +104,6 @@ select.form-select {
 
 <!-- MultiStep Form -->
  <section>
-
-
 <div id="container" class="container mt-5">
   <div class="progress px-1" style="height: 3px;">
     <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -428,6 +426,10 @@ select.form-select {
   </form>
 </div>
 </section>
+
+
+
+
 </div>
 
 

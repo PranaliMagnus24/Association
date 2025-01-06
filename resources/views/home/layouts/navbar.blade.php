@@ -19,16 +19,8 @@
                         <div class="col-lg-6 col-sm-5 col-5 text-end">
                             <div class="preheader-right">
 
-                                @if(Auth::check())
-            <p>Welcome, {{ Auth::user()->name }}!</p>
-            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                @csrf
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-        @else
-            <a href="{{ route('home.membershipregistration') }}" class="btn-auth btn-auth-rev" title="Login">Login</a>
-        @endif
-                                <a title="Register" class="btn-auth btn-auth" href="{{route('home.companyregistration')}}">Become a member</a>
+                                <a href="{{ route('home.membershiplogin') }}" class="btn-auth btn-auth-rev" title="Login">Login</a>
+                                <a title="Register" class="btn-auth btn-auth" href="{{route('home.membershipregistration')}}">Become a member</a>
                             </div>
                         </div>
                     </div>
@@ -40,10 +32,20 @@
                 <div class="header-inner">
                     <nav id="site-navigation" class="main-nav">
                         <div class="site-logo">
-                            <a href="index.html" class="logo">
-                                <img src="{{asset('homecss/assets/images/logo/logo.svg')}}" alt="site logo" class="main-logo">
-                                <img src="{{asset('homecss/assets/images/logo/logo.svg')}}" alt="site logo" class="logo-sticky">
-                            </a>
+
+                        @php
+    $getSetting = \App\Models\GeneralSetting::first();
+@endphp
+
+@if($getSetting)
+<a href="{{route('home.index')}}" class="logo">
+    <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="site logo" class="main-logo">
+    <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="site logo" class="logo-sticky">
+</a>
+@else
+<h1>Association</h1>
+@endif
+
 
                             <div class="burger-menu">
                                 <span class="bar-one"></span>

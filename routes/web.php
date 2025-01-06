@@ -4,16 +4,19 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Master_Settings\MembershiptypeController;
+use App\Http\Controllers\Master_Settings\GeneralSettingController;
 use App\Http\Controllers\Master_Settings\TechnologyController;
 use App\Http\Controllers\Master_Settings\FeesController;
 use App\Http\Controllers\Master_Settings\TaxController;
 use App\Http\Controllers\Master_Settings\MembershipYearController;
+use App\Http\Controllers\Master_Settings\EmailController;
 use App\Http\Controllers\Membership_form\MembershipController;
 use App\Http\Controllers\Membership_form\CompanyProfileController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\CMSController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyRegistrationController;
+use App\Http\Controllers\Member\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -147,6 +150,16 @@ Route::post('cms/{id}', [CMSController::class, 'update'])->name('cms.update');
 Route::get('delete_cms/{id}', [CMSController::class, 'delete'])->name('cms.delete');
 Route::get('cms_search', [CMSController::class, 'cms_search'])->name('cms_search');
 Route::get('cms/{id}', [CMSController::class, 'show'])->name('cms.show');
+
+////General Setting
+Route::get('settings', [GeneralSettingController::class, 'index'])->name('setting.index');
+Route::post('settings', [GeneralSettingController::class, 'store'])->name('setting.store');
+
+////Email Setting
+Route::get('email', [EmailController::class, 'index'])->name('email.index');
+Route::get('email/{id}', [EmailController::class, 'delete_email'])->name('email.delete');
+
+
 });
 
 
@@ -154,6 +167,7 @@ Route::get('cms/{id}', [CMSController::class, 'show'])->name('cms.show');
 ///Home Controller
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/registration', [HomeController::class, 'membershipregistration'])->name('home.membershipregistration');
+Route::get('/login', [HomeController::class, 'membershiplogin'])->name('home.membershiplogin');
 Route::post('/', [HomeController::class, 'membershipregistrationstore'])->name('membershipregistration.store');
 
 //Company Registration
@@ -170,5 +184,8 @@ Route::get('companylist/{id}', [CompanyRegistrationController::class, 'show'])->
 Route::post('api/fetch-states', [CompanyRegistrationController::class, 'fetchState']);
 Route::post('api/fetch-cities', [CompanyRegistrationController::class, 'fetchCity']);
 
+
+
+Route::get('/member', [MemberController::class, 'index'])->middleware(['auth', 'role:user']);
 
 

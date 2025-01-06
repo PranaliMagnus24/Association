@@ -9,9 +9,19 @@
                         <!-- Single Widget Start -->
                         <div class="col-lg-4 col-sm-6">
                             <div class="single-widget-wrap">
+
+                            @php
+                       $getSetting = \App\Models\GeneralSetting::first();
+                         @endphp
                                 <div class="widgei-body">
                                     <div class="footer-about">
-                                        <img src="{{asset('homecss/assets/images/logo/footer-logo.svg')}}" alt="Logo" class="img-fluid">
+                                    @if($getSetting)
+                                    <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="Logo" style="max-width: 60px;">
+
+                                        @else
+                                     <h1>Association</h1>
+                                    @endif
+
                                         <p>
                                             We are legend Lorem ipsum dolor sitmet,
                                             nsecte ipisicing eit, sed do eiusmod tempor

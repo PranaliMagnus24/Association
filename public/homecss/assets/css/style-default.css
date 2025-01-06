@@ -1896,7 +1896,7 @@ blockquote:before,
 }
 
 .site-header .site-logo img {
-  max-width: 250px;
+  max-width: 55px;
 }
 
 @media (max-width: 991px) {
