@@ -5,16 +5,24 @@
         <!--=========================-->
         <!--=        Navbar         =-->
         <!--=========================-->
+
         <header class="site-header header-fixed" data-responsive-width="991">
             <div class="header-topbar">
                 <div class="container">
                     <div class="row align-items-center">
-                        <div class="col-lg-6 col-sm-7 col-7">
-                            <div class="preheader-left">
-                                <a href="mailto:info@codeboxr.com"><strong>Email:</strong> info@codeboxr.com</a>
-                                <a href="mailto:info@construc.com"><strong>Hotline:</strong> 880 454 5477</a>
-                            </div>
-                        </div>
+                    @php
+    $getSetting = \App\Models\GeneralSetting::first();
+@endphp
+@if($getSetting)
+<div class="col-lg-6 col-sm-7 col-7">
+    <div class="preheader-left">
+        <a href="mailto:{{ $getSetting->email }}"><strong>Email:</strong> {{ $getSetting->email }}</a>
+        <a href="tel:{{ $getSetting->phone }}"><strong>Hotline:</strong> {{ $getSetting->phone }}</a>
+    </div>
+</div>
+@else
+<h1>Association</h1>
+@endif
 
                         <div class="col-lg-6 col-sm-5 col-5 text-end">
                             <div class="preheader-right">
@@ -72,26 +80,20 @@
                                 <li>
                                     <a href="{{url('/')}}">Home</a>
                                 </li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="event.html">Event</a></li>
-                                <li><a href="gallery.html">Gallery</a></li>
+                                <!-- <li><a href="about.html">About</a></li> -->
+                                <!-- <li><a href="event.html">Event</a></li>
+                                <li><a href="gallery.html">Gallery</a></li> -->
 
                                 <li class="has-submenu menu-item-depth-0">
-                                    <a href="blog.html">Blog</a>
+                                    <a href="{{route('home.about')}}">About</a>
                                     <ul class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-                                        <li>
-                                            <a href="single-blog.html">Single Blog Right Sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a href="single-blog-leftsidebar.html">Single Bolg Left Sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a href="single-blog-nosidebar.html">Single Blog No Sidrebar</a>
-                                        </li>
+                                        <li><a href="{{route('home.committee')}}">Committee</a></li>
+                                        <li><a href="#">Directory Desk</a></li>
                                     </ul>
                                 </li>
-                                <li class="has-submenu menu-item-depth-0">
+                                 <li><a href="{{route('home.directory')}}">Directory</a></li>
+                                 <li><a href="#">Gallery</a></li>
+                                <!-- <li class="has-submenu menu-item-depth-0">
                                     <a href="#">Pages</a>
 
                                     <ul class="sub-menu">
@@ -114,9 +116,9 @@
                                             <a href="typography.html">Typography</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> -->
                                 <li class="menu-item-depth-0">
-                                    <a href="contact.html">Contact</a>
+                                    <a href="{{route('home.contact')}}">Contact</a>
                                 </li>
 
 

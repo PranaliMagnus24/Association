@@ -80,5 +80,23 @@ class HomeController extends Controller
 
 
 
+    public function contact()
+    {
+        return view('home.contact');
+    }
+    public function about()
+    {
+        return view('home.about');
+    }
+    public function directory()
+    {
+        return view('home.directory');
+    }
+    public function committee()
+    {
+        return view('home.committee');
+    }
+
+
 
 }

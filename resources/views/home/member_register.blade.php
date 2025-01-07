@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-   <head>
-      @include('home.layouts.head')
-   </head>
+
+      @include('home.includes.head')
+
    <style>
     .large-text {
     font-size: 1.5rem; /* Adjust as needed */
@@ -29,11 +27,8 @@ select.form-select {
         font-size: 16px;
     }
    </style>
-   <body id="home-v1" class="home-page-one" data-style="default">
-      <a href="#" class="scroll-top">
-      <i class="fa fa-angle-up"></i>
-      </a>
-      @include('home.layouts.navbar')
+
+      @include('home.includes.navbar')
       <div id="main_content" class="main-content">
          <!--==========================-->
          <!--=         Banner         =-->
@@ -185,7 +180,6 @@ select.form-select {
     </div>
 </section>
          <!----footer------>
-         @include('home.layouts.footer')
+         @include('home.includes.footer')
       </div>
-   </body>
-</html>
+

@@ -27,9 +27,9 @@
                                             nsecte ipisicing eit, sed do eiusmod tempor
                                             incidunt ut et do maga aliqua enim ad minim.
                                         </p>
-                                        <a href="#">Phone: +8745 44 5444</a>
-                                        <a href="#">Fax: +88474 156 362</a> <br>
-                                        <a href="#">Email: demoemail@demo.com</a>
+                                        <a href="tel:{{ $getSetting->phone }}">Phone: {{ $getSetting->phone }}</a>
+                                        <!-- <a href="#">Fax: +88474 156 362</a> <br> -->
+                                        <a href="mailto:{{ $getSetting->email }}">Email: {{ $getSetting->email }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <div class="footer-bottom-text">
-                                <p>&#xA9; 2023 Codeboxr, All Rights Reserved.</p>
+                                <p>&#xA9; 2024 MagnusIdea, All Rights Reserved.</p>
                             </div>
                         </div>
                     </div>

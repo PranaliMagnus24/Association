@@ -2,9 +2,16 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
-  <a href="index.html" class="logo d-flex align-items-center">
-    <img src="assets/img/logo.png" alt="">
-    <span class="d-none d-lg-block">Association</span>
+@php
+                       $getSetting = \App\Models\GeneralSetting::first();
+                         @endphp
+  <a href="{{url('admin/dashboard')}}" class="logo d-flex align-items-center">
+  @if($getSetting)
+    <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="">
+    @else
+                                     <h1>Association</h1>
+                                    @endif
+    <span class="d-none d-lg-block">{{$getSetting->association_name}}</span>
   </a>
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->

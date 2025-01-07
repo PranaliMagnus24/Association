@@ -2703,15 +2703,15 @@ blockquote:before,
 }
 
 #slider-area .slide-bg-1 {
-  background-image: url("https://via.placeholder.com/1920x1280");
+  background-image: url("/homecss/assets/images/slider/slider-img-1.jpg");
 }
 
 #slider-area .slide-bg-2 {
-  background-image: url("https://via.placeholder.com/1920x1280");
+  background-image: url("/homecss/assets/images/slider/slider-img-2.jpg");
 }
 
 #slider-area .slide-bg-3 {
-  background-image: url("https://via.placeholder.com/1920x1280");
+  background-image: url("/homecss/assets/images/slider/slider-img-3.jpg");
 }
 
 #slider-area .social-networks-icon {
@@ -3824,48 +3824,58 @@ blockquote:before,
 
 /* --== About Area Start ==-- */
 
+/* Common styles */
 #about-area .about-area-wrapper {
-  position: relative;
-  z-index: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  #about-area .about-area-wrapper .about-content-wrap {
+    background-color: #ecf1f5;
+    border: 10px solid #dbe5f3;
+    padding: 36px 260px 40px 10px; /* Default for Mission */
+  }
+
+  #about-area .about-area-wrapper .about-content-wrap a.btn-brand {
+    margin-top: 25px;
+  }
+
+  #about-area .about-area-wrapper .about-content-wrap a.btn-brand:hover {
+    background-color: #161F37;
+    color: #fff;
+  }
+
+  #about-area .about-area-wrapper .about-content-wrap .section-title {
+    margin-bottom: 30px;
+  }
+
+  #about-area .about-area-wrapper:before {
+    background-image: url("/homecss/assets/images/mission.jpg");
+    background-size: cover;
+    content: "";
+    position: absolute;
+    width: 39%;
+    height: 85%;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    z-index: 2;
 }
 
-#about-area .about-area-wrapper .about-content-wrap {
-  background-color: #ecf1f5;
-  border: 10px solid #dbe5f3;
-  padding: 36px 10px 40px 260px;
-}
 
-#about-area .about-area-wrapper .about-content-wrap .about-thumb {
-  display: none;
-}
+  /* Vision-specific styles */
+  #about-area .vision-wrapper .about-content-wrap1 {
+    background-color: #ecf1f5;
+    border: 10px solid #dbe5f3;
+    padding: 36px 10px 40px 7px;
+  }
 
-#about-area .about-area-wrapper .about-content-wrap a.btn-brand {
-  margin-top: 25px;
-}
+  #about-area .vision-wrapper:before {
+    background-image: url("/homecss/assets/images/vision.jpg");
+    left: auto; /* Reset left position */
+    right: 0; /* Move background image to the right */
+  }
 
-#about-area .about-area-wrapper .about-content-wrap a.btn-brand:hover {
-  background-color: #161F37;
-  color: #fff;
-}
-
-#about-area .about-area-wrapper .about-content-wrap .section-title {
-  margin-bottom: 30px;
-}
-
-#about-area .about-area-wrapper:before {
-  background-image: url("https://via.placeholder.com/1440x1018");
-  background-size: cover;
-  content: "";
-  position: absolute;
-  width: 39%;
-  height: 85%;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  left: 0;
-  z-index: 2;
-}
 
 /*--------------------------------------------------------------
   ##  Gallery
@@ -4260,6 +4270,7 @@ blockquote:before,
   background-color: #ecf1f5;
 }
 
+
 #responsibility-area .single-responsibility {
   color: #3a3b3c;
   -webkit-transition: all 0.3s ease-in-out;
@@ -4425,7 +4436,7 @@ blockquote:before,
 /*--== Page Title Area Start ==--*/
 
 #page-title-area {
-  background-image: url("https://via.placeholder.com/1918x789");
+  background-image: url("/homecss/assets/images/page-title.jpg");
   background-size: cover;
   background-position: center center;
   position: relative;
@@ -4915,6 +4926,70 @@ blockquote:before,
   font-size: 2rem;
   border-radius: 0;
 }
+
+.contact-info {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .contact-info-icon {
+    margin-bottom: 15px;
+  }
+
+  .contact-info-item {
+  padding: 30px 0px;
+  transition: background 0.3s ease;
+  flex: 1; /* Sabhi cards ko equal width aur height milega */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+  .contact-info-item:hover {
+    background: #ecf1f5;
+  }
+
+  .contact-info-icon i {
+    font-size: 39px;
+    color: #0080FF;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .contact-info-icon i:hover {
+    color: #0080FF;
+    transform: scale(1.2);
+  }
+
+  .contact-info-text p {
+    margin-bottom: 0px;
+  }
+
+  .contact-info-text h2 {
+    font-size: 22px;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+  }
+
+  .contact-info-text h2:hover {
+    color: #0080FF; /* Change text color on hover */
+  }
+
+  .contact-info-text span {
+    font-size: 16px;
+    display: inline-block;
+    width: 100%;
+    transition: color 0.3s ease;
+  }
+
+  .contact-info-text span:hover {
+    color: #0080FF; /* Change span color on hover */
+  }
+
 
 /*--------------------------------------------------------------
   ##  Register

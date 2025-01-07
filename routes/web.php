@@ -169,7 +169,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/registration', [HomeController::class, 'membershipregistration'])->name('home.membershipregistration');
 Route::get('/login', [HomeController::class, 'membershiplogin'])->name('home.membershiplogin');
 Route::post('/', [HomeController::class, 'membershipregistrationstore'])->name('membershipregistration.store');
-
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/directory', [HomeController::class, 'directory'])->name('home.directory');
+Route::get('/committee', [HomeController::class, 'committee'])->name('home.committee');
 //Company Registration
 Route::get('/comapny/registration/{id?}', [CompanyRegistrationController::class, 'companyregistration'])->name('home.companyregistration');
 

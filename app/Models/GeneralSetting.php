@@ -11,6 +11,6 @@ class GeneralSetting extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'general_settings';
     protected $fillable = [
-               'association_name','description','association_logo',
+               'association_name','description','association_logo','phone','email','address','location_url',
     ];
 }

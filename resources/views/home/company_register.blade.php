@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-   <head>
-      @include('home.layouts.head')
-   </head>
+
+      @include('home.includes.head')
+
    <style>
 
 .step-container {
@@ -74,11 +72,8 @@ select.form-select {
     }
 
    </style>
-   <body id="home-v1" class="home-page-one" data-style="default">
-      <a href="#" class="scroll-top">
-      <i class="fa fa-angle-up"></i>
-      </a>
-      @include('home.layouts.navbar')
+
+      @include('home.includes.navbar')
       <div id="main_content" class="main-content">
          <!--==========================-->
          <!--=         Banner         =-->
@@ -661,7 +656,5 @@ function displayStep(stepNumber) {
 
 </script>
          <!----footer------>
-         @include('home.layouts.footer')
+         @include('home.includes.footer')
 
-   </body>
-</html>

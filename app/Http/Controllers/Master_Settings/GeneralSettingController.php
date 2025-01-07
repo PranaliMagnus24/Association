@@ -19,7 +19,11 @@ class GeneralSettingController extends Controller
 
         $save = GeneralSetting::find(1);
         $save->association_name = $request->association_name;
+        $save->email = $request->email;
+        $save->phone = $request->phone;
+        $save->address = $request->address;
         $save->description = $request->description;
+        $save->location_url = $request->location_url;
 
 
         if(!empty($request->file('association_logo')))
