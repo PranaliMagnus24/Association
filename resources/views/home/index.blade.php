@@ -13,7 +13,7 @@
 
     @include('home.includes.slider')
 
-
+    @include('home.includes.about_section')
         <!--=========================-->
         <!--=         About         =-->
         <!--=========================-->

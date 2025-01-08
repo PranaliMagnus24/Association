@@ -30,7 +30,6 @@
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="email" class="form-control" id="yourUsername":value="old('email')" required autofocus autocomplete="username" >
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                       </div>

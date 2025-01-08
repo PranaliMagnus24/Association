@@ -173,6 +173,10 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact')
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 Route::get('/directory', [HomeController::class, 'directory'])->name('home.directory');
 Route::get('/committee', [HomeController::class, 'committee'])->name('home.committee');
+Route::get('/desk_directory', [HomeController::class, 'desk_directory'])->name('home.desk_directory');
+Route::get('/gallery', [HomeController::class, 'gallery'])->name('home.gallery');
+
+
 //Company Registration
 Route::get('/comapny/registration/{id?}', [CompanyRegistrationController::class, 'companyregistration'])->name('home.companyregistration');
 

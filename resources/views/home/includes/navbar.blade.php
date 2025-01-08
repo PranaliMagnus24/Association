@@ -88,11 +88,10 @@
                                     <a href="{{route('home.about')}}">About</a>
                                     <ul class="sub-menu">
                                         <li><a href="{{route('home.committee')}}">Committee</a></li>
-                                        <li><a href="#">Directory Desk</a></li>
                                     </ul>
                                 </li>
                                  <li><a href="{{route('home.directory')}}">Directory</a></li>
-                                 <li><a href="#">Gallery</a></li>
+                                 <li><a href="{{route('home.gallery')}}">Gallery</a></li>
                                 <!-- <li class="has-submenu menu-item-depth-0">
                                     <a href="#">Pages</a>
 

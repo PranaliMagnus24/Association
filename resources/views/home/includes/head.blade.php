@@ -3,8 +3,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mi Asscociation</title>
-
+    @php
+    $getSetting = \App\Models\GeneralSetting::first();
+@endphp
+@if($getSetting)
+    <title>{{$getSetting->association_name}}</title>
+    @else
+<h1>Mi.Association</h1>
+@endif
     <!-- twitter card starts from here, if you don't need remove this section -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@yourtwitterusername">
@@ -33,27 +39,27 @@
 
     <!-- desktop bookmark -->
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{asset('homecss/assets/images/favicon/ms-icon-144x144.png')}}">
+    <meta name="msapplication-TileImage" content="{{ url('upload/' . $getSetting->association_logo) }}">
     <meta name="theme-color" content="#ffffff">
 
     <!-- icons & favicons -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('homecss/assets/images/favicon/favicon.ico')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url('upload/' . $getSetting->association_logo) }}">
     <!-- this icon shows in browser toolbar -->
-    <link rel="icon" type="image/x-icon" href="{{asset('homecss/assets/images/favicon/favicon.ico')}}">
+    <link rel="icon" type="image/x-icon" href="{{ url('upload/' . $getSetting->association_logo) }}">
     <!-- this icon shows in browser toolbar -->
-    <link rel="apple-touch-icon" sizes="57x57" href="{{asset('homecss/assets/images/favicon/apple-icon-57x57.png')}}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{{asset('homecss/assets/images/favicon/apple-icon-60x60.png')}}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{asset('homecss/assets/images/favicon/apple-icon-72x72.png')}}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('homecss/assets/images/favicon/apple-icon-76x76.png')}}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{asset('homecss/assets/images/favicon/apple-icon-114x114.png')}}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{{asset('homecss/assets/images/favicon/apple-icon-120x120.png')}}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{{asset('homecss/assets/images/favicon/apple-icon-144x144.png')}}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{{asset('homecss/assets/images/favicon/apple-icon-152x152.png')}}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('homecss/assets/images/favicon/apple-icon-180x180.png')}}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{asset('homecss/assets/images/favicon/android-icon-192x192.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('homecss/assets/images/favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{asset('homecss/assets/images/favicon/favicon-96x96.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('homecss/assets/images/favicon/favicon-16x16.png')}}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url('upload/' . $getSetting->association_logo) }}')}}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ url('upload/' . $getSetting->association_logo) }}')}}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url('upload/' . $getSetting->association_logo) }}')}}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('upload/' . $getSetting->association_logo) }}">
 
 
     <!-- Dependency Styles -->
@@ -68,6 +74,7 @@
     <link id="cbx-style" rel="stylesheet" href="{{asset('homecss/assets/css/style-default.css')}}" type="text/css">
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 
 

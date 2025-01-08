@@ -96,6 +96,14 @@ class HomeController extends Controller
     {
         return view('home.committee');
     }
+    public function desk_directory()
+    {
+        return view('home.desk_directory');
+    }
+    public function gallery()
+    {
+        return view('home.gallery');
+    }
 
 
 

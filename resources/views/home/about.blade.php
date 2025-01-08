@@ -1,7 +1,79 @@
 @include('home.includes.head')
 @include('home.includes.navbar')
 
+<style>
 
+.card-list .card-item {
+  height: auto;
+  color: #fff;
+  user-select: none;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  backdrop-filter: blur(30px);
+}
+.card-list .card-item .user-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 40px;
+  border: 3px solid #fff;
+  padding: 4px;
+}
+.card-list .card-item .user-profession {
+  font-size: 1.15rem;
+  color: #e3e3e3;
+  font-weight: 500;
+  margin: 14px 0 40px;
+}
+.card-list .card-item .message-button {
+  font-size: 1.25rem;
+  padding: 10px 35px;
+  color: #030728;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid transparent;
+  transition: 0.2s ease;
+}
+.card-list .card-item .message-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #fff;
+  color: #fff;
+}
+.slider-wrapper .swiper-pagination-bullet {
+  background: #fff;
+  height: 13px;
+  width: 13px;
+  opacity: 0.5;
+}
+.slider-wrapper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+.slider-wrapper .swiper-slide-button {
+  color: #fff;
+  margin-top: -55px;
+  transition: 0.2s ease;
+  margin-right: -14px;
+  margin-left: -14px;
+}
+.slider-wrapper .swiper-slide-button:hover {
+  color: #4658ff;
+}
+@media (max-width: 768px) {
+  .slider-wrapper {
+    margin: 0 10px 40px;
+  }
+  .slider-wrapper .swiper-slide-button {
+    display: none;
+  }
+}
+
+</style>
 <section id="page-title-area">
             <div class="container">
                <div class="row">
@@ -24,71 +96,91 @@
             <div class="about-page-content-wrap section-padding">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-11 m-auto">
+                        < class="col-lg-11 m-auto">
                             <!-- Single about text start -->
                             <div class="single-about-text">
                                 <span class="year">1834</span>
                                 <img src="{{asset('homecss/assets/images/about-page/about-img-1.jpg')}}" alt="About" class="img-fluid img-left">
-                                <h2 class="h3">ESTD of This Alumni Assotitation</h2>
-                                <p>Aenean viverra rhoncus sspede. Phasellssus leo dolor, tempus non, auctor endrerit
-                                    quis, nisi. Fusce neque. Donec vitae orci sed dolor rutrum ausssctor. Sed
-                                    fringilla mauris sit amet nibh.</p>
-                                <p>Etiam rhoncus. Ut lddffdfqwqeo. Morbi mollis tellus ac sapien. Fusce fermentum oo
-                                    nec arcu. Quisque manisl idUt leo. Morbi mollis tellus ac sapien. Fusce
-                                    fermentum oo nec ante tempus hendrerit. Curabitur at lacus ac velit ornare
-                                    lobortis. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-                                    turpis. Quisque id mi.Aenean viverra rhoncus pede. Phasellus leo dolor, tempus non, auctor
-                                    endrerit quis, nisi.
-                                    Fusce neque. Donec vitae orci sed dolor rutrum auctor. Sed fringilla mauris sit amet
-                                    nibh.Etiam rhoncus. Ut leo. Morbi mollis tellus ac sapien. Fusce fermentum oo nec arcu.
-                                    Quisque malesuada placerat nisl. Etiam sit amet orci eget faucitincidunt. Quisque
-                                    rutrum. Pellentesque posuere. Praesent ac massa at ligula laoureet iaculis. Cras risus
-                                    ipsum, faucibus ut, ullamcorper id, varius ac, leo.</p>
+                                <h2 class="h3">About us</h2>
+                                <p>From the desk of chairman.In the present senerio it is  observed...</p>
+                                <p>Muslims presence in industry  and  trade is very low than national average level, Sharia complient funding  is not available, Govt. Subsidies, scheme  for promoting bussiness is not reaching them, Muslims are not activly participatingin in bussiness Associations like  NIMA  AIMA  Chamber of commerce .                       Hence there is need for  National. economic development movement fueled by unity and vision by muslim community for their uplifting  benefits.                        Following persons  along with Jan Seva credit cooperative  scocity and Islamic chember of commerce India organised Muslim industrialist. and bussinessmen conference at Nasik  to discuss about these subject.The conference resolved to form an Association of  Muslim Industrialists ,Merchants and professional s  by Following persons.</p>
                             </div>
-                            <!-- Single about text End -->
+                            <!----------------Swiper---------------------->
+                            <div class="container swiper mt-5">
+                                <div class="slider-wrapper">
+                                    <div class="card-list swiper-wrapper">
 
-                            <!-- Single about text start -->
-                            <div class="single-about-text">
-                                <span class="year">1920</span>
-                                <img src="{{asset('homecss/assets/images/about-page/about-img-2.jpg')}}" alt="About" class="img-fluid img-right">
-                                <h2 class="h3">Our First Achivement in History</h2>
-                                <p>Aenean viverra rhoncus sspede. Phasellssus leo dolor, tempus non, auctor endrerit
-                                    quis, nisi. Fusce neque. Donec vitae orci sed dolor rutrum ausssctor. Sed
-                                    fringilla mauris sit amet nibh.</p>
-                                <p>Etiam rhoncus. Ut lddffdfqwqeo. Morbi mollis tellus ac sapien. Fusce fermentum oo
-                                    nec arcu. Quisque manisl idUt leo. Morbi mollis tellus ac sapien. Fusce
-                                    fermentum oo nec ante tempus hendrerit. Curabitur at lacus ac velit ornare
-                                    lobortis. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-                                    turpis. Quisque id mi.Aenean viverra rhoncus pede. Phasellus leo dolor, tempus non, auctor
-                                    endrerit quis, nisi.
-                                    Fusce neque. Donec vitae orci sed dolor rutrum auctor. Sed fringilla mauris sit amet
-                                    nibh.Etiam rhoncus. Ut leo. Morbi mollis tellus ac sapien. Fusce fermentum oo nec arcu.
-                                    Quisque malesuada placerat nisl. Etiam sit amet orci eget faucitincidunt. Quisque
-                                    rutrum. Pellentesque posuere. Praesent ac massa at ligula laoureet iaculis. Cras risus
-                                    ipsum, faucibus ut, ullamcorper id, varius ac, leo.</p>
-                            </div>
-                            <!-- Single about text End -->
 
-                            <!-- Single about text start -->
-                            <div class="single-about-text">
-                                <span class="year">2006</span>
-                                <img src="{{asset('homecss/assets/images/about-page/about-img-3.jpg')}}" alt="About" class="img-fluid img-left">
-                                <h2 class="h3">Our New Genaretion</h2>
-                                <p>Aenean viverra rhoncus sspede. Phasellssus leo dolor, tempus non, auctor endrerit
-                                    quis, nisi. Fusce neque. Donec vitae orci sed dolor rutrum ausssctor. Sed
-                                    fringilla mauris sit amet nibh.</p>
-                                <p>Etiam rhoncus. Ut lddffdfqwqeo. Morbi mollis tellus ac sapien. Fusce fermentum oo
-                                    nec arcu. Quisque manisl idUt leo. Morbi mollis tellus ac sapien. Fusce
-                                    fermentum oo nec ante tempus hendrerit. Curabitur at lacus ac velit ornare
-                                    lobortis. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-                                    turpis. Quisque id mi.Aenean viverra rhoncus pede. Phasellus leo dolor, tempus non, auctor
-                                    endrerit quis, nisi.
-                                    Fusce neque. Donec vitae orci sed dolor rutrum auctor. Sed fringilla mauris sit amet
-                                    nibh.Etiam rhoncus. Ut leo. Morbi mollis tellus ac sapien. Fusce fermentum oo nec arcu.
-                                    Quisque malesuada placerat nisl. Etiam sit amet orci eget faucitincidunt. Quisque
-                                    rutrum. Pellentesque posuere. Praesent ac massa at ligula laoureet iaculis. Cras risus
-                                    ipsum, faucibus ut, ullamcorper id, varius ac, leo.</p>
+                                    <div class="card-item swiper-slide">
+                                            <div class="single-committee-member" style="margin-top:1px;">
+                                                <div class="commitee-thumb">
+                                                    <img src="{{asset('homecss/assets/images/committee/Munir Khan.png')}}" class="img-fluid" alt="Committee" />
+                                                </div>
+                                                <h3>Munir Khan<span class="committee-deg"></span></h3>
+                                            </div>
+                                        </div>
+                                        <div class="card-item swiper-slide">
+                                            <div class="single-committee-member" style="margin-top:1px;">
+                                                <div class="commitee-thumb">
+                                                    <img src="{{asset('homecss/assets/images/committee/Minaz Mirza.png')}}" class="img-fluid" alt="Committee" />
+                                                </div>
+                                                <h3>Minaz Mirza<span class="committee-deg"></span></h3>
+                                            </div>
+                                        </div>
+                                        <div class="card-item swiper-slide">
+                                            <div class="single-committee-member" style="margin-top:1px;">
+                                                <div class="commitee-thumb">
+
+                                                    <img src="{{asset('homecss/assets/images/committee/No-Image.png')}}" class="img-fluid" alt="Committee" />
+                                                </div>
+                                                <h3>ABDULLAH khan<span class="committee-deg"></span></h3>
+                                            </div>
+                                        </div>
+                                        <div class="card-item swiper-slide">
+                                            <div class="single-committee-member" style="margin-top:1px;">
+                                                <div class="commitee-thumb">
+
+                                                    <img src="{{asset('homecss/assets/images/committee/No-Image.png')}}" class="img-fluid" alt="Committee" />
+                                                </div>
+                                                <h3>Tanveer rafik shaikh<span class="committee-deg"></span></h3>
+                                            </div>
+                                        </div>
+                                        <div class="card-item swiper-slide">
+                                            <div class="single-committee-member" style="margin-top:1px;">
+                                                <div class="commitee-thumb">
+
+                                                    <img src="{{asset('homecss/assets/images/committee/Arif-shaikh.png')}}" class="img-fluid" alt="Committee" />
+                                                </div>
+                                                <h3>Arif Shaikh<span class="committee-deg"></span></h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-item swiper-slide">
+                                            <div class="single-committee-member" style="margin-top:1px;">
+                                                <div class="commitee-thumb">
+
+                                                    <img src="{{asset('homecss/assets/images/committee/No-Image.png')}}" class="img-fluid" alt="Committee" />
+                                                </div>
+                                                <h3>Dr. V.B.shaikh<span class="committee-deg"></span></h3>
+                                            </div>
+                                        </div>
+                                        <div class="card-item swiper-slide">
+                                            <div class="single-committee-member" style="margin-top:1px;">
+                                                <div class="commitee-thumb">
+
+                                                    <img src="{{asset('homecss/assets/images/committee/Ali Khan.png')}}" class="img-fluid" alt="Committee" />
+                                                </div>
+                                                <h3>Ali Munir  Ahmed Khan<span class="committee-deg"></span></h3>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <div class="swiper-slide-button swiper-button-prev"></div>
+                                    <div class="swiper-slide-button swiper-button-next"></div>
+                                </div>
                             </div>
+
                             <!-- Single about text End -->
                         </div>
                     </div>
@@ -99,160 +191,45 @@
         <!--=========================-->
         <!--=         Fun fact        =-->
         <!--==========================-->
-        <section id="funfact-area">
-            <div class="container-fluid">
-                <div class="row text-center">
-                    <!--== Single FunFact Start ==-->
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="single-funfact-wrap">
-                            <div class="funfact-icon">
-                                <img src="{{asset('homecss/assets/images/fun-fact/user.svg')}}" alt="Funfact">
-                            </div>
-                            <div class="funfact-info">
-                                <h5 class="funfact-count">4025</h5>
-                                <p>Members</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--== Single FunFact End ==-->
-
-                    <!--== Single FunFact Start ==-->
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="single-funfact-wrap">
-                            <div class="funfact-icon">
-                                <img src="{{asset('homecss/assets/images/fun-fact/picture.svg')}}" alt="Funfact">
-                            </div>
-                            <div class="funfact-info">
-                                <h5 class="funfact-count">8725</h5>
-                                <p>Photos</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--== Single FunFact End ==-->
-
-                    <!--== Single FunFact Start ==-->
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="single-funfact-wrap">
-                            <div class="funfact-icon">
-                                <img src="{{asset('homecss/assets/images/fun-fact/event.svg')}}" alt="Funfact">
-                            </div>
-                            <div class="funfact-info">
-                                <h5><span class="funfact-count">231</span>+</h5>
-                                <p>Events</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--== Single FunFact End ==-->
-
-                    <!--== Single FunFact Start ==-->
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="single-funfact-wrap">
-                            <div class="funfact-icon">
-                                <img src="{{asset('homecss/assets/images/fun-fact/medal.svg')}}" alt="Funfact">
-                            </div>
-                            <div class="funfact-info">
-                                <h5><span class="funfact-count">32</span>+</h5>
-                                <p>Awards</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--== Single FunFact End ==-->
-                </div>
-            </div>
-        </section>
+        @include('home.includes.index_counter')
 
         <!--===========================-->
         <!--=         Committee       =-->
         <!--===========================-->
-        <section class="our-honorable-commitee section-padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <div class="about-page-area-title">
-                            <h2>Our Honorable Committe</h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="honorable-committee-list">
-                    <div class="row">
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="single-committee-member">
-                                <div class="commitee-thumb">
-                                    <img src="{{asset('homecss/assets/images/committee/commitee-1.jpg')}}" class="img-fluid" alt="Committee" />
-                                </div>
-                                <h3>BRYAN WATSHON<span class="committee-deg">President</span></h3>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="single-committee-member">
-                                <div class="commitee-thumb">
-                                    <img src="{{asset('homecss/assets/images/committee/commitee-2.jpg')}}" class="img-fluid" alt="Committee" />
-                                </div>
-                                <h3>CARLOS HELU<span class="committee-deg">Vice President</span></h3>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="single-committee-member">
-                                <div class="commitee-thumb">
-                                    <img src="{{asset('homecss/assets/images/committee/commitee-3.jpg')}}" class="img-fluid" alt="Committee" />
-                                </div>
-                                <h3>ANGLE TUNI<span class="committee-deg">Secretary</span></h3>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="single-committee-member">
-                                <div class="commitee-thumb">
-                                    <img src="{{asset('homecss/assets/images/committee/commitee-5.jpg')}}" class="img-fluid" alt="Committee" />
-                                </div>
-                                <h3>ALEX KALIFA<span class="committee-deg">Asst Secretary</span></h3>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="single-committee-member">
-                                <div class="commitee-thumb">
-                                    <img src="{{asset('homecss/assets/images/committee/commitee-6.jpg')}}" class="img-fluid" alt="Committee" />
-                                </div>
-                                <h3>ALEX Tuntuni<span class="committee-deg">Office Secretary</span></h3>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="single-committee-member">
-                                <div class="commitee-thumb">
-                                    <img src="{{asset('homecss/assets/images/committee/commitee-7.jpg')}}" class="img-fluid" alt="Committee" />
-                                </div>
-                                <h3>MAL MUHIT<span class="committee-deg">Finance Member</span></h3>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="single-committee-member">
-                                <div class="commitee-thumb">
-                                    <img src="{{asset('homecss/assets/images/committee/commitee-8.jpg')}}" class="img-fluid" alt="Committee" />
-                                </div>
-                                <h3>PRINCE RIMON<span class="committee-deg">Committee Member</span></h3>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="single-committee-member">
-                                <div class="commitee-thumb">
-                                    <img src="{{asset('homecss/assets/images/committee/commitee-1.jpg')}}" class="img-fluid" alt="Committee" />
-                                </div>
-                                <h3>PRINCE KAMLA<span class="committee-deg">Committee Member</span></h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </div>
-</section>
+        @include('home.includes.commitee_member')
 
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
+<script>
+    const swiper = new Swiper('.slider-wrapper', {
+  loop: true,
+  grabCursor: true,
+  spaceBetween: 30,
+  // Pagination bullets
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+    dynamicBullets: true
+  },
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  // Responsive breakpoints
+  breakpoints: {
+    0: {
+      slidesPerView: 1
+    },
+    768: {
+      slidesPerView: 2
+    },
+    1024: {
+      slidesPerView: 4 // Change this to 4 to display 4 images
+    }
+
+  }
+});
+</script>
          @include('home.includes.footer')

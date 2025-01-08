@@ -1,7 +1,7 @@
 <!--=========================-->
         <!--=         About         =-->
         <!--=========================-->
-        <section id="about-area" class="section-padding">
+        <section id="about-area" class="">
     <!-- Mission Section -->
     <div class="about-area-wrapper">
         <div class="container">
