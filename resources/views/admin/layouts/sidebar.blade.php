@@ -102,8 +102,13 @@
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
+            <a href="{{route('committee.index')}}">
               <i class="bi bi-circle"></i><span>Committee</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('position.index')}}">
+              <i class="bi bi-circle"></i><span>Position</span>
             </a>
           </li>
         </ul>

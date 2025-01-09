@@ -15,30 +15,32 @@
                     <!--== Single Responsibility Start ==-->
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-responsibility">
-                            <img src="{{asset('homecss/assets/images/responsibility/01.png')}}" alt="Responsibility">
-                            <h4> Advocacy and Representation</h4>
-                            <p>Representing the interests of industrialists and merchants and professionals to the government, policymakers, and international organizations. Advocating for favorable economic, trade, and industrial policies.
-                            </p>
-                        </div>
-                    </div>
-                    <!--== Single Responsibility End ==-->
-
-                    <!--== Single Responsibility Start ==-->
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="single-responsibility">
-                            <img src="{{asset('homecss/assets/images/responsibility/02.png')}}" alt="Responsibility">
+                            <img src="{{asset('homecss/assets/images/responsibility/business.png')}}" alt="Responsibility">
                             <h4> Business Growth and Development</h4>
                             <p>Promoting entrepreneurship and innovation among members.
-Facilitating access to resources, sharia complient
-funding and  infrastructure</p>
+                               Facilitating access to resources, sharia complient
+                               funding and  infrastructure</p>
                         </div>
                     </div>
+                    <!--== Single Responsibility Start ==-->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-responsibility">
+                        <img src="{{asset('homecss/assets/images/responsibility/networking.png')}}"
+                            alt="Responsibility">
+                            <h4>Networking and Collaboration</h4>
+                            <p>Facilitating partnerships among members and other organizations.
+                            Building a strong network of businesses to promote mutual growth.</p>
+                        </div>
+                    </div>
+                    <!--== Single Responsibility End ==-->
+
+
                     <!--== Single Responsibility End ==-->
 
                     <!--== Single Responsibility Start ==-->
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-responsibility">
-                            <img src="{{asset('homecss/assets/images/responsibility/03.png')}}" alt="Responsibility">
+                            <img src="{{asset('homecss/assets/images/responsibility/trade.png')}}" alt="Responsibility">
                             <h4>Trade Promotion</h4>
                             <p>Organizing trade fairs, exhibitions, and business networking events.
                             Encouraging domestic and international trade and investments.</p>
@@ -49,7 +51,7 @@ funding and  infrastructure</p>
                     <!--== Single Responsibility Start ==-->
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-responsibility">
-                            <img src="{{asset('homecss/assets/images/responsibility/04.png')}}" alt="Responsibility">
+                            <img src="{{asset('homecss/assets/images/responsibility/knowledge.png')}}" alt="Responsibility">
                             <h4> Knowledge Sharing and Capacity Building
                             </h4>
                             <p>Offering training programs, workshops, and seminars to enhance skills and knowledge.
@@ -64,7 +66,7 @@ funding and  infrastructure</p>
                     <!--== Single Responsibility Start ==-->
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-responsibility">
-                        <img src="{{asset('homecss/assets/images/responsibility/03.png')}}" alt="Responsibility">
+                        <img src="{{asset('homecss/assets/images/responsibility/conflict.png')}}" alt="Responsibility">
                             <h4> Conflict Resolution and Support</h4>
                             <p>Mediating disputes between members or with external stakeholders.
                             Providing legal, financial, or advisory support to members when needed.</p>
@@ -83,17 +85,16 @@ funding and  infrastructure</p>
                         </div>
                     </div>
                     <!--== Single Responsibility End ==-->
-
-                    <!--== Single Responsibility Start ==-->
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-responsibility">
-                        <img src="{{asset('homecss/assets/images/responsibility/01.png')}}"
-                            alt="Responsibility">
-                            <h4>Networking and Collaboration</h4>
-                            <p>Facilitating partnerships among members and other organizations.
-                            Building a strong network of businesses to promote mutual growth.</p>
+                            <img src="{{asset('homecss/assets/images/responsibility/01.png')}}" alt="Responsibility">
+                            <h4> Advocacy and Representation</h4>
+                            <p>Representing the interests of industrialists and merchants and professionals to the government, policymakers, and international organizations. Advocating for favorable economic, trade, and industrial policies.
+                            </p>
                         </div>
                     </div>
+                    <!--== Single Responsibility Start ==-->
+
                     <!--== Single Responsibility End ==-->
 
                     <!--== Single Responsibility Start ==-->

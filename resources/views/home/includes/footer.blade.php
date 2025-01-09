@@ -115,7 +115,7 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <div class="footer-bottom-text">
-                                <p>&#xA9; 2024 MagnusIdea, All Rights Reserved.</p>
+                                <p> &#xA9; <?=date("Y") ?> All Rights Reserved by Muslim Industrialists and Merchants Association (MIMA). Developed By  <a href="https://magnusideas.com" target="_blank">Magnus Ideas Pvt. Ltd.</a></p>
                             </div>
                         </div>
                     </div>

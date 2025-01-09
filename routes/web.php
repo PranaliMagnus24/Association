@@ -17,6 +17,8 @@ use App\Http\Controllers\CMSController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyRegistrationController;
 use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\CommitteeController;
+use App\Http\Controllers\PositionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -158,6 +160,23 @@ Route::post('settings', [GeneralSettingController::class, 'store'])->name('setti
 ////Email Setting
 Route::get('email', [EmailController::class, 'index'])->name('email.index');
 Route::get('email/{id}', [EmailController::class, 'delete_email'])->name('email.delete');
+
+///Committee Controller
+Route::get('committee', [CommitteeController::class, 'index'])->name('committee.index');
+Route::get('committee/add', [CommitteeController::class, 'add'])->name('committee.add');
+Route::post('committee', [CommitteeController::class, 'store'])->name('committee.store');
+Route::get('committee/{id}/edit', [CommitteeController::class, 'edit'])->name('committee.edit');
+Route::post('committee/{id}', [CommitteeController::class, 'update'])->name('committee.update');
+Route::get('committee_delete/{id}', [CommitteeController::class, 'delete'])->name('committee.delete');
+Route::get('committee/{id}', [CommitteeController::class, 'show'])->name('committee.show');
+
+///Position Controller
+Route::get('position', [PositionController::class, 'index'])->name('position.index');
+Route::get('position/add', [PositionController::class, 'add'])->name('position.add');
+Route::post('position', [PositionController::class, 'store'])->name('position.store');
+Route::get('position/{id}/edit', [PositionController::class, 'edit'])->name('position.edit');
+Route::post('position/{id}', [PositionController::class, 'update'])->name('position.update');
+Route::get('delete_position/{id}', [PositionController::class, 'delete'])->name('position.delete');
 
 
 });

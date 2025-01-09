@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Committee extends Model
+{
+    use HasFactory;
+    protected $table ='committee';
+    protected $fillable = [
+        'member_name',
+        'position',
+        'summary',
+        'profile',
+        'status',
+
+    ];
+
+    public function position()
+    {
+        return $this->hasMany(Position::class);
+    }
+}
