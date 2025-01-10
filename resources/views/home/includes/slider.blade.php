@@ -265,13 +265,13 @@
 
             </div>
 
-            <div class="social-networks-icon">
+            <!-- <div class="social-networks-icon">
                 <ul>
                     <li><a href="#"><i class="fab fa-facebook-f"></i> <span>7.2k Likes</span></a></li>
                     <li><a href="#"><i class="fab fa-twitter"></i> <span>3.2m Followers</span></a></li>
                     <li><a href="#"><i class="fab fa-pinterest"></i> <span>7.2k Likes</span></a></li>
                     <li><a href="#"><i class="fab fa-youtube"></i> <span>2.2k Subscribers</span></a></li>
                 </ul>
-            </div>
+            </div> -->
 
         </section>

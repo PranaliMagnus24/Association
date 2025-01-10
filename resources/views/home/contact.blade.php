@@ -119,10 +119,10 @@
                                                     <label for="cbxmessage">Message</label>
                                                     <textarea name="cbxmessage" id="cbxmessage" rows="10" cols="80" placeholder="Your Message" class="form-control"></textarea>
                                                 </div>
-                                                <div class="custom-control custom-checkbox">
+                                                <!-- <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="cbxsendme" name="cbxsendme" value="on">
                                                     <label class="custom-control-label" for="cbxsendme">Send Me CC</label>
-                                                </div>
+                                                </div> -->
 
                                                 <button class="btn btn-reg">Send</button>
                                                 <div id="cbx-formalert"></div>

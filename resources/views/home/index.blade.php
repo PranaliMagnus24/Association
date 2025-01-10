@@ -17,24 +17,22 @@
         <!--=========================-->
         <!--=         About         =-->
         <!--=========================-->
-        @include('home.includes.index_about')
+        @include('home.includes.index_vision-mission')
+
+        <!--=================================-->
+        <!--=        Aims    =-->
+        <!--=================================-->
+        @include('home.includes.index_ourresponsibility')
 
          <!--=================================-->
         <!--=        Committee member slider       =-->
         <!--=================================-->
 
-
-        @include('home.includes.commitee_member')
-        <!--=================================-->
-        <!--=         Responsibility        =-->
-        <!--=================================-->
-        @include('home.includes.index_ourresponsibility')
-
-        <!--================================-->
+<!--================================-->
         <!--=         Fun Fact        =-->
         <!--================================-->
 
-        @include('home.includes.index_counter')
+
 
 
 
@@ -43,6 +41,12 @@
         <!--=         Call To Action        =-->
         <!--=================================-->
         @include('home.includes.index_calltoaction')
+
+        @include('home.includes.index_counter')
+
+        @include('home.includes.commitee_member')
+
+
 
         <!--== Scholership Promo Area End ==-->
 

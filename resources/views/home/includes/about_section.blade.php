@@ -6,26 +6,22 @@
                         <div class="col-lg-11 m-auto">
                             <!-- Single about text start -->
                             <div class="single-about-text">
-                                <img src="{{asset('homecss/assets/images/about-page/about-img-1.jpg')}}" alt="About" class="img-fluid img-left" style="width: 426px;">
-                                <h2 class="h3">Who we are?</h2>
+                                <img src="{{asset('homecss/assets/images/about-page/about-img.jpg')}}" alt="About" class="img-fluid img-left me-3" style="max-width: 300px; height: auto;">
+                                <h2 class="h3">About us</h2>
                                 <p>
-                                From the desk of the chairman.</p>
-                                <p>
-                                  In the present scenario it is observed
-                                </p>
+                                <strong> Welcome to the Muslim Industrialist and Merchant Association (MIMA)</strong></p>
+                <p> The Muslim Industrialist and Merchant Association (MIMA) is a dynamic platform dedicated to fostering the growth and development of Muslim entrepreneurs, industrialists, and merchants. We believe in promoting a strong, ethical business community based on Islamic principles, values, and practices. Our aim is to create an environment where business leaders can thrive, contribute to the economy, and play an active role in the prosperity of society, all while adhering to the teachings of Islam.</p>
+                <p>At MIMA, we focus on providing resources, networking opportunities, and a supportive ecosystem for Muslim entrepreneurs to excel in their respective fields, and most importantly, to grow their businesses with integrity, transparency, and fairness in line with the core values of Islam.</p>
+                            </div>          <!-- Single about text End -->
 
-                <p> <i class="fas fa-check-circle check-icons"></i> Muslims presence in industry and trade is much lower than the national average level.</p>
-                <p> <i class="fas fa-check-circle check-icons"></i>
-                Sharia-compliant funding is not available.</p>
-                <p> <i class="fas fa-check-circle check-icons"></i>
-                Govt.Subsidies, schemes for promoting business, are not reaching them.</p>
-                <p> <i class="fas fa-check-circle check-icons"></i>
-                Muslims are not actively participating. in business associations like NIMA, AIMA, and the Chamber of Commerce. Hence there is a need for National economic development movement fueled by unity and vision by the Muslim community for their uplifting benefits. <br>Following persons along with Jan Seva credit cooperative scocity and Islamic chember of commerce India organised Muslim industrialist and bussinessmen conference at Nasik to discuss about these subject. The conference resolved to form an Association of Muslim Industrialists, Merchants, and Professionals by the following persons. Munir Ahmed Khan, Dr. V. B. Shaikh, Mirza Minaj, Abdullah Hasan Khan, Tanveer Rafik Shaikh, Arif Shaikh, Ali Munir Ahmed Khan.<b>They are founders of this association. They invite all Muslim businessmen and businesswomen to join this noble cause.</b></p>
-
-                            </div>            <!-- Single about text End -->
+                            <!----------------Swiper---------------------->
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-<br>
+
+
+
+
+

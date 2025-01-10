@@ -3794,10 +3794,10 @@ blockquote:before,
   margin-right: -118px;
 }
 
-#page-content-wrap .about-page-content-wrap .single-about-text:first-child img {
+/* #page-content-wrap .about-page-content-wrap .single-about-text:first-child img {
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
-}
+} */
 
 #page-content-wrap .about-page-content-wrap .single-about-text:nth-child(2n) .year {
   right: auto;

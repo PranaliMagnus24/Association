@@ -7,8 +7,11 @@
                   <div class="col-lg-8 m-auto text-center">
                      <div class="page-title-content">
                         <h1 class="h2">About us</h1>
+                        <p><strong>The Prophet &#65018;
+                        said:</strong></p>
                         <p>
-                           Alumni Needs enables you to harness the power of your alumni network. Whatever may be the need
+                        The truthful and honest merchant will be with the Prophets, the truthful, and the martyrs on the Day of Judgment.
+                        (Tirmidhi, Hadith 1209) <br><span>Explanation: Honesty in trade is highly rewarded in Islam, ensuring success in both this life and the Hereafter.</span>
                         </p>
                         <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
                      </div>
@@ -27,10 +30,10 @@
                             <!-- Single about text start -->
                             <div class="single-about-text">
                                 <span class="year">2023</span>
-                                <img src="{{asset('homecss/assets/images/about-page/about-img-1.jpg')}}" alt="About" class="img-fluid img-left" style="width: 426px;">
+                                <img src="{{asset('homecss/assets/images/about-page/about-img-1.png')}}" alt="About" class="img-fluid img-left" style="width: 426px;">
                                 <h2 class="h3">About us</h2>
                                 <p>
-                                From the desk of the chairman.</p>
+                                <strong>From the desk of the chairman.</strong></p>
                                 <p>
                                   In the present scenario it is observed
                                 </p>
@@ -41,7 +44,19 @@
                 <p> <i class="fas fa-check-circle check-icons"></i>
                 Govt.Subsidies, schemes for promoting business, are not reaching them.</p>
                 <p> <i class="fas fa-check-circle check-icons"></i>
-                Muslims are not actively participating. in business associations like NIMA, AIMA, and the Chamber of Commerce. Hence there is a need for National economic development movement fueled by unity and vision by the Muslim community for their uplifting benefits. <br>Following persons along with Jan Seva credit cooperative scocity and Islamic chember of commerce India organised Muslim industrialist and bussinessmen conference at Nasik to discuss about these subject. The conference resolved to form an Association of Muslim Industrialists, Merchants, and Professionals by the following persons. Munir Ahmed Khan, Dr. V. B. Shaikh, Mirza Minaj, Abdullah Hasan Khan, Tanveer Rafik Shaikh, Arif Shaikh, Ali Munir Ahmed Khan.<b>They are founders of this association. They invite all Muslim businessmen and businesswomen to join this noble cause.</b></p>
+                Muslims are not actively participating. in business associations like NIMA, AIMA, and the Chamber of Commerce. </p>
+                <p> <i class="fas fa-check-circle check-icons"></i><strong>Hence there is a need for National economic development movement fueled by unity and vision by the Muslim community for their uplifting benefits. </strong></p>
+                <p>Following persons along with Jan Seva credit cooperative scocity and Islamic chember of commerce India organised Muslim industrialist and bussinessmen conference at Nashik to discuss about these subject. The conference resolved to form an Association of Muslim Industrialists, Merchants, and Professionals by the following persons.</p>
+
+                <p> <i class="fas fa-check-circle check-icons"></i><strong>Munir Ahmed Khan</strong>  - Chairman &nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Mirza Minaj</strong> - President  &nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Dr. V. B. Shaikh</strong> - Joint President  (In-charge of Professionals)
+
+                </p>
+                <p> <i class="fas fa-check-circle check-icons"></i> <strong>Abdullah Hasan Khan</strong> - Joint President  (In-charge of Merchants)&nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Tanveer Rafik Shaikh</strong> - Treasurer &nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Arif Shaikh</strong>- Secretory
+                </p>
+                <p> <i class="fas fa-check-circle check-icons"></i> <strong>Ali Munir Ahmed Khan</strong> - Joint President  (In-charge of Builder and Construction Industries)&nbsp;
+                </p>
+
+                <b>They are founders of this association. They invite all Muslim businessmen and businesswomen to join this noble cause.</b></p>
 
                             </div>
                             <!----------------Swiper---------------------->
@@ -61,7 +76,7 @@
                                                 <div class="commitee-thumb">
                                                     <img src="{{asset('homecss/assets/images/committee/Minaz Mirza.png')}}" class="img-fluid" alt="Committee" />
                                                 </div>
-                                                <h3 style="font-size:16px;">Minaz Mirza<span class="committee-deg" style="font-size:14px;">B.Sc.Paint technology <br><br>Precident</span></h3>
+                                                <h3 style="font-size:16px;">Minaz Mirza<span class="committee-deg" style="font-size:14px;">B.Sc.Paint technology <br><br>President</span></h3>
                                             </div>
                                         </div>
                                         <div class="card-item swiper-slide">
@@ -70,7 +85,7 @@
 
                                                     <img src="{{asset('homecss/assets/images/committee/Abdullah-Khan.png')}}" class="img-fluid" alt="Committee" />
                                                 </div>
-                                                <h3 style="font-size:16px;">ABDULLAH khan<span class="committee-deg" style="font-size:14px;"> M.B.A. <br><br>Joint Precident Merchants</span></h3>
+                                                <h3 style="font-size:16px;">Abdullah Hafizullah khan<span class="committee-deg" style="font-size:14px;"> M.B.A. <br><br>Joint President Merchants</span></h3>
                                             </div>
                                         </div>
                                         <div class="card-item swiper-slide">
@@ -98,7 +113,7 @@
 
                                                     <img src="{{asset('homecss/assets/images/committee/Dr-V-b-shaikh.png')}}" class="img-fluid" alt="Committee" />
                                                 </div>
-                                                <h3 style="font-size:16px;">Dr. V.B.shaikh<span class="committee-deg" style="font-size:14px;">M.B.B.S.,M.S. GYNOCOLOGY<br><br>Joint Precident - Professionals</span></h3>
+                                                <h3 style="font-size:16px;">Dr. V.B.shaikh<span class="committee-deg" style="font-size:14px;">M.B.B.S.,M.S. GYNOCOLOGY<br><br>Joint President - Professionals</span></h3>
                                             </div>
                                         </div>
                                         <div class="card-item swiper-slide">
@@ -107,7 +122,7 @@
 
                                                     <img src="{{asset('homecss/assets/images/committee/Ali-khan.png')}}" class="img-fluid" alt="Committee" />
                                                 </div>
-                                                <h3 style="font-size:16px;">Ali Munir  Ahmed Khan<span class="committee-deg" style="font-size:14px;">B.ARCH<br><br> Joint Precident - Builder and Construction Industry.</span></h3>
+                                                <h3 style="font-size:16px;">Ali Munir  Ahmed Khan<span class="committee-deg" style="font-size:14px;">B.ARCH<br><br> Joint President - Builder and Construction Industry.</span></h3>
                                             </div>
                                         </div>
 
@@ -136,38 +151,4 @@
         @include('home.includes.commitee_member')
 
 
-
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-<script>
-    const swiper = new Swiper('.slider-wrapper', {
-  loop: true,
-  grabCursor: true,
-  spaceBetween: 30,
-  // Pagination bullets
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-    dynamicBullets: true
-  },
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  // Responsive breakpoints
-  breakpoints: {
-    0: {
-      slidesPerView: 1
-    },
-    768: {
-      slidesPerView: 2
-    },
-    1024: {
-      slidesPerView: 4 // Change this to 4 to display 4 images
-    }
-
-  }
-});
-</script>
          @include('home.includes.footer')

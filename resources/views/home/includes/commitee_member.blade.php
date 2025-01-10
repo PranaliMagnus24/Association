@@ -6,21 +6,23 @@
 
                     <div class="col-lg-12 text-center">
                         <div class="section-title mb-1">
+                        @if(!Route::is('home.committee'))
                             <h2>Management Committee</h2>
+                            @endif
                         </div>
                     </div>
 
                         <div class="row mt-1">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
-                                    <img src="{{asset('homecss/assets/images/committee/No-Image.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Ayyub Shaikh<span class="committee-deg">Dyputy Treasurer and Banking Committee Member</span></h3>
+                                    <img src="{{asset('homecss/assets/images/committee/Ayyub-shaikh.png')}}" class="img-fluid" alt="Committee" />
+                                    <h3>Ayyub Shaikh<span class="committee-deg">Deputy Treasurer and Banking Committee Member</span></h3>
                                 </div>
                             </div>
 
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
-                                    <img src="{{asset('homecss/assets/images/committee/No-Image.png')}}" class="img-fluid" alt="Committee" />
+                                    <img src="{{asset('homecss/assets/images/committee/Hasrat.png')}}" class="img-fluid" alt="Committee" />
                                     <h3> Hasrst Shaikh<span class="committee-deg">Logistics Committee </span></h3>
                                 </div>
                             </div>
@@ -85,7 +87,7 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Nadeem-Shaikh.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Nadeem Shaikh<span class="committee-deg">Voice Precident
+                                    <h3>Nadeem Shaikh<span class="committee-deg">Voice President
                                     Social Media</span></h3>
                                 </div>
                             </div>

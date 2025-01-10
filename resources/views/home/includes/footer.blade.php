@@ -1,4 +1,5 @@
- <!--=========================-->
+
+<!--=========================-->
         <!--=        Footer         =-->
         <!--=========================-->
         <footer id="footer-area">
@@ -23,13 +24,9 @@
                                     @endif
 
                                         <p>
-                                            We are legend Lorem ipsum dolor sitmet,
-                                            nsecte ipisicing eit, sed do eiusmod tempor
-                                            incidunt ut et do maga aliqua enim ad minim.
+                                        Muslims are not actively participating. in business associations like NIMA, AIMA, and the Chamber of Commerce. Hence there is a need for National economic development movement fueled by unity and vision by the Muslim community for their uplifting benefits.
                                         </p>
-                                        <a href="tel:{{ $getSetting->phone }}">Phone: {{ $getSetting->phone }}</a>
-                                        <!-- <a href="#">Fax: +88474 156 362</a> <br> -->
-                                        <a href="mailto:{{ $getSetting->email }}">Email: {{ $getSetting->email }}</a>
+
                                     </div>
                                 </div>
                             </div>
@@ -42,18 +39,20 @@
                                 <h4 class="widget-title">Get In Touch</h4>
                                 <div class="widgei-body">
                                     <p>
-                                        We are legend Lorem ipsum dolor sitmet, nsecte
-                                        ipisicing eit, sed
+                                    May Allah show mercy to a man who is generous when he buys, sells, and demands his due.
                                     </p>
                                     <div class="newsletter-form">
-                                        <form id="cbx-subscribe-form">
+                                    <a href="tel:{{ $getSetting->phone }}">Phone: {{ $getSetting->phone }}</a><br>
+                                        <!-- <a href="#">Fax: +88474 156 362</a> <br> -->
+                                        <a href="mailto:{{ $getSetting->email }}">Email: {{ $getSetting->email }}</a>
+                                        <!-- <form id="cbx-subscribe-form">
                                             <input name="email" type="email" placeholder="Enter Your Email" id="subscribe" required>
                                             <button type="submit">
                                                 <i class="far fa-paper-plane"></i>
                                             </button>
 
                                             <p id="cbx-subscribe-form-error"></p>
-                                        </form>
+                                        </form> -->
                                     </div>
                                     <div class="footer-social-icons">
                                         <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -121,7 +120,31 @@
                     </div>
                 </div>
             </div>
+
+
+
+            @if(Route::is('home.index'))
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!--         <h4 class="modal-title">Modal Header</h4> -->
+      </div>
+      <div class="modal-body text-center">
+        <img src="{{asset('homecss/assets/images/about-page/2.jpg')}}" alt="" class="w-100">
+
+      </div>
+      <div class="modal-footer">
+        <!--         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+
+  </div>
+</div>
             <!-- Footer Bottom End -->
+            @endif
         </footer>
 
 
@@ -134,6 +157,7 @@
 
     <script class="script-js" src="{{asset('homecss/assets/vendors/jquery/jquery.min.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
     <script class="script-js" src="{{asset('homecss/assets/vendors/owl-carousel/js/owl.carousel.min.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/isotope/isotope.pkgd.min.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
@@ -146,6 +170,14 @@
     <script class="script-js" src="{{asset('homecss/assets/vendors/jquery-validate/jquery.validate.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/awesome-notifications/index.var.js')}}"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- Site Scripts -->
     <script src="{{asset('homecss/assets/js/app.js')}}"></script>
 
+
+
+    <script>
+    $(document).ready(function(){
+   $('#myModal').modal('show');
+    });
+</script>
