@@ -151,8 +151,9 @@ select.form-select {
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="custom-control custom-checkbox float-lg-right">
+
+                                                                        <label class="custom-control-label" for="customCheck1"> I have read and agree to the <a href="#">M.I.M.A</a> Terms of Service</label>
                                                                         <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                                        <label class="custom-control-label" for="customCheck1"> I have read and agree to the <a href="#">Alumni</a> Terms of Service</label>
                                                                     </div>
                                                                 </div>
                                                             </div>

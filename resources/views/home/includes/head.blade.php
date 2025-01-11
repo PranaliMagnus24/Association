@@ -13,33 +13,33 @@
 @endif
     <!-- twitter card starts from here, if you don't need remove this section -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@yourtwitterusername">
-    <meta name="twitter:creator" content="@yourtwitterusername">
-    <meta name="twitter:url" content="http://twitter.com">
-    <meta name="twitter:title" content="Your home page title, max 140 char">
+    <meta name="twitter:site" content="@mimaindia">
+    <meta name="twitter:creator" content="@mimaindia">
+    <meta name="twitter:url" content="http://mimaindia.org">
+    <meta name="twitter:title" content="{{$getSetting->association_name}}">
     <!-- maximum 140 char -->
-    <meta name="twitter:description" content="Your site description, maximum 140 char ">
+    <meta name="twitter:description" content="{{$getSetting->description}}">
     <!-- maximum 140 char -->
-    <meta name="twitter:image" content="{{asset('homecss/assets/images/twittercardimg/twittercard-144-144.png')}}">
+    <meta name="twitter:image" content="{{asset('homecss/assets/images/about-page/about-img.jpg')}}">
     <!-- when you post this page url in twitter , this image will be shown -->
     <!-- twitter card ends here -->
 
     <!-- facebook open graph starts from here, if you don't need then delete open graph related  -->
-    <meta property="og:title" content="Your home page title">
-    <meta property="og:url" content="http://your domain here.com">
+    <meta property="og:title" content="{{$getSetting->association_name}}">
+    <meta property="og:url" content="http://mimaindia.org">
     <meta property="og:locale" content="en_US">
-    <meta property="og:site_name" content="Your site name here">
+    <meta property="og:site_name" content="{{$getSetting->association_name}}">
     <!--meta property="fb:admins" content="" /-->
     <!-- use this if you have  -->
     <meta property="og:type" content="website">
     <!-- 'article' for single page  -->
-    <meta property="og:image" content="{{asset('homecss/assets/images/opengraph/fbphoto-476-476.png')}}">
+    <meta property="og:image" content="{{asset('homecss/assets/images/about-page/about-img.jpg')}}">
     <!-- when you post this page url in facebook , this image will be shown -->
     <!-- facebook open graph ends here -->
 
     <!-- desktop bookmark -->
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{ url('upload/' . $getSetting->association_logo) }}">
+    <meta name="msapplication-TileImage" content="{{asset('homecss/assets/images/about-page/about-img.jpg')}}">
     <meta name="theme-color" content="#ffffff">
 
     <!-- icons & favicons -->

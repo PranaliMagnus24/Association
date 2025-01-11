@@ -67,7 +67,7 @@
                             <div class="canvas-header">
                                 <div class="mobile-offcanvas-logo">
                                     <a href="index.html">
-                                        <img src="{{asset('homecss/assets/images/logo/logo.svg')}}" alt="site logo" class="logo-sticky">
+                                        <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="site logo" class="logo-sticky">
                                     </a>
                                 </div>
 
@@ -85,8 +85,9 @@
                                 <li><a href="gallery.html">Gallery</a></li> -->
 
                                 <li class="has-submenu menu-item-depth-0">
-                                    <a href="{{route('home.about')}}">About</a>
+                                    <a href="javascript:void(0)">About</a>
                                     <ul class="sub-menu">
+                                    <li><a href="{{route('home.about')}}">History</a></li>
                                         <li><a href="{{route('home.committee')}}">Committee</a></li>
                                     </ul>
                                 </li>

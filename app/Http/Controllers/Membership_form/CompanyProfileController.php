@@ -42,14 +42,14 @@ public function add(Request $request, $id=null)
 
 public function companystore(Request $request){
     $request->validate([
-        'company_type' => 'required|string',
+        'company_type' => 'nullable|string',
         'company_name' => 'required|string',
-        'aadharcard_number' => 'required|string',
+        'aadharcard_number' => 'nullable|string',
         'registration_date' => 'required|date',
         'renewal_date' => 'required|date',
-        'zipcode' => 'numeric',
-        'landline' => 'numeric',
-        'website_url' => 'url',
+        'zipcode' => 'nullable','numeric',
+        'landline' => 'nullable','numeric',
+        'website_url' => 'nullable','url',
         'city' => 'required|string',
         'state' => 'required|string',
         'country' => 'required|string',
@@ -181,11 +181,11 @@ public function companystore(Request $request){
         }
 
             toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile and documents added successfully!');
-            return redirect()->route('member.index');
+            return redirect()->route('company.list');
 
     }else{
         toastr()->timeOut(5000)->closeButton()->addSuccess('Failed to update Company profile!');
-        return redirect()->route('member.index');
+        return redirect()->route('company.list');
     }
 
 }
@@ -208,9 +208,9 @@ public function edit($id){
 
 
     $request->validate([
-        'company_type' => 'required|string',
+        'company_type' => 'nullable|string',
         'company_name' => 'required|string',
-        'aadharcard_number' => 'required',
+        'aadharcard_number' => 'nullable|string',
         'registration_date' => 'required|date',
         'renewal_date' => 'required|date',
         'city' => 'required',
@@ -243,7 +243,7 @@ public function edit($id){
         }
     }
 
-    return redirect()->route('member.index')->with('success', 'Company profile and documents updated successfully');
+    return redirect()->route('company.list')->with('success', 'Company profile and documents updated successfully');
 }
 
 

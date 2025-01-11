@@ -82,9 +82,7 @@
                        @endphp
                 <label for="birth" class="col-form-label">Date of Birth</label>
                 <input id="birth" name="date_birth" type="date" class="form-control" placeholder="Date of Birth" max="{{ $maxDate }}">
-                @error('date_birth')
-                <span class="text-danger">{{ $message}}</span>
-                @enderror
+
             </div>
         </div>
 

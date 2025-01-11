@@ -19,6 +19,7 @@ use App\Http\Controllers\CompanyRegistrationController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,8 +118,6 @@ Route::get('companyform/add/{user_id}', [MembershipController::class, 'showCompa
 
 Route::post('api/fetch-states', [CompanyProfileController::class, 'fetchState']);
 Route::post('api/fetch-cities', [CompanyProfileController::class, 'fetchCity']);
-
-
 Route::get('companylist', [CompanyProfileController::class, 'index'])->name('company.list');
 Route::get('companyregistration/{id?}', [CompanyProfileController::class, 'add'])->name('companyregister.add');
 Route::post('companyregistration', [CompanyProfileController::class, 'companystore'])->name('company.register');
@@ -213,5 +212,9 @@ Route::post('api/fetch-cities', [CompanyRegistrationController::class, 'fetchCit
 
 
 Route::get('/member', [MemberController::class, 'index'])->middleware(['auth', 'role:user']);
+
+////Mail Controller
+// Route::get('/send-contact', [MailController::class, 'sendContact']);
+Route::post('/send-contact', [MailController::class, 'sendContact'])->name('send.email');
 
 

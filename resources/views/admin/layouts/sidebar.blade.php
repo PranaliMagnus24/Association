@@ -116,35 +116,35 @@
 
 
 
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="{{url('profile')}}">
       <i class="bi bi-person"></i>
       <span>Profile</span>
     </a>
-  </li><!-- End Profile Page Nav -->
+  </li> -->
 
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="{{ route('register') }}">
       <i class="bi bi-card-list"></i>
       <span>Register</span>
     </a>
-  </li><!-- End Register Page Nav -->
+  </li> -->
 
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="{{ route('login') }}">
       <i class="bi bi-box-arrow-in-right"></i>
       <span>Login</span>
     </a>
-  </li><!-- End Login Page Nav -->
+  </li> -->
 
 
-
+<!--
   <li class="nav-item">
     <a class="nav-link collapsed" href="pages-blank.html">
       <i class="bi bi-file-earmark"></i>
       <span>Blank</span>
     </a>
-  </li><!-- End Blank Page Nav -->
+  </li> -->
 
 </ul>
 

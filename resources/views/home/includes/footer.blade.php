@@ -17,14 +17,14 @@
                                 <div class="widgei-body">
                                     <div class="footer-about">
                                     @if($getSetting)
-                                    <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="Logo" style="max-width: 60px;">
+                                    <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="Logo" style="max-width: 130px; background-color:#fff;">
 
                                         @else
                                      <h1>Association</h1>
                                     @endif
 
                                         <p>
-                                        Muslims are not actively participating. in business associations like NIMA, AIMA, and the Chamber of Commerce. Hence there is a need for National economic development movement fueled by unity and vision by the Muslim community for their uplifting benefits.
+                                        {{ $getSetting->description }}
                                         </p>
 
                                     </div>
@@ -68,19 +68,17 @@
                         <!-- Single Widget Start -->
                         <div class="col-lg-3 col-sm-6">
                             <div class="single-widget-wrap">
-                                <h4 class="widget-title">Usefull Link</h4>
+                                <h4 class="widget-title">{{ $getSetting->association_name }}</h4>
                                 <div class="widgei-body">
                                     <ul class="double-list footer-list clearfix">
-                                        <li><a href="#">Pricing Plan</a></li>
-                                        <li><a href="#">Categories</a></li>
-                                        <li><a href="#">Populer Deal</a></li>
-                                        <li><a href="#">FAQ</a></li>
-                                        <li><a href="#">Support</a></li>
-                                        <li><a href="#">Pricing Plan</a></li>
-                                        <li><a href="#">Categories</a></li>
-                                        <li><a href="#">Populer Deal</a></li>
-                                        <li><a href="#">FAQ</a></li>
-                                        <li><a href="#">Support</a></li>
+                                        <li><a href="{{route('home.about')}}">About</a></li>
+                                        <li><a href="{{route('home.directory')}}">Directory</a></li>
+                                        <li><a href="{{route('home.contact')}}">Contact</a></li>
+                                        <li><a href="{{route('home.gallery')}}">Gallery</a></li>
+                                        <li><a href="{{route('home.committee')}}">Committee</a></li>
+                                        <li><a href="javascript:void(0)">FAQ</a></li>
+                                        <li><a href="javascript:void(0)">Term's & Condition</a></li>
+                                        <li><a href="javascript:void(0)">Privacy Policy</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -88,20 +86,23 @@
                         <!-- Single Widget End -->
 
                         <!-- Single Widget Start -->
-                        <div class="col-lg-2 col-sm-6">
+                        <!-- <div class="col-lg-2 col-sm-6">
                             <div class="single-widget-wrap">
-                                <h4 class="widget-title">University</h4>
+                                <h4 class="widget-title">{{ $getSetting->association_name }}</h4>
                                 <div class="widgei-body">
                                     <ul class="footer-list clearfix">
-                                        <li><a href="#">Pricing Plan</a></li>
-                                        <li><a href="#">Categories</a></li>
-                                        <li><a href="#">Populer Deal</a></li>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Directory</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                        <li><a href="#">Gallery</a></li>
+                                        <li><a href="#">Committee</a></li>
                                         <li><a href="#">FAQ</a></li>
-                                        <li><a href="#">Support</a></li>
+                                        <li><a href="#">T & C</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Single Widget End -->
                     </div>
                 </div>
@@ -114,7 +115,7 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <div class="footer-bottom-text">
-                                <p> &#xA9; <?=date("Y") ?> All Rights Reserved by Muslim Industrialists and Merchants Association (MIMA). Developed By  <a href="https://magnusideas.com" target="_blank">Magnus Ideas Pvt. Ltd.</a></p>
+                                <p> &#xA9; <?=date("Y") ?> All Rights Reserved by Muslim Industrialists and Merchants Association (MIMA). Design and Developed By  <a href="https://magnusideas.com" target="_blank">Magnus Ideas Pvt. Ltd.</a></p>
                             </div>
                         </div>
                     </div>
@@ -174,10 +175,3 @@
     <!-- Site Scripts -->
     <script src="{{asset('homecss/assets/js/app.js')}}"></script>
 
-
-
-    <script>
-    $(document).ready(function(){
-   $('#myModal').modal('show');
-    });
-</script>

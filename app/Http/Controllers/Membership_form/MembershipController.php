@@ -37,12 +37,13 @@ public function index()
 
     //Store membership form
     public function store(Request $request){
+
         $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'phone' => 'required|numeric',
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'date_birth' => ['required', 'date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
+            'date_birth' => [ 'nullable','date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
         ], [
             'first_name.required' => 'First Name is required.',
             'first_name.string' => 'First Name must be a string',
@@ -121,7 +122,7 @@ public function index()
             Rule::unique('users')->ignore($id)
         ],
         'middle_name' => 'nullable|string',
-        'date_birth' => ['required', 'date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
+        'date_birth' => [ 'nullable','date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
     ], [
         'first_name.required' => 'First Name is required.',
         'first_name.string' => 'First Name must be a string',

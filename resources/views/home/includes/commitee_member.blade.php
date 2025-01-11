@@ -16,7 +16,7 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Ayyub-shaikh.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Ayyub Shaikh<span class="committee-deg">Deputy Treasurer and Banking Committee Member</span></h3>
+                                    <h3>Ayyub Shaikh<span class="committee-deg">Deputy Treasurer and Banking Committee Member <br>B.Com</span></h3>
                                 </div>
                             </div>
 
@@ -30,14 +30,14 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Riyaz Nirban.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Riyaz Nirban<span class="committee-deg"></span></h3>
+                                    <h3>Riyaz Nirban<span class="committee-deg">Admin Committee<br>Metal Welding & Cutting</span></h3>
                                 </div>
                             </div>
 
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Salim-shaikh.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Salim Shaikh<span class="committee-deg">Incharge Of Exhibitions</span></h3>
+                                    <h3>Salim Shaikh<span class="committee-deg">Incharge Of Exhibitions <br> Elevator & Escalator Expert</span></h3>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/zakir-mansuri.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Zakir Mansuri<span class="committee-deg"></span></h3>
+                                    <h3>Zakir Mansuri<span class="committee-deg">Admin Committee<br>Commercial Artist</span></h3>
 
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Arif-Qureshi.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>AARIF KURESHI<span class="committee-deg">Industrial Committee</span></h3>
+                                    <h3>AARIF KURESHI<span class="committee-deg">Industrial Committee<br>B.Tech(Chemical Engg.)</span></h3>
 
                                 </div>
                             </div>
@@ -62,33 +62,33 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Ahmed Naqui.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Naqui Ahemad<span class="committee-deg">Industrial Committee</span></h3>
+                                    <h3>Naqui Ahemad<span class="committee-deg">Industrial Committee<br>BE.Mechanical</span></h3>
                                 </div>
                             </div>
 
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Asif Khan.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Asif Khan <span class="committee-deg">Admin Committee</span></h3>
+                                    <h3>Asif Khan <span class="committee-deg">Admin Committee <br>M.Com, M.A Economics</span></h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/No-Image.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Salim Khan Deolali<span class="committee-deg"></span></h3>
+                                    <h3>Salim Khan Deolali<span class="committee-deg">Admin Committee</span></h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Ajmal-khan.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Ajmal Khan<span class="committee-deg">Public Relation</span></h3>
+                                    <h3>Ajmal Khan<span class="committee-deg">Public Relation<br>B.Com</span></h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Nadeem-Shaikh.png')}}" class="img-fluid" alt="Committee" />
                                     <h3>Nadeem Shaikh<span class="committee-deg">Voice President
-                                    Social Media</span></h3>
+                                    Social Media <br>IT Professional</span></h3>
                                 </div>
                             </div>
                         </div>

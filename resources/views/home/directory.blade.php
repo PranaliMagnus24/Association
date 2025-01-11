@@ -9,7 +9,8 @@
                      <div class="page-title-content">
                         <h1 class="h2">Directory</h1>
                         <p>
-                           Alumni Needs enables you to harness the power of your alumni network. Whatever may be the need
+                        The truthful and honest businessman will be in the company of the Prophets, the truthful ones (Siddeeqeen), and the martyrs (Shuhada) on the Day of Judgment.
+                        (Mishkat al-Masabih, Hadith 2828)
                         </p>
                         <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
                      </div>
