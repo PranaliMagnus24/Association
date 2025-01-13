@@ -8,7 +8,9 @@
                      <div class="page-title-content">
                         <h1 class="h2">Our Gallery</h1>
                         <p>
-                           Alumni Needs enables you to harness the power of your alumni network. Whatever may be the need
+                        The believer is like the bee, which produces honey; it is beneficial and productive.
+                        <br> Hadith
+                        (A metaphor for a productive, beneficial business.)
                         </p>
                         <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
                      </div>
@@ -32,18 +34,18 @@
                             <button class="btn btn-default filter-button" data-filter="irrigation">Irrigation Pipes</button> -->
                         </div>
                         <hr>
-<div class="section1">
-  <img src="{{asset('homecss/assets/images/gallery/office-opening2.jpeg')}}" class="filter sprinkle" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet1.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/office-opening3.jpeg')}}" class="filter sprinkle" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet2.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/office-opening4.jpeg')}}" class="filter sprinkle" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet3.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/office-opening5.jpeg')}}" class="filter sprinkle" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet4.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/office-opening6.jpeg')}}" class="filter sprinkle" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet5.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet6.jpeg')}}" class="filter hdpe" />
+<div class="section1" data-mdb-lightbox-init>
+  <img src="{{asset('homecss/assets/images/gallery/office-opening2.jpeg')}}"   data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening2.jpeg')}}" class="filter sprinkle" />
+  <img src="{{asset('homecss/assets/images/gallery/business-meet1.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet1.jpeg')}}" class="filter hdpe" />
+  <img src="{{asset('homecss/assets/images/gallery/office-opening3.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening3.jpeg')}}" class="filter sprinkle" />
+  <img src="{{asset('homecss/assets/images/gallery/business-meet2.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet2.jpeg')}}" class="filter hdpe" />
+  <img src="{{asset('homecss/assets/images/gallery/office-opening4.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening4.jpeg')}}" class="filter sprinkle" />
+  <img src="{{asset('homecss/assets/images/gallery/business-meet3.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet3.jpeg')}}" class="filter hdpe" />
+  <img src="{{asset('homecss/assets/images/gallery/office-opening5.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening5.jpeg')}}" class="filter sprinkle" />
+  <img src="{{asset('homecss/assets/images/gallery/business-meet4.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet4.jpeg')}}" class="filter hdpe" />
+  <img src="{{asset('homecss/assets/images/gallery/office-opening6.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening6.jpeg')}}" class="filter sprinkle" />
+  <img src="{{asset('homecss/assets/images/gallery/business-meet5.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet5.jpeg')}}" class="filter hdpe" />
+  <img src="{{asset('homecss/assets/images/gallery/business-meet6.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet6.jpeg')}}" class="filter hdpe" />
   </div>
 
 </div>

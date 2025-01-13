@@ -9,9 +9,11 @@ class FAQController extends Controller
 {
    public function index()
    {
-    $datas = FAQ::all();
+    $datas = FAQ::paginate(5);
+
     return view('admin.faq.index', compact('datas'));
    }
+
    public function add()
    {
     return view('admin.faq.add');

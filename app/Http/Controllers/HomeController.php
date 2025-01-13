@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\FAQ;
 use Illuminate\Support\Facades\Hash;
 use Str;
 use File;
@@ -105,6 +106,10 @@ class HomeController extends Controller
         return view('home.gallery');
     }
 
-
+    public function faq()
+    {
+        $datas = FAQ::all();
+        return view('home.faq',compact('datas'));
+    }
 
 }

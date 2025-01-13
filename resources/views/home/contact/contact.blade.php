@@ -2,11 +2,14 @@
 
 <tr>
     <td class="content">
-        <p>Hi {{ $msg }},</p>
-        <p>We received a contact request from {{ $userName }} (Email: {{ $userEmail }}).</p>
-        <p>Here’s the message they sent:</p>
+        <p>We received a contact request from,</p>
+        <p><strong>Name: <span>{{ $userName }}</span></strong></p>
+        <p><strong>Email: <span>{{ $userEmail }}</span></strong></p>
+        <p><strong>Phone: <span>{{ $userPhone }}</span></strong></p>
+
+
         <blockquote>
-            <p>{{ $userMessage }}</p>
+            <p>{{ $msg }}</p>
         </blockquote>
         <p>Feel free to reach out to the user at their email address for more details.</p>
         <p>Thanks,<br>The Team</p>

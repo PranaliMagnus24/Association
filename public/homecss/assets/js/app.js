@@ -574,3 +574,19 @@ const swiper = new Swiper('.slider-wrapper', {
     $(document).ready(function(){
         $('#myModal').modal('show');
          });
+///faq
+const items = document.querySelectorAll('.accordion button');
+
+    function toggleAccordion() {
+        const itemToggle = this.getAttribute('aria-expanded');
+
+        // Toggle the clicked item's aria-expanded attribute
+        if (itemToggle == 'true') {
+            this.setAttribute('aria-expanded', 'false');
+        } else {
+            this.setAttribute('aria-expanded', 'true');
+        }
+    }
+
+    // Add event listeners to each button
+    items.forEach((item) => item.addEventListener('click', toggleAccordion));

@@ -193,6 +193,7 @@ Route::get('/directory', [HomeController::class, 'directory'])->name('home.direc
 Route::get('/committee', [HomeController::class, 'committee'])->name('home.committee');
 Route::get('/desk_directory', [HomeController::class, 'desk_directory'])->name('home.desk_directory');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('home.gallery');
+Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
 
 
 //Company Registration

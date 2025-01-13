@@ -18,7 +18,7 @@ class ContactMail extends Mailable
     public $sub;
     public $userName;
     public $userEmail;
-    public $userMessage;
+    public $userPhone;
 
     /**
      * Create a new message instance.
@@ -29,14 +29,15 @@ class ContactMail extends Mailable
      * @param string $userEmail
      * @param string $userMessage
      */
-    public function __construct($msg, $sub, $userName, $userEmail, $userMessage)
+    public function __construct($request)
     {
+        // dd($request->all());
         // Assign the data to the public variables
-        $this->msg = $msg;
-        $this->sub = $sub;
-        $this->userName = $userName;
-        $this->userEmail = $userEmail;
-        $this->userMessage = $userMessage;
+        $this->msg = $request->message;
+        $this->sub = $request->subject;
+        $this->userName = $request->name;
+        $this->userEmail = $request->to;
+        $this->userPhone = $request->phone;
     }
 
     /**

@@ -7,7 +7,7 @@
                     <div class="col-lg-12 text-center">
                         <div class="section-title mb-1">
                         @if(!Route::is('home.committee'))
-                            <h2>Management Committee</h2>
+                            <h2>Management Committee (Nashik District)</h2>
                             @endif
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Hasrat.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3> Hasrst Shaikh<span class="committee-deg">Logistics Committee </span></h3>
+                                    <h3> Hasrst Shaikh<span class="committee-deg">Logistics Committee <br> M.Com</span></h3>
                                 </div>
                             </div>
 
@@ -74,12 +74,6 @@
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
-                                    <img src="{{asset('homecss/assets/images/committee/No-Image.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Salim Khan Deolali<span class="committee-deg">Admin Committee</span></h3>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Ajmal-khan.png')}}" class="img-fluid" alt="Committee" />
                                     <h3>Ajmal Khan<span class="committee-deg">Public Relation<br>B.Com</span></h3>
                                 </div>
@@ -91,6 +85,13 @@
                                     Social Media <br>IT Professional</span></h3>
                                 </div>
                             </div>
+                            <!-- <div class="col-lg-3 col-sm-6">
+                                <div class="single-committee-member">
+                                    <img src="{{asset('homecss/assets/images/committee/No-Image.png')}}" class="img-fluid" alt="Committee" />
+                                    <h3>Salim Khan Deolali<span class="committee-deg">Admin Committee</span></h3>
+                                </div>
+                            </div> -->
+
                         </div>
 
                     </div>

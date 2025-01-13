@@ -102,10 +102,10 @@
             <option selected>Membership</option>
             @foreach($memberships as $membership)
             <option value="{{ $membership->membership_year }}"
-                    data-months="{{ $membership->membership_year }}"
-                    data-years="{{ $membership->default_year }}">
-                {{ $membership->membership_year }} {{ $membership->default_year }}
-            </option>
+                data-default-year="{{ $membership->default_year }}"
+                {{ (old('membership_year') == $membership->membership_year || (isset($data) && $data->membership_year == $membership->membership_year)) ? 'selected' : '' }}>
+            {{ $membership->membership_year }} - {{ $membership->default_year }}
+        </option>
         @endforeach
             </select>
           @error('membership_year')
@@ -113,7 +113,7 @@
             @enderror
              </div>
              <input type="hidden" id="default_year" name="default_year" value="{{ old('default_year', $data->default_year ?? '') }}">
-</div>
+       </div>
 
 
         <div class="row mb-3">
@@ -168,18 +168,20 @@
 
         <div class="row mb-3">
         <label for="Job" class="col-md-2 col-lg-3 col-form-label">Country <span style="color: red">*</span></label>
-            <div class="col-md-8 col-lg-3">
-                <select name="country" id="country-dropdown" class="form-select" aria-label="Default select example" value="{{ old('country')}}">
-                <option value="">-- Select Country --</option>
-                @foreach ($countries as $country)
-                <option value="{{$country->id}}">{{$country->name}}</option>
-
-                @endforeach
-                </select>
-                @error('country')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
+        <div class="col-md-8 col-lg-3">
+    <select name="country" id="country-dropdown" class="form-select" aria-label="Default select example">
+        <option value="">-- Select Country --</option>
+        @foreach ($countries as $country)
+        <option value="{{ $country->id }}"
+            {{ (old('country') == $country->id || (isset($data) && $data->country == $country->id)) ? 'selected' : '' }}>
+            {{ $country->name }}
+        </option>
+        @endforeach
+    </select>
+    @error('country')
+    <span class="text-danger">{{ $message }}</span>
+    @enderror
+</div>
             <label for="Job" class="col-md-2 col-lg-3 col-form-label">State <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-3">
                 <select name="state" id="state-dropdown" class="form-select" aria-label="Default select example" value="{{ old('state')}}">
@@ -213,23 +215,24 @@
         </div>
 
         <div class="row mb-3">
-            <label for="Country" class="col-md-4 col-lg-3 col-form-label">Landline</label>
+            <label for="landline" class="col-md-4 col-lg-3 col-form-label">Landline</label>
             <div class="col-md-8 col-lg-3">
-                <input name="landline" type="text" class="form-control" id="Country" value="{{ old('landline', $data->landline ?? '') }}" placeholder="Landline or Mobile number">
+                <input name="landline" type="text" class="form-control" id="landline" value="{{ old('landline', $data->landline ?? '') }}" placeholder="Landline or Mobile number">
                 @error('landline')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <label class="col-md-2 col-lg-3 col-form-label">Number Of Employees</label>
             <div class="col-md-8 col-lg-3">
-                <select class="form-select" aria-label="Default select example" name="employee_number" value="{{ old('employee_number')}}">
-                    <option selected>Select number of employees</option>
-                    <option value="1-10">1-10</option>
-                    <option value="11-50">11-50</option>
-                    <option value="51-500">51-500</option>
-                    <option value="500+">500+</option>
-                </select>
-            </div>
+    <select class="form-select" aria-label="Default select example" name="employee_number">
+        <option value="" {{ old('employee_number') == '' ? 'selected' : '' }}>Select number of employees</option>
+        <option value="1-10" {{ old('employee_number') == '1-10' ? 'selected' : '' }}>1-10</option>
+        <option value="11-50" {{ old('employee_number') == '11-50' ? 'selected' : '' }}>11-50</option>
+        <option value="51-500" {{ old('employee_number') == '51-500' ? 'selected' : '' }}>51-500</option>
+        <option value="500+" {{ old('employee_number') == '500+' ? 'selected' : '' }}>500+</option>
+    </select>
+</div>
+
         </div>
 
         <div class="row mb-3">
@@ -361,108 +364,125 @@
   <script>
 
 $(document).ready(function () {
+    // Pre-selected state and city (from old data or database)
+    var preselectedState = "{{ old('state') ?? $data->state ?? '' }}";
+    var preselectedCity = "{{ old('city') ?? $data->city ?? '' }}";
 
+    // Handle country change
     $('#country-dropdown').on('change', function () {
-
         var idCountry = this.value;
 
         $("#state-dropdown").html('');
 
-        $.ajax({
+        if (idCountry) {
+            $.ajax({
+                url: "{{ url('api/fetch-states') }}",
+                type: "POST",
+                data: {
+                    country_id: idCountry,
+                    _token: '{{ csrf_token() }}'
+                },
+                dataType: 'json',
+                success: function (result) {
+                    $('#state-dropdown').html('<option value="">-- Select State --</option>');
 
-            url: "{{url('api/fetch-states')}}",
+                    $.each(result.states, function (key, value) {
+                        var selected = value.id == preselectedState ? 'selected' : '';
+                        $("#state-dropdown").append(
+                            '<option value="' + value.id + '" ' + selected + '>' + value.name + '</option>'
+                        );
+                    });
 
-            type: "POST",
-
-            data: {
-
-                country_id: idCountry,
-
-                _token: '{{csrf_token()}}'
-
-            },
-
-            dataType: 'json',
-
-            success: function (result) {
-
-                $('#state-dropdown').html('<option value="">-- Select State --</option>');
-
-                $.each(result.states, function (key, value) {
-
-                    $("#state-dropdown").append('<option value="' + value
-
-                        .id + '">' + value.name + '</option>');
-
-                });
-
-                $('#city-dropdown').html('<option value="">-- Select City --</option>');
-
-            }
-
-        });
-
+                    // Trigger change event to load cities if a pre-selected state exists
+                    if (preselectedState) {
+                        $('#state-dropdown').trigger('change');
+                    }
+                }
+            });
+        } else {
+            $('#state-dropdown').html('<option value="">-- Select State --</option>');
+            $('#city-dropdown').html('<option value="">-- Select City --</option>');
+        }
     });
 
-
+    // Handle state change
     $('#state-dropdown').on('change', function () {
-
         var idState = this.value;
 
         $("#city-dropdown").html('');
 
-        $.ajax({
+        if (idState) {
+            $.ajax({
+                url: "{{ url('api/fetch-cities') }}",
+                type: "POST",
+                data: {
+                    state_id: idState,
+                    _token: '{{ csrf_token() }}'
+                },
+                dataType: 'json',
+                success: function (res) {
+                    $('#city-dropdown').html('<option value="">-- Select City --</option>');
 
-            url: "{{url('api/fetch-cities')}}",
-
-            type: "POST",
-
-            data: {
-
-                state_id: idState,
-
-                _token: '{{csrf_token()}}'
-
-            },
-
-            dataType: 'json',
-
-            success: function (res) {
-
-                $('#city-dropdown').html('<option value="">-- Select City --</option>');
-
-                $.each(res.cities, function (key, value) {
-
-                    $("#city-dropdown").append('<option value="' + value
-
-                        .id + '">' + value.name + '</option>');
-
-                });
-
-            }
-
-        });
-
+                    $.each(res.cities, function (key, value) {
+                        var selected = value.id == preselectedCity ? 'selected' : '';
+                        $("#city-dropdown").append(
+                            '<option value="' + value.id + '" ' + selected + '>' + value.name + '</option>'
+                        );
+                    });
+                }
+            });
+        } else {
+            $('#city-dropdown').html('<option value="">-- Select City --</option>');
+        }
     });
 
-
-
+    // Trigger country dropdown change event if a preselected value exists
+    if ($('#country-dropdown').val()) {
+        $('#country-dropdown').trigger('change');
+    }
 });
 
 
+
 //Textarea
+// document.addEventListener('DOMContentLoaded', function() {
+//         if (document.getElementById('quill-editor-area')) {
+//             var editor = new Quill('#quill-editor', {
+//                 theme: 'snow'
+//             });
+//             var quillEditor = document.getElementById('quill-editor-area');
+//             editor.on('text-change', function() {
+//                 quillEditor.value = editor.root.innerHTML;
+//             });
+
+//             quillEditor.addEventListener('input', function() {
+//                 editor.root.innerHTML = quillEditor.value;
+//             });
+//         }
+//     });
+
 document.addEventListener('DOMContentLoaded', function() {
-        if (document.getElementById('quill-editor-area')) {
+        // Check if the editor and textarea exist
+        var quillEditorDiv = document.getElementById('quill-editor');
+        var quillEditorArea = document.getElementById('quill-editor-area');
+
+        if (quillEditorDiv && quillEditorArea) {
+            // Initialize Quill editor
             var editor = new Quill('#quill-editor', {
                 theme: 'snow'
             });
-            var quillEditor = document.getElementById('quill-editor-area');
+
+            // Set the initial value of the editor from the textarea
+            editor.root.innerHTML = quillEditorArea.value;
+
+            // Sync Quill editor content to the textarea
             editor.on('text-change', function() {
-                quillEditor.value = editor.root.innerHTML;
+                quillEditorArea.value = editor.root.innerHTML;
             });
 
-            quillEditor.addEventListener('input', function() {
-                editor.root.innerHTML = quillEditor.value;
+            // Sync textarea content to the Quill editor if textarea is manually edited
+            quillEditorArea.addEventListener('input', function() {
+                editor.root.innerHTML = quillEditorArea.value;
             });
         }
     });

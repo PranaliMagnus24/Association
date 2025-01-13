@@ -76,7 +76,7 @@
                                         <li><a href="{{route('home.contact')}}">Contact</a></li>
                                         <li><a href="{{route('home.gallery')}}">Gallery</a></li>
                                         <li><a href="{{route('home.committee')}}">Committee</a></li>
-                                        <li><a href="javascript:void(0)">FAQ</a></li>
+                                        <li><a href="{{route('home.faq')}}">FAQ</a></li>
                                         <li><a href="javascript:void(0)">Term's & Condition</a></li>
                                         <li><a href="javascript:void(0)">Privacy Policy</a></li>
                                     </ul>

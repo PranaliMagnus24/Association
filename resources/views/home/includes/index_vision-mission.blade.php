@@ -24,7 +24,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title section-title h2">Mission</h5>
-                        <p class="card-text">The association is committed to create an environment for members to realize their potential to become successful entrepreneurs. To co-operate and assist fellow members to grow together and become successful businessman. Target to reach 5 lakh entrepreneurs by 2030.</p>
+                        <p class="card-text">The association is committed to create an environment for members to realize their potential to become successful entrepreneurs. To co-operate and assist fellow members to grow together and become successful businessman.
+                        </p><p class="card-text">   Target to reach 5 lakh entrepreneurs by 2030.</p>
                     </div>
                 </div>
             </div>
@@ -39,7 +40,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title section-title h2">Vision</h5>
-                        <p class="card-text">Inspire, challenge and prepare businesses community through creative activities and Islamic knowledge. Propagate and practice Islamic way of doing businesses</p>
+                        <p class="card-text">Inspire, challenge and prepare businesses community through creative activities and Islamic knowledge.</p>
+                            <p>Propagate and practice Islamic way of doing businesses</p>
                     </div>
                 </div>
             </div>

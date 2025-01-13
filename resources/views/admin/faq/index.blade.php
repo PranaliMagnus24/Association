@@ -96,7 +96,7 @@
             <tr>
             <td>{{$loop->iteration}}</td>
                 <td>{{$data->question}}</td>
-                <td>{{$data->answer}}</td>
+                <td>{!! $data->answer !!}</td>
                 <td>{{$data->status}}</td>
 
                 <td>
@@ -112,7 +112,7 @@
                 </tbody>
             </table>
             <div class="text-end mb-3">
-
+            {{$datas->links()}}
         </div>
         </div>
     </div>

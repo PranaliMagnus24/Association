@@ -43,8 +43,11 @@
                 </div>
                 <div class="col-12">
                 <label for="inputName5" class="form-label">Answer</label>
-                <textarea class="form-control" placeholder="Your Answer" id="floatingTextarea" style="height: 100px;" name="answer"></textarea>
-                </div>
+                <div id="quill-editor" class="mb-3" style="height: 150px;">
+                    </div>
+                    <textarea rows="3" class="mb-3 d-none" name="answer" id="quill-editor-area" placeholder="Your Answer">{{ old('answer') }}</textarea>
+               </div>
+
                 <div class="col-md-4">
                 <label for="inputState" class="form-label">Status</label>
                   <select id="inputState" class="form-select" name="status">
@@ -65,6 +68,26 @@
 
     <!---End--->
   </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (document.getElementById('quill-editor-area')) {
+            var editor = new Quill('#quill-editor', {
+                theme: 'snow'
+            });
+            var quillEditor = document.getElementById('quill-editor-area');
+            editor.on('text-change', function() {
+                quillEditor.value = editor.root.innerHTML;
+            });
+
+            quillEditor.addEventListener('input', function() {
+                editor.root.innerHTML = quillEditor.value;
+            });
+        }
+    });
+  </script>
   <!-- ======= Footer ======= -->
   @include('admin.layouts.footer')
 
