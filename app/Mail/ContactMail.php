@@ -19,6 +19,7 @@ class ContactMail extends Mailable
     public $userName;
     public $userEmail;
     public $userPhone;
+    public $userCompany_id;
 
     /**
      * Create a new message instance.
@@ -38,6 +39,7 @@ class ContactMail extends Mailable
         $this->userName = $request->name;
         $this->userEmail = $request->to;
         $this->userPhone = $request->phone;
+        $this->userCompany_id = $request->company_id;
     }
 
     /**

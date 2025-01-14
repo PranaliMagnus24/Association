@@ -2,17 +2,29 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
-  <a href="index.html" class="logo d-flex align-items-center">
-    <img src="assets/img/logo.png" alt="">
-    <span class="d-none d-lg-block">Association</span>
+@php
+                       $getSetting = \App\Models\CompanyPro::first();
+                         @endphp
+  <a href="{{url('admin/dashboard')}}" class="logo d-flex align-items-center">
+  @if($getSetting)
+    <img src="{{ url('upload/' . $getSetting->company_logo) }}" alt="">
+    @else
+                                     <h1>Association</h1>
+                                    @endif
+    <span class="d-none d-lg-block">{{$getSetting->company_name}}</span>
   </a>
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
 
 
-
+@php
+$getUser = App\Models\User::first();
+@endphp
 <nav class="header-nav ms-auto">
   <ul class="d-flex align-items-center">
+   <marquee><p style="font-size: 10pt; color:red;">Please Verify Your Email Address <a href="#" class="btn btn-warning">Resend Email Verification Link</a></p>
+   </marquee>
+
 
     <li class="nav-item d-block d-lg-none">
       <a class="nav-link nav-icon search-bar-toggle " href="#">
@@ -163,17 +175,10 @@
 
     <li class="nav-item dropdown pe-3">
 
-    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-    <img src="{{ file_exists(public_path('upload/' . Auth::user()->profile_pic))
-              ? asset('upload/' . Auth::user()->profile_pic)
-              : asset('default-profile.png') }}"
-     alt="Profile Picture"
-     class="rounded-circle"
-     style="width: 40px; height: 40px; object-fit: cover;">
-
-    <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
-</a>
-
+      <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+        <img src="{{ $getUser->profile_pic ? url('upload/'.$getUser->profile_pic) : url('upload/No-Image.png') }}" alt="Profile" class="rounded-circle">
+        <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
+      </a><!-- End Profile Iamge Icon -->
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li class="dropdown-header">
@@ -184,12 +189,14 @@
           <hr class="dropdown-divider">
         </li>
 
+    @if(Auth::check() && Auth::user()->role === 'user')
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+          <a class="dropdown-item d-flex align-items-center" href="{{url('profile')}}">
             <i class="bi bi-person"></i>
             <span>My Profile</span>
           </a>
         </li>
+        @endif
         <li>
           <hr class="dropdown-divider">
         </li>
@@ -232,3 +239,7 @@
 </nav><!-- End Icons Navigation -->
 
 </header><!-- End Header -->
+
+
+
+

@@ -590,3 +590,51 @@ const items = document.querySelectorAll('.accordion button');
 
     // Add event listeners to each button
     items.forEach((item) => item.addEventListener('click', toggleAccordion));
+
+
+    ////Contact form
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const form = this;
+        const formData = new FormData(form);
+
+        fetch("{{ route('send.email') }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            },
+            body: formData,
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+
+                    swal({
+                        title: "Success!",
+                        text: data.message,
+                        icon: "success",
+                        button: "OK",
+                    }).then(() => {
+                        form.reset();
+                    });
+                } else {
+
+                    swal({
+                        title: "Error!",
+                        text: data.message,
+                        icon: "error",
+                        button: "OK",
+                    });
+                }
+            })
+            .catch((error) => {
+
+                swal({
+                    title: "Error!",
+                    text: "Something went wrong. Please try again.",
+                    icon: "error",
+                    button: "OK",
+                });
+            });
+    });

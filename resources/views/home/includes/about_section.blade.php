@@ -17,8 +17,7 @@ At MIMA, we focus on providing resources, networking opportunities, and a suppor
                 <p> <i class="fas fa-check-circle check-icons"></i> <strong>Abdullah Hafizullah khan</strong> - Joint President  (In-charge of Merchants)&nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Tanveer Rafik Shaikh</strong> - Treasurer
                 </p>
                 <p><i class="fas fa-check-circle check-icons"></i> <strong>Arif H. Shaikh</strong>- Secretory &nbsp;  <i class="fas fa-check-circle check-icons"></i> <strong>Ali Munir Ahmed Khan</strong> - Joint President  (In-charge of Builder and Construction Industries)&nbsp;</p>
-                <p>
-<i class="fas fa-check-circle check-icons"></i> <strong>M.T.Q.Sayyed</strong>- Our Legal Advisor &nbsp;  <i class="fas fa-check-circle check-icons"></i> <strong>Nadeem Shaikh</strong> - IT Consultant MIMA Madina MArket&nbsp;</p>
+
 
                             </div>          <!-- Single about text End -->
 

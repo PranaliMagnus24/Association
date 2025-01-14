@@ -43,23 +43,23 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- icons & favicons -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
     <!-- this icon shows in browser toolbar -->
-    <link rel="icon" type="image/x-icon" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="icon" type="image/x-icon" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
     <!-- this icon shows in browser toolbar -->
-    <link rel="apple-touch-icon" sizes="57x57" href="{{ url('upload/' . $getSetting->association_logo) }}')}}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{{ url('upload/' . $getSetting->association_logo) }}')}}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ url('upload/' . $getSetting->association_logo) }}')}}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ url('upload/' . $getSetting->association_logo) }}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{ url('upload/' . $getSetting->association_logo) }}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ url('upload/' . $getSetting->association_logo) }}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{{ url('upload/' . $getSetting->association_logo) }}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{{ url('upload/' . $getSetting->association_logo) }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url('upload/' . $getSetting->association_logo) }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ url('upload/' . $getSetting->association_logo) }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url('upload/' . $getSetting->association_logo) }}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ url('upload/' . $getSetting->association_logo) }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('upload/' . $getSetting->association_logo) }}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{asset('homecss/assets/images/logo/logo.jpg')}}')}}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{asset('homecss/assets/images/logo/logo.jpg')}}')}}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{asset('homecss/assets/images/logo/logo.jpg')}}')}}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
 
 
     <!-- Dependency Styles -->

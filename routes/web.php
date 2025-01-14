@@ -190,6 +190,7 @@ Route::post('/', [HomeController::class, 'membershipregistrationstore'])->name('
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 Route::get('/directory', [HomeController::class, 'directory'])->name('home.directory');
+Route::get('/details/{id}', [HomeController::class, 'show'])->name('directory.view');
 Route::get('/committee', [HomeController::class, 'committee'])->name('home.committee');
 Route::get('/desk_directory', [HomeController::class, 'desk_directory'])->name('home.desk_directory');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('home.gallery');

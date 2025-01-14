@@ -11,7 +11,7 @@
                                 <img src="{{asset('homecss/assets/images/fun-fact/user.svg')}}" alt="Funfact">
                             </div>
                             <div class="funfact-info">
-                                <h5 class="funfact-count">4025</h5>
+                                <h5 class="funfact-count">{{ $totalUsers }}</h5>
                                 <!-- <p>Members</p> -->
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 <img src="{{asset('homecss/assets/images/fun-fact/medal.svg')}}" alt="Funfact">
                             </div>
                             <div class="funfact-info">
-                                <h5><span class="funfact-count">32</span>+</h5>
+                                <h5><span class="funfact-count">2</span>+</h5>
                                 <!-- <p>Awards</p> -->
                             </div>
                         </div>

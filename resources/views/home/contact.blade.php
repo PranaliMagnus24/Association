@@ -104,6 +104,7 @@
                                             @csrf
                                                 <div class="row">
                                                     <div class="col">
+                                                    <input type="hidden" name="form_type" value="association">
                                                         <div class="form-group">
                                                             <label for="cbxname">Name</label>
                                                             <input type="text" name="name" required id="cbxname" placeholder="Your Full Name" class="form-control">
@@ -149,55 +150,6 @@
         </section>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
-<script>
-    document.getElementById('contactForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const form = this;
-    const formData = new FormData(form);
-
-    fetch("{{ route('send.email') }}", {
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": "{{ csrf_token() }}",
-        },
-        body: formData,
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.success) {
-
-                swal({
-                    title: "Success!",
-                    text: data.message,
-                    icon: "success",
-                    button: "OK",
-                }).then(() => {
-                    form.reset();
-                });
-            } else {
-
-                swal({
-                    title: "Error!",
-                    text: data.message,
-                    icon: "error",
-                    button: "OK",
-                });
-            }
-        })
-        .catch((error) => {
-
-            swal({
-                title: "Error!",
-                text: "Something went wrong. Please try again.",
-                icon: "error",
-                button: "OK",
-            });
-        });
-});
-
-</script>
 
 
          @include('home.includes.footer')

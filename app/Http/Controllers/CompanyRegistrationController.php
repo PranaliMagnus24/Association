@@ -169,10 +169,12 @@ class CompanyRegistrationController extends Controller
                 Documentupload::insert($documents);
             }
 
-                return redirect()->route('home.index')->with('success','Company profile and documents added successfully!');
+            return redirect()->route('home.index')->with('success', 'Company profile and documents added successfully!');
+
 
         }else{
-            return redirect()->route('home.index')->with('Failed to update Company profile!');
+            return redirect()->route('home.index')->with('error', 'Failed to update Company profile!');
+
         }
 
     }

@@ -56,10 +56,13 @@
 </p>
 <p><i class="fas fa-check-circle check-icons"></i> <strong>Arif H. Shaikh</strong>- Secretory &nbsp;  <i class="fas fa-check-circle check-icons"></i> <strong>Ali Munir Ahmed Khan</strong> - Joint President  (In-charge of Builder and Construction Industries)&nbsp;</p>
 <p>
-<i class="fas fa-check-circle check-icons"></i> <strong>M.T.Q.Sayyed</strong>- Our Legal Advisor &nbsp;  <i class="fas fa-check-circle check-icons"></i> <strong>Nadeem Shaikh</strong> - IT Consultant MIMA Madina MArket&nbsp;</p>
+<strong>They are founders of this association. They invite all Muslim businessmen and businesswomen to join this noble cause.</strong></p>
+<p>
+The Founders Committee requested Adv. M.T.Q. Sayyed to be the Honorary Legal Adviser of M.I.M.A and Mr. Nadeem Shaikh to head the M.I.M.A Madina Market website project, both of them have kindly accepted.</p>
 
-               <p>
-                <b>They are founders of this association. They invite all Muslim businessmen and businesswomen to join this noble cause.</b></p>
+
+
+
 
                             </div>
                             <!----------------Swiper---------------------->
@@ -129,7 +132,7 @@
                             <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Nadeem-Shaikh.png')}}" class="img-fluid" alt="Committee" />
                                     <h3>Nadeem Shaikh<span class="committee-deg">Voice President
-                                    Social Media & our <br> IT Consultant MIMA Madina MArket</span></h3>
+                                    Social Media & our <br> IT Consultant MIMA Madina Market</span></h3>
                                 </div>
                                 </div>
                         </div>

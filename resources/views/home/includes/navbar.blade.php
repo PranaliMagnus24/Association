@@ -1,7 +1,5 @@
 
 
-
-
         <!--=========================-->
         <!--=        Navbar         =-->
         <!--=========================-->
@@ -27,8 +25,19 @@
                         <div class="col-lg-6 col-sm-5 col-5 text-end">
                             <div class="preheader-right">
 
-                                <a href="{{ route('home.membershiplogin') }}" class="btn-auth btn-auth-rev" title="Login">Login</a>
-                                <a title="Register" class="btn-auth btn-auth" href="{{route('home.membershipregistration')}}">Become a member</a>
+                            @if(Auth::check())
+
+                        <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                      <input type="submit" value="Logout" class="btn mt-3 text-white" style=" height: 30px;
+                     font-size: 16px; background-color:red;">
+                     </form>
+                   @else
+                                <a href="{{ route('login') }}" class="btn-auth btn-auth-rev" title="Login">Login</a>
+
+                                <a title="Register" class="btn-auth btn-auth" href="{{route('register')}}">Become a member</a>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -80,10 +89,6 @@
                                 <li>
                                     <a href="{{url('/')}}">Home</a>
                                 </li>
-                                <!-- <li><a href="about.html">About</a></li> -->
-                                <!-- <li><a href="event.html">Event</a></li>
-                                <li><a href="gallery.html">Gallery</a></li> -->
-
                                 <li class="has-submenu menu-item-depth-0">
                                     <a href="javascript:void(0)">About</a>
                                     <ul class="sub-menu">
@@ -93,37 +98,12 @@
                                 </li>
                                  <li><a href="{{route('home.directory')}}">Directory</a></li>
                                  <li><a href="{{route('home.gallery')}}">Gallery</a></li>
-                                <!-- <li class="has-submenu menu-item-depth-0">
-                                    <a href="#">Pages</a>
-
-                                    <ul class="sub-menu">
-                                        <li class="has-submenu">
-                                            <a href="gallery.html">Gallery</a>
-                                            <ul class="sub-menu">
-                                                <li>
-                                                    <a href="gallery.html">Gallery</a>
-                                                </li>
-                                                <li>
-                                                    <a href="single-album.html">Single Album</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="committee.html">Committee</a></li>
-                                        <li><a href="directory.html">Directory</a></li>
-                                        <li><a href="register.html">Register</a></li>
-                                        <li><a href="career.html">Career</a></li>
-                                        <li>
-                                            <a href="typography.html">Typography</a>
-                                        </li>
-                                    </ul>
-                                </li> -->
                                 <li class="menu-item-depth-0">
                                     <a href="{{route('home.contact')}}">Contact</a>
                                 </li>
-
-
-
                             </ul>
+
+
                         </div>
                         <!-- /.menu-wrapper -->
                     </nav>

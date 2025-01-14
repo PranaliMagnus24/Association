@@ -172,6 +172,8 @@
     <script class="script-js" src="{{asset('homecss/assets/vendors/awesome-notifications/index.var.js')}}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
     <!-- Site Scripts -->
     <script src="{{asset('homecss/assets/js/app.js')}}"></script>
 
