@@ -43,18 +43,18 @@
                 <p> <i class="fas fa-check-circle check-icons"></i>
                 Sharia-compliant funding is not available.</p>
                 <p> <i class="fas fa-check-circle check-icons"></i>
-                Govt.Subsidies, schemes for promoting business, are not reaching them.</p>
+                Govt. subsidies and schemes for promoting business are not reaching them.</p>
                 <p> <i class="fas fa-check-circle check-icons"></i>
                 Muslims are not actively participating. in business associations like NIMA, AIMA, and the Chamber of Commerce. </p>
-                <p> <i class="fas fa-check-circle check-icons"></i><strong>Hence there is a need for National economic development movement fueled by unity and vision by the Muslim community for their uplifting benefits. </strong></p>
-                <p>Following persons along with <strong>Jan Seva credit cooperative scocity</strong>  and <strong>Islamic chember of commerce India</strong> organised Muslim industrialist and bussinessmen conference at Nashik to discuss about these subject. The conference resolved to form an Association of Muslim Industrialists, Merchants, and Professionals by the following persons.</p>
+                <p> <i class="fas fa-check-circle check-icons"></i><strong>Hence there is a need for a national economic development movement fueled by unity and vision by the Muslim community for their uplifting benefits. </strong></p>
+                <p>Following persons, along with <strong>Jan Seva credit cooperative society</strong>  and <strong>Islamic chember of commerce India </strong> organized a Muslim industrialist and businessman conference at Nashik to discuss these subjects. The conference resolved to form an Association of Muslim Industrialists, Merchants, and Professionals by the following persons.</p>
 
-                <p> <i class="fas fa-check-circle check-icons"></i><strong>Munir Ahmed Khan</strong>  - Chairman &nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Minajbeg Mirza</strong> - President  &nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Dr. V. B. Shaikh</strong> - Joint President  (In-charge of Professionals)
+                <p> <i class="fas fa-check-circle check-icons"></i><strong>Munir Ahmed Khan</strong>  - Chairman &nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Minajbeg Mirza</strong> - President  &nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Dr. V. B. Shaikh</strong> - Joint President (In charge of Professionals)
 
 </p>
-<p> <i class="fas fa-check-circle check-icons"></i> <strong>Abdullah Hafizullah khan</strong> - Joint President  (In-charge of Merchants)&nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Tanveer Rafik Shaikh</strong> - Treasurer
+<p> <i class="fas fa-check-circle check-icons"></i> <strong>Abdullah Hafizullah khan</strong> - Joint President (In charge of Merchants)&nbsp; <i class="fas fa-check-circle check-icons"></i> <strong>Tanveer Rafik Shaikh</strong> - Treasurer
 </p>
-<p><i class="fas fa-check-circle check-icons"></i> <strong>Arif H. Shaikh</strong>- Secretory &nbsp;  <i class="fas fa-check-circle check-icons"></i> <strong>Ali Munir Ahmed Khan</strong> - Joint President  (In-charge of Builder and Construction Industries)&nbsp;</p>
+<p><i class="fas fa-check-circle check-icons"></i> <strong>Arif H. Shaikh</strong>- Secretary &nbsp;  <i class="fas fa-check-circle check-icons"></i> <strong>Ali Munir Ahmed Khan</strong> - Joint President (In charge of Builder and Construction Industries)&nbsp;</p>
 <p>
 <strong>They are founders of this association. They invite all Muslim businessmen and businesswomen to join this noble cause.</strong></p>
 <p>
@@ -77,13 +77,13 @@ The Founders Committee requested Adv. M.T.Q. Sayyed to be the Honorary Legal Adv
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                 <img src="{{asset('homecss/assets/images/committee/Minaz Mirza.png')}}" class="img-fluid" alt="Committee" />
-                                <h3 style="font-size:16px;">Minajbeg Mirza<span class="committee-deg" style="font-size:14px;">B.Sc.Paint technology <br><br>President</span></h3>
+                                <h3 style="font-size:16px;">Minajbeg Mirza<span class="committee-deg" style="font-size:14px;">B.Sc. Paint technology <br><br>President</span></h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                 <img src="{{asset('homecss/assets/images/committee/Dr-V-b-shaikh.png')}}" class="img-fluid" alt="Committee" />
-                                <h3 style="font-size:16px;">Dr. V.B.shaikh<span class="committee-deg" style="font-size:14px;">M.B.B.S.,M.S. GYNOCOLOGY<br><br>Joint President - Professionals</span></h3>
+                                <h3 style="font-size:16px;">Dr. V.B.shaikh<span class="committee-deg" style="font-size:14px;">M.B.B.S., M.S. GYNECOLOGY<br><br>Joint President - Professionals</span></h3>
 
                                 </div>
                             </div>
@@ -98,7 +98,7 @@ The Founders Committee requested Adv. M.T.Q. Sayyed to be the Honorary Legal Adv
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                 <img src="{{asset('homecss/assets/images/committee/Tanvir-shaikh.png')}}" class="img-fluid" alt="Committee" />
-                                <h3 style="font-size:16px;">Tanveer rafik shaikh<span class="committee-deg" style="font-size:14px;">MA  BED (Phy)<br><br>Treasurer</span></h3>
+                                <h3 style="font-size:16px;">Tanveer rafik shaikh<span class="committee-deg" style="font-size:14px;">MA BED (Phy)<br><br>Treasurer</span></h3>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@ The Founders Committee requested Adv. M.T.Q. Sayyed to be the Honorary Legal Adv
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                 <img src="{{asset('homecss/assets/images/committee/Arif-shaikh.png')}}" class="img-fluid" alt="Committee" />
-                                <h3 style="font-size:16px;">Arif H. Shaikh<span class="committee-deg" style="font-size:14px;">M.B.S.( HR ) <br><br>Secretory</span></h3>
+                                <h3 style="font-size:16px;">Arif H. Shaikh<span class="committee-deg" style="font-size:14px;">M.B.S. (HR)<br><br>Secretary</span></h3>
 
                                 </div>
                             </div>
@@ -124,14 +124,14 @@ The Founders Committee requested Adv. M.T.Q. Sayyed to be the Honorary Legal Adv
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                 <img src="{{asset('homecss/assets/images/committee/adv-mtq.png')}}" class="img-fluid" alt="Committee" />
-                                <h3 style="font-size:16px;">M.T.Q.Sayyed<span class="committee-deg" style="font-size:14px;">B.Com. LL.B<br><br> Our Legal Advisor</span></h3>
+                                <h3 style="font-size:16px;">M.T.Q.Sayyed<span class="committee-deg" style="font-size:14px;">B.Com. LL.B.<br><br> Our Legal Advisor</span></h3>
                                 </div>
                             </div>
 
                             <div class="col-lg-3 col-sm-6">
                             <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Nadeem-Shaikh.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Nadeem Shaikh<span class="committee-deg">Voice President
+                                    <h3>Nadeem Shaikh<span class="committee-deg">Vice President
                                     Social Media & our <br> IT Consultant MIMA Madina Market</span></h3>
                                 </div>
                                 </div>

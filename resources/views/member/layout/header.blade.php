@@ -1,30 +1,40 @@
+<style>
+    .marquee-banner {
+    top: 0; /* Aligns with the top of the nav */
+    left: 0; /* Start from the beginning of the nav */
+    width: calc(100% - 50px); /* Adjust width to end before the toggle button */
+    white-space: nowrap; /* Ensures text stays in a single line */
+    z-index: 10; /* Ensures it appears above other elements */
+}
+
+</style>
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
-@php
-                       $getSetting = \App\Models\CompanyPro::first();
-                         @endphp
-  <a href="{{url('admin/dashboard')}}" class="logo d-flex align-items-center">
-  @if($getSetting)
-    <img src="{{ url('upload/' . $getSetting->company_logo) }}" alt="">
-    @else
-                                     <h1>Association</h1>
-                                    @endif
-    <span class="d-none d-lg-block">{{$getSetting->company_name}}</span>
+  <a href="{{url('member')}}" class="logo d-flex align-items-center">
+  <img src="{{ $companyProfile->company_logo ? url('upload/'.$companyProfile->company_logo) : url('upload/download.png') }}" alt="Company Logo" class="company-logo">
+    <span class="d-none d-lg-block">{{$companyProfile->company_name}}</span>
   </a>
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
 
-
-@php
-$getUser = App\Models\User::first();
-@endphp
 <nav class="header-nav ms-auto">
-  <ul class="d-flex align-items-center">
-   <marquee><p style="font-size: 10pt; color:red;">Please Verify Your Email Address <a href="#" class="btn btn-warning">Resend Email Verification Link</a></p>
-   </marquee>
 
+  <ul class="d-flex align-items-center">
+    <!--------Send email verification link------->
+  @if(Auth::check() && !Auth::user()->hasVerifiedEmail())
+    <marquee class="text-danger fw-bold">
+        Please verify your email address.
+        <a href="#" id="resend-verification-email" class="text-primary">Click here to re-send the verification email.</a>
+    </marquee>
+
+
+    <form id="send-verification" method="POST" action="{{ route('verification.send') }}" style="display: none;">
+        @csrf
+    </form>
+@endif
+ <!--------Send email verification link end------->
 
     <li class="nav-item d-block d-lg-none">
       <a class="nav-link nav-icon search-bar-toggle " href="#">
@@ -176,52 +186,28 @@ $getUser = App\Models\User::first();
     <li class="nav-item dropdown pe-3">
 
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-        <img src="{{ $getUser->profile_pic ? url('upload/'.$getUser->profile_pic) : url('upload/No-Image.png') }}" alt="Profile" class="rounded-circle">
+      <img src="{{ $user->profile_pic ? url('upload/'.$user->profile_pic) : url('upload/No-Image.png') }}" alt="Profile Picture" class="profile_pic rounded-circle">
         <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
       </a><!-- End Profile Iamge Icon -->
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li class="dropdown-header">
           <h6>{{ Auth::user()->name }}</h6>
-          <span>Web Designer</span>
+          <span>Director</span>
         </li>
         <li>
           <hr class="dropdown-divider">
         </li>
 
-    @if(Auth::check() && Auth::user()->role === 'user')
+    <!-- @if(Auth::check() && Auth::user()->role === 'user')
         <li>
           <a class="dropdown-item d-flex align-items-center" href="{{url('profile')}}">
             <i class="bi bi-person"></i>
             <span>My Profile</span>
           </a>
         </li>
-        @endif
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-
-        <li>
-          <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-            <i class="bi bi-gear"></i>
-            <span>Account Settings</span>
-          </a>
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-
-        <li>
-          <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-            <i class="bi bi-question-circle"></i>
-            <span>Need Help?</span>
-          </a>
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-
-        <li>
+        @endif -->
+        <li class="dropdown-item">
         <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
@@ -241,5 +227,29 @@ $getUser = App\Models\User::first();
 </header><!-- End Header -->
 
 
+<script>
+    document.getElementById('resend-verification-email').addEventListener('click', function (e) {
+        e.preventDefault();
 
-
+        // Perform the form submission via AJAX
+        fetch('{{ route('verification.send') }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                // Show Toastr success message
+                toastr.success('A new verification link has been sent to your email address.', 'Verification Email Sent');
+            } else {
+                throw new Error('Unable to send verification email. Please try again.');
+            }
+        })
+        .catch(error => {
+            // Show Toastr error message
+            toastr.error(error.message, 'Error');
+        });
+    });
+</script>

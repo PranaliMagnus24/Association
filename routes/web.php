@@ -188,7 +188,7 @@ Route::get('/registration', [HomeController::class, 'membershipregistration'])->
 Route::get('/login', [HomeController::class, 'membershiplogin'])->name('home.membershiplogin');
 Route::post('/', [HomeController::class, 'membershipregistrationstore'])->name('membershipregistration.store');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
-Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/history', [HomeController::class, 'history'])->name('home.about');
 Route::get('/directory', [HomeController::class, 'directory'])->name('home.directory');
 Route::get('/details/{id}', [HomeController::class, 'show'])->name('directory.view');
 Route::get('/committee', [HomeController::class, 'committee'])->name('home.committee');
@@ -213,7 +213,11 @@ Route::post('api/fetch-cities', [CompanyRegistrationController::class, 'fetchCit
 
 
 
-Route::get('/member', [MemberController::class, 'index'])->middleware(['auth', 'role:user']);
+Route::get('/member', [MemberController::class, 'index'])->middleware(['auth', 'role:user'])->name('member');
+Route::get('/member-profile', [MemberController::class, 'profile'])->middleware(['auth', 'role:user'])->name('profile.index');
+Route::post('/member-profile', [MemberController::class, 'memberprofileupdate'])->name('update.profile');
+Route::post('/company-profile', [MemberController::class, 'companyprofileupdate'])->name('update.companyprofile');
+
 
 ////Mail Controller
 // Route::get('/send-contact', [MailController::class, 'sendContact']);

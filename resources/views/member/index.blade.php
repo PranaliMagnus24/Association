@@ -18,13 +18,13 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
+      <h1>{{$companyProfile->company_name}} Profile</h1>
+      <!-- <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
-      </nav>
+      </nav> -->
     </div><!-- End Page Title -->
 
    @include('member.layout.body')

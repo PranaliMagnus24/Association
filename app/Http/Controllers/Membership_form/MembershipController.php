@@ -134,7 +134,7 @@ public function index()
     if (!$data) {
         return redirect()->route('member.index')->withErrors(['User not found.']);
     }
-
+    $data->name = $request->first_name.' '. $request->last_name;
     $data->first_name = $request->first_name;
     $data->middle_name = $request->middle_name;
     $data->last_name = $request->last_name;

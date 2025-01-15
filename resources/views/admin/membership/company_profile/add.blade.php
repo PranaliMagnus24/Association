@@ -172,15 +172,12 @@
     <select name="country" id="country-dropdown" class="form-select" aria-label="Default select example">
         <option value="">-- Select Country --</option>
         @foreach ($countries as $country)
-        <option value="{{ $country->id }}"
-            {{ (old('country') == $country->id || (isset($data) && $data->country == $country->id)) ? 'selected' : '' }}>
-            {{ $country->name }}
-        </option>
-        @endforeach
-    </select>
-    @error('country')
-    <span class="text-danger">{{ $message }}</span>
-    @enderror
+                <option value="{{ $country->id }}" {{ $country->id == 101 ? 'selected' : '' }}>{{ $country->name }}</option>
+            @endforeach
+        </select>
+        @error('country')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
 </div>
             <label for="Job" class="col-md-2 col-lg-3 col-form-label">State <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-3">

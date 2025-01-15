@@ -87,9 +87,10 @@ class HomeController extends Controller
     {
         return view('home.contact');
     }
-    public function about()
+    public function history()
     {
-        return view('home.about');
+        $totalUsers = User::count();
+        return view('home.history', compact('totalUsers'));
     }
 ///show directory
     public function directory()
