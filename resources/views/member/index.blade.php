@@ -18,7 +18,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>{{$companyProfile->company_name}} Profile</h1>
+      <h1>    @if(!empty($companyProfile) && !empty($companyProfile->company_name))
+        {{ $companyProfile->company_name }}
+    @else
+        Default Title
+    @endif</h1>
       <!-- <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Home</a></li>

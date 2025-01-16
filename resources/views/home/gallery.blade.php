@@ -28,13 +28,13 @@
                     <div class="row">
                         <div align="center">
                             <button class="btn btn-default filter-button" data-filter="all">All</button>
+                            <button class="btn btn-default filter-button" data-filter="irrigation">Rotary Club Meetup</button>
                             <button class="btn btn-default filter-button" data-filter="sprinkle">Office Inauguration</button>
                             <button class="btn btn-default filter-button" data-filter="hdpe">Business Meet</button>
-                            <!-- <button class="btn btn-default filter-button" data-filter="spray">Spray Nozzle</button>
-                            <button class="btn btn-default filter-button" data-filter="irrigation">Irrigation Pipes</button> -->
+                            <!-- <button class="btn btn-default filter-button" data-filter="irrigation">Irrigation Pipes</button> -->
                         </div>
                         <hr>
-<div class="section1" data-mdb-lightbox-init>
+<div class="section1">
   <img src="{{asset('homecss/assets/images/gallery/office-opening2.jpeg')}}"   data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening2.jpeg')}}" class="filter sprinkle" />
   <img src="{{asset('homecss/assets/images/gallery/business-meet1.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet1.jpeg')}}" class="filter hdpe" />
   <img src="{{asset('homecss/assets/images/gallery/office-opening3.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening3.jpeg')}}" class="filter sprinkle" />
@@ -46,6 +46,8 @@
   <img src="{{asset('homecss/assets/images/gallery/office-opening6.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening6.jpeg')}}" class="filter sprinkle" />
   <img src="{{asset('homecss/assets/images/gallery/business-meet5.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet5.jpeg')}}" class="filter hdpe" />
   <img src="{{asset('homecss/assets/images/gallery/business-meet6.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet6.jpeg')}}" class="filter hdpe" />
+  <img src="{{asset('homecss/assets/images/gallery/rotary_club1.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/rotary_club1.jpeg')}}" class="filter irrigation" />
+  <img src="{{asset('homecss/assets/images/gallery/rotary_club2.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/rotary_club2.jpeg')}}" class="filter irrigation" />
   </div>
 
 </div>

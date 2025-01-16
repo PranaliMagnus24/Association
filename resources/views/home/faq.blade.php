@@ -8,7 +8,10 @@
                      <div class="page-title-content">
                         <h1 class="h2">Frequently Asked Questions</h1>
                         <p>
-                           Alumni Needs enables you to harness the power of your alumni network. Whatever may be the need
+                            <strong>
+                            Honesty and Integrity:
+                            </strong>
+                        Traders are encouraged to be truthful in their dealings, avoid deception, and provide full information about the products they are selling.
                         </p>
                         <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
                      </div>

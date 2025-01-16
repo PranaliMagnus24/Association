@@ -42,8 +42,7 @@
                         <div class="single-responsibility">
                             <img src="{{asset('homecss/assets/images/responsibility/trade.png')}}" alt="Responsibility">
                             <h4>Trade Promotion</h4>
-                            <p>Organizing trade fairs, exhibitions, and business networking events.
-                            Encouraging domestic and international trade and investments.</p>
+                            <p>Organizing trade fairs, exhibitions, and business networking events. Encouraging both domestic and international trade and investments.</p>
                         </div>
                     </div>
                     <!--== Single Responsibility End ==-->
@@ -54,8 +53,7 @@
                             <img src="{{asset('homecss/assets/images/responsibility/knowledge.png')}}" alt="Responsibility">
                             <h4> Knowledge Sharing and Capacity Building
                             </h4>
-                            <p>Offering training programs, workshops, and seminars to enhance skills and knowledge.
-                            Sharing industry insights, research, and trends to help members adapt to market changes.</p>
+                            <p>Offering training programs, workshops, and seminars to enhance skills and knowledge. Sharing industry insights, research, and trends to help members adapt to changing market dynamics.</p>
                         </div>
                     </div>
                     <!--== Single Responsibility End ==-->
@@ -68,8 +66,7 @@
                         <div class="single-responsibility">
                         <img src="{{asset('homecss/assets/images/responsibility/conflict.png')}}" alt="Responsibility">
                             <h4> Conflict Resolution and Support</h4>
-                            <p>Mediating disputes between members or with external stakeholders.
-                            Providing legal, financial, or advisory support to members when needed.</p>
+                            <p>Mediating disputes between members or with external stakeholders. Providing legal, financial, and advisory support to members when needed.</p>
                         </div>
                     </div>
                     <!--== Single Responsibility End ==-->
@@ -80,8 +77,7 @@
                         <img src="{{asset('homecss/assets/images/responsibility/04.png')}}"
                           alt="Responsibility">
                             <h4> Corporate Social Responsibility (CSR)</h4>
-                            <p>Encouraging sustainable practices and ethical business operations.
-                            Supporting community development and environmental protection initiatives.</p>
+                            <p>Encouraging sustainable practices and ethical business operations. Supporting community development and environmental protection initiatives.</p>
                         </div>
                     </div>
                     <!--== Single Responsibility End ==-->
@@ -89,7 +85,7 @@
                         <div class="single-responsibility">
                             <img src="{{asset('homecss/assets/images/responsibility/01.png')}}" alt="Responsibility">
                             <h4> Advocacy and Representation</h4>
-                            <p>Representing the interests of industrialists and merchants and professionals to the government, policymakers, and international organizations. Advocating for favorable economic, trade, and industrial policies.
+                            <p>Representing the interests of industrialists, merchants, and professionals to the government, policymakers, and international organizations. Advocating for favorable economic, trade, and industrial policies.
                             </p>
                         </div>
                     </div>

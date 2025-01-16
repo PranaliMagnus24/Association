@@ -93,10 +93,12 @@
                                     <a href="javascript:void(0)">About</a>
                                     <ul class="sub-menu">
                                     <li><a href="{{route('home.about')}}">History</a></li>
-                                        <li><a href="{{route('home.committee')}}">Committee</a></li>
+                                    <li><a href="{{route('home.committee')}}">Committee</a></li>
+                                    <li><a href="{{route('home.associate')}}">Our Associate</a></li>
                                     </ul>
                                 </li>
                                  <li><a href="{{route('home.directory')}}">Directory</a></li>
+                                 <li><a href="{{ route('home.islamictijarat')}}">Islamic Tijarat</a></li>
                                  <li><a href="{{route('home.gallery')}}">Gallery</a></li>
                                 <li class="menu-item-depth-0">
                                     <a href="{{route('home.contact')}}">Contact</a>

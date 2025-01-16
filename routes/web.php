@@ -195,7 +195,10 @@ Route::get('/committee', [HomeController::class, 'committee'])->name('home.commi
 Route::get('/desk_directory', [HomeController::class, 'desk_directory'])->name('home.desk_directory');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('home.gallery');
 Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
-
+Route::get('/islamic_tijarat', [HomeController::class, 'islamic_tijarat'])->name('home.islamictijarat');
+Route::get('/associate', [HomeController::class, 'associate'])->name('home.associate');
+Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
+Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
 
 //Company Registration
 Route::get('/comapny/registration/{id?}', [CompanyRegistrationController::class, 'companyregistration'])->name('home.companyregistration');
@@ -216,7 +219,7 @@ Route::post('api/fetch-cities', [CompanyRegistrationController::class, 'fetchCit
 Route::get('/member', [MemberController::class, 'index'])->middleware(['auth', 'role:user'])->name('member');
 Route::get('/member-profile', [MemberController::class, 'profile'])->middleware(['auth', 'role:user'])->name('profile.index');
 Route::post('/member-profile', [MemberController::class, 'memberprofileupdate'])->name('update.profile');
-Route::post('/company-profile', [MemberController::class, 'companyprofileupdate'])->name('update.companyprofile');
+Route::post('/member-profile/{id}', [MemberController::class, 'companyprofileupdate'])->name('update.companyprofile');
 
 
 ////Mail Controller

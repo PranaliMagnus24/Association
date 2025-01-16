@@ -31,7 +31,7 @@
                             <!-- Single about text start -->
                             <div class="single-about-text">
                                 <span class="year">2023</span>
-                                <img src="{{asset('homecss/assets/images/about-page/about-img-1.png')}}" alt="About" class="img-fluid img-left" style="width: 426px;">
+                                <img src="{{asset('homecss/assets/images/about-page/about-img-1.jpg')}}" alt="About" class="img-fluid img-left" style="width: 426px;">
                                 <h2 class="h3">About us</h2>
                                 <p style="font-size:20px;" >
                                 <strong>From the desk of the chairman.</strong></p>

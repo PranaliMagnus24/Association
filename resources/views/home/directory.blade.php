@@ -117,6 +117,16 @@
         padding: 8px 12px;
         margin-top: auto;
     }
+
+    .form-control {
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .pagination{
+        --bs-pagination-font-size: 2rem;
+    }
+
 </style>
 
 <section id="page-title-area">
@@ -138,25 +148,82 @@
 
 
 
+         <section>
+    <div class="container">
+        <div class="row mb-4" style="justify-content: flex-end;">
+            <div class="col-md-4" style="margin-top: 50px;">
+                <!-- Search Bar -->
+                <form method="GET" action="{{ url('/directory') }}">
+                    <div class="input-group">
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control"
+                            placeholder="Search here.."
+                            value="{{ request('search') }}"/>
+                        <button type="submit" class="btn btn-primary fs-5">Search</button>
+                    </div>
+                </form>
+            </div>
+            <!---------End Search Bar----------->
+
+            <!-- Filters by State and City -->
+        <div class="col-md-4" style="margin-top: 50px;">
+            <form method="GET" action="{{ url('/directory') }}">
+                <div class="row">
+            <!-- State Dropdown -->
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <select name="state_id" id="state-dropdown" class="form-control" onchange="this.form.submit()">
+                            <option value="">Select State</option>
+                            @foreach ($states as $state)
+                            <option value="{{ $state->id }}" {{ request('state_id') == $state->id ? 'selected' : '' }}>
+                                {{ $state->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+            <!-- City Dropdown -->
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <select name="city_id" id="city-dropdown" class="form-control" onchange="this.form.submit()">
+                            <option value="">Select City</option>
+                            @foreach ($cities as $city)
+                            <option value="{{ $city->id }}" {{ request('city_id') == $city->id ? 'selected' : '' }}>
+                                {{ $city->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!---------------End filter form-------------->
+</div>
+</div>
+</section>
+
+
+
 
 <section id="job-opportunity" class="section-padding">
     @php
-    $job = App\Models\CompanyPro::first();
+        $job = App\Models\CompanyPro::first();
     @endphp
     <div class="container">
-        <!--== Section Title Start ==-->
-        <!--== Section Title End ==-->
-
+        <!-- Job Opportunities Section -->
         <div class="job-opportunity-wrapper">
             <div class="row">
-                @foreach($companyprofiles as $companypro)
+                @forelse($companyprofiles as $companypro)
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-job-opportunity">
                             <div class="companypro-opportunity-text">
                                 <div class="companypro-oppor-logo">
                                     <div class="display-table">
                                         <div class="display-table-cell">
-                                            <!-- Check if the company logo exists -->
                                             <a href="{{ $companypro->company_logo }}">
                                                 <img src="{{ $companypro->company_logo ? url('upload/'.$companypro->company_logo) : url('upload/download.png') }}" alt="Company Logo">
                                             </a>
@@ -164,6 +231,7 @@
                                     </div>
                                 </div>
                                 <h6>{{ $companypro->company_name }}</h6>
+                                <p> {{ $companypro->states->name }} &nbsp; {{ $companypro->cities->name }}</p>
                                 <p>{!! $companypro->about_company !!}</p>
                             </div>
                             <div class="button-group">
@@ -171,11 +239,23 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-12">
+                        <p>No companies found.</p>
+                    </div>
+                @endforelse
+            </div>
+
+            <!-- Pagination Links -->
+            <div class="pagination-wrapper">
+                {{ $companyprofiles->links() }}
             </div>
         </div>
     </div>
 </section>
+
+
+
 
 
          @include('home.includes.footer')

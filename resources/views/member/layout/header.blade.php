@@ -13,8 +13,15 @@
 
 <div class="d-flex align-items-center justify-content-between">
   <a href="{{url('member')}}" class="logo d-flex align-items-center">
-  <img src="{{ $companyProfile->company_logo ? url('upload/'.$companyProfile->company_logo) : url('upload/download.png') }}" alt="Company Logo" class="company-logo">
-    <span class="d-none d-lg-block">{{$companyProfile->company_name}}</span>
+  <img
+    src="{{ !empty($companyProfile) && !empty($companyProfile->company_logo) ? url('upload/'.$companyProfile->company_logo) : url('upload/download.png') }}"
+    alt="{{ !empty($companyProfile) && !empty($companyProfile->company_name) ? $companyProfile->company_name : 'Default Logo' }}"
+    class="company-logo">
+
+<span class="d-none d-lg-block">
+    {{ !empty($companyProfile) && !empty($companyProfile->company_name) ? $companyProfile->company_name : 'Default Company Name' }}
+</span>
+
   </a>
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->

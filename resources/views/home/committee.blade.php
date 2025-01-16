@@ -12,7 +12,10 @@
                         <h1 class="h2">Management Committee</h1>
 
                         <p>
-                           Alumni Needs enables you to harness the power of your alumni network. Whatever may be the need
+                            <strong>
+                            Charity and Generosity:
+                            </strong>
+                         Giving charity and helping those in need is an important aspect of business, with a reminder that wealth is a trust from God and should be used for good purposes.
                         </p>
                         <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
                      </div>

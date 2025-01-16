@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CompanyPro;
@@ -62,10 +63,10 @@ class MemberController extends Controller
             'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // 2. Get the current authenticated user
+
         $user = Auth::user();
 
-        // 3. Update user details
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
@@ -89,9 +90,51 @@ class MemberController extends Controller
     }
 
 
-    public function companyprofileupdate(Request $request)
-    {
 
+    public function companyprofileupdate(Request $request, $id): RedirectResponse
+    {
+        $companyProfile = CompanyPro::find($id);
+
+        $request->validate([
+            'company_type' => 'nullable|string',
+            'company_name' => 'required|string',
+            'aadharcard_number' => 'nullable|string',
+            'registration_date' => 'required|date',
+            'renewal_date' => 'required|date',
+            'city' => 'required',
+            'state' => 'required',
+            'country' => 'required',
+            'company_year' => 'required',
+            'membership_year' => 'required',
+            'about_company' => 'required',
+        ]);
+
+        $input = $request->all();
+        $companyProfile->update($input);
+
+        $documents = ['company_identity', 'company_address', 'aadharcard', 'authority_letter'];
+        foreach ($documents as $document) {
+            if ($request->hasFile($document)) {
+
+                $existingDocument = Documentupload::where('company_id', $id)->where('file_type', $document)->first();
+                if ($existingDocument && file_exists(public_path('upload/' . $existingDocument->file_name))) {
+                    unlink(public_path('upload/' . $existingDocument->file_name));
+                }
+
+                $file = $request->file($document);
+                $fileName = uniqid() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('upload/' . $id), $fileName);
+
+                Documentupload::updateOrCreate(
+                    ['company_id' => $id, 'file_type' => $document],
+                    ['file_name' => $fileName]
+                );
+            }
+        }
+
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile and documents updated successfully!');
+        return redirect()->route('profile.index');
     }
+
 
 }
