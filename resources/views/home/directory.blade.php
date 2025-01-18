@@ -151,60 +151,62 @@
          <section>
     <div class="container">
         <div class="row mb-4" style="justify-content: flex-end;">
-            <div class="col-md-4" style="margin-top: 50px;">
-                <!-- Search Bar -->
+            <div class="col-md-8" style="margin-top: 50px;">
+                <!-- Search Form -->
                 <form method="GET" action="{{ url('/directory') }}">
-                    <div class="input-group">
-                        <input
-                            type="text"
-                            name="search"
-                            class="form-control"
-                            placeholder="Search here.."
-                            value="{{ request('search') }}"/>
-                        <button type="submit" class="btn btn-primary fs-5">Search</button>
+                    <div class="row">
+                        <!-- Search Input -->
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    name="search"
+                                    class="form-control"
+                                    placeholder="Search here.."
+                                    value="{{ request('search') }}" />
+                            </div>
+                        </div>
+
+                        <!-- State Dropdown -->
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <select name="state_id" id="state-dropdown" class="form-control">
+                                    <option value="">Select State</option>
+                                    @foreach ($states as $state)
+                                    <option value="{{ $state->id }}" {{ request('state_id') == $state->id ? 'selected' : '' }}>
+                                        {{ $state->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- City Dropdown -->
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <select name="city_id" id="city-dropdown" class="form-control">
+                                    <option value="">Select City</option>
+                                    @foreach ($cities as $city)
+                                    <option value="{{ $city->id }}" {{ request('city_id') == $city->id ? 'selected' : '' }}>
+                                        {{ $city->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Search Button -->
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary fs-5 w-100 form-control">Search</button>
+                        </div>
                     </div>
                 </form>
+                <!-- End Search Form -->
             </div>
-            <!---------End Search Bar----------->
-
-            <!-- Filters by State and City -->
-        <div class="col-md-4" style="margin-top: 50px;">
-            <form method="GET" action="{{ url('/directory') }}">
-                <div class="row">
-            <!-- State Dropdown -->
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <select name="state_id" id="state-dropdown" class="form-control" onchange="this.form.submit()">
-                            <option value="">Select State</option>
-                            @foreach ($states as $state)
-                            <option value="{{ $state->id }}" {{ request('state_id') == $state->id ? 'selected' : '' }}>
-                                {{ $state->name }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-            <!-- City Dropdown -->
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <select name="city_id" id="city-dropdown" class="form-control" onchange="this.form.submit()">
-                            <option value="">Select City</option>
-                            @foreach ($cities as $city)
-                            <option value="{{ $city->id }}" {{ request('city_id') == $city->id ? 'selected' : '' }}>
-                                {{ $city->name }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
-    <!---------------End filter form-------------->
-</div>
-</div>
 </section>
+
 
 
 

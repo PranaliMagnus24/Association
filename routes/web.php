@@ -20,6 +20,11 @@ use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\TypeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\GalleryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -193,7 +198,7 @@ Route::get('/directory', [HomeController::class, 'directory'])->name('home.direc
 Route::get('/details/{id}', [HomeController::class, 'show'])->name('directory.view');
 Route::get('/committee', [HomeController::class, 'committee'])->name('home.committee');
 Route::get('/desk_directory', [HomeController::class, 'desk_directory'])->name('home.desk_directory');
-Route::get('/gallery', [HomeController::class, 'gallery'])->name('home.gallery');
+Route::get('/indexgallery', [HomeController::class, 'gallery'])->name('home.gallery');
 Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
 Route::get('/islamic_tijarat', [HomeController::class, 'islamic_tijarat'])->name('home.islamictijarat');
 Route::get('/associate', [HomeController::class, 'associate'])->name('home.associate');
@@ -220,10 +225,47 @@ Route::get('/member', [MemberController::class, 'index'])->middleware(['auth', '
 Route::get('/member-profile', [MemberController::class, 'profile'])->middleware(['auth', 'role:user'])->name('profile.index');
 Route::post('/member-profile', [MemberController::class, 'memberprofileupdate'])->name('update.profile');
 Route::post('/member-profile/{id}', [MemberController::class, 'companyprofileupdate'])->name('update.companyprofile');
+Route::post('/update-password', [MemberController::class, 'updatePassword'])->middleware(['auth', 'role:user'])->name('updatePassword');
+
 
 
 ////Mail Controller
 // Route::get('/send-contact', [MailController::class, 'sendContact']);
 Route::post('/send-contact', [MailController::class, 'sendContact'])->name('send.email');
 
+//gallery
+Route::get('gallery', [GalleryController::class, 'index'])->name('gallerylist');
+Route::get('gallery/create', [GalleryController::class, 'create'])->name('gallery.create');
+Route::post('gallery', [GalleryController::class, 'store'])->name('gallery.store');
+Route::get('gallery/{id}/edit', [GalleryController::class, 'edit'])->name('gallery.edit');
+Route::put('gallery/{id}', [GalleryController::class, 'update'])->name('gallery.update');
+Route::delete('gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
+Route::delete('/gallery/{gallery}/image/{image}', [GalleryController::class, 'deleteImage'])->name('gallery.delete');
+Route::get('/gallery/{id}', [GalleryController::class, 'show'])->name('gallery.show');
+Route::post('/gallery/add-image', [GalleryController::class, 'addImageToGallery'])->name('gallery.addImage');
+
+//Images
+Route::get('image-upload', [ImageController::class, 'index'])->name('imagelisting');
+Route::post('image-upload', [ImageController::class, 'store'])->name('image.store');
+Route::get('image/create', [ImageController::class, 'create'])->name('imageUpload');
+Route::get('image/{id}/edit', [ImageController::class, 'edit'])->name('imageedit');
+Route::put('image/update/{id}', [ImageController::class, 'update'])->name('update');
+Route::delete('image/{id}', [ImageController::class, 'destroy'])->name('destroy');
+
+//Type
+Route::get('types', [TypeController::class, 'index'])->name('typelist');
+Route::get('types/create', [TypeController::class, 'create'])->name('types.create');
+Route::post('types', [TypeController::class, 'store'])->name('types.store');
+Route::get('types/{id}/edit', [TypeController::class, 'edit'])->name('types.edit');
+Route::put('types/{id}', [TypeController::class, 'update'])->name('types.update');
+Route::delete('types/{id}', [TypeController::class, 'destroy'])->name('types.destroy');
+
+
+//page
+Route::get('pages', [PageController::class, 'index'])->name('pagelist');
+Route::get('pages/create', [PageController::class, 'create'])->name('pages.create');
+Route::post('pages', [PageController::class, 'store'])->name('pages.store');
+Route::get('pages/{id}/edit', [PageController::class, 'edit'])->name('pages.edit');
+Route::put('pages/{id}', [PageController::class, 'update'])->name('pages.update');
+Route::delete('pages/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
 

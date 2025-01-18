@@ -1,4 +1,18 @@
+<style>
+    .close{
+    float: right;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    border:none;
+    background-color:#fff;
+    color: #051441;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity = 20);
+    opacity: .2;
+    }
 
+</style>
 <!--=========================-->
         <!--=        Footer         =-->
         <!--=========================-->
@@ -148,16 +162,12 @@
             @endif
         </footer>
 
-
-
-
-    <!-- /#site -->
-
-
     <!-- Dependency Scripts -->
 
-    <script class="script-js" src="{{asset('homecss/assets/vendors/jquery/jquery.min.js')}}"></script>
-    <script class="script-js" src="{{asset('homecss/assets/vendors/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- <script class="script-js" src="{{asset('homecss/assets/vendors/jquery/jquery.min.js')}}"></script>
+    <script class="script-js" src="{{asset('homecss/assets/vendors/bootstrap/js/bootstrap.bundle.min.js')}}"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script class="script-js" src="{{asset('homecss/assets/vendors/owl-carousel/js/owl.carousel.min.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/isotope/isotope.pkgd.min.js')}}"></script>

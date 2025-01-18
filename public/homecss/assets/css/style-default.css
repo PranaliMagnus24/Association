@@ -1911,7 +1911,7 @@ blockquote:before,
 }
 
 .site-header .site-logo img {
-  max-width: 130px;
+  /* max-width: 130px; */
 }
 
 @media (max-width: 991px) {
@@ -2323,7 +2323,7 @@ blockquote:before,
 .close-menu {
   height: 40px;
   width: 40px;
-  background: rgba(136, 136, 136, 0.1);
+  /* background: rgba(136, 136, 136, 0.1); */
   border-radius: 50%;
   text-align: center;
   line-height: 43px;
@@ -2466,7 +2466,7 @@ blockquote:before,
     -o-transition: none;
     transition: none;
     width: 100%;
-    min-height: 100%;
+    /* min-height: 100%; */
   }
 
   .site-header .main-nav-container li.has-submenu i {
@@ -2591,7 +2591,7 @@ blockquote:before,
     z-index: 10;
     text-align: left;
     font-weight: 500;
-    height: 100%;
+    /* height: 100%; */
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -7624,127 +7624,116 @@ blockquote:before,
         }
 
 
+
+        ////Gallery Tab's
         .section1 {
-          column-width: 300px;
-          column-gap: 5px;
-          padding: 5px;
+            column-gap: 5px;
+            padding: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Centers images in the container */
         }
+
         .section1 img {
-          width: 100%;
-          cursor: pointer;
+            cursor: pointer;
+            max-width: 100%;
+            height: auto;
+            margin: 5px; /* Adds spacing between images */
         }
 
         .lightbox {
-          position: fixed;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          display: none;
-          background: #7f8c8d;
-          perspective: 1000;
-        }
-
-        .filter1 {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          filter: blur(20px);
-          opacity: 0.5;
-          background-position: center;
-          background-size: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
         .lightbox img {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) rotateY(0deg);
-          max-height: 95vh;
-          max-width: calc(95vw - 100px);
-          transition: 0.8s cubic-bezier(0.7, 0, 0.4, 1);
-          transform-style: preserve-3d;
+            max-width: 90%;
+            max-height: 80%;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow */
+            border-radius: 10px; /* Optional: rounded corners for images */
         }
 
-
-        /*.lightbox:hover img{
-          transform: translate(-50%, -50%) rotateY(180deg);
-        }*/
-
-        [class^="arrow1"] {
-          height: 200px;
-          width: 50px;
-          background: rgba(0, 0, 0, 0.4);
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          cursor: pointer;
-        }
-
-        [class^="arrow1"]:after {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) rotate(-45deg);
-          width: 15px;
-          height: 15px;
-        }
-
-        .arrowr1 {
-          right: 0;
-        }
-
-        .arrowr1:after {
-          border-right: 1px solid white;
-          border-bottom: 1px solid white;
-        }
-
-        .arrowl1 {
-          left: 0;
-        }
-
-        .arrowl1:after {
-          border-left: 1px solid white;
-          border-top: 1px solid white;
+        .close1, .arrowl1, .arrowr1 {
+            position: absolute;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.2s ease-in-out;
         }
 
         .close1 {
-          position: absolute;
-          right: 0;
-          width: 50px;
-          height: 50px;
-          background: rgba(0, 0, 0, 0.4);
-          margin: 20px;
-          cursor: pointer;
+            top: 10px;
+            right: 20px;
+            font-size: 40px;
         }
 
-        .close1:after,
-        .close1:before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 1px;
-          height: 100%;
-          background: #e74c3c;
+        .arrowl1 {
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        .close1:after {
-          transform: translate(-50%, -50%) rotate(-45deg);
+        .arrowr1 {
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        .close1:before {
-          transform: translate(-50%, -50%) rotate(45deg);
+
+        .close1:hover, .arrowl1:hover, .arrowr1:hover {
+            transform: scale(1.2);
         }
 
-        .title1 {
-          font-size: 20px;
-          color: #000;
-          z-index: 1000;
-          position: absolute;
-          top: 0;
-          left: 0;
+
+        @media (max-width: 768px) {
+            .section1 {
+                column-gap: 10px;
+                padding: 10px;
+            }
+
+            .section1 img {
+                width: 100%;
+                max-width: calc(50% - 10px);
+                margin: 5px;
+            }
+
+            .lightbox img {
+                max-width: 95%;
+                max-height: 70%;
+            }
+
+            .close1, .arrowl1, .arrowr1 {
+                font-size: 1.5rem;
+            }
         }
+
+        @media (max-width: 480px) {
+            .section1 img {
+                max-width: calc(100% - 10px);
+            }
+
+            .lightbox img {
+                max-width: 100%;
+                max-height: 60%;
+            }
+
+            .close1, .arrowl1, .arrowr1 {
+                font-size: 40;
+            }
+        }
+
 
 
 

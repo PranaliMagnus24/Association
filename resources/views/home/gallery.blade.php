@@ -28,38 +28,41 @@
                     <div class="row">
                         <div align="center">
                             <button class="btn btn-default filter-button" data-filter="all">All</button>
-                            <button class="btn btn-default filter-button" data-filter="irrigation">Rotary Club Meetup</button>
-                            <button class="btn btn-default filter-button" data-filter="sprinkle">Office Inauguration</button>
-                            <button class="btn btn-default filter-button" data-filter="hdpe">Business Meet</button>
-                            <!-- <button class="btn btn-default filter-button" data-filter="irrigation">Irrigation Pipes</button> -->
+
+                            @if(is_array($gallery) && count($gallery)>0)
+                                @foreach($gallery as $galkey=>$gal)
+                                <button class="btn btn-default filter-button" data-filter="{{str_replace(" ","_",strtolower($gal['name']))}}">{{$gal['name']}}</button>
+                                @endforeach
+                            @endif
+
+
+
+
+
                         </div>
                         <hr>
 <div class="section1">
-  <img src="{{asset('homecss/assets/images/gallery/office-opening2.jpeg')}}"   data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening2.jpeg')}}" class="filter sprinkle" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet1.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet1.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/office-opening3.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening3.jpeg')}}" class="filter sprinkle" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet2.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet2.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/office-opening4.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening4.jpeg')}}" class="filter sprinkle" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet3.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet3.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/office-opening5.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening5.jpeg')}}" class="filter sprinkle" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet4.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet4.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/office-opening6.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/office-opening6.jpeg')}}" class="filter sprinkle" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet5.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet5.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/business-meet6.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/business-meet6.jpeg')}}" class="filter hdpe" />
-  <img src="{{asset('homecss/assets/images/gallery/rotary_club1.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/rotary_club1.jpeg')}}" class="filter irrigation" />
-  <img src="{{asset('homecss/assets/images/gallery/rotary_club2.jpeg')}}"  data-mdb-img="{{asset('homecss/assets/images/gallery/rotary_club2.jpeg')}}" class="filter irrigation" />
+
+@if(is_array($gallery) && count($gallery)>0)
+    @foreach($gallery as $galkey=>$galval)
+        @foreach($galval['imagegallery'] as $imgkey=>$imgval)
+            <img src="{{asset('upload/thumbnails/'. $imgval['thumbnail'])}}"   data-mdb-img="{{asset('upload/'.$imgval['name'])}}" class="filter {{str_replace(" ","_",strtolower($galval['name']))}}" />
+        @endforeach
+    @endforeach
+@endif
+
+
   </div>
 
 </div>
 </div>
 </div>
 </section>
-<div class="lightbox">
-  <div class="title1"></div>
-  <div class="filter1"></div>
-  <div class="arrowr1"></div>
-  <div class="arrowl1"></div>
-  <div class="close1"></div>
+<div class="lightbox" style="display: none;">
+  <span class="close1">&times;</span>
+  <div class="arrowl1">&#10094;</div>
+  <div class="arrowr1">&#10095;</div>
 </div>
+
 
          @include('home.includes.footer')

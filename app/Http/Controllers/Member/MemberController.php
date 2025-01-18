@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\CompanyPro;
 use App\Models\User;
 use App\Models\Technology;
@@ -136,5 +137,37 @@ class MemberController extends Controller
         return redirect()->route('profile.index');
     }
 
+
+    public function updatePassword(Request $request)
+    {
+
+        // Validate input fields
+        // $request->validate([
+        //     'current_password' => 'required',
+        //     'new_password' => 'nullable|min:8|confirmed',
+        // ]);
+
+
+        $user = Auth::user();
+
+
+        if (!Hash::check($request->current_password, $user->password)) {
+
+            return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+        }
+
+
+        if ($request->filled('new_password')) {
+
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            toastr()->timeOut(5000)->closeButton()->addSuccess('Password updated successfully!');
+            return redirect()->route('profile.index');
+        }
+
+
+        return back()->with('info', 'No changes made to the password.');
+    }
 
 }

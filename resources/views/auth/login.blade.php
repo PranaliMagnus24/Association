@@ -42,20 +42,26 @@ font-size: 15px !important;
             </div>
          </div>
       </section>
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
-                <div class="pt-4 pb-5">
-                        <h5 class="card-title text-center pb-0 fs-2">Login here !</h5>
-                    </div>
-                    <div>
 
+      <section class="vh-100" style="background-color:rgb(241, 233, 235);">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img src="{{asset('homecss/assets/images/login_register/login1.png')}}"
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; height: 100%; object-fit: cover;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
 
-                    <div class="card mb-3">
-                        <div class="card-body pt-5 pb-2">
-                     <form class="row g-3 needs-validation" method="POST" action="{{ route('login') }}" novalidate>
+              <form class="row g-3 needs-validation" method="POST" action="{{ route('login') }}" novalidate>
                     @csrf
+                    <!-- <div class="d-flex align-items-center mb-3 pb-1">
+                    <img src="{{asset('homecss/assets/images/logo/mima-svg.svg')}}" alt=""class="h1 fw-bold mb-0">
+                  </div> -->
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
@@ -92,11 +98,14 @@ font-size: 15px !important;
                       <p class="small mb-0">Don't have account? <a href="{{route('register')}}">Create an account</a></p>
                     </div>
                   </form>
-                </div>
+
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
 @include('home.includes.footer')

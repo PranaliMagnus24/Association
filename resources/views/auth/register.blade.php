@@ -43,19 +43,26 @@ font-size: 15px !important;
             </div>
          </div>
       </section>
+<section class="vh-100" style="background-color:rgb(241, 233, 235);">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img src="{{asset('homecss/assets/images/login_register/login1.png')}}"
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; height: 100%; object-fit: cover;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
 
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
-                    <div class="pt-4 pb-5">
-                        <h5 class="card-title text-center pb-0 fs-2">Register here!</h5>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-body pt-5 pb-2">
-                            <form class="row g-3 needs-validation" method="POST" action="{{ route('register') }}" novalidate>
+              <form class="row g-3 needs-validation" method="POST" action="{{ route('register') }}" novalidate>
                                @csrf
-                    <div class="row">
+                               <!-- <div class="d-flex align-items-center mb-3 pb-1">
+                    <img src="{{asset('homecss/assets/images/logo/mima-svg.svg')}}" alt=""class="h1 fw-bold mb-0">
+                  </div> -->
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+                    <div class="row mb-3">
                         <div class="col-6">
                             <label for="yourName" class="form-label">First Name <span style="color:red;">*</span></label>
                             <input type="text" name="first_name" class="form-control fs-4" id="yourName" :value="old('first_name')" required autofocus autocomplete="first_name" required>
@@ -71,7 +78,7 @@ font-size: 15px !important;
                                 @enderror
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-6">
                             <label for="yourLastName" class="form-label">Last Name <span style="color:red;">*</span></label>
                             <input type="text" name="last_name" class="form-control fs-4" id="yourLastName" :value="old('last_name')" required autocomplete="last_name" required>
@@ -87,7 +94,7 @@ font-size: 15px !important;
                                 @enderror
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="col-6">
                                 <label for="yourPhone" class="form-label">Mobile No. <span style="color:red;">*</span></label>
                                 <input type="text" name="phone" class="form-control fs-4" id="yourPhone"
@@ -96,24 +103,7 @@ font-size: 15px !important;
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="col-6">
-                                <label for="yourPassword" class="form-label">Password <span style="color:red;">*</span></label>
-                                <input type="password" name="password" class="form-control fs-4" id="yourPassword"
-                            required autocomplete="new-password" required>
-                            @error('password')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="yourPassword" class="form-label">Confirm Password</label>
-                                <input type="password"  class="form-control fs-4" id="yourPassword"
-                                         name="password_confirmation"  autocomplete="new-password">
-                                  @error('password_confirmation')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
+
                             <div class="col-6">
                                 <label for="yourPassword" class="form-label">Gender</label>
                                 <select id="gender" name="gender" class="form-select form-control" aria-label="Default select example" value="{{ old('gender') }}">
@@ -123,18 +113,46 @@ font-size: 15px !important;
                                     <option value="other">Other</option>
                                 </select>
                             </div>
+
                         </div>
+                        <div class="row mb-3">
                         <div class="col-6">
-                            <x-primary-button class="btn btn-primary w-100 form-control fs-4">
-                       {{ __('Register') }}
-                    </x-primary-button>
-                </div>
+                                <label for="yourPassword" class="form-label">Password <span style="color:red;">*</span></label>
+                                <input type="password" name="password" class="form-control fs-4" id="yourPassword"
+                            required autocomplete="new-password" required>
+                            @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-6">
+                                <label for="yourPassword" class="form-label">Confirm Password</label>
+                                <input type="password"  class="form-control fs-4" id="yourPassword"
+                                         name="password_confirmation"  autocomplete="new-password">
+                                  @error('password_confirmation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                        </div>
+                        <div class="pt-1 mb-6 text-center">
+    <x-primary-button
+        class="btn btn-primary btn-lg btn-block w-50 form-control fs-4"
+        data-mdb-button-init
+        data-mdb-ripple-init
+    >
+        {{ __('Register') }}
+    </x-primary-button>
+</div>
+
             </form>
+
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
-</div>
+  </div>
 </section>
 
     @if (session('success'))

@@ -111,6 +111,26 @@
               <i class="bi bi-circle"></i><span>Position</span>
             </a>
           </li>
+          <li>
+            <a href="{{route('gallerylist')}}">
+              <i class="bi bi-circle"></i><span>Gallery</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('imagelisting')}}">
+              <i class="bi bi-circle"></i><span>Image</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('pagelist')}}">
+              <i class="bi bi-circle"></i><span>Page</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('typelist')}}">
+              <i class="bi bi-circle"></i><span>CType</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Tables Nav -->
 

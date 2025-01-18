@@ -10,6 +10,7 @@
                      <div class="page-title-content">
 
                         <h1 class="h2">Management Committee</h1>
+                            <h4> (Nashik District)</h4>
 
                         <p>
                             <strong>

@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use App\Models\CompanyPro;
+use App\Models\Gallery;
 use Illuminate\Support\Facades\Hash;
 use Str;
 use File;
@@ -158,7 +159,10 @@ public function directory(Request $request)
     //Home Gallery Page
     public function gallery()
     {
-        return view('home.gallery');
+
+        $gallery = Gallery::with('imagegallery')->get()->toArray();
+        //print_r($datas);
+        return view('home.gallery',compact('gallery'));
     }
 
 

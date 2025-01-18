@@ -56,8 +56,9 @@
 
 @if($getSetting)
 <a href="{{route('home.index')}}" class="logo">
-    <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="site logo" class="main-logo">
-    <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="site logo" class="logo-sticky">
+    <img src="{{asset('homecss/assets/images/logo/mima-svg.svg')}}" alt="site logo" class="main-logo">
+    <img src="{{asset('homecss/assets/images/logo/mima-svg.svg')}}" alt="site logo" class="logo-sticky">
+    <!-- <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="site logo" class="logo-sticky"> -->
 </a>
 @else
 <h1>Association</h1>
@@ -99,9 +100,9 @@
                                 </li>
                                  <li><a href="{{route('home.directory')}}">Directory</a></li>
                                  <li><a href="{{ route('home.islamictijarat')}}">Islamic Tijarat</a></li>
-                                 <li><a href="{{route('home.gallery')}}">Gallery</a></li>
+                                 <li><a href="{{ route('home.gallery')}}">Gallery</a></li>
                                 <li class="menu-item-depth-0">
-                                    <a href="{{route('home.contact')}}">Contact</a>
+                                    <a href="{{ route('home.contact')}}">Contact</a>
                                 </li>
                             </ul>
 

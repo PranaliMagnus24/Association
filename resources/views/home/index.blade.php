@@ -40,7 +40,7 @@
         @include('home.includes.index_counter')
         @include('home.includes.index_calltoaction')
 
-        <!-- @include('home.includes.commitee_member') -->
+        {{-- @include('home.includes.commitee_member') --}}
 
 
 

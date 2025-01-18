@@ -401,7 +401,7 @@
 
             <!-- Change Password Form -->
             <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
-                <form action="/update-password" method="POST">
+                <form action="{{ route('updatePassword')}}" method="POST">
                     @csrf
                     <div class="row mb-3">
                     <label for="CurrentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
