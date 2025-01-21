@@ -90,11 +90,11 @@
                         <td>{{ $type->name }}</td>
 
                         <td>
-                            <a href="{{ route('types.edit', $type->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ route('types.edit', $type->id) }}" class="btn btn-outline-success"> <i class="bx bx-pencil" style="font-size: 20px;"></i></a>
                             <form action="{{ route('types.destroy', $type->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button type="submit" class="btn btn-outline-danger"><i class="bx bx-trash" style="font-size: 20px;"></i></button>
                             </form>
                         </td>
                     </tr>

@@ -26,8 +26,8 @@ class PageController extends Controller
     ]);
 
     Page::create($request->all()); // Save the Cpage to the database
-
-    return redirect()->route('pagelist')->with('success', 'page created successfully.');
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Page created successfully.');
+    return redirect()->route('pagelist');
 }
 
     // Show the form for editing an existing FAQ
@@ -47,8 +47,8 @@ public function edit($id)
 
         $page = Page::findOrFail($id); // Find the page by ID
         $page->update($request->all()); // Update the page data
-
-        return redirect()->route('pagelist')->with('success', 'page updated successfully.');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Page updated successfully.');
+        return redirect()->route('pagelist');
     }
 
     // Delete an page
@@ -56,7 +56,7 @@ public function edit($id)
     {
         $page = Page::findOrFail($id); // Find the page by ID
         $page->delete(); // Delete the page
-
-        return redirect()->route('pagelist')->with('success', 'page deleted successfully.');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Page deleted successfully.');
+        return redirect()->route('pagelist');
     }
 }

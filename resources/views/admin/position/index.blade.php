@@ -100,16 +100,15 @@
                 <td>
 
                      <!-- Edit Button -->
-                     <a href="{{ route('position.edit', $position->id) }}" class="btn btn-primary btn-sm">
-                         <i class="fas fa-edit"></i> <!-- Font Awesome Edit Icon -->
+                     <a href="{{ route('position.edit', $position->id) }}" class="btn btn-outline-success"><i class="bx bx-show" style="font-size: 20px;"></i></a>
                      </a>
 
                      <!-- Delete Button -->
                      <form action="{{ route('position.delete', $position->id) }}" method="POST" class="d-inline">
                          @csrf
                          @method('DELETE')
-                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
-                                             <i class="fas fa-trash-alt"></i>
+                         <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">
+                         <i class="bx bx-trash" style="font-size: 20px;"></i>
                                          </button>
                      </form>
                  </td>
@@ -119,7 +118,7 @@
                 </tbody>
             </table>
             <div class="text-end mb-3">
-
+{{$positions->links()}}
         </div>
         </div>
     </div>

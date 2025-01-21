@@ -70,12 +70,12 @@
 <!--List Body-->
 <div class="container">
 <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="get" action="{{url('fees_search')}}">
+      <form class="search-form d-flex align-items-center" method="get" action="{{url('technology_search')}}">
         @csrf
         <input type="text" name="search" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
-      <a href="{{ route('fee.add')}}" class="btn btn-primary">+</a>
+      <a href="{{ route('technology.add')}}" class="btn btn-primary">+</a>
     </div><!-- End Search Bar -->
 
     <div class="card">

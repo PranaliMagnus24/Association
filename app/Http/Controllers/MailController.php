@@ -20,71 +20,75 @@ class MailController extends Controller
 
 
     public function sendContact(Request $request)
-    {
-        dd($request->all());
-        try {
+{
+    try {
+        $formType = $request->input('form_type');
 
-            $formType = $request->input('form_type');
+        if ($formType === 'business') {
 
-            if ($formType === 'business') {
+            // Fetch the company profile and associated user data
+            $companyPro = CompanyPro::findOrFail($request->input('company_id'));
+            $user = User::findOrFail($companyPro->user_id); // Assuming 'user_id' is linked to the 'users' table
 
-                $companyPro = CompanyPro::findOrFail($request->input('company_id')); // Ensure 'company_id' is provided
+            // Create a contact entry in the database
+            $contact = Contact::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'message' => $request->input('message'),
+                'company_id' => $companyPro->id,
+            ]);
 
-                $contact = Contact::create([
-                    'name' => $request->input('name'),
-                    'email' => $request->input('email'),
-                    'message' => $request->input('message'),
-                    'company_id' => $companyPro->id, // Store company_id
-                ]);
+            // Use the user's email address to send the message
+            $adminEmail = $user->email;
 
-                $adminEmail = $companyPro->email; // Use email from CompanyPro model
-
-                if (!$adminEmail) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Company email not configured. Please contact support.',
-                    ]);
-                }
-
-                Mail::to($adminEmail)->send(new ContactMail($request));
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Your message has been sent to the company!',
-                ]);
-
-            } elseif ($formType === 'association') {
-                // Handle association inquiry
-                $contact = Contact::create($request->all());
-                $generalSetting = GeneralSetting::first();
-                $adminEmail = $generalSetting ? $generalSetting->email : null;
-
-                if (!$adminEmail) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Admin email not configured. Please contact support.',
-                    ]);
-                }
-
-                Mail::to($adminEmail)->send(new ContactMail($request));
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Thank you for contacting us, our team will get back to you as soon as possible!',
-                ]);
-            } else {
+            if (!$adminEmail) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Invalid form type.',
+                    'message' => 'User email not configured. Please contact support.',
                 ]);
             }
-        } catch (\Exception $e) {
+
+            // Send email from the user
+            Mail::to($adminEmail)->send(new ContactMail($request));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Your message has been sent to the company!',
+            ]);
+
+        } elseif ($formType === 'association') {
+
+            // Handle association form (same as before)
+            $contact = Contact::create($request->all());
+            $generalSetting = GeneralSetting::first();
+            $adminEmail = $generalSetting ? $generalSetting->email : null;
+
+            if (!$adminEmail) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Admin email not configured. Please contact support.',
+                ]);
+            }
+
+            Mail::to($adminEmail)->send(new ContactMail($request));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Thank you for contacting us, our team will get back to you as soon as possible!',
+            ]);
+        } else {
             return response()->json([
                 'success' => false,
-                'message' => 'An unexpected error occurred: ' . $e->getMessage(),
+                'message' => 'Invalid form type.',
             ]);
         }
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'An unexpected error occurred: ' . $e->getMessage(),
+        ]);
     }
+}
 
 
 

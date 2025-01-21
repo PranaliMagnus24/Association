@@ -50,8 +50,8 @@
                 <label for="inputState" class="form-label">Status</label>
                   <select id="inputState" class="form-select" name="status" value="{{$membership->status}}">
                     <option selected>Select status</option>
-                    <option>Active</option>
-                    <option>Deactive</option>
+                    <option value="active" {{ $membership->status == 'active' ? 'selected' : '' }}>Active</option>
+                    <option value="inactive" {{ $membership->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
                   </select>
                 </div>
 

@@ -119,7 +119,7 @@
                 </tbody>
             </table>
             <div class="text-end mb-3">
-
+{{$committees->links()}}
         </div>
         </div>
     </div>

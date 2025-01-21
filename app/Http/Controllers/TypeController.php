@@ -26,8 +26,8 @@ class TypeController extends Controller
     ]);
 
     CType::create($request->all()); // Save the CType to the database
-
-    return redirect()->route('typelist')->with('success', 'Type created successfully.');
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Type created successfully.');
+    return redirect()->route('typelist');
 }
 
     // Show the form for editing an existing FAQ
@@ -47,8 +47,8 @@ class TypeController extends Controller
 
         $type = CType::findOrFail($id); // Find the type by ID
         $type->update($request->all()); // Update the type data
-
-        return redirect()->route('typelist')->with('success', 'type updated successfully.');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Type updated successfully.');
+        return redirect()->route('typelist');
     }
 
     // Delete an type
@@ -56,7 +56,7 @@ class TypeController extends Controller
     {
         $type = CType::findOrFail($id); // Find the type by ID
         $type->delete(); // Delete the type
-
-        return redirect()->route('typelist')->with('success', 'type deleted successfully.');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Type deleted successfully.');
+        return redirect()->route('typelist');
     }
 }

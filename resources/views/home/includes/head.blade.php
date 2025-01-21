@@ -20,7 +20,7 @@
     <!-- maximum 140 char -->
     <meta name="twitter:description" content="{{$getSetting->description}}">
     <!-- maximum 140 char -->
-    <meta name="twitter:image" content="{{asset('homecss/assets/images/about-page/about-img.jpg')}}">
+    <meta name="twitter:image" content="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
     <!-- when you post this page url in twitter , this image will be shown -->
     <!-- twitter card ends here -->
 
@@ -33,33 +33,34 @@
     <!-- use this if you have  -->
     <meta property="og:type" content="website">
     <!-- 'article' for single page  -->
-    <meta property="og:image" content="{{asset('homecss/assets/images/about-page/about-img.jpg')}}">
+    <meta property="og:image" content="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
     <!-- when you post this page url in facebook , this image will be shown -->
     <!-- facebook open graph ends here -->
 
     <!-- desktop bookmark -->
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{asset('homecss/assets/images/about-page/about-img.jpg')}}">
+    <meta name="msapplication-TileImage" content="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
     <meta name="theme-color" content="#ffffff">
 
     <!-- icons & favicons -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
     <!-- this icon shows in browser toolbar -->
-    <link rel="icon" type="image/x-icon" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="icon" type="image/x-icon" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
     <!-- this icon shows in browser toolbar -->
-    <link rel="apple-touch-icon" sizes="57x57" href="{{asset('homecss/assets/images/logo/logo.jpg')}}')}}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{{asset('homecss/assets/images/logo/logo.jpg')}}')}}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{asset('homecss/assets/images/logo/logo.jpg')}}')}}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('homecss/assets/images/logo/logo.jpg')}}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}')}}">
+
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}')}}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}')}}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}">
 
 
     <!-- Dependency Styles -->

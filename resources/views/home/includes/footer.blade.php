@@ -31,7 +31,7 @@
                                 <div class="widgei-body">
                                     <div class="footer-about">
                                     @if($getSetting)
-                                    <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="Logo" style="max-width: 130px; background-color:#fff;">
+                                    <img src="{{ url('upload/' . $getSetting->footer_logo) }}" alt="Logo" style="max-width: 130px; background-color:#fff;">
 
                                         @else
                                      <h1>Association</h1>
@@ -184,6 +184,8 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
+
+
     <!-- Site Scripts -->
     <script src="{{asset('homecss/assets/js/app.js')}}"></script>
 

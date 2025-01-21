@@ -61,8 +61,8 @@ class ImageController extends Controller
             }
         }
 
-
-        return redirect()->route('imagelisting')->with('success', 'Images uploaded successfully!');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Images uploaded successfully.');
+        return redirect()->route('imagelisting');
     }
 
 
@@ -130,8 +130,9 @@ class ImageController extends Controller
     $image->save();
 
     // Redirect back to the gallery show page or image listing
-    return redirect()->route('imagelisting', $image->gallery_id)
-        ->with('success', 'Image updated successfully!');
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Image updated successfully.');
+    return redirect()->route('imagelisting',$image->gallery_id);
+
 }
 
     // Delete an image
@@ -145,7 +146,7 @@ class ImageController extends Controller
         }
 
         $image->delete(); // Delete the database entry
-
-        return redirect()->route('imagelisting')->with('success', 'Image deleted successfully!');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Image deleted successfully.');
+        return redirect()->route('imagelisting');
     }
 }

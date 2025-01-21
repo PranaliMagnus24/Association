@@ -27,8 +27,9 @@ class FAQController extends Controller
        ]);
 
        FAQ::create($request->all());
+       toastr()->timeOut(5000)->closeButton()->addSuccess('F.A.Q created successfully.');
+       return redirect()->route('faq.index');
 
-       return redirect()->route('faq.index')->with('success', 'F.A.Q created successfully.');
    }
 
 
@@ -49,7 +50,8 @@ class FAQController extends Controller
       $data = FAQ::findOrFail($id);
       $data->update($request->all());
 
-       return redirect()->route('faq.index')->with('success', 'FAQ updated successfully.');
+      toastr()->timeOut(5000)->closeButton()->addSuccess('F.A.Q updated successfully.');
+      return redirect()->route('faq.index');
    }
 
    // Delete an FAQ
@@ -57,8 +59,8 @@ class FAQController extends Controller
    {
       $data = FAQ::findOrFail($id);
       $data->delete();
-
-       return redirect()->route('faq.index')->with('success', 'FAQ deleted successfully.');
+      toastr()->timeOut(5000)->closeButton()->addSuccess('F.A.Q deleted successfully.');
+      return redirect()->route('faq.index');
    }
 
 

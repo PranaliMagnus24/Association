@@ -161,7 +161,7 @@
                                 <input
                                     type="text"
                                     name="search"
-                                    class="form-control"
+                                    class="form-control fs-"
                                     placeholder="Search here.."
                                     value="{{ request('search') }}" />
                             </div>
@@ -197,7 +197,7 @@
 
                         <!-- Search Button -->
                         <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary fs-5 w-100 form-control">Search</button>
+                            <button type="submit" class="btn btn-primary fs-4 w-100 form-control">Search</button>
                         </div>
                     </div>
                 </form>
@@ -237,7 +237,7 @@
                                 <p>{!! $companypro->about_company !!}</p>
                             </div>
                             <div class="button-group">
-                                <a href="#" class="btn btn-companypro">View Details</a>
+                                <a href="{{ route('directory.view', $companypro->id)}}" class="btn btn-companypro">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -256,7 +256,100 @@
     </div>
 </section>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
 
+$(document).ready(function () {
+
+$('#country-dropdown').on('change', function () {
+
+    var idCountry = this.value;
+
+    $("#state-dropdown").html('');
+
+    $.ajax({
+
+        url: "{{url('api/fetch-states')}}",
+
+        type: "POST",
+
+        data: {
+
+            country_id: idCountry,
+
+            _token: '{{csrf_token()}}'
+
+        },
+
+        dataType: 'json',
+
+        success: function (result) {
+
+            $('#state-dropdown').html('<option value="">-- Select State --</option>');
+
+            $.each(result.states, function (key, value) {
+
+                $("#state-dropdown").append('<option value="' + value
+
+                    .id + '">' + value.name + '</option>');
+
+            });
+
+            $('#city-dropdown').html('<option value="">-- Select City --</option>');
+
+        }
+
+    });
+
+});
+
+
+$('#state-dropdown').on('change', function () {
+
+    var idState = this.value;
+
+    $("#city-dropdown").html('');
+
+    $.ajax({
+
+        url: "{{url('api/fetch-cities')}}",
+
+        type: "POST",
+
+        data: {
+
+            state_id: idState,
+
+            _token: '{{csrf_token()}}'
+
+        },
+
+        dataType: 'json',
+
+        success: function (res) {
+
+            $('#city-dropdown').html('<option value="">-- Select City --</option>');
+
+            $.each(res.cities, function (key, value) {
+
+                $("#city-dropdown").append('<option value="' + value
+
+                    .id + '">' + value.name + '</option>');
+
+            });
+
+        }
+
+    });
+
+});
+
+
+
+});
+
+
+</script>
 
 
 

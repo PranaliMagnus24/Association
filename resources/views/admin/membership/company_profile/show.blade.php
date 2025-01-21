@@ -56,7 +56,7 @@
         </div>
         <div class="col-md-4 col-lg-4">
             <label class="col-form-label"><strong>Membership Year</strong></label>
-            <p>{{ $data->membership_year }}</p>
+            <p>{{ $data->membership_year }} {{ $data->default_year }}</p>
         </div>
         <div class="col-md-4 col-lg-4">
             <label class="col-form-label"><strong>Registration No/Udyog Aadhaar No.</strong></label>
@@ -128,9 +128,14 @@
             <p>{{ $data->website_url }}</p>
         </div>
         <div class="col-md-4 col-lg-4">
-            <label class="col-form-label"><strong>Technologies</strong></label>
-            <p>{{ $data->technologies }}</p>
-        </div>
+    <label class="col-form-label"><strong>Technologies</strong></label>
+    @if(!empty($data->technologies) && is_array(json_decode($data->technologies, true)))
+        <p>{{ implode(', ', json_decode($data->technologies, true)) }}</p>
+    @else
+        <p>No technologies selected</p>
+    @endif
+</div>
+
         <div class="col-md-4 col-lg-4">
             <label class="col-form-label"><strong>Company Logo</strong></label>
             @if(!empty($data->company_logo) && file_exists('upload/'.$data->company_logo))

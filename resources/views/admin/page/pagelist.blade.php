@@ -90,11 +90,11 @@
                 <td>{{$loop->iteration}}</td>
                 <td>{{ $page->name }}</td>
                 <td>
-                            <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-outline-success"><i class="bx bx-pencil" style="font-size: 20px;"></i></a>
                             <form action="{{ route('pages.destroy', $page->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button page="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button page="submit" class="btn btn-outline-danger"> <i class="bx bx-trash" style="font-size: 20px;"></i></button>
                             </form>
                         </td>
             </tr>

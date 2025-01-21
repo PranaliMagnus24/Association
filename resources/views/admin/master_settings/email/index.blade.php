@@ -115,8 +115,14 @@
                 @endif
             </td>
             <td>
-                <!-- <a href="{{url('edit_user', $user->id)}}" class="btn btn-primary">Edit</a> -->
-                <a href="{{ route('email.delete', $user->id)}}" class="btn btn-danger" onclick="conformation(event)">Delete</a>
+                <a href="#" class="btn btn-outline-primary" id="resend-verification-email" onclick="event.preventDefault(); document.getElementById('send-verification').submit();">
+                Resend link</a>
+                <form id="send-verification" method="POST" action="{{ route('verification.send') }}" style="display: none;">
+                @csrf
+                </form>
+
+
+                <a href="{{ route('email.delete', $user->id)}}" class="btn btn-outline-danger" onclick="conformation(event)"><i class="bx bx-trash" style="font-size: 20px;"></i></a>
             </td>
         </tr>
         @endforeach
@@ -154,6 +160,32 @@
         }
         })
     }
+
+    document.getElementById('resend-verification-email').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Perform the form submission via AJAX
+        fetch('{{ route('verification.send') }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                // Show Toastr success message
+                toastr.success('A new verification link has been sent to your email address.', 'Verification Email Sent');
+            } else {
+                throw new Error('Unable to send verification email. Please try again.');
+            }
+        })
+        .catch(error => {
+            // Show Toastr error message
+            toastr.error(error.message, 'Error');
+        });
+    });
+
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 

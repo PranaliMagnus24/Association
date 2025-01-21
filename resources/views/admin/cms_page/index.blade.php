@@ -96,7 +96,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($datas as $data)
+                @foreach ($records as $data)
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{ $data->title}}</td>
@@ -127,7 +127,7 @@
                 </tbody>
             </table>
             <div class="text-end mb-3">
-
+            {{$records->links()}}
         </div>
         </div>
     </div>

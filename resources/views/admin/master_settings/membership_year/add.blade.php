@@ -59,11 +59,13 @@
                                 <option value="Month">Month</option>
                                 <option value="Year">Year</option>
                                 <option value="Lifetime">Lifetime</option>
+                                <option value="Month (Trial)">Month(Trial)</option>
                             </select>
                             @error('default_year')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="col">
                             <label for="inputName5" class="form-label">Membership Fee</label>
                             <input type="text" class="form-control" name="membership_fee[]" placeholder="Your Fee">
@@ -71,6 +73,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="col">
                             <label for="inputState" class="form-label">Status</label>
                             <select id="inputState" class="form-select" name="status[]">

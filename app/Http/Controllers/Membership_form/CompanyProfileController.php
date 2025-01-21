@@ -25,7 +25,7 @@ class CompanyProfileController extends Controller
 public function index()
 {
 
-    $datas = CompanyPro::paginate(5);
+    $datas = CompanyPro::paginate(12);
     return view('admin.membership.company_profile.index', compact('datas'));
 }
 
@@ -41,6 +41,7 @@ public function add(Request $request, $id=null)
 }
 
 public function companystore(Request $request){
+
     $request->validate([
         'company_type' => 'nullable|string',
         'company_name' => 'required|string',
@@ -59,6 +60,8 @@ public function companystore(Request $request){
         'company_address' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
         'aadharcard' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
         'authority_letter' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
+        'technologies' => 'nullable|array',
+        'technologies.*' => 'string',
     ]);
 
    $data = new CompanyPro;
@@ -76,8 +79,10 @@ public function companystore(Request $request){
    $data->employee_number = $request->employee_number;
    $data->company_year = $request->company_year;
    $data->about_company = $request->about_company;
+//    dd($request->services);
+   $data->services = $request->services;
    $data->website_url = $request->website_url;
-   $data->technologies = $request->technologies;
+   $data->technologies = json_encode($request->technologies);
    $data->zipcode = $request->zipcode;
    $data->state_id = $request->state_id;
    $data->city_id = $request->city_id;
@@ -243,7 +248,8 @@ public function edit($id){
         }
     }
 
-    return redirect()->route('company.list')->with('success', 'Company profile and documents updated successfully');
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile and documents updated successfully!');
+    return redirect()->route('company.list');
 }
 
 

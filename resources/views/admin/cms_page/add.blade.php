@@ -104,8 +104,7 @@
                 <div class="col-md-4">
                 <label for="inputState" class="form-label">Status</label>
                   <select id="inputState" class="form-select" name="status">
-                    <option selected>Select status</option>
-                    <option value="active">Active</option>
+                    <option value="active" selected>Active</option>
                     <option value="inactive">Inactive</option>
 
                   </select>

@@ -121,27 +121,25 @@ public function directory(Request $request)
         $query->where('city', $request->city_id);
     }
 
-    $companyprofiles = $query->inRandomOrder()->paginate(10);
+    $companyprofiles = $query->inRandomOrder()->paginate(12);
 
-    // Get states filtered by country
-    $states = State::where('country_id', 101)->get(); // Assuming 101 is India
 
-    // Get cities filtered by the selected state
+    $states = State::where('country_id', 101)->get();
+
+
     $cities = $request->has('state_id')
         ? City::where('state_id', $request->state_id)->get()
-        : collect();  // Empty collection if no state is selected
+        : collect();
 
     return view('home.directory', compact('companyprofiles', 'states', 'cities'));
 }
 
 
-
-
-
     //directory details page
     public function show($id) {
-        $companypro = CompanyPro::findOrFail($id);
-          return view('home.directory_display', compact('companypro'));
+        $companypro = CompanyPro::with('cities', 'states', 'countries', 'technologies')->find($id);
+        $user = auth()->user();
+          return view('home.directory_display', compact('companypro','user'));
       }
 
       //Home Committee page

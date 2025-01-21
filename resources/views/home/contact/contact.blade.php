@@ -6,6 +6,7 @@
         <p><strong>Name: <span>{{ $userName }}</span></strong></p>
         <p><strong>Email: <span>{{ $userEmail }}</span></strong></p>
         <p><strong>Phone: <span>{{ $userPhone }}</span></strong></p>
+        <p><strong>Subject: <span>{{ $sub }}</span></strong></p>
 
 
         <blockquote>

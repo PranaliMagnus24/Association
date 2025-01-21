@@ -94,25 +94,23 @@
                 @enderror
             </div>
 
-
             <label class="col-md-4 col-lg-3 col-form-label">Membership<span style="color: red">*</span></label>
-
-          <div class="col-md-8 col-lg-3">
-          <select class="form-select membership_year" aria-label="Default select example" name="membership_year" id="membershipYearSelect" onchange="updateRenewalDate()">
-            <option selected>Membership</option>
-            @foreach($memberships as $membership)
-            <option value="{{ $membership->membership_year }}"
-                data-default-year="{{ $membership->default_year }}"
-                {{ (old('membership_year') == $membership->membership_year || (isset($data) && $data->membership_year == $membership->membership_year)) ? 'selected' : '' }}>
+            <div class="col-md-8 col-lg-3">
+                <select class="form-select membership_year" aria-label="Default select example" name="membership_year" id="membershipYearSelect" onchange="updateRenewalDate()">
+                    <option selected>Membership</option>
+                     @foreach($memberships as $membership)
+                    <option value="{{ $membership->membership_year }}"
+                    data-default-year="{{ $membership->default_year }}"
+                    {{ (old('membership_year') == $membership->membership_year || (isset($data) && $data->membership_year == $membership->membership_year)) ? 'selected' : '' }}>
             {{ $membership->membership_year }} - {{ $membership->default_year }}
         </option>
         @endforeach
             </select>
-          @error('membership_year')
-        <span class="text-danger">{{ $message }}</span>
-            @enderror
+            <input type="hidden" name="default_year" id="defaultYearInput">
+    @error('membership_year')
+    <span class="text-danger">{{ $message }}</span>
+    @enderror
              </div>
-             <input type="hidden" id="default_year" name="default_year" value="{{ old('default_year', $data->default_year ?? '') }}">
        </div>
 
 
@@ -252,6 +250,13 @@
         </div>
 
         <div class="row mb-3">
+            <label for="services" class="col-md-4 col-lg-3 col-form-label">Services/Skills</label>
+            <div class="col-md-8 col-lg-9">
+                <textarea name="services" id="services" class="form-control" placeholder="Add your services and skill's" style="height: 150px;">{{ old('services', $data->services ?? '') }}</textarea>
+            </div>
+        </div>
+
+        <div class="row mb-3">
             <label for="web_url" class="col-md-4 col-lg-3 col-form-label">Website URL</label>
             <div class="col-md-8 col-lg-9">
                 <input name="website_url" type="text" class="form-control" id="web_url" value="{{ old('website_url', $data->website_url ?? '') }}" placeholder="Website URL">
@@ -261,7 +266,7 @@
         <div class="row mb-3">
             <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Technologies</label>
             <div class="col-md-8 col-lg-3">
-                <select name="technologies" id="technology" class="selectpicker" multiple aria-label="size 3 select example">
+                <select name="technologies[]" id="technology" class="selectpicker" multiple aria-label="size 3 select example">
                @foreach($technologies as $technology)
                 <option value="{{ $technology->title }}">{{ $technology->title }}</option>
                @endforeach
@@ -511,7 +516,11 @@ function updateRenewalDate() {
     renewalDateInput.value = `${year}-${month}-${day}`;
 }
 
-
+document.getElementById('membershipYearSelect').addEventListener('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const defaultYear = selectedOption.getAttribute('data-default-year');
+        document.getElementById('defaultYearInput').value = defaultYear || '';
+    });
 </script>
 
 

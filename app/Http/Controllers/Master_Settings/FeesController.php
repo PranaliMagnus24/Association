@@ -79,6 +79,7 @@ class FeesController extends Controller
         $data->desc = $request->desc;
         $data->status = $request->status;
         $data->membership_id = $request->membership_id;
+
         $data->save();
          toastr()->timeOut(5000)->closeButton()->addSuccess('Fees updated successfully!');
          return redirect()->route('fee.index');

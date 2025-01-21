@@ -48,8 +48,8 @@ class GalleryController extends Controller
             'gallery_path' => $path ? 'upload/' . $filename : null,
         ]);
 
-
-        return redirect()->back()->with('success', 'Gallery saved successfully!');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Gallery saved successfully.');
+        return redirect()->route('gallerylist');
     }
 
     public function edit($id)
@@ -95,7 +95,8 @@ class GalleryController extends Controller
         ]);
 
         // Redirect back with a success message
-        return redirect()->route('gallerylist')->with('success', 'Gallery updated successfully!');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Gallery Updated successfully.');
+        return redirect()->route('gallerylist');
     }
 
     public function destroy($id)
@@ -114,8 +115,8 @@ class GalleryController extends Controller
         }
 
         $gallery->delete(); // Delete the gallery record
-
-        return redirect()->route('gallerylist')->with('success', 'Gallery deleted successfully.');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Gallery deleted successfully.');
+        return redirect()->route('gallerylist');
     }
 
     // Delete an image from the gallery
@@ -140,8 +141,9 @@ class GalleryController extends Controller
         if (File::exists($filePath)) {
             File::delete($filePath);
         }
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Image deleted successfully.');
+        return redirect()->route('gallery.edit', $galleryId);
 
-        return redirect()->route('gallery.edit', $galleryId)->with('success', 'Image deleted successfully.');
     }
     public function show($id)
     {
@@ -171,7 +173,7 @@ class GalleryController extends Controller
 
         $gallery->gallery = json_encode($images);
         $gallery->save();
-
-        return redirect()->route('gallery.show', $gallery->id)->with('success', 'Image added to gallery successfully.');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Image added to gallery successfully.');
+        return redirect()->route('gallery.show', $galleryId->id);
     }
 }

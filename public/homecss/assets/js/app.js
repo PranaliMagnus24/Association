@@ -582,13 +582,14 @@ const items = document.querySelectorAll('.accordion button');
 
 
     ////Contact form
+
     document.getElementById('contactForm').addEventListener('submit', function (e) {
         e.preventDefault();
 
         const form = this;
         const formData = new FormData(form);
 
-        fetch("{{ route('send.email') }}", {
+        fetch("/send-contact", {
             method: "POST",
             headers: {
                 "X-CSRF-TOKEN": "{{ csrf_token() }}",

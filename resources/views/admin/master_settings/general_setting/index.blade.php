@@ -33,7 +33,7 @@
         <h5 class="card-title">General Settings</h5>
         <form class="row g-3" method="POST" action="{{route('setting.store')}}" enctype="multipart/form-data">
               @csrf
-              <div class="row">
+              <div class="row mb-3">
               <div class="col-md-6">
                 <label for="inputName5" class="form-label">Association Name</label>
                   <input type="text" class="form-control" name="association_name" placeholder="Your association name" value="{{ $getRecord->association_name }}">
@@ -49,7 +49,7 @@
               @enderror
                 </div>
               </div>
-              <div class="row">
+              <div class="row mb-3">
               <div class="col-md-6">
                 <label for="inputName5" class="form-label">Mobile No.</label>
                   <input type="text" class="form-control" name="phone" placeholder="Please enter your number" value="{{ $getRecord->phone }}">
@@ -65,7 +65,7 @@
               @enderror
                 </div>
               </div>
-              <div class="row">
+              <div class="row mb-3">
               <div class="col-6">
                 <label for="inputName5" class="form-label">Association Description</label>
                 <textarea class="form-control" placeholder="Description" id="floatingTextarea" style="height: 100px;" name="description">{{ $getRecord->description }}</textarea>
@@ -84,17 +84,36 @@
               @enderror
                 </div>
               </div>
-
-
+              <div class="row mb-3">
+                <div class="col-4">
+                    <label for="inputName5" class="form-label">Favicon</label>
+                    <input type="file" class="form-control" name="association_logo" id="staticLogo">
+                               @if(!empty($getRecord->association_logo))
+                                @if(file_exists('upload/'.$getRecord->association_logo))<img src="{{url('upload/'.$getRecord->association_logo)}}" style="height:100px; width:100px;">
+                               @endif
+                                @endif
+                </div>
 
                 <div class="col-4">
-                <label for="inputName5" class="form-label">Association Logo</label>
-                <input type="file" class="form-control" name="association_logo" id="staticLogo">
-                @if(!empty($getRecord->association_logo))
-                @if(file_exists('upload/'.$getRecord->association_logo))<img src="{{url('upload/'.$getRecord->association_logo)}}" style="height:100px; width:100px;">
-                @endif
-                @endif
+                    <label for="inputName5" class="form-label">Header Logo</label>
+                    <input type="file" class="form-control" name="header_logo" id="staticLogo">
+                               @if(!empty($getRecord->header_logo))
+                                @if(file_exists('upload/'.$getRecord->header_logo))<img src="{{url('upload/'.$getRecord->header_logo)}}" style="height:100px; width:100px;">
+                               @endif
+                                @endif
                 </div>
+
+                <div class="col-4">
+                    <label for="inputName5" class="form-label">Footer Logo</label>
+                    <input type="file" class="form-control" name="footer_logo" id="staticLogo">
+                               @if(!empty($getRecord->footer_logo))
+                                @if(file_exists('upload/'.$getRecord->footer_logo))<img src="{{url('upload/'.$getRecord->footer_logo)}}" style="height:100px; width:100px;">
+                               @endif
+                                @endif
+                </div>
+            </div>
+
+
 
 
 

@@ -17,6 +17,7 @@ class GeneralSettingController extends Controller
 
     public function store(Request $request){
 
+
         $save = GeneralSetting::find(1);
         $save->association_name = $request->association_name;
         $save->email = $request->email;
@@ -39,8 +40,35 @@ class GeneralSettingController extends Controller
             $save->association_logo = $filename;
         }
 
+        if(!empty($request->file('header_logo')))
+        {
+            if(!empty($save->header_logo) && file_exists('upload/' .$save->header_logo))
+            {
+                unlink('upload/' .$save->header_logo);
+            }
+            $file = $request->file('header_logo');
+            $randomStr = Str::random(30);
+            $filename = $randomStr . '.' .$file->getClientOriginalExtension();
+            $file->move('upload/',$filename);
+            $save->header_logo = $filename;
+        }
+
+        if(!empty($request->file('footer_logo')))
+        {
+            if(!empty($save->footer_logo) && file_exists('upload/' .$save->footer_logo))
+            {
+                unlink('upload/' .$save->footer_logo);
+            }
+            $file = $request->file('footer_logo');
+            $randomStr = Str::random(30);
+            $filename = $randomStr . '.' .$file->getClientOriginalExtension();
+            $file->move('upload/',$filename);
+            $save->footer_logo = $filename;
+        }
+
         $save->save();
-        return redirect()->route('setting.index')->with('success', 'Setting updated successfully!');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Setting updated successfully!');
+        return redirect()->route('setting.index');
        }
 
 

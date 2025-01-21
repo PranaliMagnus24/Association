@@ -80,8 +80,8 @@
                         <div class="col">
                             <label for="inputState" class="form-label">Status</label>
                             <select id="inputState" class="form-select" name="status" value="{{$data->status}}">
-                                <option value="active"selected>Active</option>
-                                <option value="inactive">Inactive</option>
+                            <option value="active" {{ $data->status == 'active' ? 'selected' : '' }}>Active</option>
+                            <option value="inactive" {{ $data->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>
                     </div>

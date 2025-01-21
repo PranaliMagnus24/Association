@@ -12,7 +12,7 @@ class CommitteeController extends Controller
 {
     public function index()
     {
-        $committees = Committee::all();
+        $committees = Committee::paginate(5);
         return view('admin.committee.index', compact('committees'));
     }
 
@@ -51,8 +51,8 @@ class CommitteeController extends Controller
 
     // Save the data
     $data->save();
-
-    return redirect()->route('committee.index')->with('success', 'Committee created successfully.');
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Committee created successfully.');
+    return redirect()->route('committee.index');
     }
 
     public function edit($id)
@@ -72,15 +72,17 @@ class CommitteeController extends Controller
        $data = Committee::findOrFail($id);
        $data->update($request->all());
 
-        return redirect()->route('committee.index')->with('success', 'Committee updated successfully.');
+       toastr()->timeOut(5000)->closeButton()->addSuccess('Committee updated successfully.');
+       return redirect()->route('committee.index');
+
     }
 
     public function delete($id)
     {
        $data = Committee::findOrFail($id);
        $data->delete();
-
-        return redirect()->route('committee.index')->with('success', 'Committee deleted successfully.');
+       toastr()->timeOut(5000)->closeButton()->addSuccess('Committee deleted successfully.');
+       return redirect()->route('committee.index');
     }
 
 

@@ -3,7 +3,7 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
   <li class="nav-item">
-    <a class="nav-link " href="{{url('/admin')}}">
+    <a class="nav-link " href="{{url('/admin/dashboard')}}">
       <i class="bi bi-grid"></i>
       <span>Dashboard</span>
     </a>

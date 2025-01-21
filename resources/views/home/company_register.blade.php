@@ -164,11 +164,11 @@ select.form-select {
             </option>
         @endforeach
             </select>
-          @error('membership_year')
-        <span class="text-danger">{{ $message }}</span>
-            @enderror
+            <input type="hidden" name="default_year" id="defaultYearInput">
+    @error('membership_year')
+    <span class="text-danger">{{ $message }}</span>
+    @enderror
              </div>
-             <input type="hidden" id="default_year" name="default_year" value="{{ old('default_year', $data->default_year ?? '') }}">
 </div>
 
 
@@ -210,10 +210,13 @@ select.form-select {
         </div>
 
         <div class="row mb-3">
-            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Address</label>
+            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Address <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-9">
                 <input name="address_one" type="text" class="form-control" id="Job" placeholder="Address Line 1" value="{{ old('address_one', $data->address_one ?? '') }}">
             </div>
+                @error('address_one')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
         </div>
         <div class="row mb-3">
             <label for="Job" class="col-md-4 col-lg-3 col-form-label"></label>
@@ -302,13 +305,24 @@ select.form-select {
         </div>
 
         <div class="row mb-3">
-        <label for="about_comp" class="col-md-4 col-lg-3 col-form-label">About Company</label>
+        <label for="about_comp" class="col-md-4 col-lg-3 col-form-label">About Company <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-9">
                     <textarea style="width: 100%; height: 150px;" class="mb-3" name="about_company" id="quill-editor-area" placeholder="Write here">{{ old('about_company', $data->about_company ?? '') }}</textarea>
             </div>
+               @error('about_company')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
         </div>
 
-
+        <div class="row mb-3">
+            <label for="services" class="col-md-4 col-lg-3 col-form-label">Services/Skills <span style="color: red">*</span></label>
+            <div class="col-md-8 col-lg-9">
+                <textarea name="services" id="services" class="form-control" placeholder="Add your services and skill's" style="height: 150px;">{{ old('services', $data->services ?? '') }}</textarea>
+            </div>
+            @error('services')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+        </div>
 
         <div class="row mb-3">
             <label for="web_url" class="col-md-4 col-lg-3 col-form-label">Website URL</label>
@@ -654,6 +668,12 @@ function displayStep(stepNumber) {
         });
     });
 
+
+    document.getElementById('membershipYearSelect').addEventListener('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const defaultYear = selectedOption.getAttribute('data-default-year');
+        document.getElementById('defaultYearInput').value = defaultYear || '';
+    });
 </script>
 @if (session('success'))
     <script>

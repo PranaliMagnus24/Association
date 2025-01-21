@@ -11,8 +11,8 @@ class CMSController extends Controller
 {
     public function index()
     {
-        $datas = Cmspage::all();
-        return view('admin.cms_page.index', compact('datas'));
+        $records = Cmspage::paginate(5);
+        return view('admin.cms_page.index', compact('records'));
     }
 
     public function add()
@@ -59,7 +59,8 @@ class CMSController extends Controller
     // Save the data
     $data->save();
 
-    return redirect()->route('cms.index')->with('success', 'Page created successfully.');
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Page created successfully.');
+    return redirect()->route('cms.index');
 }
 
 
@@ -115,8 +116,9 @@ class CMSController extends Controller
 
 
     $data->save();
+    toastr()->timeOut(5000)->closeButton()->addSuccess('CMS Page updated successfully.');
+    return redirect()->route('cms.index');
 
-    return redirect()->route('cms.index')->with('success', 'CMS Page updated successfully.');
 }
 
 
@@ -125,8 +127,8 @@ class CMSController extends Controller
    {
       $data = Cmspage::findOrFail($id);
       $data->delete();
-
-       return redirect()->route('cms.index')->with('success', 'CMS Page deleted successfully.');
+      toastr()->timeOut(5000)->closeButton()->addSuccess('CMS Page deleted successfully.');
+      return redirect()->route('cms.index');
    }
 
 

@@ -36,14 +36,14 @@ class CompanyRegistrationController extends Controller
         $request->validate([
             'company_type' => 'required|string',
             'company_name' => 'required|string',
+            'services' => 'required|string',
             'aadharcard_number' => 'required|string',
             'registration_date' => 'required|date',
             'renewal_date' => 'required|date',
-
+            'address' => 'required',
             'city' => 'required|string',
             'state' => 'required|string',
             'country' => 'required|string',
-
             'company_identity' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
             'company_address' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
             'aadharcard' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
@@ -65,8 +65,9 @@ class CompanyRegistrationController extends Controller
        $data->employee_number = $request->employee_number;
        $data->company_year = $request->company_year;
        $data->about_company = $request->about_company;
+       $data->services = $request->services;
        $data->website_url = $request->website_url;
-       $data->technologies = $request->technologies;
+       $data->technologies = json_encode($request->technologies);
        $data->zipcode = $request->zipcode;
        $data->state_id = $request->state_id;
        $data->city_id = $request->city_id;
@@ -203,6 +204,7 @@ class CompanyRegistrationController extends Controller
             'registration_date' => 'required|date',
             'renewal_date' => 'required|date',
             'city' => 'required',
+            'services' => 'required',
             'state' => 'required',
             'country' => 'required',
             'company_year' => 'required',

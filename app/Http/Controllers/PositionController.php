@@ -8,7 +8,7 @@ class PositionController extends Controller
 {
     public function index()
     {
-        $positions = Position::all(); // Fetch all FAQs
+        $positions = Position::paginate(5); // Fetch all FAQs
         return view('admin.position.index', compact('positions')); // Pass data to the index view
     }
 
@@ -27,8 +27,8 @@ class PositionController extends Controller
     ]);
 
     Position::create($request->all()); // Save the Cposition to the database
-
-    return redirect()->route('position.index')->with('success', 'position created successfully.');
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Position created successfully.');
+    return redirect()->route('position.index');
 }
 
     // Show the form for editing an existing FAQ
@@ -48,8 +48,8 @@ public function edit($id)
 
         $position = Position::findOrFail($id); // Find the position by ID
         $position->update($request->all()); // Update the position data
-
-        return redirect()->route('position.index')->with('success', 'position updated successfully.');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Position updated successfully.');
+        return redirect()->route('position.index');
     }
 
     // Delete an position
@@ -57,7 +57,7 @@ public function edit($id)
     {
         $position = Position::findOrFail($id); // Find the position by ID
         $position->delete(); // Delete the position
-
-        return redirect()->route('position.index')->with('success', 'position deleted successfully.');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Position deleted successfully.');
+        return redirect()->route('position.index');
     }
 }
