@@ -64,14 +64,14 @@ public function index()
 
         if(!empty($request->file('profile_pic')))
         {
-            if(!empty($data->profile_pic) && file_exists('upload/' .$data->profile_pic))
+            if(!empty($data->profile_pic) && file_exists('upload/user_profile/' .$data->profile_pic))
             {
-                unlink('upload/' .$data->profile_pic);
+                unlink('upload/user_profile/' .$data->profile_pic);
             }
             $file = $request->file('profile_pic');
             $randomStr = Str::random(30);
             $filename = $randomStr . '.' .$file->getClientOriginalExtension();
-            $file->move('upload/',$filename);
+            $file->move('upload/user_profile/',$filename);
             $data->profile_pic = $filename;
         }
 
@@ -144,13 +144,13 @@ public function index()
     $data->gender = $request->gender;
 
     if ($request->hasFile('profile_pic')) {
-        if (!empty($data->profile_pic) && file_exists('upload/' . $data->profile_pic)) {
-            unlink('upload/' . $data->profile_pic);
+        if (!empty($data->profile_pic) && file_exists('upload/user_profile/' . $data->profile_pic)) {
+            unlink('upload/user_profile/' . $data->profile_pic);
         }
         $file = $request->file('profile_pic');
         $randomStr = Str::random(30);
         $filename = $randomStr . '.' . $file->getClientOriginalExtension();
-        $file->move('upload/', $filename);
+        $file->move('upload/user_profile/', $filename);
         $data->profile_pic = $filename;
     }
 

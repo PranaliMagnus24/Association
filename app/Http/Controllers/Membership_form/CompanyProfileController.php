@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Membership_form;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Mail\CompanyRegistrationSuccess;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\City;
 use App\Models\Country;
@@ -14,6 +16,7 @@ use App\Models\CompanyPro;
 use App\Models\Membershipyear;
 use App\Models\Zipcode;
 use App\Models\Membership;
+use App\Models\Category;
 use App\Models\Documentupload;
 use Str;
 use File;
@@ -35,9 +38,10 @@ public function add(Request $request, $id=null)
     $technologies = Technology::all();
     $countries = Country::get(["name", "id"]);
     $memberships = Membershipyear::all();
+    $categories = Category::all();
     $membershipstype = Membership::all();
     $users = User::where('role', 'user')->get();
-    return view('admin.membership.company_profile.add', compact('technologies', 'countries','memberships','membershipstype', 'users', 'user_id'));
+    return view('admin.membership.company_profile.add', compact('technologies', 'countries','memberships','membershipstype', 'users', 'user_id','categories'));
 }
 
 public function companystore(Request $request){
@@ -54,6 +58,7 @@ public function companystore(Request $request){
         'city' => 'required|string',
         'state' => 'required|string',
         'country' => 'required|string',
+        'services' => 'nullable|string',
         'company_year' => 'required|integer',
         'membership_year' => 'required|integer',
         'company_identity' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
@@ -104,19 +109,22 @@ public function companystore(Request $request){
 
     if(!empty($request->file('company_logo')))
     {
-        if(!empty($company->company_logo) && file_exists('upload/' .$company->company_logo))
+        if(!empty($company->company_logo) && file_exists('upload/company_documents/' .$company->company_logo))
         {
-            unlink('upload/' .$company->company_logo);
+            unlink('upload/company_documents/' .$company->company_logo);
         }
         $file = $request->file('company_logo');
         $randomStr = Str::random(30);
         $filename = $randomStr . '.' .$file->getClientOriginalExtension();
-        $file->move('upload/',$filename);
+        $file->move('upload/company_documents/',$filename);
        $data->company_logo = $filename;
     }
     if($data->save())
     {
-        $companyFolder = 'upload/company_' . $data->id;
+        $user = User::findOrFail($data->user_id);  //send email by user table
+        Mail::to($user->email)->send(new CompanyRegistrationSuccess($data->company_name));  //email send
+
+        $companyFolder = 'upload/company_documents/' . $data->id;
         if (!file_exists($companyFolder)) {
             mkdir($companyFolder, 0755, true);
         }
@@ -198,19 +206,25 @@ public function companystore(Request $request){
 
 
 public function edit($id){
+    $users = User::where('role', 'user')->get();
+    $data = CompanyPro::find($id);
     $technologies = Technology::all();
     $countries = Country::get(["name", "id"]);
     $memberships = Membershipyear::all();
     $membershipstype = Membership::all();
-    $users = User::where('role', 'user')->get();
-    $data = CompanyPro::find($id);
-     return view('admin.membership.company_profile.add', compact('technologies', 'countries','memberships','membershipstype', 'users', 'data'));
+    $categories = Category::all();
+     return view('admin.membership.company_profile.add', compact('technologies', 'countries','memberships','membershipstype', 'users', 'data','categories'));
  }
 
  public function update(Request $request, $id): RedirectResponse
 {
     $data = CompanyPro::find($id);
 
+    // Check if the company profile exists
+    if (!$data) {
+        toastr()->timeOut(5000)->closeButton()->addError('Company profile not found!');
+        return redirect()->route('profile.index');
+    }
 
     $request->validate([
         'company_type' => 'nullable|string',
@@ -223,23 +237,36 @@ public function edit($id){
         'country' => 'required',
         'company_year' => 'required',
         'membership_year' => 'required',
+        'about_company' => 'required',
     ]);
 
-    $input = $request->all();
+    if ($request->hasFile('company_logo')) {
+        if (!empty($data->company_logo) && file_exists(public_path('upload/company_documents/' . $data->company_logo))) {
+            unlink(public_path('upload/company_documents/' . $data->company_logo));
+        }
+        $file = $request->file('company_logo');
+        $randomStr = Str::random(30);
+        $filename = $randomStr . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('upload/company_documents/'), $filename);
+        $data->company_logo = $filename;
+    }
+
+    // Update other fields
+    $input = $request->except('company_logo');
     $data->update($input);
+
 
     $documents = ['company_identity', 'company_address', 'aadharcard', 'authority_letter'];
     foreach ($documents as $document) {
         if ($request->hasFile($document)) {
-
             $existingDocument = Documentupload::where('company_id', $id)->where('file_type', $document)->first();
-            if ($existingDocument && file_exists(public_path('upload/' . $existingDocument->file_name))) {
-                unlink(public_path('upload/' . $existingDocument->file_name));
+            if ($existingDocument && file_exists(public_path('upload/company_documents/' . $existingDocument->file_name))) {
+                unlink(public_path('upload/company_documents/' . $existingDocument->file_name));
             }
 
             $file = $request->file($document);
             $fileName = uniqid() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('upload/' . $id), $fileName);
+            $file->move(public_path('upload/company_documents/' . $id), $fileName);
 
             Documentupload::updateOrCreate(
                 ['company_id' => $id, 'file_type' => $document],
@@ -320,7 +347,7 @@ public function delete($id)
 
     if ($data) {
         foreach ($data->documents as $document) {
-            $filePath = 'upload/company_' . $data->id . '/' . $document->file_name;
+            $filePath = 'upload/company_documents/' . $data->id . '/' . $document->file_name;
             if (file_exists($filePath)) {
                 unlink($filePath);
             }

@@ -17,6 +17,7 @@ use App\Http\Controllers\CMSController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyRegistrationController;
 use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\Member\JobController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\MailController;
@@ -24,7 +25,11 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\DirectoryController;
 
+use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Category\SubCategoryController;
+use App\Http\Controllers\Category\SubSubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -182,56 +187,31 @@ Route::get('position/{id}/edit', [PositionController::class, 'edit'])->name('pos
 Route::post('position/{id}', [PositionController::class, 'update'])->name('position.update');
 Route::get('delete_position/{id}', [PositionController::class, 'delete'])->name('position.delete');
 
-
-});
-
-
-
-///Home Controller
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::get('/registration', [HomeController::class, 'membershipregistration'])->name('home.membershipregistration');
-Route::get('/login', [HomeController::class, 'membershiplogin'])->name('home.membershiplogin');
-Route::post('/', [HomeController::class, 'membershipregistrationstore'])->name('membershipregistration.store');
-Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
-Route::get('/history', [HomeController::class, 'history'])->name('home.about');
-Route::get('/directory', [HomeController::class, 'directory'])->name('home.directory');
-Route::get('/details/{id}', [HomeController::class, 'show'])->name('directory.view');
-Route::get('/committee', [HomeController::class, 'committee'])->name('home.committee');
-Route::get('/desk_directory', [HomeController::class, 'desk_directory'])->name('home.desk_directory');
-Route::get('/indexgallery', [HomeController::class, 'gallery'])->name('home.gallery');
-Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
-Route::get('/islamic_tijarat', [HomeController::class, 'islamic_tijarat'])->name('home.islamictijarat');
-Route::get('/associate', [HomeController::class, 'associate'])->name('home.associate');
-Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
-Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
-
-//Company Registration
-Route::get('/comapny/registration/{id?}', [CompanyRegistrationController::class, 'companyregistration'])->name('home.companyregistration');
-
-Route::post('companyregistration', [CompanyRegistrationController::class, 'companystore'])->name('company.store');
-Route::get('companyregistration/edit/{id}', [CompanyRegistrationController::class, 'edit'])->name('company.edit');
-
-Route::put('companyregistration/{id}', [CompanyRegistrationController::class, 'update'])->name('company.update');
-
-Route::get('delete_company/{id}', [CompanyRegistrationController::class, 'delete'])->name('company.delete');
-Route::get('companylist/{id}', [CompanyRegistrationController::class, 'show'])->name('company.show');
-
-Route::post('api/fetch-states', [CompanyRegistrationController::class, 'fetchState']);
-Route::post('api/fetch-cities', [CompanyRegistrationController::class, 'fetchCity']);
+//category
+Route::get('index', [CategoryController::class, 'index'])->name('categorylist');
+Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
+Route::post('category', [CategoryController::class, 'store'])->name('category.store');
+Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+Route::put('category/{id}', [CategoryController::class, 'update'])->name('category.update');
+Route::delete('category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
 
+//subcategory
+Route::get('/subcategorylist', [SubCategoryController::class, 'index'])->name('subcategorylist');
+Route::get('/subcategory/create', [SubCategoryController::class, 'create'])->name('subcategory.create');
+Route::post('/subcategory/store', [SubCategoryController::class, 'store'])->name('subcategory.store');
+Route::get('/subcategory/{id}/edit', [SubCategoryController::class, 'edit'])->name('subcategory.edit');
+Route::put('/subcategory/{id}/update', [SubCategoryController::class, 'update'])->name('subcategory.update');
+Route::delete('/subcategory/{id}/destroy', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
 
-Route::get('/member', [MemberController::class, 'index'])->middleware(['auth', 'role:user'])->name('member');
-Route::get('/member-profile', [MemberController::class, 'profile'])->middleware(['auth', 'role:user'])->name('profile.index');
-Route::post('/member-profile', [MemberController::class, 'memberprofileupdate'])->name('update.profile');
-Route::post('/member-profile/{id}', [MemberController::class, 'companyprofileupdate'])->name('update.companyprofile');
-Route::post('/update-password', [MemberController::class, 'updatePassword'])->middleware(['auth', 'role:user'])->name('updatePassword');
 
-
-
-////Mail Controller
-// Route::get('/send-contact', [MailController::class, 'sendContact']);
-Route::post('/send-contact', [MailController::class, 'sendContact'])->name('send.email');
+//subsubcategory
+Route::get('/subsubcategorylist', [SubSubCategoryController::class, 'index'])->name('subsubcategorylist');
+Route::get('/subsubcategory/create', [SubSubCategoryController::class, 'create'])->name('subsubcategory.create');
+Route::post('/subsubcategory/store', [SubSubCategoryController::class, 'store'])->name('subsubcategory.store');
+Route::get('/subsubcategory/{id}/edit', [SubSubCategoryController::class, 'edit'])->name('subsubcategory.edit');
+Route::put('/subsubcategory/{id}/update', [SubSubCategoryController::class, 'update'])->name('subsubcategory.update');
+Route::delete('/subsubcategory/{id}/destroy', [SubSubCategoryController::class, 'destroy'])->name('subsubcategory.destroy');
 
 //gallery
 Route::get('gallery', [GalleryController::class, 'index'])->name('gallerylist');
@@ -268,4 +248,78 @@ Route::post('pages', [PageController::class, 'store'])->name('pages.store');
 Route::get('pages/{id}/edit', [PageController::class, 'edit'])->name('pages.edit');
 Route::put('pages/{id}', [PageController::class, 'update'])->name('pages.update');
 Route::delete('pages/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
+
+
+
+
+});
+
+
+
+///Home Controller
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/registration', [HomeController::class, 'membershipregistration'])->name('home.membershipregistration');
+Route::get('/login', [HomeController::class, 'membershiplogin'])->name('home.membershiplogin');
+Route::post('/', [HomeController::class, 'membershipregistrationstore'])->name('membershipregistration.store');
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::get('/history', [HomeController::class, 'history'])->name('home.about');
+Route::get('/committee', [HomeController::class, 'committee'])->name('home.committee');
+Route::get('/desk_directory', [HomeController::class, 'desk_directory'])->name('home.desk_directory');
+Route::get('/indexgallery', [HomeController::class, 'gallery'])->name('home.gallery');
+Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
+Route::get('/islamic_tijarat', [HomeController::class, 'islamic_tijarat'])->name('home.islamictijarat');
+Route::get('/associate', [HomeController::class, 'associate'])->name('home.associate');
+Route::get('/jobs', [HomeController::class, 'jobs'])->name('home.jobs');
+Route::get('/jobs/{id}/details', [HomeController::class, 'jobdetails'])->name('jobsdetails');
+Route::get('/thankyou', [HomeController::class, 'thankyou'])->name('thankyou');
+
+Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
+Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
+
+//Directory Controller
+Route::get('/directory', [DirectoryController::class, 'directory'])->name('home.directory');
+Route::get('/directory_details/{id}', [DirectoryController::class, 'show'])->name('directory.view');
+
+//Company Registration
+Route::get('/comapny/registration/{id?}', [CompanyRegistrationController::class, 'companyregistration'])->name('home.companyregistration');
+
+Route::post('companyregistration', [CompanyRegistrationController::class, 'companystore'])->name('company.store');
+Route::get('companyregistration/edit/{id}', [CompanyRegistrationController::class, 'edit'])->name('company.edit');
+
+Route::put('companyregistration/{id}', [CompanyRegistrationController::class, 'update'])->name('company.update');
+
+Route::get('delete_company/{id}', [CompanyRegistrationController::class, 'delete'])->name('company.delete');
+Route::get('companylist/{id}', [CompanyRegistrationController::class, 'show'])->name('company.show');
+
+Route::post('api/fetch-states', [CompanyRegistrationController::class, 'fetchState']);
+Route::post('api/fetch-cities', [CompanyRegistrationController::class, 'fetchCity']);
+
+
+////Member
+Route::get('/member', [MemberController::class, 'index'])->middleware(['auth', 'role:user'])->name('member');
+Route::get('/member-profile', [MemberController::class, 'profile'])->middleware(['auth', 'role:user'])->name('profile.index');
+Route::post('/member-profile', [MemberController::class, 'memberprofileupdate'])->name('update.profile');
+Route::post('/member-profile/{id}', [MemberController::class, 'companyprofileupdate'])->name('update.companyprofile');
+Route::post('/update-password', [MemberController::class, 'updatePassword'])->middleware(['auth', 'role:user'])->name('updatePassword');
+Route::get('/my-account', [MemberController::class, 'myaccount'])->middleware(['auth', 'role:user'])->name('myaccount');
+
+//Job Controller
+Route::get('joblist', [JobController::class, 'index'])->name('joblist');
+Route::get('/job', [JobController::class, 'createjob'])->middleware(['auth', 'role:user'])->name('job');
+Route::post('/job', [JobController::class, 'store'])->name('job.store');
+Route::post('api/fetch-states', [JobController::class, 'fetchState']);
+Route::post('api/fetch-cities', [JobController::class, 'fetchCity']);
+Route::get('/get-subcategories/{category_id}', [JobController::class, 'getSubcategories']);
+Route::get('job/{id}/edit', [JobController::class, 'edit'])->name('job.edit');
+Route::post('job/{id}', [JobController::class, 'update'])->name('job.update');
+Route::delete('job/{id}', [JobController::class, 'delete'])->name('job.delete');
+Route::get('details/{id}', [JobController::class, 'show'])->name('job.view');
+Route::post('/apply-job', [JobController::class, 'applyJob'])->name('job.apply');
+
+
+
+////Mail Controller
+// Route::get('/send-contact', [MailController::class, 'sendContact']);
+Route::post('/send-contact', [MailController::class, 'sendContact'])->name('send.email');
+
 

@@ -85,9 +85,14 @@
             <div class="col-md-8 col-lg-3">
                 <select class="form-select" aria-label="Default select example" name="company_type">
                     <option selected>Company Type</option>
-                    <option value="Product" @if((isset($data->company_type) && $data->company_type == 'Product') || old('company_type') == 'Product') selected @endif>Product</option>
-                    <option value="Service" @if((isset($data->company_type) && $data->company_type == 'Service') || old('company_type') == 'Service') selected @endif>Service</option>
-            <option value="College/Institutional Organization" @if((isset($data->company_type) && $data->company_type == 'College/Institutional Organization') || old('company_type') == 'College/Institutional Organization') selected @endif>College/Institutional Organization</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->category_name }}"
+                    @if(isset($data->company_type) && $category->category_name == $data->company_type)
+                            selected="selected"
+                        @endif>
+                        {{ $category->category_name }}
+                    </option>
+                    @endforeach
                 </select>
                 @error('company_type')
                 <span class="text-danger">{{$message}}</span>
@@ -111,6 +116,7 @@
     <span class="text-danger">{{ $message }}</span>
     @enderror
              </div>
+
        </div>
 
 
@@ -276,7 +282,7 @@
             <div class="col-md-8 col-lg-3">
                 <input id="logo" name="company_logo" type="file" class="form-control" accept="image/*" value="{{ old('company_logo', $data->company_logo ?? '') }}">
                 @if(!empty($data->company_logo))
-      @if(file_exists('upload/'.$data->company_logo))<img src="{{url('upload/'.$data->company_logo)}}" style="height:100px; width:100px;">
+      @if(file_exists('upload/company_documents/'.$data->company_logo))<img src="{{url('upload/company_documents/'.$data->company_logo)}}" style="height:100px; width:100px;">
       @endif
       @endif
             </div>
@@ -296,9 +302,9 @@
           $doc = $data->documents->where('file_type', 'company_identity')->first();
       @endphp
       @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
-          <a href="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+          <a href="{{ url('upload/company_documents/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
       @else
-          <img src="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+          <img src="{{ url('upload/company_documents/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
       @endif
   @endif
     </div>
@@ -310,9 +316,9 @@
           $doc = $data->documents->where('file_type', 'aadharcard')->first();
       @endphp
       @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
-          <a href="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+          <a href="{{ url('upload/company_documents/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
       @else
-          <img src="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+          <img src="{{ url('upload/company_documents/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
       @endif
   @endif
     </div>
@@ -326,9 +332,9 @@
           $doc = $data->documents->where('file_type', 'company_address')->first();
       @endphp
       @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
-          <a href="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+          <a href="{{ url('upload/company_documents/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
       @else
-          <img src="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+          <img src="{{ url('upload/company_documents/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
       @endif
   @endif
     </div>
@@ -340,9 +346,9 @@
           $doc = $data->documents->where('file_type', 'authority_letter')->first();
       @endphp
       @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
-          <a href="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+          <a href="{{ url('upload/company_documents/' . $data->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
       @else
-          <img src="{{ url('upload/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+          <img src="{{ url('upload/company_documents/' . $data->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
       @endif
   @endif
     </div>
@@ -497,18 +503,24 @@ function updateRenewalDate() {
     const selectedOption = membershipSelect.options[membershipSelect.selectedIndex];
     const renewalDateInput = document.getElementById('ren_date');
 
+    if (!selectedOption || selectedOption.value === "Membership") {
+        renewalDateInput.value = ""; // Clear the field if no valid membership is selected
+        return;
+    }
+
     const currentDate = new Date();
-    const membershipValue = selectedOption.getAttribute('data-months') || 0;
-    const defaultValue = selectedOption.getAttribute('data-years');
+    const membershipValue = parseInt(selectedOption.value) || 0; // Membership duration
+    const defaultValue = selectedOption.getAttribute('data-default-year'); // Membership type (Month/Year/Lifetime)
 
     if (defaultValue === "Month") {
-        currentDate.setMonth(currentDate.getMonth() + parseInt(membershipValue));
+        currentDate.setMonth(currentDate.getMonth() + membershipValue);
     } else if (defaultValue === "Year") {
-        currentDate.setFullYear(currentDate.getFullYear() + parseInt(membershipValue));
+        currentDate.setFullYear(currentDate.getFullYear() + membershipValue);
     } else if (defaultValue === "Lifetime") {
         currentDate.setFullYear(currentDate.getFullYear() + 10);
     }
 
+    // Format date as YYYY-MM-DD
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const day = String(currentDate.getDate()).padStart(2, '0');
@@ -516,11 +528,13 @@ function updateRenewalDate() {
     renewalDateInput.value = `${year}-${month}-${day}`;
 }
 
+// Add event listener for the membership dropdown
 document.getElementById('membershipYearSelect').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const defaultYear = selectedOption.getAttribute('data-default-year');
-        document.getElementById('defaultYearInput').value = defaultYear || '';
-    });
+    const selectedOption = this.options[this.selectedIndex];
+    const defaultYear = selectedOption.getAttribute('data-default-year');
+    document.getElementById('defaultYearInput').value = defaultYear || '';
+});
+
 </script>
 
 

@@ -9,9 +9,12 @@ use App\Mail\ThankyouMail;
 use App\Mail\ContactMail;
 use App\Mail\ConfirmMail;
 use App\Mail\ForgotMail;
+use App\Mail\ApplyJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Contact;
+use App\Models\JobApply;
+use App\Models\Job;
 use App\Models\GeneralSetting;
 use App\Models\User;
 use App\Models\CompanyPro;
@@ -89,6 +92,7 @@ class MailController extends Controller
         ]);
     }
 }
+
 
 
 

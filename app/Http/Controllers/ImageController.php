@@ -27,43 +27,50 @@ class ImageController extends Controller
     }
 
     public function store(Request $request)
-    {
-        if ($request->hasFile('name')) {
-            foreach ($request->file('name') as $file) {
-                $imageName = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-                $thumbnailName = time() . '-thumbnail-' . uniqid() . '.' . $file->getClientOriginalExtension();
+{
 
+    if ($request->hasFile('name')) {
+        foreach ($request->file('name') as $file) {
+            // Generate unique names for the image and thumbnail
+            $imageName = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $thumbnailName = time() . '-thumbnail-' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-                $imagePath = public_path('upload/' . $imageName);
-                $file->move(public_path('upload'), $imageName);
+            // Define paths
+            $imagePath = public_path('upload/gallery/' . $imageName);
+            $thumbnailFolder = public_path('upload/gallery/thumbnails/');
+            $thumbnailPath = $thumbnailFolder . $thumbnailName;
 
+            // Move original image to 'upload/gallery'
+            $file->move(public_path('upload/gallery'), $imageName);
 
-                $thumbnailPath = public_path('upload/thumbnails/' . $thumbnailName);
-                if (!file_exists(public_path('upload/thumbnails'))) {
-                    mkdir(public_path('upload/thumbnails'), 0777, true);
-                }
-
-                SpatieImage::load($imagePath)
-                    ->width(300)
-                    ->height(300)
-                    ->save($thumbnailPath);
-
-
-                $imageRecord = new Image();
-                $imageRecord->name = $imageName;
-                $imageRecord->thumbnail = $thumbnailName;
-                $imageRecord->gallery_id = $request->input('gallery_id');
-                $imageRecord->page = $request->input('page');
-                $imageRecord->ctype = $request->input('ctype');
-                $imageRecord->start_datetime = $request->input('start_datetime');
-                $imageRecord->end_datetime = $request->input('end_datetime');
-                $imageRecord->save();
+            // Create 'thumbnails' folder if it doesn't exist
+            if (!file_exists($thumbnailFolder)) {
+                mkdir($thumbnailFolder, 0777, true);
             }
-        }
 
-        toastr()->timeOut(5000)->closeButton()->addSuccess('Images uploaded successfully.');
-        return redirect()->route('imagelisting');
+            // Create and save the thumbnail using SpatieImage
+            \Spatie\Image\Image::load($imagePath)
+                ->width(300)
+                ->height(300)
+                ->save($thumbnailPath);
+
+            // Save image details in the database
+            $imageRecord = new Image();
+            $imageRecord->name = $imageName;
+            $imageRecord->thumbnail = $thumbnailName;
+            $imageRecord->gallery_id = $request->input('gallery_id');
+            $imageRecord->page = $request->input('page');
+            $imageRecord->ctype = $request->input('ctype');
+            $imageRecord->start_datetime = $request->input('start_datetime');
+            $imageRecord->end_datetime = $request->input('end_datetime');
+            $imageRecord->save();
+        }
     }
+
+    // Show success message and redirect
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Images uploaded successfully.');
+    return redirect()->route('imagelisting');
+}
 
 
     // Edit the image and details
@@ -75,78 +82,95 @@ class ImageController extends Controller
         $image = Image::findOrFail($id);
         return view('admin.image.imageedit', compact('image', 'pages', 'types', 'gallerys'));
     }
+
+
+
     public function update(Request $request, $id)
-{
-    $image = Image::findOrFail($id);
+    {
+        $image = Image::findOrFail($id);
 
-    // Validate the request
-    $request->validate([
-        'name' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Changed 'required' to 'nullable' since it's optional for updates
-        'gallery_id' => 'nullable|exists:gallery,id',
-        'page' => 'required|string|max:255',
-        'ctype' => 'required|string|max:255',
-        'start_datetime' => 'required|date',
-        'end_datetime' => 'required|date',
-    ]);
+        // Validate the request
+        $request->validate([
+            'name' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Image is optional for update
+            'gallery_id' => 'nullable|exists:gallery,id',
+            'page' => 'required|string|max:255',
+            'ctype' => 'required|string|max:255',
+            'start_datetime' => 'required|date',
+            'end_datetime' => 'required|date',
+        ]);
 
-    // Update the image data
-    $image->page = $request->page;
-    $image->ctype = $request->ctype;
-    $image->start_datetime = $request->start_datetime;
-    $image->end_datetime = $request->end_datetime;
-    $image->gallery_id = $request->input('gallery_id');
+        // Update the image data
+        $image->page = $request->page;
+        $image->ctype = $request->ctype;
+        $image->start_datetime = $request->start_datetime;
+        $image->end_datetime = $request->end_datetime;
+        $image->gallery_id = $request->input('gallery_id');
 
-    // Handle image upload or cropped image upload
-    if ($request->hasFile('name')) {
-        // If a new image is uploaded, delete the old image first
-        $oldImagePath = public_path('upload/' . $image->name);
-        if (file_exists($oldImagePath)) {
-            unlink($oldImagePath);  // Delete the old image
+        // Handle image upload
+        if ($request->hasFile('name')) {
+            // Paths for old image and thumbnail
+            $oldImagePath = public_path('upload/gallery/' . $image->name);
+            $oldThumbnailPath = public_path('upload/gallery/thumbnails/' . $image->thumbnail);
+
+            // Delete old files if they exist
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath);
+            }
+            if (file_exists($oldThumbnailPath)) {
+                unlink($oldThumbnailPath);
+            }
+
+            // Handle the new uploaded image
+            $imageFile = $request->file('name');
+            $imageName = time() . '-' . uniqid() . '.' . $imageFile->getClientOriginalExtension();
+            $thumbnailName = time() . '-thumbnail-' . uniqid() . '.' . $imageFile->getClientOriginalExtension();
+
+            // Move original image to 'upload/gallery'
+            $imageFile->move(public_path('upload/gallery'), $imageName);
+
+            // Create 'thumbnails' folder if it doesn't exist
+            $thumbnailFolder = public_path('upload/gallery/thumbnails/');
+            if (!file_exists($thumbnailFolder)) {
+                mkdir($thumbnailFolder, 0777, true);
+            }
+
+            // Generate thumbnail using Spatie Image
+            $thumbnailPath = $thumbnailFolder . $thumbnailName;
+            \Spatie\Image\Image::load(public_path('upload/gallery/' . $imageName))
+                ->width(300)
+                ->height(300)
+                ->save($thumbnailPath);
+
+            // Update image record in the database
+            $image->name = $imageName;
+            $image->thumbnail = $thumbnailName;
         }
 
-        // Store the new uploaded image
-        $imageFile = $request->file('name');
-        $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
-        $imageFile->move(public_path('upload'), $imageName);  // Store the image in the 'upload' folder
-        $image->name = $imageName;  // Update the image name in the database
+        // Save the updated image record
+        $image->save();
+
+        // Redirect back to the gallery show page or image listing
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Image updated successfully.');
+        return redirect()->route('imagelisting', $image->gallery_id);
     }
 
-    // Handle cropped image upload (if any)
-    if ($request->hasFile('croppedImage')) {
-        // If a cropped image is uploaded, delete the old image first
-        $oldImagePath = public_path('upload/' . $image->name);
-        if (file_exists($oldImagePath)) {
-            unlink($oldImagePath);  // Delete the old image
-        }
 
-        // Store the cropped image
-        $croppedImage = $request->file('croppedImage');
-        $croppedImageName = time() . '-cropped.' . $croppedImage->getClientOriginalExtension();
-        $croppedImage->move(public_path('upload'), $croppedImageName);  // Store the cropped image in 'upload' folder
-        $image->name = $croppedImageName;  // Update the image name in the database
-    }
-
-    // Save the updated image record
-    $image->save();
-
-    // Redirect back to the gallery show page or image listing
-    toastr()->timeOut(5000)->closeButton()->addSuccess('Image updated successfully.');
-    return redirect()->route('imagelisting',$image->gallery_id);
-
-}
 
     // Delete an image
     public function destroy($id)
     {
         $image = Image::findOrFail($id);
-
-        $imagePath = public_path('upload/' . $image->name);
-        if (!empty($image->name) && is_file($imagePath)) {
-            unlink($imagePath); // Delete the image file
+        $imagePath = public_path('upload/gallery/' . $image->name);
+        $thumbnailPath = public_path('upload/gallery/thumbnails/' . $image->thumbnail);
+        if (!empty($image->name) && file_exists($imagePath)) {
+            unlink($imagePath);
         }
-
-        $image->delete(); // Delete the database entry
-        toastr()->timeOut(5000)->closeButton()->addSuccess('Image deleted successfully.');
+        if (!empty($image->thumbnail) && file_exists($thumbnailPath)) {
+            unlink($thumbnailPath);
+        }
+        $image->delete();
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Image and thumbnail deleted successfully.');
         return redirect()->route('imagelisting');
     }
+
 }

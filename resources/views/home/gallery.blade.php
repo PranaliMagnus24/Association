@@ -46,7 +46,7 @@
 @if(is_array($gallery) && count($gallery)>0)
     @foreach($gallery as $galkey=>$galval)
         @foreach($galval['imagegallery'] as $imgkey=>$imgval)
-            <img src="{{asset('upload/thumbnails/'. $imgval['thumbnail'])}}"   data-mdb-img="{{asset('upload/'.$imgval['name'])}}" class="filter {{str_replace(" ","_",strtolower($galval['name']))}}" />
+            <img src="{{asset('upload/gallery/thumbnails/'. $imgval['thumbnail'])}}"   data-mdb-img="{{asset('upload/gallery/'.$imgval['name'])}}" class="filter {{str_replace(" ","_",strtolower($galval['name']))}}" />
         @endforeach
     @endforeach
 @endif

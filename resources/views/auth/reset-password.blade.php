@@ -90,6 +90,10 @@ font-size: 15px !important;
                 {{ __('Reset Password') }}
             </x-primary-button>
         </div>
+
+        @if(session('status'))
+       <span class="text-success">{{ session('status') }}</span>
+        @endif
     </form>
 
               </div>

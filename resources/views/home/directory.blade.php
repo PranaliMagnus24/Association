@@ -227,17 +227,17 @@
                                     <div class="display-table">
                                         <div class="display-table-cell">
                                             <a href="{{ $companypro->company_logo }}">
-                                                <img src="{{ $companypro->company_logo ? url('upload/'.$companypro->company_logo) : url('upload/download.png') }}" alt="Company Logo">
+                                                <img src="{{ $companypro->company_logo ? url('upload/company_documents/'.$companypro->company_logo) : url('upload/download.png') }}" alt="Company Logo">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                                 <h6>{{ $companypro->company_name }}</h6>
                                 <p> {{ $companypro->states->name }} &nbsp; {{ $companypro->cities->name }}</p>
-                                <p>{!! $companypro->about_company !!}</p>
+                                <p>{{ strip_tags($companypro->about_company) }}</p>
                             </div>
                             <div class="button-group">
-                                <a href="{{ route('directory.view', $companypro->id)}}" class="btn btn-companypro">View Details</a>
+                                <a href="{{ url('directory_details', $companypro->id)}}" class="btn btn-companypro">View Details</a>
                             </div>
                         </div>
                     </div>

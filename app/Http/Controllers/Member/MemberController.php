@@ -7,12 +7,14 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 use App\Models\CompanyPro;
 use App\Models\User;
 use App\Models\Technology;
 use App\Models\Country;
 use App\Models\City;
 use App\Models\State;
+use App\Models\Category;
 use App\Models\Membershipyear;
 use App\Models\Membership;
 use App\Models\Documentupload;
@@ -36,20 +38,27 @@ class MemberController extends Controller
 
     public function profile()
     {
-        $technologies = Technology::all();
+
+        $user = auth()->user();
+        $companyProfile = CompanyPro::where('user_id', $user->id)->first();
+        // $technologies = Technology::all();
+        $categories = Category::all();
         $countries = Country::get(["name", "id"]);
         $memberships = Membershipyear::all();
         $membershipstype = Membership::all();
-        $user = auth()->user();
-        $companyProfile = CompanyPro::where('user_id', $user->id)->first();
+        $states = State::get(["name", "id"]);
+        $cities = City::where('state_id',$companyProfile->state)->get(["name", "id"]);
 
         return view('member.profile.profile', [
             'user' => $user,
             'companyProfile' => $companyProfile,
-            'technologies' => $technologies,
+            // 'technologies' => $technologies,
             'countries' => $countries,
             'memberships' =>$memberships,
             'membershipstype' => $membershipstype,
+            'states' => $states,
+            'cities' => $cities,
+            'categories' => $categories
         ]);
     }
 
@@ -76,13 +85,13 @@ class MemberController extends Controller
 
 
         if ($request->hasFile('profile_pic')) {
-            if (!empty($user->profile_pic) && file_exists('upload/' . $user->profile_pic)) {
-                unlink('upload/' . $user->profile_pic);
+            if (!empty($user->profile_pic) && file_exists('upload/user_profile/' . $user->profile_pic)) {
+                unlink('upload/user_profile/' . $user->profile_pic);
             }
             $file = $request->file('profile_pic');
             $randomStr = Str::random(30);
             $filename = $randomStr . '.' . $file->getClientOriginalExtension();
-            $file->move('upload/', $filename);
+            $file->move('upload/user_profile/', $filename);
             $user->profile_pic = $filename;
         }
         $user->save();
@@ -93,50 +102,70 @@ class MemberController extends Controller
 
 
     public function companyprofileupdate(Request $request, $id): RedirectResponse
-    {
-        $companyProfile = CompanyPro::find($id);
+{
+    $companyProfile = CompanyPro::find($id);
 
-        $request->validate([
-            'company_type' => 'nullable|string',
-            'company_name' => 'required|string',
-            'aadharcard_number' => 'nullable|string',
-            'registration_date' => 'required|date',
-            'renewal_date' => 'required|date',
-            'city' => 'required',
-            'state' => 'required',
-            'country' => 'required',
-            'company_year' => 'required',
-            'membership_year' => 'required',
-            'about_company' => 'required',
-        ]);
-
-        $input = $request->all();
-        $companyProfile->update($input);
-
-        $documents = ['company_identity', 'company_address', 'aadharcard', 'authority_letter'];
-        foreach ($documents as $document) {
-            if ($request->hasFile($document)) {
-
-                $existingDocument = Documentupload::where('company_id', $id)->where('file_type', $document)->first();
-                if ($existingDocument && file_exists(public_path('upload/' . $existingDocument->file_name))) {
-                    unlink(public_path('upload/' . $existingDocument->file_name));
-                }
-
-                $file = $request->file($document);
-                $fileName = uniqid() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('upload/' . $id), $fileName);
-
-                Documentupload::updateOrCreate(
-                    ['company_id' => $id, 'file_type' => $document],
-                    ['file_name' => $fileName]
-                );
-            }
-        }
-
-        toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile and documents updated successfully!');
+    // Check if the company profile exists
+    if (!$companyProfile) {
+        toastr()->timeOut(5000)->closeButton()->addError('Company profile not found!');
         return redirect()->route('profile.index');
     }
 
+    $request->validate([
+        'company_type' => 'nullable|string',
+        'company_name' => 'required|string',
+        'aadharcard_number' => 'nullable|string',
+        'registration_date' => 'required|date',
+        'city' => 'required',
+        'state' => 'required',
+        'country' => 'required',
+        'company_year' => 'required',
+        'membership_year' => 'required',
+        'about_company' => 'required',
+    ]);
+
+    // Handle company logo upload
+    if ($request->hasFile('company_logo')) {
+        // Delete the existing logo if it exists
+        if (!empty($companyProfile->company_logo) && file_exists(public_path('upload/company_documents/' . $companyProfile->company_logo))) {
+            unlink(public_path('upload/company_documents/' . $companyProfile->company_logo));
+        }
+
+        // Upload the new logo
+        $file = $request->file('company_logo');
+        $randomStr = Str::random(30);
+        $filename = $randomStr . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('upload/company_documents/'), $filename);
+        $companyProfile->company_logo = $filename; // Update the company logo
+    }
+
+    // Update other fields
+    $input = $request->except('company_logo'); // Exclude company_logo from the input
+    $companyProfile->update($input);
+
+    // Handle document uploads
+    $documents = ['company_identity', 'company_address', 'aadharcard', 'authority_letter'];
+    foreach ($documents as $document) {
+        if ($request->hasFile($document)) {
+            $existingDocument = Documentupload::where('company_id', $id)->where('file_type', $document)->first();
+            if ($existingDocument && file_exists(public_path('upload/company_documents/' . $existingDocument->file_name))) {
+                unlink(public_path('upload/company_documents/' . $existingDocument->file_name));
+            }
+
+            $file = $request->file($document);
+            $fileName = uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('upload/company_documents/' . $id), $fileName);
+
+            Documentupload::updateOrCreate(
+                ['company_id' => $id, 'file_type' => $document],
+                ['file_name' => $fileName]
+            );
+        }
+    }
+
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile and documents updated successfully!');
+    return redirect()->route('profile.index');
+}
 
     public function updatePassword(Request $request)
     {
@@ -170,4 +199,17 @@ class MemberController extends Controller
         return back()->with('info', 'No changes made to the password.');
     }
 
+
+
+    public function myaccount()
+    {
+
+        $user = auth()->user();
+        $companyProfile = CompanyPro::where('user_id', $user->id)->first();
+
+        return view('member.my_account', [
+            'user' => $user,
+            'companyProfile' => $companyProfile
+        ]);
+    }
 }

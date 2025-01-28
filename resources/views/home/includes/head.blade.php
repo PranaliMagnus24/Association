@@ -72,7 +72,7 @@
     <link class="script-css" rel="stylesheet" href="{{asset('homecss/assets/vendors/awesome-notifications/style.css')}}" media="all">
 
     <!-- Site Stylesheet -->
-    <link id="cbx-style" rel="stylesheet" href="{{asset('homecss/assets/css/style-default.css')}}" type="text/css">
+    <link id="cbx-style" rel="stylesheet" href="{{asset('homecss/assets/css/style-default.css')}}?@php echo time(); @endphp" type="text/css">
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">

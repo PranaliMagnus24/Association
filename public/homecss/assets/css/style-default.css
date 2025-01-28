@@ -2340,6 +2340,7 @@ blockquote:before,
   list-style: none;
 }
 
+
 /*--------------------------------------------------------------
 ### Main Nav Mobile
 --------------------------------------------------------------*/
@@ -2612,6 +2613,19 @@ blockquote:before,
     display: none;
   }
 }
+
+.mobile-auth-buttons {
+    display: none; /* Hide by default */
+    padding: 15px; /* Add some padding */
+}
+
+@media (max-width: 991px) {
+    .mobile-auth-buttons {
+        display: block; /* Show in mobile view */
+    }
+}
+
+
 
 /*--------------------------------------------------------------
   ##  Banner
@@ -7843,3 +7857,39 @@ blockquote:before,
             width: 90px;
             font-size: 16px;
         }
+     .large-text {
+        font-size: 1.5rem; /* Adjust as needed */
+       }
+           .form-control {
+            height: 50px;
+            font-size: 16px;
+        }
+        .large-input {
+        font-size: 1.2rem; /* Adjust as needed */
+        padding: 10px; /* Adjust as needed */
+       }
+
+       .large-button {
+        font-size: 1.2rem; /* Adjust as needed */
+        padding: 10px; /* Adjust as needed */
+       }
+       select.form-select {
+       width: 100%;
+       padding: 10px;
+       border: 1px solid #ced4da;
+       border-radius: 0.25rem;
+       font-size: 15px !important;
+       }
+
+       .company-form {
+               width: 100%;
+               max-width: 600px;
+           }
+
+           @media (min-width: 768px) {
+               .company-form {
+                   width: 600px;
+               }
+           }
+
+

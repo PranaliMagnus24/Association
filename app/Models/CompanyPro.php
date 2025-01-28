@@ -63,6 +63,12 @@ public function documents()
     return $this->hasMany(Documentupload::class, 'company_id');
 }
 
+public function jobs()
+{
+    return $this->hasMany(Job::class, 'company_id');
+}
+
+
 
 
 

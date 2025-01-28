@@ -5,6 +5,7 @@
         <!--=========================-->
 
         <header class="site-header header-fixed" data-responsive-width="991">
+
             <div class="header-topbar">
                 <div class="container">
                     <div class="row align-items-center">
@@ -58,7 +59,6 @@
 <a href="{{route('home.index')}}" class="logo">
 <img src="{{ url('upload/' . $getSetting->header_logo) }}" alt="site logo" class="main-logo">
 <img src="{{ url('upload/' . $getSetting->header_logo) }}" alt="site logo" class="logo-sticky">
-    <!-- <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="site logo" class="logo-sticky"> -->
 </a>
 @else
 <h1>Association</h1>
@@ -99,13 +99,26 @@
                                     </ul>
                                 </li>
                                  <li><a href="{{route('home.directory')}}">Directory</a></li>
+                                 <li><a href="{{route('home.jobs')}}">Jobs</a></li>
                                  <li><a href="{{ route('home.islamictijarat')}}">Islamic Tijarat</a></li>
                                  <li><a href="{{ route('home.gallery')}}">Gallery</a></li>
                                 <li class="menu-item-depth-0">
                                     <a href="{{ route('home.contact')}}">Contact</a>
                                 </li>
                             </ul>
-
+                            <!-------------Responsive display login and register button----------->
+                            <div class="mobile-auth-buttons">
+                                @if(Auth::check())
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <input type="submit" value="Logout" class="btn mt-3 text-white" style="height: 30px; font-size: 16px; background-color:red;">
+                                </form>
+                                @else
+                                <a href="{{ route('login') }}" class="btn-auth btn-auth-rev" title="Login">Login</a>
+                                <a title="Register" class="btn-auth btn-auth" href="{{route('register')}}">Become a member</a>
+                                @endif
+                            </div>
+                            <!-------------End Responsive display login and register button----------->
 
                         </div>
                         <!-- /.menu-wrapper -->

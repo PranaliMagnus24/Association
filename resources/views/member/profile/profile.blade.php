@@ -101,7 +101,7 @@
                         <div class="col-6">
                             <label for="profile_pic" class="form-label">Profile Picture</label>
                             <div class="profile-picture-container">
-                                <img src="{{ $user->profile_pic ? url('upload/' . $user->profile_pic) : url('upload/No-Image.png') }}" alt="Profile Picture" class="img-fluid rounded"
+                                <img src="{{ $user->profile_pic ? url('upload/user_profile/' . $user->profile_pic) : url('upload/No-Image.png') }}" alt="Profile Picture" class="img-fluid rounded"
                                 style="width: 100px; height: 100px; object-fit: cover;">
                             </div>
                             <input type="file" class="form-control mt-2" id="profile_pic" name="profile_pic">
@@ -137,10 +137,15 @@
                         <label for="companyType" class="col-md-4 col-lg-3 col-form-label">Company Type <span style="color: red">*</span></label>
                         <div class="col-md-8 col-lg-3">
                         <select class="form-select" aria-label="Default select example" name="company_type">
-                            <option selected>Company Type</option>
-                            <option value="Product" @if((isset($companyProfile->company_type) && $companyProfile->company_type == 'Product') || old('company_type') == 'Product') selected @endif>Product</option>
-                            <option value="Service" @if((isset($companyProfile->company_type) && $companyProfile->company_type == 'Service') || old('company_type') == 'Service') selected @endif>Service</option>
-                            <option value="College/Institutional Organization" @if((isset($companyProfile->company_type) && $companyProfile->company_type == 'College/Institutional Organization') || old('company_type') == 'College/Institutional Organization') selected @endif>College/Institutional Organization</option>
+                        <option selected>Company Type</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->category_name }}"
+                    @if(isset($companyProfile->company_type) && $category->category_name == $companyProfile->company_type)
+                            selected="selected"
+                        @endif>
+                        {{ $category->category_name }}
+                    </option>
+                    @endforeach
                         </select>
                         @error('company_type')
                         <span class="text-danger">{{$message}}</span>
@@ -154,13 +159,14 @@
                         <select class="form-select membership_year" aria-label="Default select example" name="membership_year" id="membershipYearSelect" onchange="updateRenewalDate()">
                             <option selected>Membership</option>
                             @foreach($memberships as $membership)
-                            <option value="{{ $membership->membership_year }}"
-                            data-months="{{ $membership->membership_year }}"
-                            data-years="{{ $membership->default_year }}">
-                            {{ $membership->membership_year }} {{ $membership->default_year }}
+                            <option
+                            value="{{ $membership->membership_year }}"
+                            data-default-year="{{ $membership->default_year }}"
+                            {{ $membership->id == 8 ? 'selected' : 'disabled' }}>
+                            {{ $membership->membership_year }} - {{ $membership->default_year }}
                         </option>
-                            @endforeach
-                        </select>
+                        @endforeach
+                    </select>
                         @error('membership_year')
                         <span class="text-danger">{{$message}}</span>
                          @enderror
@@ -194,7 +200,7 @@
 
                     </div>
 
-                    <div class="row mb-3">
+                   {{-- <div class="row mb-3">
                     <label for="RenewalDate" class="col-md-4 col-lg-3 col-form-label">Renewal Date <span style="color: red">*</span></label>
                         <div class="col-md-8 col-lg-3">
                         <input name="renewal_date" type="date" class="form-control renewal_date" id="ren_date" value="{{ old('renewal_date', $companyProfile->renewal_date ?? '') }}">
@@ -203,7 +209,7 @@
                         @enderror
                         </div>
 
-                    </div>
+                    </div>--}}
 
                     <div class="row mb-3">
 
@@ -236,9 +242,13 @@
                     </div>
                     <label for="State" class="col-md-2 col-lg-3 col-form-label">State <span style="color: red">*</span></label>
                <div class="col-md-8 col-lg-3">
+
                 <select name="state" id="state-dropdown" class="form-select" aria-label="Default select example" value="{{ old('state')}}">
-                    <option selected>Select State</option>
-                    <option value=""></option>
+                <option value="">-- Select State --</option>
+                            @foreach ($states as $state)
+
+                            <option value="{{ $state->id }}" {{ ($state->id == $companyProfile->state) ? 'selected' : '' }}>{{ $state->name }}</option>
+                            @endforeach
                 </select>
                 @error('state')
                 <span class="text-danger">{{$message}}</span>
@@ -246,11 +256,14 @@
             </div>
                 </div>
                 <div class="row mb-3">
-                <label for="City" class="col-md-4 col-lg-3 col-form-label">City <span style="color: red">*</span><span style="color: red">*</span></label>
+                <label for="City" class="col-md-4 col-lg-3 col-form-label">City <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-3">
                 <select id="city-dropdown" name="city" class="form-select" aria-label="Default select example" value="{{ old('city')}}">
                     <option selected>Select city</option>
-                    <option value=""></option>
+                    @foreach ($cities as $city)
+
+                        <option value="{{ $city->id }}" {{ ($city->id == $companyProfile->city) ? 'selected' : '' }}>{{ $city->name }}</option>
+                    @endforeach
                 </select>
                 @error('city')
                 <span class="text-danger">{{$message}}</span>
@@ -294,17 +307,29 @@
                 @enderror
             </div>
                 </div>
+
+
+
                 <div class="row mb-3">
-                <label for="about_comp" class="col-md-4 col-lg-3 col-form-label">About Company <span style="color: red">*</span></label>
+            <label for="about_comp" class="col-md-4 col-lg-3 col-form-label">About Company <span style="color:red;">*</span></label>
             <div class="col-md-8 col-lg-9">
-            <div id="quill-editor" class="mb-3" style="height: 150px;">
-                    </div>
-                    <textarea rows="3" class="mb-3 d-none" name="about_company" id="quill-editor-area" placeholder="Write here">{{ old('about_company', $companyProfile->about_company ?? '') }}</textarea>
-                    @error('about_company')
-                  <span class="text-danger">{{$message}}</span>
-                  @enderror
+                <textarea name="about_company" id="about_company" class="form-control" placeholder="Add about_company here" style="height: 100px;"> {{$companyProfile->about_company}}</textarea>
+                @error('about_company')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
-                </div>
+            </div>
+
+                <div class="row mb-3">
+            <label for="services" class="col-md-4 col-lg-3 col-form-label">Services/Skill's  <span style="color:red;">*</span></label>
+            <div class="col-md-8 col-lg-9">
+                <textarea name="services" id="services" class="form-control" placeholder="Add services here" style="height: 100px;"> {{$companyProfile->services}}</textarea>
+                @error('services')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            </div>
+
                 <div class="row mb-3">
                 <label for="web_url" class="col-md-4 col-lg-3 col-form-label">Website URL</label>
             <div class="col-md-8 col-lg-9">
@@ -312,19 +337,19 @@
             </div>
                 </div>
                 <div class="row mb-3">
-            <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Technologies</label>
+                {{---<label for="technology" class="col-md-4 col-lg-3 col-form-label">Technologies</label>
             <div class="col-md-8 col-lg-3">
                 <select name="technologies" id="technology" class="selectpicker" multiple aria-label="size 3 select example">
                @foreach($technologies as $technology)
                 <option value="{{ $technology->title }}">{{ $technology->title }}</option>
                @endforeach
         </select>
-            </div>
+            </div>---}}
             <label for="logo" class="col-md-4 col-lg-3 col-form-label" style="margin-bottom: 0;">Company Logo</label>
             <div class="col-md-8 col-lg-3">
                 <input id="logo" name="company_logo" type="file" class="form-control" accept="image/*" value="{{ old('company_logo', $companyProfile->company_logo ?? '') }}">
                 @if(!empty($companyProfile->company_logo))
-      @if(file_exists('upload/'.$companyProfile->company_logo))<img src="{{url('upload/'.$companyProfile->company_logo)}}" style="height:100px; width:100px;">
+      @if(file_exists('upload/company_documents/'.$companyProfile->company_logo))<img src="{{url('upload/company_documents/'.$companyProfile->company_logo)}}" style="height:100px; width:100px;">
       @endif
       @endif
             </div>
@@ -343,9 +368,9 @@
           $doc = $companyProfile->documents->where('file_type', 'company_identity')->first();
       @endphp
       @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
-          <a href="{{ url('upload/' . $companyProfile->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+          <a href="{{ url('upload/company_documents/' . $companyProfile->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
       @else
-          <img src="{{ url('upload/' . $companyProfile->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+          <img src="{{ url('upload/company_documents/' . $companyProfile->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
       @endif
   @endif
     </div>
@@ -357,9 +382,9 @@
           $doc = $companyProfile->documents->where('file_type', 'aadharcard')->first();
       @endphp
       @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
-          <a href="{{ url('upload/' . $companyProfile->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+          <a href="{{ url('upload/company_documents/' . $companyProfile->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
       @else
-          <img src="{{ url('upload/' . $companyProfile->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+          <img src="{{ url('upload/company_documents/' . $companyProfile->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
       @endif
   @endif
     </div>
@@ -373,9 +398,9 @@
           $doc = $companyProfile->documents->where('file_type', 'company_address')->first();
       @endphp
       @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
-          <a href="{{ url('upload/' . $companyProfile->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+          <a href="{{ url('upload/company_documents/' . $companyProfile->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
       @else
-          <img src="{{ url('upload/' . $companyProfile->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+          <img src="{{ url('upload/company_documents/' . $companyProfile->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
       @endif
   @endif
     </div>
@@ -387,9 +412,9 @@
           $doc = $companyProfile->documents->where('file_type', 'authority_letter')->first();
       @endphp
       @if(pathinfo($doc->file_name, PATHINFO_EXTENSION) == 'pdf')
-          <a href="{{ url('upload/' . $companyProfile->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
+          <a href="{{ url('upload/company_documents/' . $companyProfile->id . '/' . $doc->file_name) }}" target="_blank">View PDF</a>
       @else
-          <img src="{{ url('upload/' . $companyProfile->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
+          <img src="{{ url('upload/company_documents/' . $companyProfile->id . '/' . $doc->file_name) }}" style="height:100px; width:100px;">
       @endif
   @endif
     </div>
@@ -398,6 +423,8 @@
                     <button type="submit" class="btn btn-primary">Update Company Profile</button>
                 </form>
             </div>
+            </div>
+
 
             <!-- Change Password Form -->
             <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -421,7 +448,10 @@
                    <input type="password" class="form-control" id="confirmPassword" name="confirm_password">
                    </div>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Update Password</button>
+
+
                 </form>
             </div>
         </div><!-- End Bordered Tabs Justified -->
@@ -578,45 +608,45 @@ function updateRenewalDate() {
     renewalDateInput.value = `${year}-${month}-${day}`;
 }
 
-$(window).on("load", function() {
-        var idCountry = $('#country-dropdown').val();
-        //alert(idCountry);
-        $("#state-dropdown").html('');
+// $(window).on("load", function() {
+//         var idCountry = $('#country-dropdown').val();
+//         //alert(idCountry);
+//         $("#state-dropdown").html('');
 
-        $.ajax({
+//         $.ajax({
 
-            url: "{{url('api/fetch-states')}}",
+//             url: "{{url('api/fetch-states')}}",
 
-            type: "POST",
+//             type: "POST",
 
-            data: {
+//             data: {
 
-                country_id: idCountry,
+//                 country_id: idCountry,
 
-                _token: '{{csrf_token()}}'
+//                 _token: '{{csrf_token()}}'
 
-            },
+//             },
 
-            dataType: 'json',
+//             dataType: 'json',
 
-            success: function (result) {
+//             success: function (result) {
 
-                $('#state-dropdown').html('<option value="">-- Select State --</option>');
+//                 $('#state-dropdown').html('<option value="">-- Select State --</option>');
 
-                $.each(result.states, function (key, value) {
+//                 $.each(result.states, function (key, value) {
 
-                    $("#state-dropdown").append('<option value="' + value
+//                     $("#state-dropdown").append('<option value="' + value
 
-                        .id + '">' + value.name + '</option>');
+//                         .id + '">' + value.name + '</option>');
 
-                });
+//                 });
 
-                $('#city-dropdown').html('<option value="">-- Select City --</option>');
+//                 $('#city-dropdown').html('<option value="">-- Select City --</option>');
 
-            }
+//             }
 
-        });
-    });
+//         });
+//     });
 
 </script>
 

@@ -131,6 +131,21 @@
               <i class="bi bi-circle"></i><span>CType</span>
             </a>
           </li>
+          <li>
+            <a href="{{route('categorylist')}}">
+              <i class="bi bi-circle"></i><span>Category</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('subcategorylist')}}">
+              <i class="bi bi-circle"></i><span>Sub Category</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('subsubcategorylist')}}">
+              <i class="bi bi-circle"></i><span>Sub Sub Category</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Tables Nav -->
 

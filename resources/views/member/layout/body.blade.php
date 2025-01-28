@@ -38,7 +38,7 @@
         <div class="card-body text-center">
           <div class="card-icon rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3 mt-3">
           <img
-    src="{{ !empty($companyProfile) && !empty($companyProfile->company_logo) ? url('upload/'.$companyProfile->company_logo) : url('upload/download.png') }}"
+    src="{{ !empty($companyProfile) && !empty($companyProfile->company_logo) ? url('upload/company_documents/'.$companyProfile->company_logo) : url('upload/download.png') }}"
     alt="{{ !empty($companyProfile) && !empty($companyProfile->company_name) ? $companyProfile->company_name : 'Default Logo' }}"
     class="company-logo">
           </div>
@@ -47,7 +47,7 @@
     @else
         Default Title
     @endif</h6>
-          <a href="{{route('profile.index')}}" class="small pt-2 ps-1 btn btn-primary">Update Profile</a>
+          <a href="{{route('profile.index')}}" class="btn btn-outline-primary"> <i class="bx bx-pencil" style="font-size: 20px;"></i></a>
         </div>
       </div>
     </div>
@@ -98,7 +98,7 @@
 <div class="col-6 custom-col">
 <p class="card-title">About Company:
 <br>
-    <span class="fs-6 text-black">{!! $companyProfile->about_company ?? 'N/A' !!}</span></p>
+    <span class="fs-6 text-black">{{ strip_tags($companyProfile->about_company ?? 'N/A') }}</span></p>
 </div>
 <div class="col-6 custom-col">
 <p class="card-title"></p>
@@ -121,9 +121,9 @@
 </div>
 </div>
 <div class="row custom-row">
-<div class="col-6 custom-col">
+{{--<div class="col-6 custom-col">
 <p class="card-title">Technologies: <span class="fs-6 text-black">{{$companyProfile->technologies ?? 'N/A'}}</span></p>
-</div>
+</div>---}}
 <div class="col-6 custom-col">
 <p class="card-title">Address: <span class="fs-6 text-black">{{$companyProfile->address_one ?? 'N/A'}}</span></p>
 </div>

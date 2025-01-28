@@ -96,7 +96,7 @@
                 <div class="alert alert-danger">{{ $message}}</div>
                 @enderror
                 @if(!empty($data->profile_pic))
-      @if(file_exists('upload/'.$data->profile_pic))<img src="{{url('upload/'.$data->profile_pic)}}" style="height:100px; width:100px;">
+      @if(file_exists('upload/user_profile/'.$data->profile_pic))<img src="{{url('upload/user_profile/'.$data->profile_pic)}}" style="height:100px; width:100px;">
       @endif
       @endif
             </div>

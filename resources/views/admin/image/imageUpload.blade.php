@@ -80,11 +80,11 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="start_datetime" class="form-label">Start Date</label>
-                        <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime" required>
+                        <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="end_datetime" class="form-label">End Date</label>
-                        <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime" required>
+                        <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime">
                     </div>
                 </div>
 

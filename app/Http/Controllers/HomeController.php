@@ -10,7 +10,10 @@ use App\Models\State;
 use App\Models\City;
 use App\Models\CompanyPro;
 use App\Models\Gallery;
+use App\Models\Job;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Category;
+use App\Models\SubCategory;
 use Str;
 use File;
 
@@ -101,46 +104,7 @@ class HomeController extends Controller
         return view('home.history', compact('totalUsers'));
     }
 ///show directory
-public function directory(Request $request)
-{
-    $query = CompanyPro::query();
 
-    // Search filter
-    if ($request->has('search') && !empty($request->search)) {
-        $query->where('company_name', 'like', '%' . $request->search . '%')
-              ->orWhere('about_company', 'like', '%' . $request->search . '%');
-    }
-
-    // Filter by state name
-    if ($request->has('state_id') && !empty($request->state_id)) {
-        $query->where('state', $request->state_id);
-    }
-
-    // Filter by city name
-    if ($request->has('city_id') && !empty($request->city_id)) {
-        $query->where('city', $request->city_id);
-    }
-
-    $companyprofiles = $query->inRandomOrder()->paginate(12);
-
-
-    $states = State::where('country_id', 101)->get();
-
-
-    $cities = $request->has('state_id')
-        ? City::where('state_id', $request->state_id)->get()
-        : collect();
-
-    return view('home.directory', compact('companyprofiles', 'states', 'cities'));
-}
-
-
-    //directory details page
-    public function show($id) {
-        $companypro = CompanyPro::with('cities', 'states', 'countries', 'technologies')->find($id);
-        $user = auth()->user();
-          return view('home.directory_display', compact('companypro','user'));
-      }
 
       //Home Committee page
     public function committee()
@@ -184,6 +148,32 @@ public function directory(Request $request)
         return view('home.our_associate');
     }
 
+    ///Display Job
+
+    public function jobs()
+    {
+        $jobs = Job::with(['companyProfile'])->get();
+
+        return view('home.jobs', compact('jobs'));
+    }
+
+    //Display Job Details
+    public function jobdetails($id)
+{
+    $job = Job::with([
+        'category',
+        'subcategory',
+        'countries',
+        'states',
+        'cities',
+        'companyProfile'
+    ])->findOrFail($id);
+
+    return view('home.job_details', compact('job'));
+}
+
+
+
     public function fetchCity(Request $request)
     {
         $cities = City::where("state_id", $request->state_id)
@@ -192,6 +182,12 @@ public function directory(Request $request)
         return response()->json(['cities' => $cities]);
     }
 
+
+
+    public function thankyou()
+    {
+        return view('home.thankyou');
+    }
 
 
 }

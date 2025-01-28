@@ -1,15 +1,15 @@
 <style>
     .close{
-    float: right;
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 1;
-    border:none;
-    background-color:#fff;
-    color: #051441;
-    text-shadow: 0 1px 0 #fff;
-    filter: alpha(opacity = 20);
-    opacity: .2;
+        float: right;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1;
+        border:none;
+        background-color:#fff;
+        color: #051441;
+        text-shadow: 0 1px 0 #fff;
+        filter: alpha(opacity = 20);
+        opacity: .2;
     }
 
 </style>
@@ -187,5 +187,5 @@
 
 
     <!-- Site Scripts -->
-    <script src="{{asset('homecss/assets/js/app.js')}}"></script>
+    <script src="{{asset('homecss/assets/js/app.js')}}?@php echo time(); @endphp"></script>
 

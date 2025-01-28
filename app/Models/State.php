@@ -22,4 +22,8 @@ public function user()
 {
     return $this->belongsTo(User::class, 'state', 'id');
 }
+public function jobs()
+{
+    return $this->hasMany(Job::class, 'state', 'id');
+}
 }

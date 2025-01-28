@@ -1,39 +1,6 @@
 @include('home.includes.head')
 @include('home.includes.navbar')
 
-<style>
- .send-btn {
-        height: 50px;
-        width: 90px;
-        font-size: 16px;
-    }
-
-
-     .large-text {
- font-size: 1.5rem; /* Adjust as needed */
-}
-    .form-control {
-     height: 50px;
-     font-size: 16px;
- }
- .large-input {
- font-size: 1.2rem; /* Adjust as needed */
- padding: 10px; /* Adjust as needed */
-}
-
-.large-button {
- font-size: 1.2rem; /* Adjust as needed */
- padding: 10px; /* Adjust as needed */
-}
-select.form-select {
-width: 100%;
-padding: 10px;
-border: 1px solid #ced4da;
-border-radius: 0.25rem;
-font-size: 15px !important;
-}
-
-</style>
 <section id="page-title-area">
             <div class="container">
                <div class="row">
@@ -47,7 +14,7 @@ font-size: 15px !important;
          </section>
 
 
-         <section class="job-details section-padding">
+         <section class="job-details section-padding mt-0">
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -56,13 +23,13 @@ font-size: 15px !important;
                     <div class="card-body">
                         <div class="row">
                             <!-- Left Side: Company Details -->
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 mb-4">
                                 <div class="card mb-3 border-0">
                                     <div class="card-body">
                                         <div class="card text-center" style="width: 100%; max-width: 400px; margin: 20px auto; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
                                             <div class="card-body">
                                                 <img
-                                                    src="{{ $companypro->company_logo ? url('upload/'.$companypro->company_logo) : url('upload/download.png') }}"
+                                                    src="{{ $companypro->company_logo ? url('upload/company_documents/'.$companypro->company_logo) : url('upload/download.png') }}"
                                                     alt="Company Logo"
                                                     class="img-fluid mb-3"
                                                     style="max-width: 250px; border-radius: 5px; max-height: 250px;"
@@ -83,36 +50,34 @@ font-size: 15px !important;
                                     </div>
                                 </div>
                                 <!----------End Address------>
-                                 <!------------Technology------------->
+                                 <!------------Services------------->
+                                 @if(!empty($companypro->services))
                                  <div class="card text-center" style="width: 100%; max-width: 400px; margin: 20px auto; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
                                     <div class="card-body">
-                                    <p class="card-text mt-3" style="font-size: 16px; color: #555;">
-                                     <strong>Services/Expertise</strong> <br>
-                                  @if(!empty($companypro->technologies) && is_array(json_decode($companypro->technologies, true)))
-                                    <p>{{ implode(', ', json_decode($companypro->technologies, true)) }}</p>
-                                     @else
-                                 <p>No technologies selected</p>
-                               @endif
-                                 </p>
-
+                                        <p class="card-text mt-3" style="font-size: 16px; color: #555;">
+                                            <strong>Services/Expertise</strong> <br>
+                                            <p>{{ $companypro->services }}</p>
+                                        </p>
                                     </div>
                                 </div>
-                                <!----------End technology------>
+                                @endif
+                                <!----------End services------>
+
                             </div>
                         </div>
                     </div>
 
                             <!-- Right Side: Inquiry Form -->
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 m-auto">
                                 <div class="card mb-3 border-0">
                                     <div class="card-body">
                                         <!-- About Company -->
                                         <div class="mt-4">
-                                            <p>{!! $companypro->about_company !!}</p>
+                                        <p>{{ strip_tags($companypro->about_company) }}</p>
                                         </div>
 
                                         <!-- Contact Form -->
-                                        <div class="p-4 border rounded" style="width: 600px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                        <div class="p-4 border rounded company-form">
                                         <form action="{{ route('send.email') }}" method="POST" id="contactForm" class="row g-3 needs-validation">
                                             @csrf
                                             <h5 class="fw-normal mb-3 pb-3 text-center text-info" style="letter-spacing: 1px;">Send a Business Inquiry</h5>
@@ -139,6 +104,7 @@ font-size: 15px !important;
                                                 @enderror
                                             </div>
                                             </div>
+                                            <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="cbxemail" class="form-label">Email <span style="color: red">*</span></label>
@@ -148,28 +114,34 @@ font-size: 15px !important;
                                                 <span class="text-danger">{{$message}}</span>
                                                 @enderror
                                             </div>
-
+                                            </div>
+                                            <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="cbxsubject" class="form-label">Subject</label>
                                                     <input type="text" name="subject" id="cbxsubject" placeholder="Subject" class="form-control fs-4">
                                                 </div>
                                             </div>
-
+                                            </div>
+                                            <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="cbxmessage" class="form-label">Message</label>
                                                     <textarea name="message" id="message" rows="10" cols="80" placeholder="Your Message" class="form-control fs-4" style="height: 120px;"></textarea>
                                                 </div>
                                             </div>
-
+                                            </div>
+                                            <div class="row">
                                             <div class="col-12 text-center">
                                                 <button class="btn btn-primary send-btn fs-4" type="submit">Send</button>
+                                            </div>
                                             </div>
                                         </form>
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>

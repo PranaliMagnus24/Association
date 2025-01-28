@@ -11,10 +11,12 @@
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
 
+
+
 <div class="d-flex align-items-center justify-content-between">
   <a href="{{url('member')}}" class="logo d-flex align-items-center">
   <img
-    src="{{ !empty($companyProfile) && !empty($companyProfile->company_logo) ? url('upload/'.$companyProfile->company_logo) : url('upload/download.png') }}"
+    src="{{ !empty($companyProfile) && !empty($companyProfile->company_logo) ? url('upload/company_documents/'.$companyProfile->company_logo) : url('upload/download.png') }}"
     alt="{{ !empty($companyProfile) && !empty($companyProfile->company_name) ? $companyProfile->company_name : 'Default Logo' }}"
     class="company-logo">
 
@@ -191,9 +193,12 @@
     </li><!-- End Messages Nav -->
 
     <li class="nav-item dropdown pe-3">
-
+@php
+    $user = \App\Models\User::first();
+@endphp
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-      <img src="{{ $user->profile_pic ? url('upload/'.$user->profile_pic) : url('upload/No-Image.png') }}" alt="Profile Picture" class="profile_pic rounded-circle">
+      <img src="{{ $user->profile_pic ? url('upload/user_profile/' . $user->profile_pic) : url('upload/No-Image.png') }}" alt="Profile Picture" class="profile_pic rounded-circle">
+
         <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
       </a><!-- End Profile Iamge Icon -->
 

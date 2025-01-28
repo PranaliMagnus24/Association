@@ -139,11 +139,16 @@ select.form-select {
             <label class="col-md-4 col-lg-3 col-form-label">Company Type <span style="color: red">*</span></label>
 
             <div class="col-md-8 col-lg-3">
-                <select class="form-select" aria-label="Default select example" name="company_type">
+            <select class="form-select" aria-label="Default select example" name="company_type">
                     <option selected>Company Type</option>
-                    <option value="Product" @if((isset($data->company_type) && $data->company_type == 'Product') || old('company_type') == 'Product') selected @endif>Product</option>
-                    <option value="Service" @if((isset($data->company_type) && $data->company_type == 'Service') || old('company_type') == 'Service') selected @endif>Service</option>
-            <option value="College/Institutional Organization" @if((isset($data->company_type) && $data->company_type == 'College/Institutional Organization') || old('company_type') == 'College/Institutional Organization') selected @endif>College/Institutional Organization</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->category_name }}"
+                    @if(isset($data->company_type) && $category->category_name == $data->company_type)
+                            selected="selected"
+                        @endif>
+                        {{ $category->category_name }}
+                    </option>
+                    @endforeach
                 </select>
                 @error('company_type')
                 <span class="text-danger">{{$message}}</span>
@@ -155,21 +160,23 @@ select.form-select {
 
           <div class="col-md-8 col-lg-3">
           <select class="form-select membership_year" aria-label="Default select example" name="membership_year" id="membershipYearSelect" onchange="updateRenewalDate()">
-            <option selected>Membership</option>
-            @foreach($memberships as $membership)
-            <option value="{{ $membership->membership_year }}"
-                    data-months="{{ $membership->membership_year }}"
-                    data-years="{{ $membership->default_year }}">
-                {{ $membership->membership_year }} {{ $membership->default_year }}
-            </option>
-        @endforeach
-            </select>
+    <option selected>Membership</option>
+    @foreach($memberships as $membership)
+        <option
+            value="{{ $membership->membership_year }}"
+            data-default-year="{{ $membership->default_year }}"
+            {{ $membership->id == 8 ? 'selected' : 'disabled' }}>
+            {{ $membership->membership_year }} - {{ $membership->default_year }}
+        </option>
+    @endforeach
+</select>
+
             <input type="hidden" name="default_year" id="defaultYearInput">
     @error('membership_year')
     <span class="text-danger">{{ $message }}</span>
     @enderror
              </div>
-</div>
+            </div>
 
 
         <div class="row mb-3">
@@ -554,6 +561,9 @@ $(document).ready(function () {
 //         }
 //     });
 
+
+
+
 //Renewal Date
 
 function updateRenewalDate() {
@@ -561,24 +571,42 @@ function updateRenewalDate() {
     const selectedOption = membershipSelect.options[membershipSelect.selectedIndex];
     const renewalDateInput = document.getElementById('ren_date');
 
+    if (!selectedOption || selectedOption.value === "Membership") {
+        renewalDateInput.value = ""; // Clear the field if no valid membership is selected
+        return;
+    }
+
     const currentDate = new Date();
-    const membershipValue = selectedOption.getAttribute('data-months') || 0;
-    const defaultValue = selectedOption.getAttribute('data-years');
+    const membershipValue = parseInt(selectedOption.value) || 0; // Membership duration
+    const defaultValue = selectedOption.getAttribute('data-default-year'); // Membership type (Month/Year/Lifetime)
 
     if (defaultValue === "Month") {
-        currentDate.setMonth(currentDate.getMonth() + parseInt(membershipValue));
+        currentDate.setMonth(currentDate.getMonth() + membershipValue);
     } else if (defaultValue === "Year") {
-        currentDate.setFullYear(currentDate.getFullYear() + parseInt(membershipValue));
+        currentDate.setFullYear(currentDate.getFullYear() + membershipValue);
     } else if (defaultValue === "Lifetime") {
         currentDate.setFullYear(currentDate.getFullYear() + 10);
     }
 
+    // Format date as YYYY-MM-DD
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const day = String(currentDate.getDate()).padStart(2, '0');
 
     renewalDateInput.value = `${year}-${month}-${day}`;
 }
+
+// Add event listener for the membership dropdown
+document.getElementById('membershipYearSelect').addEventListener('change', function () {
+    const selectedOption = this.options[this.selectedIndex];
+    const defaultYear = selectedOption.getAttribute('data-default-year');
+    document.getElementById('defaultYearInput').value = defaultYear || '';
+});
+
+// Trigger updateRenewalDate on page load for the default selected value
+window.addEventListener('load', function () {
+    updateRenewalDate();
+});
 
 
 
@@ -669,11 +697,7 @@ function displayStep(stepNumber) {
     });
 
 
-    document.getElementById('membershipYearSelect').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const defaultYear = selectedOption.getAttribute('data-default-year');
-        document.getElementById('defaultYearInput').value = defaultYear || '';
-    });
+
 </script>
 @if (session('success'))
     <script>

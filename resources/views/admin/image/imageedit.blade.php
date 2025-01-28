@@ -74,7 +74,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3" id="selectedImageContainer" style="display: {{ $image->ctype == 'Gallery' ? 'block' : 'none' }}">
                         <label for="selectedImage" class="form-label">Selected Image</label>
-                        <img id="selectedImage" src="{{ $image->ctype == 'Gallery' ? asset('upload/' . $image->name) : '' }}" alt="Selected Image" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 5px;">
+                        <img id="selectedImage" src="{{ $image->ctype == 'Gallery' ? asset('upload/gallery' . $image->name) : '' }}" alt="Selected Image" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 5px;">
                     </div>
                 </div>
 
@@ -178,7 +178,7 @@
     function showSelectedImage() {
         const galleryId = document.getElementById('gallery').value;
         if (galleryId) {
-            selectedImage.src = '/upload/' + galleryId + '.jpg';  // Update this logic based on gallery selection
+            selectedImage.src = '/upload/gallery' + galleryId + '.jpg';  // Update this logic based on gallery selection
             selectedImageContainer.style.display = 'block';
         } else {
             selectedImageContainer.style.display = 'none';

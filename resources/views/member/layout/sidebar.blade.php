@@ -11,7 +11,7 @@
 
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="#">
+    <a class="nav-link collapsed" href="{{ route('myaccount')}}">
       <i class="bi bi-card-checklist"></i>
       <span>My Account</span>
     </a>
@@ -29,12 +29,12 @@
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="#">
+            <a href="{{route('job')}}">
               <i class="bi bi-circle"></i><span>Create Job</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="{{route('joblist')}}">
               <i class="bi bi-circle"></i><span>List Job</span>
             </a>
           </li>

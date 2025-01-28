@@ -69,7 +69,9 @@ font-size: 15px !important;
                       <label for="email" class="form-label">Email</label>
                       <input type="email" name="email" :value="old('email')" class="form-control fs-4" id="email"
                       required autofocus>
-                      <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                      @error('email')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                     </div>
 
         <div class="flex items-center justify-end mt-4 col-12">
@@ -77,6 +79,10 @@ font-size: 15px !important;
                 {{ __('Email Password Reset Link') }}
             </x-primary-button>
         </div>
+        @if(session('status'))
+       <span class="text-success">{{ session('status') }}</span>
+        @endif
+
     </form>
 
               </div>
@@ -87,5 +93,20 @@ font-size: 15px !important;
     </div>
   </div>
 </section>
+
+
+{{--@if (session('status'))
+{{ dd(session()->all()) }}
+
+    <script>
+        Swal.fire({
+            title: 'Success!',
+            text: '{{ session('status') }}',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    </script>
+
+@endif---}}
 
 @include('home.includes.footer')

@@ -95,11 +95,11 @@
                 <td>{{ $image->start_datetime }}</td>
                 <td>{{ $image->end_datetime }}</td>
                 <td>
-                    @if(file_exists(public_path('upload/'.$image->name)) && !empty($image->name))
-                        <img src="{{ asset('upload/'.$image->name) }}" style="height:100px; width:100px;">
-                    @else
-                        <p>No image available</p>
-                    @endif
+                @if(file_exists(public_path('upload/gallery/thumbnails/'.$image->thumbnail)) && !empty($image->thumbnail))
+                <img src="{{ asset('upload/gallery/thumbnails/'.$image->thumbnail) }}" style="height:100px; width:100px;">
+            @else
+                <p>No image available</p>
+            @endif
                 </td>
                 <td>
                     <a href="{{ route('imageedit', $image->id) }}" class="btn btn-primary btn-sm">Edit</a>

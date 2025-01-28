@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Mail\CompanyRegistrationSuccess;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\City;
 use App\Models\Country;
@@ -12,6 +14,7 @@ use App\Models\CompanyPro;
 use App\Models\Membershipyear;
 use App\Models\Zipcode;
 use App\Models\Membership;
+use App\Models\Category;
 use App\Models\Documentupload;
 use Str;
 use File;
@@ -28,11 +31,13 @@ class CompanyRegistrationController extends Controller
         $countries = Country::get(["name", "id"]);
         $memberships = Membershipyear::all();
         $membershipstype = Membership::all();
+        $categories = Category::all();
         $users = User::where('role', 'user')->get();
-        return view('home.company_register', compact('technologies', 'countries','memberships','membershipstype', 'users', 'user_id'));
+        return view('home.company_register', compact('technologies', 'countries','memberships','membershipstype', 'users', 'user_id','categories'));
     }
 
     public function companystore(Request $request){
+
         $request->validate([
             'company_type' => 'required|string',
             'company_name' => 'required|string',
@@ -40,7 +45,7 @@ class CompanyRegistrationController extends Controller
             'aadharcard_number' => 'required|string',
             'registration_date' => 'required|date',
             'renewal_date' => 'required|date',
-            'address' => 'required',
+            'address_one' => 'required',
             'city' => 'required|string',
             'state' => 'required|string',
             'country' => 'required|string',
@@ -49,6 +54,7 @@ class CompanyRegistrationController extends Controller
             'aadharcard' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
             'authority_letter' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
         ]);
+
 
        $data = new CompanyPro;
        $data->company_type = $request->company_type;
@@ -74,7 +80,8 @@ class CompanyRegistrationController extends Controller
        $data->country_id = $request->country_id;
        $data->tech_id = $request->tech_id;
        $data->membership_year = $request->membership_year;
-       $data->default_year = $request->default_year;
+      $data->default_year = $request->default_year;
+
 
         if ($request->member_name>0) {
             $data->user_id = $request->member_name;
@@ -87,21 +94,29 @@ class CompanyRegistrationController extends Controller
        $data->membershiptype_id = $request->membershiptype_id;
        $data->membershipyear_id = $request->membershipyear_id;
 
-        if(!empty($request->file('company_logo')))
-        {
-            if(!empty($company->company_logo) && file_exists('upload/' .$company->company_logo))
-            {
-                unlink('upload/' .$company->company_logo);
-            }
-            $file = $request->file('company_logo');
-            $randomStr = Str::random(30);
-            $filename = $randomStr . '.' .$file->getClientOriginalExtension();
-            $file->move('upload/',$filename);
-           $data->company_logo = $filename;
+       if (!empty($request->file('company_logo'))) {
+        $companyFolder = 'upload/company_documents/' . $data->id; // Directly inside the company folder
+        if (!file_exists($companyFolder)) {
+            mkdir($companyFolder, 0755, true);
         }
+
+        if (!empty($data->company_logo) && file_exists('upload/company_documents/' . $data->id . '/' . $data->company_logo)) {
+            unlink('upload/company_documents/' . $data->id . '/' . $data->company_logo);
+        }
+
+        $file = $request->file('company_logo');
+        $randomStr = Str::random(30);
+        $filename = $randomStr . '.' . $file->getClientOriginalExtension();
+        $file->move($companyFolder, $filename);
+        $data->company_logo = $filename;
+    }
+
         if($data->save())
         {
-            $companyFolder = 'upload/company_' . $data->id;
+            $user = User::findOrFail($data->user_id);  //send email by user table
+            Mail::to($user->email)->send(new CompanyRegistrationSuccess($data->company_name));  //email send
+
+            $companyFolder = 'upload/company_documents/' . $data->id;
             if (!file_exists($companyFolder)) {
                 mkdir($companyFolder, 0755, true);
             }
@@ -170,11 +185,11 @@ class CompanyRegistrationController extends Controller
                 Documentupload::insert($documents);
             }
 
-            return redirect()->route('home.index')->with('success', 'Company profile and documents added successfully!');
+            return redirect()->route('thankyou');
 
 
         }else{
-            return redirect()->route('home.index')->with('error', 'Failed to update Company profile!');
+            return redirect()->route('thankyou')->with('error', 'Failed to update Company profile!');
 
         }
 
@@ -183,49 +198,65 @@ class CompanyRegistrationController extends Controller
 
 
     public function edit($id){
+        $users = User::where('role', 'user')->get();
+        $data = CompanyPro::find($id);
         $technologies = Technology::all();
         $countries = Country::get(["name", "id"]);
         $memberships = Membershipyear::all();
         $membershipstype = Membership::all();
-        $users = User::where('role', 'user')->get();
-        $data = CompanyPro::find($id);
-         return view('admin.membership.company_profile.add', compact('technologies', 'countries','memberships','membershipstype', 'users', 'data'));
+        $categories = Category::all();
+         return view('admin.membership.company_profile.add', compact('technologies', 'countries','memberships','membershipstype', 'users', 'data','categories'));
      }
 
      public function update(Request $request, $id): RedirectResponse
     {
         $data = CompanyPro::find($id);
-
+        if (!$data) {
+            toastr()->timeOut(5000)->closeButton()->addError('Company profile not found!');
+            return redirect()->route('company.list');
+        }
 
         $request->validate([
-            'company_type' => 'required|string',
+            'company_type' => 'nullable|string',
             'company_name' => 'required|string',
-            'aadharcard_number' => 'required',
+            'aadharcard_number' => 'nullable|string',
             'registration_date' => 'required|date',
             'renewal_date' => 'required|date',
             'city' => 'required',
-            'services' => 'required',
             'state' => 'required',
             'country' => 'required',
             'company_year' => 'required',
             'membership_year' => 'required',
+            'about_company' => 'required',
         ]);
 
-        $input = $request->all();
+
+        if ($request->hasFile('company_logo')) {
+
+            if (!empty($data->company_logo) && file_exists(public_path('upload/company_documents/' . $data->company_logo))) {
+                unlink(public_path('upload/company_documents/' . $data->company_logo));
+            }
+            $file = $request->file('company_logo');
+            $randomStr = Str::random(30);
+            $filename = $randomStr . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/company_documents/'), $filename);
+            $data->company_logo = $filename;
+        }
+        $input = $request->except('company_logo');
         $data->update($input);
 
+        // Handle document uploads
         $documents = ['company_identity', 'company_address', 'aadharcard', 'authority_letter'];
         foreach ($documents as $document) {
             if ($request->hasFile($document)) {
-
                 $existingDocument = Documentupload::where('company_id', $id)->where('file_type', $document)->first();
-                if ($existingDocument && file_exists(public_path('upload/' . $existingDocument->file_name))) {
-                    unlink(public_path('upload/' . $existingDocument->file_name));
+                if ($existingDocument && file_exists(public_path('upload/company_documents/' . $existingDocument->file_name))) {
+                    unlink(public_path('upload/company_documents/' . $existingDocument->file_name));
                 }
 
                 $file = $request->file($document);
                 $fileName = uniqid() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('upload/' . $id), $fileName);
+                $file->move(public_path('upload/company_documents/' . $id), $fileName);
 
                 Documentupload::updateOrCreate(
                     ['company_id' => $id, 'file_type' => $document],
@@ -234,7 +265,8 @@ class CompanyRegistrationController extends Controller
             }
         }
 
-        return redirect()->route('member.index')->with('success', 'Company profile and documents updated successfully');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile and documents updated successfully!');
+        return redirect()->route('company.list');
     }
 
 
@@ -305,7 +337,7 @@ class CompanyRegistrationController extends Controller
 
         if ($data) {
             foreach ($data->documents as $document) {
-                $filePath = 'upload/company_' . $data->id . '/' . $document->file_name;
+                $filePath = 'upload/company_documents/' . $data->id . '/' . $document->file_name;
                 if (file_exists($filePath)) {
                     unlink($filePath);
                 }

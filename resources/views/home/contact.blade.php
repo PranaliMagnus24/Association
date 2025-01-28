@@ -128,7 +128,7 @@
 
                                                 <div class="form-group">
                                                     <label for="cbxmessage">Message</label>
-                                                    <textarea name="message" id="message" rows="10" cols="80" placeholder="Your Message" class="form-control"></textarea>
+                                                    <textarea name="message" id="message" rows="10" cols="80" placeholder="Your Message" class="form-control" style="height: 120px;"></textarea>
                                                 </div>
                                                 <!-- <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="cbxsendme" name="cbxsendme" value="on">

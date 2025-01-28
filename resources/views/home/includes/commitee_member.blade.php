@@ -23,7 +23,7 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
                                     <img src="{{asset('homecss/assets/images/committee/Hasrat.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3> Hasrst Shaikh<span class="committee-deg">Logistics Committee <br> M.Com</span></h3>
+                                    <h3> Hasrat Shaikh<span class="committee-deg">Logistics Committee <br> M.Com</span></h3>
                                 </div>
                             </div>
 
@@ -85,12 +85,12 @@
                                     Social Media <br>IT Professional</span></h3>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-3 col-sm-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="single-committee-member">
-                                    <img src="{{asset('homecss/assets/images/committee/No-Image.png')}}" class="img-fluid" alt="Committee" />
-                                    <h3>Salim Khan Deolali<span class="committee-deg">Admin Committee</span></h3>
+                                    <img src="{{asset('homecss/assets/images/committee/Salim-khan.png')}}" class="img-fluid" alt="Committee" />
+                                    <h3>Salim Y. Khan<span class="committee-deg">Admin Committee <br>G.D. Architecture, G.D.I.D.</span></h3>
                                 </div>
-                            </div> -->
+                            </div>
 
                         </div>
 

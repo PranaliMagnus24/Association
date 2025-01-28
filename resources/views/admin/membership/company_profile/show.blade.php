@@ -137,12 +137,17 @@
 </div>
 
         <div class="col-md-4 col-lg-4">
-            <label class="col-form-label"><strong>Company Logo</strong></label>
-            @if(!empty($data->company_logo) && file_exists('upload/'.$data->company_logo))
-                <img src="{{ url('upload/'.$data->company_logo) }}" style="height:100px; width:100px;">
-            @else
-                <p>No profile picture available</p>
-            @endif
+        <label class="col-form-label"><strong>Company Logo</strong></label>
+@if(!empty($data->company_logo))
+    <p>Logo Filename: {{ $data->company_logo }}</p>
+    @if(file_exists(public_path('upload/company_documents/'.$data->company_logo)))
+        <img src="{{ url('upload/company_documents/'.$data->company_logo) }}" style="height:100px; width:100px;">
+    @else
+        <p>File does not exist on the server.</p>
+    @endif
+@else
+    <p>No profile picture available</p>
+@endif
         </div>
     </div>
 
@@ -153,7 +158,7 @@
             <div class="col-md-4 col-lg-4">
                 <label class="col-form-label"><strong>{{ ucwords(str_replace('_', ' ', $document->file_type)) }}</strong></label>
                 @php
-                    $filePath = 'upload/' . $data->id . '/' . $document->file_name;
+                    $filePath = 'upload/company_documents/' . $data->id . '/' . $document->file_name;
                     $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
                 @endphp
                 @if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
