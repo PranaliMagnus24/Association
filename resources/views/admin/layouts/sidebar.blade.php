@@ -146,6 +146,19 @@
               <i class="bi bi-circle"></i><span>Sub Sub Category</span>
             </a>
           </li>
+          <li>
+            <a href="{{ route('list.event')}}">
+              <i class="bi bi-circle"></i><span>Events</span>
+            </a>
+          </li>
+
+          @if(auth()->user()->role === 'eventmanager' && isset($eventformId))
+    <li><a href="{{ route('qrpage', ['eventform_id' => $eventformId]) }}">QR Code Page</a></li>
+@endif
+
+
+
+
         </ul>
       </li><!-- End Tables Nav -->
 

@@ -3,6 +3,11 @@
         <!--=========================-->
         <!--=        Navbar         =-->
         <!--=========================-->
+        <body id="home-v1" class="home-page-one" data-style="default">
+        <!-------------------Body tag script------------->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W93SVR4V"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+             <!-------------------Body tag script------------->
 
         <header class="site-header header-fixed" data-responsive-width="991">
 
@@ -76,7 +81,7 @@
                         <div class="menu-wrapper main-nav-container canvas-menu-wrapper" id="mega-menu-wrap">
                             <div class="canvas-header">
                                 <div class="mobile-offcanvas-logo">
-                                    <a href="index.html">
+                                    <a href="{{url('/')}}">
                                         <img src="{{ url('upload/' . $getSetting->header_logo) }}" alt="site logo" class="logo-sticky">
                                     </a>
                                 </div>
@@ -95,13 +100,14 @@
                                     <ul class="sub-menu">
                                     <li><a href="{{route('home.about')}}">History</a></li>
                                     <li><a href="{{route('home.committee')}}">Committee</a></li>
-                                    <li><a href="{{route('home.associate')}}">Our Associate</a></li>
+                                    <li><a href="{{route('home.associate')}}">Our Associates</a></li>
                                     </ul>
                                 </li>
                                  <li><a href="{{route('home.directory')}}">Directory</a></li>
                                  <li><a href="{{route('home.jobs')}}">Jobs</a></li>
-                                 <li><a href="{{ route('home.islamictijarat')}}">Islamic Tijarat</a></li>
+                                 <li><a href="{{route('home.events')}}">Events</a></li>
                                  <li><a href="{{ route('home.gallery')}}">Gallery</a></li>
+                                 <li><a href="{{ route('home.islamictijarat')}}">Islamic Tijarat</a></li>
                                 <li class="menu-item-depth-0">
                                     <a href="{{ route('home.contact')}}">Contact</a>
                                 </li>

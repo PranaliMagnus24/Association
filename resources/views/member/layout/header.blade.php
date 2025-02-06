@@ -1,3 +1,4 @@
+
 <style>
     .marquee-banner {
     top: 0; /* Aligns with the top of the nav */
@@ -8,6 +9,7 @@
 }
 
 </style>
+<body>
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
 

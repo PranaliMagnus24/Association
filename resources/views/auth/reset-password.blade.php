@@ -65,23 +65,29 @@ font-size: 15px !important;
                                     <label for="email" class="form-label">Email</label>
                                     <div class="input-group has-validation">
                                         <input type="email" name="email" class="form-control fs-4" id="email" :value="old('email', $request->email)" required autofocus autocomplete="username">
-                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
+                                    @error('email')
+                      <span class="text-danger">{{$message}}</span>
+                      @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="password" class="form-label">Password</label>
                                     <div class="input-group has-validation">
                                         <input type="password" name="password" class="form-control fs-4" id="password" required autocomplete="new-password">
-                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
+                                    @error('password')
+                      <span class="text-danger">{{$message}}</span>
+                      @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="password_confirmation" class="form-label">Confirm Password</label>
                                     <div class="input-group has-validation">
                                         <input type="password"
                         name="password_confirmation" class="form-control fs-4" id="password_confirmation" required autocomplete="new-password">
-                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
+                    @error('password_confirmation')
+                      <span class="text-danger">{{$message}}</span>
+                      @enderror
                 </div>
                 <div class="pt-1 mb-6 text-center">
                     <x-primary-button class="btn btn-primary btn-lg btn-block w-50 form-control fs-4"

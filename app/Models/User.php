@@ -97,4 +97,9 @@ public function zips()
 {
     return $this->belongsTo(Zipcode::class, 'zip_id', 'id');
 }
+
+public function eventform()
+{
+    return $this->hasMany(EventForm::class, 'user_id', 'id');
+}
 }

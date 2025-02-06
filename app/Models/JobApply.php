@@ -12,4 +12,15 @@ class JobApply extends Model
     protected $fillable = [
 'to','message','subject','name','phone','company_id','job_id'
     ];
+
+    // public function jobs()
+    // {
+    //     return $this->belongsTo(Job::class, 'job_id');
+    // }
+
+    public function interview()
+{
+    return $this->hasOne(Interview::class, 'applicant_id', 'id');
+}
+
 }

@@ -35,7 +35,7 @@
                                                     style="max-width: 250px; border-radius: 5px; max-height: 250px;"
                                                 >
                                                 <hr class="my-3" style="border-top: 2px solid #ddd; width: 80%; margin: 0 auto;">
-                                                <h5 class="card-title mt-3 text-info">{{ $companypro->company_name }}</h5>
+                                                <h5 class="card-title text-dark mt-3"><strong>{{ $companypro->company_name }}</strong> </h5>
                                             </div>
                                         </div>
                                  <!------------Address------------->
@@ -77,10 +77,17 @@
                                         </div>
 
                                         <!-- Contact Form -->
-                                        <div class="p-4 border rounded company-form">
+                                        <div class="p-4 border rounded company-form position-relative">
+                                             <!----loader----------->
+                                        <div id="formLoader" class="d-none position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white" style="opacity: 0.7;">
+                                            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                            <!----end loader---->
                                         <form action="{{ route('send.email') }}" method="POST" id="contactForm" class="row g-3 needs-validation">
                                             @csrf
-                                            <h5 class="fw-normal mb-3 pb-3 text-center text-info" style="letter-spacing: 1px;">Send a Business Inquiry</h5>
+                                            <h5 class="fw-normal mb-3 pb-3 text-center text-dark" style="letter-spacing: 1px;"><strong>Send a Business Inquiry</strong> </h5>
 
                                             <div class="row mb-3">
                                             <div class="col-12 col-md-6">
@@ -110,7 +117,7 @@
                                                     <label for="cbxemail" class="form-label">Email <span style="color: red">*</span></label>
                                                     <input type="email" name="to" id="cbxemail" placeholder="Your Email" class="form-control fs-4">
                                                 </div>
-                                                @error('email')
+                                                @error('to')
                                                 <span class="text-danger">{{$message}}</span>
                                                 @enderror
                                             </div>
@@ -120,6 +127,9 @@
                                                 <div class="form-group">
                                                     <label for="cbxsubject" class="form-label">Subject</label>
                                                     <input type="text" name="subject" id="cbxsubject" placeholder="Subject" class="form-control fs-4">
+                                                    @error('subject')
+                                                <span class="text-danger">{{$message}}</span>
+                                                @enderror
                                                 </div>
                                             </div>
                                             </div>
@@ -127,7 +137,10 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="cbxmessage" class="form-label">Message</label>
-                                                    <textarea name="message" id="message" rows="10" cols="80" placeholder="Your Message" class="form-control fs-4" style="height: 120px;"></textarea>
+                                                    <textarea name="message" id="cbxmessage" rows="10" cols="80" placeholder="Your Message" class="form-control fs-4" style="height: 120px;"></textarea>
+                                                    @error('message')
+                                                <span class="text-danger">{{$message}}</span>
+                                                @enderror
                                                 </div>
                                             </div>
                                             </div>

@@ -63,7 +63,7 @@
 
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"> Permissibility of Trade:</h5>
+                                    <h5 class="card-title text-dark"><strong>Permissibility of Trade:</strong> </h5>
                                     <p class="card-text">Islam encourages lawful (halal) trade and business as a means of livelihood. It is regarded as a noble profession when conducted ethically.</p>
 
                                 </div>
@@ -80,7 +80,7 @@
 
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"> Honesty in Transactions:</h5>
+                                    <h5 class="card-title text-dark"><strong>Honesty in Transactions:</strong> </h5>
                                     <p class="card-text">Honesty and transparency are emphasized. Traders are warned against cheating, lying, or concealing defects in products. The Prophet (peace be upon him) said, "The honest and truthful trader will be among the Prophets, the truthful, and the martyrs on the Day of Judgment.</p>
                                     <!-- <p class="card-text"><small class="text-muted">Last updated 10 mins ago</small></p> -->
                                 </div>
@@ -104,7 +104,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"> Prohibition of Deception:</h5>
+                                    <h5 class="card-title text-dark"><strong>Prohibition of Deception:</strong> </h5>
                                     <p class="card-text">Practices like fraud, hoarding, price manipulation, and false oaths to sell products are strictly prohibited. Such actions are considered major sins.</p>
                                     <!-- <p class="card-text"><small class="text-muted">Last updated 15 mins ago</small></p> -->
                                 </div>
@@ -121,7 +121,7 @@
 
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"> Fair Measurements and Weights:</h5>
+                                    <h5 class="card-title text-dark"><strong>Fair Measurements and Weights:</strong> </h5>
                                     <p class="card-text">Traders are commanded to use accurate measures and scales. The Quran explicitly warns against those who cheat in measurements (Surah Al-Mutaffifin).</p>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"> Avoidance of Haram Earnings:</h5>
+                                    <h5 class="card-title text-dark"><strong>Avoidance of Haram Earnings:</strong> </h5>
                                     <p class="card-text">Muslims are instructed to avoid earnings from unlawful means, such as interest (riba), gambling, or trade in prohibited items like alcohol or pork.</p>
 
                                 </div>
@@ -160,7 +160,7 @@
 
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">Moderation and Generosity:</h5>
+                                    <h5 class="card-title text-dark"><strong> Moderation and Generosity:</strong></h5>
                                     <p class="card-text">The Prophet encouraged kindness in dealings, such as forgiving debts or offering leniency to those in financial difficulty.</p>
 
                                 </div>
@@ -183,7 +183,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"> Avoiding Excessive Oaths:</h5>
+                                    <h5 class="card-title text-dark"><strong>Avoiding Excessive Oaths:</strong> </h5>
                                     <p class="card-text">Traders are advised not to swear excessively to promote their goods, as it diminishes the barakah (blessings) in their earnings.</p>
                                     <!-- <p class="card-text"><small class="text-muted">Last updated 5 mins ago</small></p> -->
                                 </div>
@@ -200,7 +200,7 @@
 
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"> Seeking Barakah (Blessings):</h5>
+                                    <h5 class="card-title text-dark"><strong>Seeking Barakah (Blessings):</strong> </h5>
                                     <p class="card-text">Ethical trade and reliance on Allah bring barakah in wealth. The Prophet (peace be upon him) highlighted that dishonesty leads to the loss of barakah.</p>
 
                                 </div>

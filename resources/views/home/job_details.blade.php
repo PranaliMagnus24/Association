@@ -78,12 +78,12 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <!-- Card Container without borders -->
-                <div class="card mb-3 border-0">
+                <div class="card mb-3 border-0 h-100">
                     <div class="card-body">
                         <div class="row">
 
                             <!-- Left Side: Job Details -->
-                            <div class="col-lg-6 mb-4">
+                            <div class="col-lg-6">
     <div class="card mb-3 border-0">
         <div class="card-body">
             <div class="card text-center job_details">
@@ -100,28 +100,57 @@
 
                     <div class="card-text text-left">
                         <div class="row">
+                            @if(!empty($job->exp_req))
                         <div class="col-6 job-detail">
                         <strong><i class="fas fa-briefcase"></i> Experience:-</strong>
-
-                            <span>{{ $job->exp_req }}</span>
+                        <span>{{ $job->exp_req }} years</span>
                         </div>
+                        @endif
                         <div class="col-6 job-detail">
                             <strong><i class="fas fa-map-marker-alt"></i> Location:-</strong>
                             <span>{{ $job->cities->name }}</span>
                         </div>
                         </div>
 
-                        <hr class="job_hr">
                         <div class="row">
+                        @if(!empty($job->vacancy))
+                        <div class="col-6 job-detail">
+                            <strong><i class="fa fa-tasks"></i> No. Of Position:-</strong>
+                            <span>{{ $job->vacancy }}</span>
+                        </div>
+                        @endif
+                        @if(!empty($job->salary))
+                        <div class="col-6 job-detail">
+                        <strong><i class="fa fa-rupee-sign"></i> Salary:-</strong>
+                        <span>{{ $job->salary }}</span>
+
+                        </div>
+                        @endif
+                        </div>
+                        <div class="row">
+                        <div class="col-6 job-detail">
+                        <strong><i class="fa fa-briefcase"></i> Job Type</strong>
+
+                        <span>{{ $job->job_type }}</span>
+                        </div>
+                        <div class="col-6 job-detail">
+                        <strong><i class="fa fa-laptop-house"></i> Job Mode</strong>
+
+                        <span>{{ $job->job_mode }}</span>
+                        </div>
+                        </div>
+
+                        <hr class="job_hr">
+                       {{-- <div class="row">
                         <div class=" col-6 job-detail">
                         <strong><i class="fas fa-phone-alt"></i> Contact:-</strong>
                             <span>{{ $job->contact }}</span>
                         </div>
-                        <div class=" col-6 job-detail">
+                        <div class="col-6 job-detail">
                         <strong><i class="fas fa-envelope"></i> Email:-</strong>
                             <span>{{ $job->email }}</span>
                         </div>
-                        </div>
+                        </div>--}}
 
                         <div class="job-detail">
                         <strong><i class="fas fa-tools"></i> Skills:-</strong>
@@ -142,12 +171,19 @@
                     <!----------Job Details End----------->
 
                             <!-- Right Side: Inquiry Form -->
-                            <div class="col-lg-6 m-auto">
+                            <div class="col-lg-6 mt-3">
                                 <div class="card mb-3 border-0">
                                     <div class="card-body">
 
                                         <!-- Apply Form -->
-                                        <div class="p-4 border rounded company-form">
+                                        <div class="p-4 border rounded company-form position-relative">
+                                            <!----loader----------->
+                                        <div id="formLoader" class="d-none position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white" style="opacity: 0.7;">
+                                            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                            <!----end loader---->
                                         <form action="{{ route('job.apply') }}" method="POST" id="JobApply" class="row g-3 needs-validation" enctype="multipart/form-data">
                                             @csrf
                                             <h5 class="fw-normal mb-3 pb-3 text-center text-dark" style="letter-spacing: 1px;"><strong>Apply Now</strong></h5>
@@ -183,7 +219,7 @@
                                                     <label for="cbxemail" class="form-label">Email <span style="color: red">*</span></label>
                                                     <input type="email" name="to" id="cbxemail" placeholder="Your Email" class="form-control fs-4">
                                                 </div>
-                                                @error('email')
+                                                @error('to')
                                                 <span class="text-danger">{{$message}}</span>
                                                 @enderror
                                             </div>
@@ -213,9 +249,12 @@
                                             <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="cbxsubject" class="form-label">Upload Resume</label>
-                                                    <input type="file" name="upload_resume" id="cbxsubject"  class="form-control fs-4">
+                                                    <label for="cbxresume" class="form-label">Upload Resume <span style="color: red">*</span></label>
+                                                    <input type="file" name="upload_resume" id="cbxresume"  class="form-control fs-4">
                                                 </div>
+                                                @error('upload_resume')
+                                                <span class="text-danger">{{$message}}</span>
+                                                @enderror
                                             </div>
                                             </div>
                                             <div class="row">
@@ -223,6 +262,8 @@
                                                 <button class="btn btn-primary send-btn fs-4" type="submit">Apply</button>
                                             </div>
                                             </div>
+
+
                                         </form>
                                         </div>
                                          <!------------------End apply form-------------------------->
@@ -240,15 +281,77 @@
     </div>
 </section>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     //Apply Job
 
     document.getElementById('JobApply').addEventListener('submit', function (e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        const form = this;
-        const formData = new FormData(form);
+    const form = this;
+    const formData = new FormData(form);
+
+    // Clear previous validation errors
+    const errorMessages = document.querySelectorAll('.text-danger');
+    errorMessages.forEach(error => error.remove());
+
+    // Validate the form manually before submitting
+    let isValid = true;
+
+    // Validate Name field
+    const name = document.getElementById('cbxname');
+    if (!name.value.trim()) {
+        isValid = false;
+        const error = document.createElement('span');
+        error.classList.add('text-danger');
+        error.innerText = 'Name is required.';
+        name.parentElement.appendChild(error);
+    }
+
+    // Validate Phone field
+    const phone = document.getElementById('cbxphone');
+    if (!phone.value.trim() || phone.value.length !== 10) {
+        isValid = false;
+        const error = document.createElement('span');
+        error.classList.add('text-danger');
+        error.innerText = 'Phone number is required.';
+        phone.parentElement.appendChild(error);
+    }
+
+    // Validate Email field
+    const email = document.getElementById('cbxemail');
+    if (!email.value.trim() || !/\S+@\S+\.\S+/.test(email.value)) {
+        isValid = false;
+        const error = document.createElement('span');
+        error.classList.add('text-danger');
+        error.innerText = 'Email is required.';
+        email.parentElement.appendChild(error);
+    }
+
+    // Validate Resume file
+    const resume = document.getElementById('cbxresume');
+    if (!resume.files.length) {
+        isValid = false;
+        const error = document.createElement('span');
+        error.classList.add('text-danger');
+        error.innerText = 'Resume upload is required.';
+        resume.parentElement.appendChild(error);
+    }
+
+    // Validate Subject field
+    const subject = document.getElementById('cbxsubject');
+    if (!subject.value.trim()) {
+        isValid = false;
+        const error = document.createElement('span');
+        error.classList.add('text-danger');
+        error.innerText = 'Subject is required.';
+        subject.parentElement.appendChild(error);
+    }
+
+    // If form is valid, proceed with the AJAX request
+    if (isValid) {
+        // Show Loader
+        document.getElementById('formLoader').classList.remove("d-none");
 
         fetch("/apply-job", {
             method: "POST",
@@ -257,38 +360,50 @@
             },
             body: formData,
         })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.success) {
+        .then((response) => {
+            // Debugging the response
+            console.log('Response:', response);
+            return response.json();
+        })
+        .then((data) => {
+            console.log('Data:', data); // Check the response data
 
-                    swal({
-                        title: "Success!",
-                        text: data.message,
-                        icon: "success",
-                        button: "OK",
-                    }).then(() => {
-                        form.reset();
-                    });
-                } else {
-
-                    swal({
-                        title: "Error!",
-                        text: data.message,
-                        icon: "error",
-                        button: "OK",
-                    });
-                }
-            })
-            .catch((error) => {
-
+            if (data.success) {
+                swal({
+                    title: "Success!",
+                    text: data.message,
+                    icon: "success",
+                    button: "OK",
+                }).then(() => {
+                    form.reset();
+                });
+            } else {
                 swal({
                     title: "Error!",
-                    text: "Something went wrong. Please try again.",
+                    text: data.message,
                     icon: "error",
                     button: "OK",
                 });
+            }
+        })
+        .catch((error) => {
+            console.log('Error:', error); // Log the error if any
+
+            swal({
+                title: "Error!",
+                text: "Something went wrong. Please try again.",
+                icon: "error",
+                button: "OK",
             });
-    });
+        })
+        .finally(() => {
+            // Hide Loader
+            document.getElementById('formLoader').classList.add("d-none");
+        });
+    }
+});
+
+
 </script>
 @include('home.includes.footer')
 

@@ -314,7 +314,10 @@ select.form-select {
         <div class="row mb-3">
         <label for="about_comp" class="col-md-4 col-lg-3 col-form-label">About Company <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-9">
-                    <textarea style="width: 100%; height: 150px;" class="mb-3" name="about_company" id="quill-editor-area" placeholder="Write here">{{ old('about_company', $data->about_company ?? '') }}</textarea>
+                    <div id="quill-editor" class="mb-3" style="height: 150px;"></div>
+                    <textarea rows="3" class="mb-3 d-none" name="about_company" id="quill-editor-area">
+                    {{ old('about_company', $data->about_company ?? '') }}
+                    </textarea>
             </div>
                @error('about_company')
                 <span class="text-danger">{{$message}}</span>
@@ -324,7 +327,10 @@ select.form-select {
         <div class="row mb-3">
             <label for="services" class="col-md-4 col-lg-3 col-form-label">Services/Skills <span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-9">
-                <textarea name="services" id="services" class="form-control" placeholder="Add your services and skill's" style="height: 150px;">{{ old('services', $data->services ?? '') }}</textarea>
+                <div id="quill-editor" class="mb-3" style="height: 150px;"></div>
+                    <textarea rows="3" class="mb-3 d-none" name="services" id="quill-editor-area">
+                    {{ old('services', $data->services ?? '') }}
+                    </textarea>
             </div>
             @error('services')
                 <span class="text-danger">{{$message}}</span>
@@ -545,21 +551,25 @@ $(document).ready(function () {
 
 
 //Textarea
-// document.addEventListener('DOMContentLoaded', function() {
-//         if (document.getElementById('quill-editor-area')) {
-//             var editor = new Quill('#quill-editor', {
-//                 theme: 'snow'
-//             });
-//             var quillEditor = document.getElementById('quill-editor-area');
-//             editor.on('text-change', function() {
-//                 quillEditor.value = editor.root.innerHTML;
-//             });
+document.addEventListener('DOMContentLoaded', function () {
+    const editors = document.querySelectorAll('[id^="quill-editor-area"]');
 
-//             quillEditor.addEventListener('input', function() {
-//                 editor.root.innerHTML = quillEditor.value;
-//             });
-//         }
-//     });
+    editors.forEach((textarea, index) => {
+        const quillEditorId = `quill-editor-${index}`;
+        const quillContainer = textarea.previousElementSibling;
+        quillContainer.id = quillEditorId;
+        const editor = new Quill(`#${quillEditorId}`, {
+            theme: 'snow',
+        });
+        editor.root.innerHTML = textarea.value;
+        editor.on('text-change', function () {
+            textarea.value = editor.root.innerHTML;
+        });
+        textarea.addEventListener('input', function () {
+            editor.root.innerHTML = textarea.value;
+        });
+    });
+});
 
 
 

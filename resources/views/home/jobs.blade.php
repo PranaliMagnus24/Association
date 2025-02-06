@@ -2,148 +2,126 @@
 @include('home.includes.head')
 @include('home.includes.navbar')
    <!--======================-->
-   <style>
-    .single-job-opportunity {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        text-align: center;
-        height: 400px; /* Set a fixed height for the cards */
-        width: 100%; /* Full width of the column */
-        max-width: 350px; /* Set a maximum width to ensure consistent size */
-        border: 1px solid #ddd;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: #fff;
-        transition: transform 0.3s ease;
-        margin: 0 auto; /* Center the cards */
-        position: relative; /* To position the button at the bottom */
-    }
-
-    /* Add hover effect for card */
-    .single-job-opportunity:hover {
-        transform: translateY(-5px);
-    }
-
-    .companypro-opportunity-text {
-        flex-grow: 1; /* Allow content to stretch */
-        margin-bottom: 15px;
-        height: 150px; /* Limit height of the description */
-        overflow: hidden; /* Hide the overflowed text */
-        text-overflow: ellipsis;
-    }
-
-    .companypro-oppor-logo img {
-        max-width: 100px; /* Set consistent image size */
-        height: auto;
-        margin-bottom: 15px;
-    }
-
-    .btn-job {
-        margin-top: 10px;
-        text-transform: uppercase;
-        font-weight: bold;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        text-decoration: none;
-        font-size: 14px;
-        text-align: center;
-        width: auto; /* Set the button width to auto */
-        display: inline-block; /* Make it a block-level element */
-        position: absolute; /* Fix the button at the bottom */
-        bottom: 20px;
-    }
-
-    .btn-job:hover {
-        background-color: #0056b3;
-    }
-
-    .col-lg-4, .col-sm-6 {
-        display: flex;
-        justify-content: center;
-        align-items: stretch;
-        margin-bottom: 30px;
-    }
-
-    /* Button group style */
-    .button-group {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        margin-top: 10px;
-    }
-
-    .btn-companypro {
-        padding: 8px 12px; /* Smaller padding for a smaller button */
-        font-size: 14px;
-        line-height: 1.5;
-        background-color: #28a745;
-        color: #fff;
-        border-radius: 3px;
-        text-decoration: none;
-        position: absolute;
-        bottom: 20px;
-    }
-
-    .btn-companypro:hover {
-        background-color: #218838;
-    }
-    .companypro-opportunity-text p {
-        display: -webkit-box;
-        -webkit-line-clamp: 3; /* Show up to 3 lines */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .single-job-opportunity {
-        height: 100%;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-
-    .companypro-opportunity-text {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .btn-companypro {
-        font-size: 12px;
-        padding: 8px 12px;
-        margin-top: auto;
-    }
-
-    .form-control {
-        height: 50px;
-        font-size: 16px;
-    }
-
-    .pagination{
-        --bs-pagination-font-size: 2rem;
-    }
-
-    .job-info p {
-    display: flex;
-    align-items: baseline; /* Align text properly */
-    margin-bottom: 5px; /* Add spacing between lines */
+<style>
+.job-opportunity-wrapper {
+  margin-top: 30px;
 }
 
-.job-info strong {
-    display: inline-block;
-    width: 100px; /* Set a fixed width for labels */
-    text-align: right; /* Align the labels to the right */
-    margin-right: 10px; /* Add spacing between label and value */
+.job-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(88, 99, 148, 0.2);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  transform: scale(1);
 }
 
-.job-info span {
-    flex: 1; /* Allow the value to take the remaining space */
+.job-card:hover {
+  box-shadow: 0 10px 30px rgba(88, 99, 148, 0.25);
+  transform: scale(1.05);
 }
+
+.job-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.company-logo {
+  max-height: 50px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.job-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.job-location {
+  font-size: 14px;
+  color: #777;
+  margin-top: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.job-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.job-details .badge {
+  background-color: #e1ebfb;
+  color: #000;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 8px;
+  border-radius: 4px; /* Border radius */
+}
+
+
+
+
+/* Apply Now Button */
+.apply-now-button {
+  color: #fff;
+  padding: 6px 12px;  /* Reduced padding */
+  border-radius: 4px;  /* Reduced border radius */
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  text-align: center;
+  margin-left: 0;  /* Align to left */
+  margin-top: 10px;  /* Optional margin if needed */
+  width: auto;  /* Width adjustment */
+  height: auto;  /* Height adjustment */
+}
+
+.apply-now-button:hover {
+  transform: scale(1.05);  /* Slight scale-up effect on hover */
+}
+
+.job-card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;  /* Pushes the Apply button to the bottom */
+}
+
+.job-card-body .mt-auto {
+  margin-top: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .job-card-title {
+    font-size: 16px;
+  }
+
+  .job-location {
+    font-size: 12px;
+  }
+
+  .job-details .badge {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+
+  .apply-now-button {
+    font-size: 13px;
+  }
+}
+
 
 
 </style>
@@ -167,64 +145,61 @@
 
 
 
-<section id="job-opportunity" class="section-padding">
-    @php
-        $job = App\Models\CompanyPro::first();
-    @endphp
+         <section id="job-opportunity" class="section-padding">
     <div class="container">
         <!-- Job Opportunities Section -->
         <div class="job-opportunity-wrapper">
-            <div class="row">
+            <div class="row row-cols-1 row-cols-md-3 g-4"> <!-- Three cards per row for medium and above screens -->
                 @forelse($jobs as $job)
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="single-job-opportunity">
-                            <div class="companypro-opportunity-text">
-                                <div class="companypro-oppor-logo">
-                                    <div class="display-table">
-                                        <div class="display-table-cell">
+                <div class="col">
+                    <div class="job-card h-100">
+                        <div class="job-card-body d-flex flex-column">
+                            <!-- Company Logo -->
+                            <img src="{{ url('upload/company_documents/'.$job->companyProfile->company_logo) }}" alt="Company Logo" class="company-logo mb-3" style="max-height: 50px;">
 
-                                        @if($job->companyProfile && $job->companyProfile->company_logo)
-                                        <a href="{{ url('upload/company_documents/'.$job->companyProfile->company_logo) }}">
-                                            <img src="{{ url('upload/company_documents/'.$job->companyProfile->company_logo) }}" alt="Company Logo">
-                                        </a>
-                                        @else
-                                        <img src="{{ url('upload/download.png') }}" alt="Default Company Logo">
-                                        @endif
+                            <!-- Job Title (with character limit) -->
+                            <h5 class="job-card-title fw-bold">{{ Str::limit($job->job_title, 50) }}</h5> <!-- Limit to 50 chars -->
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="job-details">
-    <h5 class="card-title fs-3 text-info">{{ $job->job_title }}</h5>
-    <br>
-    <div class="job-info">
-        <p><strong>Location:</strong> <span>{{ $job->address }}</span></p>
-        <p><strong>Experience:</strong> <span>{{ $job->exp_req }}</span></p>
-        <p><strong>Company:</strong> <span>{{ $job->company }}</span></p>
-    </div>
-</div>
+                            <!-- Address instead of Description -->
+                            <p class="text-muted mt-2 job-location">{{ Str::limit($job->cities->name . ', ' . $job->states->name, 50) }}</p> <!-- Limit the address length -->
 
-
+                            <!-- Job Details -->
+                            <div class="job-details d-flex flex-wrap gap-2 mt-3">
+                                @if($job->job_type)
+                                    <span class="badge">{{ $job->job_type }}</span>
+                                @endif
+                                @if($job->exp_req)
+                                    <span class="badge">{{ 'Min. ' . $job->exp_req . ' Year' }}</span>
+                                @endif
+                                @if($job->job_mode)
+                                    <span class="badge">{{ $job->job_mode }}</span>
+                                @endif
                             </div>
-                            <div class="button-group">
-                                <a href="{{ route('jobsdetails', $job->id)}}" class="btn btn-success fs-4 animated-btn">View Details</a>
+
+                            <!-- Apply Now Button -->
+                            <div class="mt-auto text-left">
+                                <a href="{{ route('jobsdetails', $job->id)}}" class="btn btn-primary w-20 apply-now-button">Apply Now</a>
                             </div>
                         </div>
                     </div>
+                </div>
                 @empty
-                    <div class="col-12">
-                        <p>No companies found.</p>
-                    </div>
+                    <p>No job opportunities available.</p>
                 @endforelse
             </div>
 
             <!-- Pagination Links -->
             {{--<div class="pagination-wrapper">
-                {{ $companyprofiles->links() }}
+                {{ $jobs->links() }}
             </div>--}}
         </div>
     </div>
 </section>
+
+
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>

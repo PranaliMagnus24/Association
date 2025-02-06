@@ -24,6 +24,15 @@ class MailController extends Controller
 
     public function sendContact(Request $request)
 {
+
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'phone' => 'required|digits:10',
+        'to' => ['required', 'string', 'lowercase', 'email', 'max:255'],
+        'subject' => 'nullable|string|max:255',
+        'message' => 'nullable|string',
+    ]);
+
     try {
         $formType = $request->input('form_type');
 

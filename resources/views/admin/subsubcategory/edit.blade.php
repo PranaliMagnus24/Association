@@ -45,7 +45,7 @@
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <textarea name="description" id="description" class="form-control"
-                               value="{{ old('description', $subsubcategory->description) }}" rows="4" required>{{ old('description', $subsubcategory->description) }}</textarea>
+                               value="{{ old('description', $subsubcategory->description) }}" rows="4">{{ old('description', $subsubcategory->description) }}</textarea>
                     </div>
                     <div class="row mb-3">
                         <div class="col">

@@ -2,7 +2,7 @@
 
 <tr>
     <td class="content">
-        <p>Job Inquiry,</p>
+        <p>Job Application,</p>
         <p><strong>Name: <span>{{ $applyJob->name }}</span></strong></p>
         <p><strong>Email: <span>{{ $applyJob->to }}</span></strong></p>
         <p><strong>Phone: <span>{{ $applyJob->phone }}</span></strong></p>

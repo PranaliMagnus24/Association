@@ -189,3 +189,6 @@
     <!-- Site Scripts -->
     <script src="{{asset('homecss/assets/js/app.js')}}?@php echo time(); @endphp"></script>
 
+    </body>
+
+</html>

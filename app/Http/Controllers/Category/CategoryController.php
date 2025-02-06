@@ -25,7 +25,7 @@ class CategoryController extends Controller
         }
 
         // Paginate results
-        $categories = $query->paginate(3);
+        $categories = $query->paginate(10);
 
         return view('admin.category.categorylist', compact('categories'));
     }
@@ -39,12 +39,12 @@ class CategoryController extends Controller
 {
     $request->validate([
         'category_name' => 'required|string|max:255',
-        'description' => 'required|string|max:255',
+        'description' => 'nullable|string|max:255',
 
         'status' => 'required|string|max:255',
     ]);
 
-    category::create($request->all()); // Save the Ccategory to the database
+    Category::create($request->all());
     toastr()->timeOut(5000)->closeButton()->addSuccess('Category created successfully.!');
     return redirect()->route('categorylist');
 }
@@ -53,7 +53,7 @@ class CategoryController extends Controller
 
 public function edit($id)
 {
-    $category = category::findOrFail($id); // Retrieve the category by ID or throw a 404 error if not found
+    $category = Category::findOrFail($id); // Retrieve the category by ID or throw a 404 error if not found
     return view('admin.category.categoryedit', compact('category')); // Pass the category data to the view
 }
     // Update an existing category
@@ -61,13 +61,13 @@ public function edit($id)
     {
         $request->validate([
         'category_name' => 'required|string|max:255',
-        'description' => 'required|string|max:255',
+        'description' => 'nullable|string|max:255',
 
         'status' => 'required|string|max:255',
 
         ]);
 
-        $category = category::findOrFail($id); // Find the category by ID
+        $category = Category::findOrFail($id); // Find the category by ID
         $category->update($request->all()); // Update the category data
         toastr()->timeOut(5000)->closeButton()->addSuccess('Category updated successfully!');
         return redirect()->route('categorylist');
@@ -76,9 +76,28 @@ public function edit($id)
     // Delete an category
     public function destroy($id)
     {
-        $category = category::findOrFail($id); // Find the category by ID
+        $category = Category::findOrFail($id); // Find the category by ID
         $category->delete(); // Delete the category
         toastr()->timeOut(5000)->closeButton()->addSuccess('Category deleted successfully!');
         return redirect()->route('categorylist');
     }
+
+
+    public function storeOtherCategory(Request $request)
+{
+    $request->validate([
+        'category_name' => 'required|string|max:255|unique:categories,category_name',
+    ]);
+
+    $category = Category::create([
+        'category_name' => $request->category_name,
+        'status' => 'active', // Default status
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'category_id' => $category->id,
+    ]);
+}
+
 }

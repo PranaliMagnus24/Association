@@ -11,7 +11,9 @@ use App\Models\City;
 use App\Models\CompanyPro;
 use App\Models\Gallery;
 use App\Models\Job;
+use App\Models\Event;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Str;
@@ -23,8 +25,14 @@ class HomeController extends Controller
     public function index()
     {
         $totalUsers = User::count();
-        return view('home.index', compact('totalUsers'));
+        $upcomingEvents = Event::where('eventstartdatetime', '>', Carbon::now()) // Events that are starting in the future
+            ->where('eventenddatetime', '>', Carbon::now()) // Ensure the event hasn't ended
+            ->orderBy('eventstartdatetime', 'asc')
+            ->get();
+
+        return view('home.index', compact('totalUsers', 'upcomingEvents'));
     }
+
 
 
     //Member registration page on Home
@@ -189,5 +197,8 @@ class HomeController extends Controller
         return view('home.thankyou');
     }
 
-
+public function homeevents()
+{
+    return view('home.events');
+}
 }

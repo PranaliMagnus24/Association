@@ -231,21 +231,44 @@ jQuery(document).ready(function($) {
     }); //end scroll top click
 
     //event-countdown-counter
-    $('.event-countdown-counter').each(function(index, element) {
-        var $element = $(element),
-            $date = $element.data('date');
+    $(document).ready(function() {
+        $('.event-countdown-counter').each(function(index, element) {
+            var $element = $(element),
+                $date = $element.data('date');
 
-        $element.countdown($date, function(event) {
-            var $this = $(this).html(event.strftime(''
+            // Initialize the jQuery Countdown plugin
+            $element.countdown($date, function(event) {
+                var $this = $(this).html(event.strftime(''
+                    + '<div class="counter-item"><span class="counter-label">Days</span><span class="single-cont">%D</span></div>'
+                    + '<div class="counter-item"><span class="counter-label">Hr</span><span class="single-cont">%H</span></div>'
+                    + '<div class="counter-item"><span class="counter-label">Min</span><span class="single-cont">%M</span></div>'
+                    + '<div class="counter-item"><span class="counter-label">Sec</span><span class="single-cont">%S</span></div>'));
+            });
 
-                +
-                '<div class="counter-item"><span class="counter-label">Days</span><span class="single-cont">%D</span></div>' +
-                '<div class="counter-item"><span class="counter-label">Hr</span><span class="single-cont">%H</span></div>' +
-                '<div class="counter-item"><span class="counter-label">Min</span><span class="single-cont">%M</span></div>' +
-                '<div class="counter-item"><span class="counter-label">Sec</span><span class="single-cont">%S</span></div>'));
+            // Vanilla JavaScript countdown logic
+            var eventDate = new Date($element.data('date')).getTime();
+            var countdownText = $element.find('.countdown-text');
+
+            function updateCountdown() {
+                var now = new Date().getTime();
+                var distance = eventDate - now;
+
+                if (distance < 0) {
+                    countdownText.innerText = "Event Started!";
+                    return;
+                }
+
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                countdownText.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+
+            updateCountdown(); // Run first time
+            setInterval(updateCountdown, 1000); // Update every second
         });
-
-
     });
 
     //All Window Srcoll Function
@@ -588,18 +611,49 @@ const items = document.querySelectorAll('.accordion button');
 
         const form = this;
         const formData = new FormData(form);
+        const errorMessages = document.querySelectorAll('.text-danger');
+        errorMessages.forEach(error => error.remove());
 
-        fetch("/send-contact", {
-            method: "POST",
+        let isValid = true;
+
+        // Validate Name field
+        const name = document.getElementById('cbxname');
+        if (!name.value.trim()) {
+            isValid = false;
+            displayError(name, 'Name is required.');
+        }
+
+        // Validate Phone field
+        const phone = document.getElementById('cbxphone');
+        if (!phone.value.trim() || !/^\d{10}$/.test(phone.value)) {
+            isValid = false;
+            displayError(phone, 'Enter a valid 10-digit phone number.');
+        }
+
+        // Validate Email field
+        const email = document.getElementById('cbxemail');
+        if (!email.value.trim() || !/\S+@\S+\.\S+/.test(email.value)) {
+            isValid = false;
+            displayError(email, 'Enter a valid email address.');
+        }
+
+        if (isValid) {
+            // Show Loader (Check if element exists)
+            const loader = document.getElementById('formLoader');
+            if (loader) {
+                loader.classList.remove("d-none");
+            }
+
+            fetch("/send-contact", {
+                method: "POST",
             headers: {
                 "X-CSRF-TOKEN": "{{ csrf_token() }}",
             },
             body: formData,
-        })
-            .then((response) => response.json())
-            .then((data) => {
+            })
+            .then(response => response.json())
+            .then(data => {
                 if (data.success) {
-
                     swal({
                         title: "Success!",
                         text: data.message,
@@ -609,7 +663,6 @@ const items = document.querySelectorAll('.accordion button');
                         form.reset();
                     });
                 } else {
-
                     swal({
                         title: "Error!",
                         text: data.message,
@@ -618,17 +671,30 @@ const items = document.querySelectorAll('.accordion button');
                     });
                 }
             })
-            .catch((error) => {
-
+            .catch(error => {
                 swal({
                     title: "Error!",
                     text: "Something went wrong. Please try again.",
                     icon: "error",
                     button: "OK",
                 });
+            })
+            .finally(() => {
+                // Hide Loader (Check if element exists)
+                if (loader) {
+                    loader.classList.add("d-none");
+                }
             });
+        }
     });
 
+    // Function to display error messages
+    function displayError(inputField, message) {
+        const error = document.createElement('span');
+        error.classList.add('text-danger');
+        error.innerText = message;
+        inputField.parentElement.appendChild(error);
+    }
 
 
 

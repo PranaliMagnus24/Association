@@ -25,7 +25,7 @@ class SubCategoryController extends Controller
     }
 
     // Paginate the results
-    $subcategories = $query->paginate(10);
+    $subcategories = $query->paginate(20);
 
     // Return the view with paginated data
     return view('admin.subcategory.subcategorylist', compact('subcategories'));
@@ -42,10 +42,10 @@ class SubCategoryController extends Controller
     // Store a new subcategory
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $request->validate([
             'subcategory_name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'category_id' => 'required|integer',
             'status' => 'required|string|max:255',
         ]);
@@ -68,7 +68,7 @@ class SubCategoryController extends Controller
     {
         $request->validate([
             'subcategory_name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'category_id' => 'required|integer',
             'status' => 'required|string|max:255',
         ]);

@@ -13,7 +13,7 @@ class Job extends Model
     protected $fillable = [
         'company','contact', 'email', 'address', 'job_title', 'job_desc', 'job_location',
         'vacancy', 'exp_req', 'category_id', 'subcategory_id',
-        'skill', 'salary', 'status', 'upload_document','company_id',
+        'skill', 'salary', 'status', 'upload_document','company_id','job_end_date','job_type','job_mode',
     ];
 
     // Relationship: Job belongs to CompanyCategory
@@ -46,6 +46,12 @@ class Job extends Model
     {
         return $this->belongsTo(CompanyPro::class,'company_id');
     }
+
+
+    public function jobApplications()
+{
+    return $this->hasMany(JobApply::class, 'job_id');
+}
 
 
 

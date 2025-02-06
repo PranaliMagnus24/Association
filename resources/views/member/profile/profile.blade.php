@@ -313,7 +313,10 @@
                 <div class="row mb-3">
             <label for="about_comp" class="col-md-4 col-lg-3 col-form-label">About Company <span style="color:red;">*</span></label>
             <div class="col-md-8 col-lg-9">
-                <textarea name="about_company" id="about_company" class="form-control" placeholder="Add about_company here" style="height: 100px;"> {{$companyProfile->about_company}}</textarea>
+                <div id="quill-editor" class="mb-3" style="height: 150px;"></div>
+                    <textarea rows="3" class="mb-3 d-none" name="about_company" id="quill-editor-area" placeholder="Add about_company here">
+                       {{ old('about_company', $companyProfile->about_company ?? '') }}
+                    </textarea>
                 @error('about_company')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -323,7 +326,10 @@
                 <div class="row mb-3">
             <label for="services" class="col-md-4 col-lg-3 col-form-label">Services/Skill's  <span style="color:red;">*</span></label>
             <div class="col-md-8 col-lg-9">
-                <textarea name="services" id="services" class="form-control" placeholder="Add services here" style="height: 100px;"> {{$companyProfile->services}}</textarea>
+                <div id="quill-editor" class="mb-3" style="height: 150px;"></div>
+                    <textarea rows="3" class="mb-3 d-none" name="services" id="quill-editor-area" placeholder="Add services here">
+                       {{ old('services', $companyProfile->services ?? '') }}
+                    </textarea>
                 @error('services')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -566,21 +572,25 @@ $(document).ready(function () {
 
 
 //Textarea
-document.addEventListener('DOMContentLoaded', function() {
-        if (document.getElementById('quill-editor-area')) {
-            var editor = new Quill('#quill-editor', {
-                theme: 'snow'
-            });
-            var quillEditor = document.getElementById('quill-editor-area');
-            editor.on('text-change', function() {
-                quillEditor.value = editor.root.innerHTML;
-            });
+document.addEventListener('DOMContentLoaded', function () {
+    const editors = document.querySelectorAll('[id^="quill-editor-area"]');
 
-            quillEditor.addEventListener('input', function() {
-                editor.root.innerHTML = quillEditor.value;
-            });
-        }
+    editors.forEach((textarea, index) => {
+        const quillEditorId = `quill-editor-${index}`;
+        const quillContainer = textarea.previousElementSibling;
+        quillContainer.id = quillEditorId;
+        const editor = new Quill(`#${quillEditorId}`, {
+            theme: 'snow',
+        });
+        editor.root.innerHTML = textarea.value;
+        editor.on('text-change', function () {
+            textarea.value = editor.root.innerHTML;
+        });
+        textarea.addEventListener('input', function () {
+            editor.root.innerHTML = textarea.value;
+        });
     });
+});
 
 //Renewal Date
 

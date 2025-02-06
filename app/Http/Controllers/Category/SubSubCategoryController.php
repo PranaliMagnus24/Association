@@ -45,7 +45,7 @@ class SubSubCategoryController extends Controller
         // dd($request->all());
         $request->validate([
             'subsubcategory_name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'category_id' => 'required|integer', // Ensure category exists
             'subcategory_id' => 'required|integer', // Ensure subcategory exists
             'status' => 'required|string|max:255',
@@ -70,7 +70,7 @@ class SubSubCategoryController extends Controller
     {
         $request->validate([
             'subsubcategory_name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'category_id' => 'required|integer', // Ensure category exists
             'subcategory_id' => 'required|integer', // Ensure subcategory exists
             'status' => 'required|string|max:255',

@@ -27,4 +27,13 @@ class City extends Model
         return $this->hasMany(Job::class, 'city', 'id');
     }
 
+    public function eventform()
+    {
+        return $this->hasMany(EventForm::class, 'city', 'id');
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'city', 'id');
+    }
 }

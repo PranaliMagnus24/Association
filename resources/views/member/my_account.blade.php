@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
   @include('member.layout.head')
-</head>
 
-<body>
 
   <!-- ======= Header ======= -->
   @include('member.layout.header')
@@ -83,6 +78,4 @@
   <!-- ======= Footer ======= -->
   @include('member.layout.footer')
 
-</body>
 
-</html>

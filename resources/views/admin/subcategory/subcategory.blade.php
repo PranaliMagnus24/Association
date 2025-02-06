@@ -38,11 +38,11 @@
                     @csrf
                     <div class="mb-3">
                         <label for="subcategory_name" class="form-label">SubCategory Name</label>
-                        <input type="text" name="subcategory_name" id="subcategory_name" class="form-control" value="{{ old('subcategory_name') }}" required>
+                        <input type="text" name="subcategory_name" id="subcategory_name" class="form-control" value="{{ old('subcategory_name') }}">
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea name="description" id="description" class="form-control" rows="4" required>{{ old('description') }}</textarea>
+                        <textarea name="description" id="description" class="form-control" rows="4">{{ old('description') }}</textarea>
                     </div>
 
                     <div class="row mb-3">

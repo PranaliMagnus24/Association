@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^3.1",
+        "dompdf/dompdf": "^3.1",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^10.10",
@@ -15,6 +16,8 @@
         "php-flasher/flasher-laravel": "^1.15",
         "php-flasher/flasher-toastr-laravel": "^1.15",
         "php-flasher/flasher-toastr-symfony": "^1.15",
+        "razorpay/razorpay": "^2.9",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/image": "^2.2"
     },
     "require-dev": {

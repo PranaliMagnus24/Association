@@ -22,42 +22,37 @@
          <br>
 <!--=         Gallery       =-->
         <!--=========================-->
-        <section id="page-content-wrap" >
-            <div class="container">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div align="center">
-                            <button class="btn btn-default filter-button" data-filter="all">All</button>
-
-                            @if(is_array($gallery) && count($gallery)>0)
-                                @foreach($gallery as $galkey=>$gal)
-                                <button class="btn btn-default filter-button" data-filter="{{str_replace(" ","_",strtolower($gal['name']))}}">{{$gal['name']}}</button>
-                                @endforeach
-                            @endif
-
-
-
-
-
-                        </div>
-                        <hr>
-<div class="section1">
-
-@if(is_array($gallery) && count($gallery)>0)
-    @foreach($gallery as $galkey=>$galval)
-        @foreach($galval['imagegallery'] as $imgkey=>$imgval)
-            <img src="{{asset('upload/gallery/thumbnails/'. $imgval['thumbnail'])}}"   data-mdb-img="{{asset('upload/gallery/'.$imgval['name'])}}" class="filter {{str_replace(" ","_",strtolower($galval['name']))}}" />
-        @endforeach
-    @endforeach
-@endif
-
-
-  </div>
-
-</div>
-</div>
-</div>
+        <section id="page-content-wrap">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row">
+                <div align="center">
+                    @if(is_array($gallery) && count($gallery) > 0)
+                        <button class="btn btn-default filter-button" data-filter="all">All</button>
+                        @foreach($gallery as $galkey => $gal)
+                            <button class="btn btn-default filter-button" data-filter="{{ str_replace(' ', '_', strtolower($gal['name'])) }}">{{ $gal['name'] }}</button>
+                        @endforeach
+                    @endif
+                </div>
+                <hr>
+                <div class="section1">
+                    @if(is_array($gallery) && count($gallery) > 0)
+                        @foreach($gallery as $galkey => $galval)
+                            @foreach($galval['imagegallery'] as $imgkey => $imgval)
+                                <img src="{{ asset('upload/gallery/thumbnails/'. $imgval['thumbnail']) }}"
+                                     data-mdb-img="{{ asset('upload/gallery/'.$imgval['name']) }}"
+                                     class="filter {{ str_replace(' ', '_', strtolower($galval['name'])) }}" />
+                            @endforeach
+                        @endforeach
+                    @else
+                        <h2 align="center" style="font-weight: bold;">Coming Soon</h2>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 <div class="lightbox" style="display: none;">
   <span class="close1">&times;</span>
   <div class="arrowl1">&#10094;</div>

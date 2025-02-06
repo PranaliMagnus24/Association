@@ -26,4 +26,13 @@ public function jobs()
 {
     return $this->hasMany(Job::class, 'state', 'id');
 }
+public function eventform()
+    {
+        return $this->hasMany(EventForm::class, 'state', 'id');
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'city', 'id');
+    }
 }

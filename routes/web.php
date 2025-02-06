@@ -18,6 +18,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyRegistrationController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Member\JobController;
+use App\Http\Controllers\Events\EventController;
+use App\Http\Controllers\Events\EventDetailsController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\MailController;
@@ -25,8 +27,9 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\QRCodePageController;
 use App\Http\Controllers\DirectoryController;
-
+use App\Http\Controllers\RazorpayPaymentController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Category\SubCategoryController;
 use App\Http\Controllers\Category\SubSubCategoryController;
@@ -43,7 +46,7 @@ use App\Http\Controllers\Category\SubSubCategoryController;
 */
 
 
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'role:admin']);
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'role:admin'])->name('admin.dashboard');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -194,6 +197,8 @@ Route::post('category', [CategoryController::class, 'store'])->name('category.st
 Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
 Route::put('category/{id}', [CategoryController::class, 'update'])->name('category.update');
 Route::delete('category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+Route::post('/store-other-category', [CategoryController::class, 'storeOtherCategory'])->name('store.other.category');
+
 
 
 //subcategory
@@ -239,8 +244,6 @@ Route::post('types', [TypeController::class, 'store'])->name('types.store');
 Route::get('types/{id}/edit', [TypeController::class, 'edit'])->name('types.edit');
 Route::put('types/{id}', [TypeController::class, 'update'])->name('types.update');
 Route::delete('types/{id}', [TypeController::class, 'destroy'])->name('types.destroy');
-
-
 //page
 Route::get('pages', [PageController::class, 'index'])->name('pagelist');
 Route::get('pages/create', [PageController::class, 'create'])->name('pages.create');
@@ -249,11 +252,28 @@ Route::get('pages/{id}/edit', [PageController::class, 'edit'])->name('pages.edit
 Route::put('pages/{id}', [PageController::class, 'update'])->name('pages.update');
 Route::delete('pages/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
 
+////Events Controller
+Route::get('events/list', [EventController::class, 'eventlist'])->name('list.event');
+Route::get('event/create', [EventController::class, 'addevent'])->name('add.event');
+Route::post('event/create', [EventController::class, 'store'])->name('event.store');
 
+Route::get('event/{id}/edit', [EventController::class, 'eventedit'])->name('edit.event');
+Route::post('event/{id}', [EventController::class, 'eventupdate'])->name('update.event');
+Route::get('event_delete/{id}', [EventController::class, 'eventdelete'])->name('delete.event');
+Route::get('event_show/{id}', [EventController::class, 'eventshow'])->name('view.event');
+Route::get('event/{event}/registrations', [EventController::class, 'viewRegistrations'])->name('view.registrations');
 
 
 });
 
+Route::middleware(['auth', 'eventmanager'])->group(function () {
+
+    Route::get('/admin/qr-code/{eventform_id}', [QRCodePageController::class, 'showEventFormDetails'])
+        ->name('qrpage');
+Route::post('/event/checkin/{id}', [QRCodePageController::class, 'checkIn'])->name('event.checkin');
+Route::post('/event/checkout/{id}', [QRCodePageController::class, 'checkOut'])->name('event.checkout');
+
+});
 
 
 ///Home Controller
@@ -272,6 +292,7 @@ Route::get('/associate', [HomeController::class, 'associate'])->name('home.assoc
 Route::get('/jobs', [HomeController::class, 'jobs'])->name('home.jobs');
 Route::get('/jobs/{id}/details', [HomeController::class, 'jobdetails'])->name('jobsdetails');
 Route::get('/thankyou', [HomeController::class, 'thankyou'])->name('thankyou');
+Route::get('/events', [HomeController::class, 'homeevents'])->name('home.events');
 
 Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
 Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
@@ -307,19 +328,35 @@ Route::get('/my-account', [MemberController::class, 'myaccount'])->middleware(['
 Route::get('joblist', [JobController::class, 'index'])->name('joblist');
 Route::get('/job', [JobController::class, 'createjob'])->middleware(['auth', 'role:user'])->name('job');
 Route::post('/job', [JobController::class, 'store'])->name('job.store');
-Route::post('api/fetch-states', [JobController::class, 'fetchState']);
-Route::post('api/fetch-cities', [JobController::class, 'fetchCity']);
+Route::post('api/fetch-states', [JobController::class, 'fetchState'])->name('fetch.states');
+Route::post('api/fetch-cities', [JobController::class, 'fetchCity'])->name('fetch.cities');
 Route::get('/get-subcategories/{category_id}', [JobController::class, 'getSubcategories']);
 Route::get('job/{id}/edit', [JobController::class, 'edit'])->name('job.edit');
 Route::post('job/{id}', [JobController::class, 'update'])->name('job.update');
-Route::delete('job/{id}', [JobController::class, 'delete'])->name('job.delete');
+Route::get('job/{id}', [JobController::class, 'delete'])->name('job.delete');
 Route::get('details/{id}', [JobController::class, 'show'])->name('job.view');
 Route::post('/apply-job', [JobController::class, 'applyJob'])->name('job.apply');
+Route::get('/jobapplylist/{job_id}', [JobController::class, 'jobApplyList'])->name('jobapplylist');
+Route::get('apply-details/{id}', [JobController::class, 'jobapplydetails'])->name('jobapplydetails');
+Route::post('/interview', [JobController::class, 'interview'])->name('interviewstore');
 
 
+
+//Event Details Controller
+Route::get('event_details/{id}', [EventDetailsController::class, 'eventdetails'])->name('eventdetails');
+Route::get('event_register/{id}', [EventDetailsController::class, 'eventregister'])->name('eventregister');
+Route::post('api/fetch-states', [EventDetailsController::class, 'fetchState']);
+Route::post('api/fetch-cities', [EventDetailsController::class, 'fetchCity']);
+Route::post('/event-store', [EventDetailsController::class, 'eventstore'])->name('eventstore');
+Route::get('qr-code', [EventDetailsController::class, 'qrcodeindex'])->name('event.details');
 
 ////Mail Controller
 // Route::get('/send-contact', [MailController::class, 'sendContact']);
 Route::post('/send-contact', [MailController::class, 'sendContact'])->name('send.email');
 
+
+
+//Razorpay Payment
+Route::get('razorpay-payment', [RazorpayPaymentController::class, 'razorpayindex'])->name('razorpay.payment');
+Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');
 

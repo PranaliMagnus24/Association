@@ -66,16 +66,20 @@ font-size: 15px !important;
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
                         <input type="text" name="email" class="form-control fs-4" id="yourUsername":value="old('email')" required autofocus autocomplete="username" >
-                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
                       </div>
+                      @error('email')
+                      <span class="text-danger">{{$message}}</span>
+                      @enderror
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control fs-4" id="yourPassword"
                             required autocomplete="current-password">
-                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                    </div>
+                        </div>
+                        @error('password')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
 
                     <div class="col-12">
                       <div class="form-check">

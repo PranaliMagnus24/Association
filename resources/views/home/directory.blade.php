@@ -126,6 +126,15 @@
     .pagination{
         --bs-pagination-font-size: 2rem;
     }
+    select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url('https://cdn-icons-png.flaticon.com/16/271/271210.png') no-repeat right 10px center;
+    background-size: 12px;
+    padding-right: 25px;
+}
+
 
 </style>
 
@@ -171,13 +180,14 @@
                         <div class="col-md-3">
                             <div class="input-group">
                                 <select name="state_id" id="state-dropdown" class="form-control">
-                                    <option value="">Select State</option>
+                                    <option value="">-- Select State --</option>
                                     @foreach ($states as $state)
                                     <option value="{{ $state->id }}" {{ request('state_id') == $state->id ? 'selected' : '' }}>
                                         {{ $state->name }}
                                     </option>
                                     @endforeach
                                 </select>
+
                             </div>
                         </div>
 
@@ -185,13 +195,14 @@
                         <div class="col-md-3">
                             <div class="input-group">
                                 <select name="city_id" id="city-dropdown" class="form-control">
-                                    <option value="">Select City</option>
+                                    <option value="">-- Select City --</option>
                                     @foreach ($cities as $city)
                                     <option value="{{ $city->id }}" {{ request('city_id') == $city->id ? 'selected' : '' }}>
                                         {{ $city->name }}
                                     </option>
                                     @endforeach
                                 </select>
+
                             </div>
                         </div>
 

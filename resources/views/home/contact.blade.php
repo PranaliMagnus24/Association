@@ -98,37 +98,59 @@
 
 
                                     <div class="col-lg-6 m-auto">
-                                        <div class="contact-form-wrap">
+                                        <div class="contact-form-wrap position-relative">
                                             <h3>Send Message</h3>
+                                              <!----loader----------->
+                                        <div id="formLoader" class="d-none position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white" style="opacity: 0.7;">
+                                            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                            <!----end loader---->
                                             <form action="{{ route('send.email')}}" method="POST" id="contactForm">
                                             @csrf
                                                 <div class="row">
                                                     <div class="col">
                                                     <input type="hidden" name="form_type" value="association">
                                                         <div class="form-group">
-                                                            <label for="cbxname">Name</label>
-                                                            <input type="text" name="name" required id="cbxname" placeholder="Your Full Name" class="form-control">
+                                                            <label for="cbxname">Name <span style="color: red">*</span></label>
+                                                            <input type="text" name="name" id="cbxname" placeholder="Your Full Name" class="form-control">
+                                                            @error('name')
+                                                <span class="text-danger">{{$message}}</span>
+                                                @enderror
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group">
-                                                            <label for="cbxemail">Phone</label>
-                                                            <input type="text" name="phone" required id="cbxphone" placeholder="Your Phone" class="form-control">
+                                                            <label for="cbxemail">Phone <span style="color: red">*</span></label>
+                                                            <input type="text" name="phone"  id="cbxphone" placeholder="Your Phone" class="form-control">
+                                                            @error('phone')
+                                                <span class="text-danger">{{$message}}</span>
+                                                @enderror
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                            <label for="cbxemail">Email</label>
-                                                            <input type="email" name="to" required id="cbxemail" placeholder="Your Email" class="form-control">
+                                                            <label for="cbxemail">Email <span style="color: red">*</span></label>
+                                                            <input type="email" name="to" id="cbxemail" placeholder="Your Email" class="form-control">
+                                                            @error('to')
+                                                <span class="text-danger">{{$message}}</span>
+                                                @enderror
                                                         </div>
                                                 <div class="form-group">
                                                     <label for="cbxsubject">Subject</label>
                                                     <input type="text" name="subject" id="cbxsubject" placeholder="Subject" class="form-control">
+                                                    @error('subject')
+                                                <span class="text-danger">{{$message}}</span>
+                                                @enderror
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="cbxmessage">Message</label>
-                                                    <textarea name="message" id="message" rows="10" cols="80" placeholder="Your Message" class="form-control" style="height: 120px;"></textarea>
+                                                    <textarea name="message" id="cbxmessage" rows="10" cols="80" placeholder="Your Message" class="form-control" style="height: 120px;"></textarea>
+                                                    @error('message')
+                                                <span class="text-danger">{{$message}}</span>
+                                                @enderror
                                                 </div>
                                                 <!-- <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="cbxsendme" name="cbxsendme" value="on">

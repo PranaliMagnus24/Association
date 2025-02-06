@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class RazorpayPayment extends Model
+{
+    use HasFactory;
+    protected $table = 'razorpaypayments';
+    protected $fillable = [
+                          'event_id','eventform_id','event_amount','payment_date','status'
+    ];
+}

@@ -1,49 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
   @include('member.layout.head')
-</head>
-<style>
-      .search-bar {
-        margin: 20px 0;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
 
-    .search-form {
-        display: flex;
-        align-items: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        overflow: hidden;
-        margin-right: 10px;
-        height: 35px;
-    }
-
-    .search-form input[type="text"] {
-        border: none;
-        padding: 10px;
-        font-size: 16px;
-        outline: none;
-        width: 250px;
-    }
-
-    .search-form button {
-        background-color: #007bff;
-        border: none;
-        color: white;
-        padding: 10px 15px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .search-form button:hover {
-        background-color: #0056b3;
-    }
-</style>
-<body>
 
   <!-- ======= Header ======= -->
   @include('member.layout.header')
@@ -65,14 +22,43 @@
 </div>
 
 <div class="container">
-<div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="get" action="#">
-        @csrf
-        <input type="text" name="search" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-      <a href="{{ route('job')}}" class="btn btn-primary">+</a>
-    </div><!-- End Search Bar -->
+    <!---add filter and search bar---->
+<!--- Filter and Search Bar --->
+<div class="row mb-4 mt-5">
+<form class="search-form d-flex align-items-center gap-3" method="get" action="{{ route('joblist') }}">
+    @csrf
+    <div class="input-group">
+        <!-- Search by Job Title -->
+        <input type="text" name="search" class="form-control me-2" style="width: 200px;" placeholder="Search" value="{{ request('search') }}">
+
+        <!-- Category Filter -->
+        <select name="category" class="form-select me-2" style="width: 180px;">
+            <option value="">Select Category</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                    {{ $category->category_name }}
+                </option>
+            @endforeach
+        </select>
+
+        <!-- Filter/Search Button -->
+        <button type="submit" class="btn btn-primary me-3" style="width: 100px;">Filter</button>
+
+        <!-- Add Job Button -->
+        <a href="{{ route('job') }}" class="btn btn-primary me-4">+</a>
+
+        <!-- Sort Order (Trigger Form on Change) -->
+        <select name="sort" class="form-select" style="width: 120px;" onchange="this.form.submit()">
+            <option value="asc" {{ request('sort') == 'asc' ? 'selected' : '' }}>Ascending</option>
+            <option value="desc" {{ request('sort') == 'desc' ? 'selected' : '' }}>Descending</option>
+        </select>
+    </div>
+</form>
+
+</div>
+<!--- End Filter and Search Bar --->
+
+<!---end filter and search bar---->
 
     <div class="card">
         <div class="card-body">
@@ -83,23 +69,39 @@
                         <th scope="col">Sr no.</th>
                         <th scope="col">Job Title</th>
                         <th scope="col">Job Vacancy</th>
-                        <th scope="col">Experience</th>
-                        <th scope="col">Skill's</th>
+                        <th scope="col">Experience (in year)</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Applications</th>
+
+                       {{-- <th scope="col">Skill's</th>--}}
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th scope="col" class="text-center text-nowrap">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach ($jobs as $job)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{ $job->job_title }}</td>
+                <td>{{ \Illuminate\Support\Str::limit($job->job_title, 20) }}</td>
+
                 <td>{{ $job->vacancy }}</td>
-                <td>{{ $job->exp_req }}</td>
-                <td>{{ $job->skill }}</td>
+                <td>
+                    @if($job->exp_req)
+                    {{ $job->exp_req }} year
+                    @endif
+                </td>
+
+                <td>{{ \Illuminate\Support\Str::limit($job->category->category_name, 20) }}</td>
+                <td>
+                    <a href="{{ route('jobapplylist', ['job_id' => $job->id]) }}">
+                        {{ $job->job_applications_count }}
+                    </a>
+                </td>
+
+                {{--<td>{!! Str::limit($job->skill, 50) !!}</td>--}}
                 <td>{{ $job->status }}</td>
 
-                <td>
+                <td class="text-center text-nowrap">
 
                      <!-- Edit Button -->
                      <a href="{{ route('job.view', $job->id) }}" class="btn btn-outline-primary">
@@ -107,14 +109,10 @@
                     </a>
                      <a href="{{ route('job.edit', $job->id) }}" class="btn btn-outline-success"> <i class="bx bx-pencil" style="font-size: 20px;"></i></a>
                      </a>
-                    <form action="{{ route('job.delete', $job->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">
-                        <i class="bx bx-trash" style="font-size: 20px;"></i>
-                        </button>
-                    </form>
 
+                     <a href="{{ route('job.delete', $job->id) }}" class="btn btn-outline-danger" onclick="confirmation(event)">
+                        <i class="bx bx-trash" style="font-size: 20px;"></i>
+                    </a>
                  </td>
 
               </tr>
@@ -128,38 +126,32 @@
     </div>
 </div>
      </main><!-- End #main -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
      <script>
-
-   function conformation(ev){
+   function confirmation(ev) {
         ev.preventDefault();
         var urlToRedirect = ev.currentTarget.getAttribute('href');
-        console.log(urlToRedirect);
 
-        swal({
-            title: "Are You Sure to Delete This",
+        Swal.fire({
+            title: "Are You Sure to Delete This?",
             text: "This delete will be permanent",
             icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-
-        .then((willCancel)=>{
-
-            if(willCancel)
-        {
-            window.location.href=urlToRedirect;
-        }
-        })
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = urlToRedirect;
+            }
+        });
     }
-
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 
   <!-- ======= Footer ======= -->
   @include('member.layout.footer')
 
-</body>
 
-</html>
 
