@@ -27,15 +27,12 @@ class QRCodePageController extends Controller
     public function checkIn($id)
 {
     $eventForm = EventForm::findOrFail($id);
-
-    // If user has already checked out, allow check in again
     if ($eventForm->check_out) {
         $eventForm->check_in = Carbon::now()->timezone('Asia/Kolkata')->toDateTimeString();
-        $eventForm->check_out = null; // Reset check out to allow further check out
+        $eventForm->check_out = null;
         $eventForm->save();
     }
 
-    // If user has not checked in, allow check in
     if (!$eventForm->check_in) {
         $eventForm->check_in = Carbon::now()->timezone('Asia/Kolkata')->toDateTimeString();
         $eventForm->save();
@@ -47,8 +44,6 @@ class QRCodePageController extends Controller
 public function checkOut($id)
 {
     $eventForm = EventForm::findOrFail($id);
-
-    // Ensure that check in exists before allowing check out
     if ($eventForm->check_in && !$eventForm->check_out) {
         $eventForm->check_out = Carbon::now()->timezone('Asia/Kolkata')->toDateTimeString();
         $eventForm->save();

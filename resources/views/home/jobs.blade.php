@@ -121,7 +121,9 @@
     font-size: 13px;
   }
 }
-
+.pagination{
+        --bs-pagination-font-size: 2rem;
+    }
 
 
 </style>
@@ -189,9 +191,9 @@
             </div>
 
             <!-- Pagination Links -->
-            {{--<div class="pagination-wrapper">
+            <div class="pagination-wrapper mt-5">
                 {{ $jobs->links() }}
-            </div>--}}
+            </div>
         </div>
     </div>
 </section>

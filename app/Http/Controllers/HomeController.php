@@ -160,7 +160,7 @@ class HomeController extends Controller
 
     public function jobs()
     {
-        $jobs = Job::with(['companyProfile'])->get();
+        $jobs = Job::with('companyProfile')->paginate(12);
 
         return view('home.jobs', compact('jobs'));
     }
