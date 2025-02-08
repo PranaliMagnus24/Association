@@ -8,6 +8,7 @@ use Str;
 use File;
 use App\Models\Event;
 use App\Models\EventForm;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class EventController extends Controller
 {
@@ -167,16 +168,49 @@ class EventController extends Controller
 {
     $event = Event::with(['countries', 'states', 'cities'])->findOrFail($eventId);
 
-    // Paginate registrations and order by registration date
-    $registrations = $event->eventform()->orderBy('created_at', 'desc')->paginate(10);
+    $registrations = $event->eventform()->orderBy('created_at', 'desc')->paginate(20);
 
     return view('admin.events.view_registrations', compact('event', 'registrations'));
 }
 
 
 
+public function exportRegistrations($eventId)
+{
+    $event = Event::findOrFail($eventId);
+    $registrations = $event->eventform()->orderBy('created_at', 'desc')->get();
 
+    $fileName = 'registrations_' . now()->format('Y-m-d_H-i-s') . '.csv';
 
+    $response = new StreamedResponse(function () use ($registrations) {
+        $handle = fopen('php://output', 'w');
+
+        // CSV Headers
+        fputcsv($handle, ['ID', 'Name', 'Phone', 'Email', 'Country', 'State', 'City', 'GST Number', 'Registration Date & Time']);
+
+        // CSV Data
+        foreach ($registrations as $registration) {
+            fputcsv($handle, [
+                $registration->id,
+                $registration->name,
+                $registration->phone,
+                $registration->email,
+                $registration->countries->name ?? 'N/A',
+                $registration->states->name ?? 'N/A',
+                $registration->cities->name ?? 'N/A',
+                $registration->usergst_number ?? 'N/A',
+                $registration->created_at ? \Carbon\Carbon::parse($registration->created_at)->format('d F Y h:i A') : 'N/A',
+            ]);
+        }
+
+        fclose($handle);
+    });
+
+    $response->headers->set('Content-Type', 'text/csv');
+    $response->headers->set('Content-Disposition', 'attachment; filename="' . $fileName . '"');
+
+    return $response;
+}
 
 
 

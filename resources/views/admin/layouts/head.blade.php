@@ -9,8 +9,8 @@
 
   <!-- Favicons -->
 
-  <link href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}" rel="icon">
-  <link href="{{ $getSetting->association_logo ? url('upload/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}" rel="apple-touch-icon">
+  <link href="{{ $getSetting->association_logo ? url('upload/general_setting/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}" rel="icon">
+  <link href="{{ $getSetting->association_logo ? url('upload/general_setting/' . $getSetting->association_logo) : asset('homecss/assets/images/logo/logo.jpg') }}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">

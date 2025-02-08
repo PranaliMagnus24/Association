@@ -42,19 +42,19 @@
         <!-- Bordered Tabs Justified -->
         <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
             <li class="nav-item flex-fill" role="presentation">
-                <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">Update Member Profile</button>
+                <button class="nav-link w-100 {{ request('tab') == 'member' ? 'active' : '' }}" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="{{ request('tab') == 'member' ? 'true' : 'false' }}">Update Member Profile</button>
             </li>
             <li class="nav-item flex-fill" role="presentation">
-                <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Update Company Profile</button>
+                <button class="nav-link w-100 {{ request('tab') == 'company' ? 'active' : '' }}" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="{{ request('tab') == 'company' ? 'true' : 'false' }}">Update Company Profile</button>
             </li>
             <li class="nav-item flex-fill" role="presentation">
-                <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Change Password</button>
+                <button class="nav-link w-100 {{ request('tab') == 'password' ? 'active' : '' }}" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="{{ request('tab') == 'password' ? 'true' : 'false' }}">Change Password</button>
             </li>
         </ul>
         <div class="tab-content pt-2" id="borderedTabJustifiedContent">
 
             <!-- Company Info Form -->
-            <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade{{ request('tab') == 'member' ? 'show active' : '' }}" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
                 <form action="{{route('update.profile')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
@@ -112,7 +112,7 @@
             </div>
 
             <!-- Change Company Logo Form -->
-            <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane fade {{ request('tab') == 'company' ? 'show active' : '' }}" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
             <form action="{{ route('update.companyprofile', $companyProfile->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
@@ -433,7 +433,7 @@
 
 
             <!-- Change Password Form -->
-            <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="tab-pane fade {{ request('tab') == 'password' ? 'show active' : '' }}" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
                 <form action="{{ route('updatePassword')}}" method="POST">
                     @csrf
                     <div class="row mb-3">
@@ -570,6 +570,19 @@ $(document).ready(function () {
 
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tab = urlParams.get('tab');
+
+        if (tab) {
+            const tabButton = document.querySelector(`#${tab}-tab`);
+            const tabContent = document.querySelector(`#bordered-justified-${tab}`);
+            if (tabButton && tabContent) {
+                tabButton.classList.add('active');
+                tabContent.classList.add('show', 'active');
+            }
+        }
+    });
 
 //Textarea
 document.addEventListener('DOMContentLoaded', function () {

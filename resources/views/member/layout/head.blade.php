@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -18,6 +19,9 @@
 
 
   <!-- Favicons -->
+
+  <link href="{{ $companyProfile->company_logo ? url('upload/company_documents/' . $companyProfile->company_logo) : asset('homecss/assets/images/logo/logo.jpg') }}" rel="icon">
+<link href="{{ $companyProfile->company_logo ? url('upload/company_documents/' . $companyProfile->company_logo) : asset('homecss/assets/images/logo/logo.jpg') }}" rel="apple-touch-icon">
 
 
 

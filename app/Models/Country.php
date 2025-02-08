@@ -33,6 +33,6 @@ public function jobs()
 
     public function events()
     {
-        return $this->hasMany(Event::class, 'city', 'id');
+        return $this->hasMany(Event::class, 'country', 'id');
     }
 }

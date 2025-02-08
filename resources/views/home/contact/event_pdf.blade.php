@@ -33,32 +33,55 @@
                 <p>Dear {{ $mailData['name'] }},</p>
                 <p>{!! $mailData['event_introduction'] !!}</p>
                 <p>Here's all you need for the entry – let the anticipation rev up!</p>
+
+
+      <!--- depends on online-->  @if($mailData['qr_code'])
+        <p><strong>QR Code:</strong></p>
                 <div class="qrcode">
                     <img src="{{ $mailData['qr_code'] }}" alt="Event QR Code">
                 </div>
+                @endif
                 <h5>Details:</h5>
-                <ol>
-                    <li>QR code is mandatory at the entry gate.</li>
-                    <li>
-                        @if($mailData['event_address'])
-        Event Location: {{ $mailData['event_address'] }}<br/>
-        <a href="https://www.google.com/maps/search/{{ urlencode($mailData['event_address']) }}"
-           target="_blank"
-           style="color: #31b0e5; font-weight: bold;">
-           {{ $mailData['event_address'] }}
-        </a>
-    @endif
+                @if($mailData['qr_code']) {{-- Check if QR code exists --}}
+    <ol>
+        <li>QR code is mandatory at the entry gate.</li>
 
-    @if($mailData['event_link'])
-        <br/>
-        Join Link: <a href="{{ $mailData['event_link'] }}" target="_blank">{{ $mailData['event_link'] }}</a>
-    @endif
-</li>
+        @if($mailData['event_address'] || $mailData['event_link']) {{-- Show only if address or link exists --}}
+            <li>
+                @if($mailData['event_address'])
+                    Event Location: {{ $mailData['event_address'] }}<br/>
+                    <a href="https://www.google.com/maps/search/{{ urlencode($mailData['event_address']) }}"
+                       target="_blank"
+                       style="color: #31b0e5; font-weight: bold;">
+                        {{ $mailData['event_address'] }}
+                    </a>
+                @endif
 
-                    <li>
-                        Event Start Time: <strong>{{ \Carbon\Carbon::parse($mailData['event_time'])->format('d F Y h:i A') }}</strong>.
-                    </li>
-                </ol>
+                @if($mailData['event_link'])
+                    <br/>
+                    Join Link: <a href="{{ $mailData['event_link'] }}" target="_blank">{{ $mailData['event_link'] }}</a>
+                @endif
+            </li>
+        @endif
+
+        <li>
+            Event Start Time: <strong>{{ \Carbon\Carbon::parse($mailData['event_time'])->format('d F Y h:i A') }}</strong>.
+        </li>
+    </ol>
+@else
+    <ol>
+        @if($mailData['event_link'])
+            <li>
+                Join Link: <a href="{{ $mailData['event_link'] }}" target="_blank">{{ $mailData['event_link'] }}</a>
+            </li>
+        @endif
+
+        <li>
+            Event Start Time: <strong>{{ \Carbon\Carbon::parse($mailData['event_time'])->format('d F Y h:i A') }}</strong>.
+        </li>
+    </ol>
+@endif <!----end online--->
+
                 <p>Thanks & Regards,<br /><strong>MIMA</strong></p>
             </td>
         </tr>

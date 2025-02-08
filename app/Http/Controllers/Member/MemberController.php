@@ -96,7 +96,7 @@ class MemberController extends Controller
         }
         $user->save();
         toastr()->timeOut(5000)->closeButton()->addSuccess('Profile updated successfully!');
-        return redirect()->route('profile.index');
+        return redirect()->route('profile.index', ['tab' => 'member']);
     }
 
 
@@ -108,7 +108,7 @@ class MemberController extends Controller
     // Check if the company profile exists
     if (!$companyProfile) {
         toastr()->timeOut(5000)->closeButton()->addError('Company profile not found!');
-        return redirect()->route('profile.index');
+        return redirect()->route('profile.index', ['tab' => 'company']);
     }
 
     $request->validate([
@@ -164,7 +164,7 @@ class MemberController extends Controller
     }
 
     toastr()->timeOut(5000)->closeButton()->addSuccess('Company profile and documents updated successfully!');
-    return redirect()->route('profile.index');
+    return redirect()->route('profile.index', ['tab' => 'company']);
 }
 
     public function updatePassword(Request $request)
@@ -192,7 +192,7 @@ class MemberController extends Controller
             $user->save();
 
             toastr()->timeOut(5000)->closeButton()->addSuccess('Password updated successfully!');
-            return redirect()->route('profile.index');
+            return redirect()->route('profile.index', ['tab' => 'password']);
         }
 
 

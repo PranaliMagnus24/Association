@@ -34,12 +34,13 @@
             <h4 class="card-title text-center mb-3">{{ $job->job_title }}</h4>
             <div class="row mb-3">
                 <div class="col-12">
-                    <p><strong>Job Description:</strong>{{ strip_tags($job->job_desc) }}</p>
+                <p><strong>Job Description:</strong> {!! strip_tags($job->job_desc, '<p><br><b><i><ul><li>') !!}</p>
+
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-12">
-                    <p><strong>Skills:</strong> {{ strip_tags($job->skill) }}</p>
+                    <p><strong>Skills:</strong> {!! strip_tags($job->skill, '<p><br><b><i><ul><li>') !!}</p>
                 </div>
             </div>
             <div class="row mb-3">

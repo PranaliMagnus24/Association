@@ -33,6 +33,11 @@ public function eventform()
 
     public function events()
     {
-        return $this->hasMany(Event::class, 'city', 'id');
+        return $this->hasMany(Event::class, 'state', 'id');
+    }
+
+    public function razorpay()
+    {
+        return $this->hasMany(RazorpayPayment::class, 'state', 'id');
     }
 }

@@ -195,18 +195,19 @@
     </li><!-- End Messages Nav -->
 
     <li class="nav-item dropdown pe-3">
-@php
-    $user = \App\Models\User::first();
+    @php
+    $user = Auth::user();
 @endphp
-      <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-      <img src="{{ $user->profile_pic ? url('upload/user_profile/' . $user->profile_pic) : url('upload/No-Image.png') }}" alt="Profile Picture" class="profile_pic rounded-circle">
 
-        <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
-      </a><!-- End Profile Iamge Icon -->
+<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+    <img src="{{ $user->profile_pic ? url('upload/user_profile/' . $user->profile_pic) : url('upload/No-Image.png') }}"
+         alt="Profile Picture" class="profile_pic rounded-circle">
+    <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->name }}</span>
+</a>
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li class="dropdown-header">
-          <h6>{{ Auth::user()->name }}</h6>
+          <h6>{{ $user->name }}</h6>
           <span>Director</span>
         </li>
         <li>

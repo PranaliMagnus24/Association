@@ -262,6 +262,8 @@ Route::post('event/{id}', [EventController::class, 'eventupdate'])->name('update
 Route::get('event_delete/{id}', [EventController::class, 'eventdelete'])->name('delete.event');
 Route::get('event_show/{id}', [EventController::class, 'eventshow'])->name('view.event');
 Route::get('event/{event}/registrations', [EventController::class, 'viewRegistrations'])->name('view.registrations');
+Route::get('export-registrations/{eventId}', [EventController::class, 'exportRegistrations'])->name('export.registrations');
+
 
 
 });
@@ -357,6 +359,6 @@ Route::post('/send-contact', [MailController::class, 'sendContact'])->name('send
 
 
 //Razorpay Payment
-Route::get('razorpay-payment', [RazorpayPaymentController::class, 'razorpayindex'])->name('razorpay.payment');
+Route::get('/razorpay-payment', [RazorpayPaymentController::class, 'razorpayindex'])->name('razorpay.payment.index');
 Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');
 

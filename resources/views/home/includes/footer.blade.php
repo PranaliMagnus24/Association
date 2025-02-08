@@ -31,7 +31,7 @@
                                 <div class="widgei-body">
                                     <div class="footer-about">
                                     @if($getSetting)
-                                    <img src="{{ url('upload/' . $getSetting->footer_logo) }}" alt="Logo" style="max-width: 130px; background-color:#fff;">
+                                    <img src="{{ url('upload/general_setting/' . $getSetting->footer_logo) }}" alt="Logo" style="max-width: 130px; background-color:#fff;">
 
                                         @else
                                      <h1>Association</h1>

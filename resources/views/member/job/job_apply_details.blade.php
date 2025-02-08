@@ -45,24 +45,23 @@
             <h4 class="card-title text-center mb-3">---- Applicant Information ----</h4>
 
             <div class="row mb-3">
-            <div class="col-md-6">
+                <div class="col-md-6">
                     <p><strong>Applicant Name:</strong> {{ $apply->name }}</p>
+                </div>
+                <div class="col-md-6">
+                <p><strong>Applicant Email:</strong> {{ $apply->to }}</p>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <p><strong>Applicant Email:</strong> {{ $apply->to }}</p>
+                <p><strong>Applicant Contact Number:</strong> {{ $apply->phone }}</p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Applicant Contact Number:</strong> {{ $apply->phone }}</p>
+                <p><strong>Subject:</strong> {{ $apply->subject }}</p>
                 </div>
             </div>
 
-            <div class="row mb-3">
-            <div class="col-md-6">
-                    <p><strong>Subject:</strong> {{ $apply->subject }}</p>
-                </div>
-            </div>
+
             <div class="row mb-3">
             <div class="col-md-12">
                     <p><strong>Message:</strong> {{ strip_tags($apply->message) }}</p>

@@ -305,6 +305,14 @@
                                                     @enderror
                                                 </div>
                                             </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                <label for="cbxgst" class="form-label">GST Number(optional)</label>
+                                                <input type="text" name="usergst_number" id="cbxgst" placeholder="Your GST Number" class="form-control fs-4">
+                                                    @error('usergst_number')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                             <div class="row">
                                             <div class="col-12 text-center">
@@ -461,8 +469,8 @@ $(window).on("load", function() {
 
 
 
-    document.getElementById('eventForm').addEventListener('submit', function (e) {
-        e.preventDefault();
+ document.getElementById('eventForm').addEventListener('submit', function (e) {
+    e.preventDefault();
 
     const form = this;
     const formData = new FormData(form);
@@ -501,8 +509,6 @@ $(window).on("load", function() {
         email.parentElement.appendChild(error);
     }
 
-
-
     // If form is valid, proceed with the AJAX request
     if (isValid) {
         // Show Loader
@@ -510,28 +516,31 @@ $(window).on("load", function() {
 
         fetch("/event-store", {
             method: "POST",
-            headers: {
+
+ headers: {
                 "X-CSRF-TOKEN": "{{ csrf_token() }}",
             },
             body: formData,
         })
-        .then((response) => {
-            // Debugging the response
-            console.log('Response:', response);
-            return response.json();
-        })
+        .then((response) => response.json())
         .then((data) => {
-            console.log('Data:', data); // Check the response data
+            console.log('Data:', data); // Debugging the response data
 
             if (data.success) {
-                swal({
-                    title: "Success!",
-                    text: data.message,
-                    icon: "success",
-                    button: "OK",
-                }).then(() => {
-                    form.reset();
-                });
+                if (data.redirect_url) {
+                    // If event is Paid, redirect to Razorpay payment page
+                    window.location.href = data.redirect_url;
+                } else {
+                    // If event is Free, show success message
+                    swal({
+                        title: "Success!",
+                        text: data.message,
+                        icon: "success",
+                        button: "OK",
+                    }).then(() => {
+                        form.reset();
+                    });
+                }
             } else {
                 swal({
                     title: "Error!",
@@ -557,6 +566,7 @@ $(window).on("load", function() {
         });
     }
 });
+
 </script>
 @include('home.includes.footer')
 

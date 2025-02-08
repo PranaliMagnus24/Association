@@ -57,7 +57,16 @@
                <span class="text-danger">{{ $message }}</span>
               @enderror
                 </div>
-                <div class="col-md-6">
+              <div class="col-md-6">
+              <label for="inputName5" class="form-label">GST Number</label>
+              <input type="text" class="form-control" name="gst_number" placeholder="GST Number" value="{{ $getRecord->gst_number }}">
+                  @error('gst_number')
+               <span class="text-danger">{{ $message }}</span>
+              @enderror
+              </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-12">
                 <label for="inputName5" class="form-label">Address</label>
                   <input type="text" class="form-control" name="address" placeholder="Please enter your address" value="{{ $getRecord->address }}">
                   @error('address')
@@ -89,7 +98,7 @@
                     <label for="inputName5" class="form-label">Favicon</label>
                     <input type="file" class="form-control" name="association_logo" id="staticLogo">
                                @if(!empty($getRecord->association_logo))
-                                @if(file_exists('upload/'.$getRecord->association_logo))<img src="{{url('upload/'.$getRecord->association_logo)}}" style="height:100px; width:100px;">
+                                @if(file_exists('upload/general_setting/'.$getRecord->association_logo))<img src="{{url('upload/general_setting/'.$getRecord->association_logo)}}" style="height:100px; width:100px;">
                                @endif
                                 @endif
                 </div>
@@ -98,7 +107,7 @@
                     <label for="inputName5" class="form-label">Header Logo</label>
                     <input type="file" class="form-control" name="header_logo" id="staticLogo">
                                @if(!empty($getRecord->header_logo))
-                                @if(file_exists('upload/'.$getRecord->header_logo))<img src="{{url('upload/'.$getRecord->header_logo)}}" style="height:100px; width:100px;">
+                                @if(file_exists('upload/general_setting/'.$getRecord->header_logo))<img src="{{url('upload/general_setting/'.$getRecord->header_logo)}}" style="height:100px; width:100px;">
                                @endif
                                 @endif
                 </div>
@@ -107,7 +116,7 @@
                     <label for="inputName5" class="form-label">Footer Logo</label>
                     <input type="file" class="form-control" name="footer_logo" id="staticLogo">
                                @if(!empty($getRecord->footer_logo))
-                                @if(file_exists('upload/'.$getRecord->footer_logo))<img src="{{url('upload/'.$getRecord->footer_logo)}}" style="height:100px; width:100px;">
+                                @if(file_exists('upload/general_setting/'.$getRecord->footer_logo))<img src="{{url('upload/general_setting/'.$getRecord->footer_logo)}}" style="height:100px; width:100px;">
                                @endif
                                 @endif
                 </div>

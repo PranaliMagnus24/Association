@@ -7,7 +7,7 @@
                          @endphp
   <a href="{{url('admin/dashboard')}}" class="logo d-flex align-items-center">
   @if($getSetting)
-    <img src="{{ url('upload/' . $getSetting->association_logo) }}" alt="">
+    <img src="{{ url('upload/general_setting/' . $getSetting->association_logo) }}" alt="">
     @else
                                      <h1>Association</h1>
                                     @endif

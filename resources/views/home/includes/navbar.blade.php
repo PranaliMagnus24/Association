@@ -62,8 +62,8 @@
 
 @if($getSetting)
 <a href="{{route('home.index')}}" class="logo">
-<img src="{{ url('upload/' . $getSetting->header_logo) }}" alt="site logo" class="main-logo">
-<img src="{{ url('upload/' . $getSetting->header_logo) }}" alt="site logo" class="logo-sticky">
+<img src="{{ url('upload/general_setting/' . $getSetting->header_logo) }}" alt="site logo" class="main-logo">
+<img src="{{ url('upload/general_setting/' . $getSetting->header_logo) }}" alt="site logo" class="logo-sticky">
 </a>
 @else
 <h1>Association</h1>
@@ -82,7 +82,7 @@
                             <div class="canvas-header">
                                 <div class="mobile-offcanvas-logo">
                                     <a href="{{url('/')}}">
-                                        <img src="{{ url('upload/' . $getSetting->header_logo) }}" alt="site logo" class="logo-sticky">
+                                        <img src="{{ url('upload/general_setting/' . $getSetting->header_logo) }}" alt="site logo" class="logo-sticky">
                                     </a>
                                 </div>
 

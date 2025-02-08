@@ -71,6 +71,11 @@
 <!--List Body-->
 <div class="container">
 
+<div class="text-end mb-3">
+    <a href="{{ route('export.registrations', $event->id) }}" class="btn btn-outline-primary">
+    <i class="bi bi-save" style="font-size: 20px;"></i>
+    </a>
+</div>
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Registrations for Event: {{ $event->title }}</h5>
@@ -84,6 +89,7 @@
             <th scope="col">Country</th>
             <th scope="col">State</th>
             <th scope="col">City</th>
+            <th scope="col">GST Number</th>
             <th scope="col">Registration Date & Time</th>
            {{-- <th scope="col" class="text-center text-nowrap">Action</th>--}}
         </tr>
@@ -99,8 +105,9 @@
                 <td>{{ $registration->states->name }}</td>
 
                 <td>{{ $registration->cities->name }}</td>
-
+                <td>{{ $registration->usergst_number ?? 'N/A' }}</td>
                 <td>{{ $registration->created_at ? \Carbon\Carbon::parse($registration->created_at)->format('d F Y h:i A') : 'N/A' }}</td>
+
                {{-- <td class="text-center text-nowrap">
                     <a href="{{ route('view.event', $event->id) }}" class="btn btn-outline-primary">
                         <i class="bx bx-show" style="font-size: 20px;"></i>
@@ -117,9 +124,10 @@
     </tbody>
 </table>
 
-            <div class="text-end mb-3">
-                {{ $registrations->links() }}
-            </div>
+<div class="text-end mb-3">
+    {{ $registrations->links() }}
+</div>
+
         </div>
     </div>
 </div>

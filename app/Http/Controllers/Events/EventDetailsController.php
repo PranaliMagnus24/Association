@@ -52,80 +52,93 @@ class EventDetailsController extends Controller
 
     //event register store
     public function eventstore(Request $request)
-    {
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'phone' => 'required|digits:10',
+        'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
+        'country' => 'nullable|string|max:255',
+        'state' => 'nullable|string',
+        'city' => 'nullable|string',
+        'usergst_number' => 'nullable|string',
+        'event_id' => 'required|exists:events,id',
+    ]);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|digits:10',
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
-            'country' => 'nullable|string|max:255',
-            'state' => 'nullable|string',
-            'city' => 'nullable|string',
-        ]);
+    try {
+        if ($request->input('form_type') !== 'event_form') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid form type.',
+            ]);
+        }
 
-        try {
-            if ($request->input('form_type') !== 'event_form') {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Invalid form type.',
-                ]);
-            }
+        $event = Event::findOrFail($request->input('event_id'));
 
-            $event = Event::findOrFail($request->input('event_id'));
+        // If Free, save data directly
+        $eventform = EventForm::create($validated + ['event_id' => $event->id]);
 
-            $eventform = new EventForm();
-            $eventform->name = $request->input('name');
-            $eventform->phone = $request->input('phone');
-            $eventform->email = $request->input('email');
-            $eventform->country = $request->input('country');
-            $eventform->state = $request->input('state');
-            $eventform->city = $request->input('city');
-            $eventform->event_id = $event->id;
-            $eventform->save();
-
-            // Generate QR Code Data
-            $qrData = route('qrpage', ['eventform_id' => $eventform->id]);
-            // QR Code Storage Path
-            $qrCodePath = 'upload/qr_code/event_' . $eventform->id . '.png';
-            $qrCodeFullPath = storage_path('app/public/' . $qrCodePath);
-            // Create directory if it doesn't exist
-            if (!file_exists(dirname($qrCodeFullPath))) {
-                mkdir(dirname($qrCodeFullPath), 0777, true);
-            }
-            // Generate and Save QR Code
-            QrCode::format('png')->size(200)->generate($qrData, $qrCodeFullPath);
-            // Prepare Email Data
-            $data = [
-                'name' => $eventform->name,
-                'phone' => $eventform->phone,
-                'email' => $eventform->email,
-                'event_title' => $event->title,
-                'event_introduction' => $event->introduction,
-                'event_time' => $event->eventstartdatetime,
-                'event_address' => $event->mode === 'Offline' ? $event->event_address : null,
-                'event_link' => $event->mode === 'Online' ? $event->event_link : null,
-                'qr_code' => $qrCodeFullPath,
-            ];
-
-            //Generate pdf
-            $pdf = PDF::loadView('home.contact.event_pdf', ['mailData' => $data]);
-            $pdfPath = storage_path('app/public/event_confirmation_' . $eventform->id . '.pdf');
-            $pdf->save($pdfPath);
-
-            Mail::to($eventform->email)->send(new EventConfirmationMail($data, $pdfPath));
+        // If event is Paid, redirect to Razorpay payment
+        if ($event->type === 'Paid') {
+            session(['event_form_data' => $validated]);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Your registration is successful! Confirmation email sent.',
-            ]);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An unexpected error occurred: ' . $e->getMessage(),
+                'redirect_url' => route('razorpay.payment.index', [
+                    'event_id' => $eventform->event_id,
+                    'eventform_id' => $eventform->id
+                ]),
             ]);
         }
+
+        // Prepare Mail Data
+        $data = [
+            'name' => $eventform->name,
+            'phone' => $eventform->phone,
+            'email' => $eventform->email,
+            'event_title' => $event->title,
+            'event_introduction' => $event->introduction,
+            'event_time' => $event->eventstartdatetime,
+            'event_address' => $event->mode === 'Offline' ? $event->event_address : null,
+            'event_link' => $event->mode === 'Online' ? $event->event_link : null,
+            'qr_code' => null,
+        ];
+
+        // Generate QR Code only for Offline events
+        if ($event->mode === 'Offline') {
+            $qrData = route('qrpage', ['eventform_id' => $eventform->id]);
+            $qrCodePath = 'upload/qr_code/event_' . $eventform->id . '.png';
+            $qrCodeFullPath = storage_path('app/public/' . $qrCodePath);
+
+            if (!file_exists(dirname($qrCodeFullPath))) {
+                mkdir(dirname($qrCodeFullPath), 0777, true);
+            }
+
+            QrCode::format('png')->size(200)->generate($qrData, $qrCodeFullPath);
+            $data['qr_code'] = $qrCodeFullPath;
+        }
+
+        // Generate PDF
+        $pdf = PDF::loadView('home.contact.event_pdf', ['mailData' => $data]);
+        $pdfPath = storage_path('app/public/event_confirmation_' . $eventform->id . '.pdf');
+        $pdf->save($pdfPath);
+
+        // Send Email
+        Mail::to($eventform->email)->send(new EventConfirmationMail($data, $pdfPath));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Your registration is successful! Confirmation email sent.',
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'An unexpected error occurred: ' . $e->getMessage(),
+        ]);
     }
+}
+
+
 
 
 

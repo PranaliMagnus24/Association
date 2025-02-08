@@ -83,7 +83,7 @@
             </div>
             <div class="row mb-3">
                 <!-- Dropdown for Type -->
-                <label for="type" class="col-md-4 col-lg-3 col-form-label">Type</label>
+                <label for="type" class="col-md-4 col-lg-3 col-form-label">Event Type</label>
                  <div class="col-md-8 col-lg-3">
                     <select name="type" id="type" class="form-control">
                         <option value="">Select Type</option>
@@ -92,7 +92,7 @@
                     </select>
                 </div>
                 <!-- Dropdown for Mode -->
-                <label for="mode" class="col-md-4 col-lg-3 col-form-label">Mode</label>
+                <label for="mode" class="col-md-4 col-lg-3 col-form-label">Event Mode</label>
                 <div class="col-md-8 col-lg-3">
                     <select name="mode" id="mode" class="form-control">
                         <option value="">Select Mode</option>
@@ -102,14 +102,14 @@
                 </div>
             </div>
             <div class="row mb-3">
-            <label class="col-md-4 col-lg-3 form-check-label" for="including_gst">
-                Including GST
-            </label>
-            <div class="col-md-8 col-lg-3 mb-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="including_gst" id="including_gst" value="1">
-                </div>
+            <label for="event_amount" class="col-md-4 col-lg-3 col-form-label" id="event_amount_label">Event Amount</label>
+            <div class="col-md-8 col-lg-3" id="event_amount_container">
+                <input type="text" name="event_amount" id="event_amount" class="form-control">
+                @error('event_amount')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
+
             <label for="event_address" class="col-md-4 col-lg-3 col-form-label" id="event_address_label" style="display: none;">Event Address</label>
             <div class="col-md-8 col-lg-3" id="event_address_container" style="display: none;">
                 <input type="text" name="event_address" id="event_address" class="form-control">
@@ -126,13 +126,11 @@
             </div>
         </div>
         <div class="row mb-3">
-        <label for="event_amount" class="col-md-4 col-lg-3 col-form-label" id="event_amount_label">Event Amount</label>
-            <div class="col-md-8 col-lg-3" id="event_amount_container">
-                <input type="text" name="event_amount" id="event_amount" class="form-control">
-                @error('event_amount')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
+        <label for="inputName5" class="col-md-4 col-lg-3 col-form-label">No. Of Seats</label>
+              <div class="col-md-8 col-lg-3">
+              <input type="text" class="form-control" name="no_of_seats">
             </div>
+
         </div>
         <div class="row mb-3">
             <label for="upload" class="col-md-4 col-lg-3 col-form-label">Upload Image</label>
