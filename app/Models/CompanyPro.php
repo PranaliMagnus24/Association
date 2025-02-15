@@ -68,6 +68,11 @@ public function jobs()
     return $this->hasMany(Job::class, 'company_id');
 }
 
+public function reviews() {
+    return $this->hasMany(CompanyReview::class, 'company_id');
+}
+
+
 
 
 

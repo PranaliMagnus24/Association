@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\Models\Category;
 use App\Models\SubCategory;
+use Illuminate\Support\Facades\DB;
 use Str;
 use File;
 
@@ -180,8 +181,7 @@ class HomeController extends Controller
     return view('home.job_details', compact('job'));
 }
 
-
-
+//Dependent City
     public function fetchCity(Request $request)
     {
         $cities = City::where("state_id", $request->state_id)
@@ -191,14 +191,35 @@ class HomeController extends Controller
     }
 
 
-
+//Thank you page
     public function thankyou()
     {
         return view('home.thankyou');
     }
 
+    //Display event page
 public function homeevents()
 {
     return view('home.events');
+}
+
+//Display Directory list page
+public function directory_list(Request $request)
+{
+    $selectedCharacter = $request->get('character');
+
+    $query = Category::query();
+
+    if ($selectedCharacter) {
+        $query->where('category_name', 'like', $selectedCharacter . '%');
+    }
+
+    $categories = $query->get();
+
+    foreach ($categories as $category) {
+        $category->company_count = CompanyPro::where('company_type', $category->category_name)->count();
+    }
+
+    return view('home.directory_list', compact('categories', 'selectedCharacter'));
 }
 }

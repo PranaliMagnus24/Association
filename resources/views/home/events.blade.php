@@ -141,10 +141,9 @@
                <div class="row">
                   <div class="col-lg-8 m-auto text-center">
                      <div class="page-title-content">
-                        <h1 class="h2">Events</h1>
+                        <h1 class="h2">{{ __('messages.Events') }}</h1>
                         <p>
-                        The truthful and honest businessman will be in the company of the Prophets, the truthful ones (Siddeeqeen), and the martyrs (Shuhada) on the Day of Judgment.
-                        (Mishkat al-Masabih, Hadith 2828)
+                        {{ __('messages.The truthful and honest businessman will be in the company of the Prophets, the truthful ones (Siddeeqeen), and the martyrs (Shuhada) on the Day of Judgment.(Mishkat al-Masabih, Hadith 2828)') }}
                         </p>
                         <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
                      </div>
@@ -202,14 +201,15 @@
     <div class="col-lg-12">
         <div class="all-event-list">
         @if($events->isEmpty())
-                <h2 class="text-center font-weight-bold">Coming Soon</h2>
+                <h2 class="text-center font-weight-bold">{{ __('messages.Coming Soon') }}</h2>
             @else
             @foreach($events as $event)
                 <!-- Single Event Start -->
                 <div class="single-upcoming-event position-relative">
                     <!-- Ribbon positioned top-right of the event -->
                     <div class="ribbon ribbon-top-right {{ $event->type == 'Free' ? 'ribbon-free' : 'ribbon-paid' }}">
-                        <span>{{ ucfirst($event->type) }}</span>
+                    <span>{{ ucfirst($event->type) }}</span>
+
                     </div>
                      <!-- End Ribbon positioned top-right of the event -->
 
@@ -229,14 +229,15 @@
                                     <div class="up-event-text">
                                         <div class="event-countdown">
                                             <div class="event-countdown-counter" data-date="{{ \Carbon\Carbon::parse($event->eventstartdatetime)->format('Y/m/d H:i:s') }}">
-                                                <span class="countdown-text">Loading...</span>
+                                                <span class="countdown-text">{{ __('messages.Loading') }} ...</span>
                                             </div>
-                                            <p>Remaining</p>
+                                            <p>{{ __('messages.Remaining') }}</p>
                                         </div>
 
                                         <h3><a href="single-event.html">{{ $event->title }}</a></h3>
                                         <p>{!! \Illuminate\Support\Str::limit($event->introduction, 200) !!}</p>
-                                        <a href="{{ route('eventdetails', $event->id) }}"  class="btn btn-brand btn-brand-dark">View Details</a>
+
+                                        <a href="{{ route('eventdetails', $event->id) }}"  class="btn btn-brand btn-brand-dark">{{ __('messages.View Details') }}</a>
                                     </div>
                                 </div>
                             </div>

@@ -133,10 +133,10 @@
                <div class="row">
                   <div class="col-lg-8 m-auto text-center">
                      <div class="page-title-content">
-                        <h1 class="h2">Jobs</h1>
+                        <h1 class="h2">{{ __('messages.Jobs') }}</h1>
                         <p>
-                        The truthful and honest businessman will be in the company of the Prophets, the truthful ones (Siddeeqeen), and the martyrs (Shuhada) on the Day of Judgment.
-                        (Mishkat al-Masabih, Hadith 2828)
+                        {{ __('messages.The truthful and honest businessman will be in the company of the Prophets, the truthful ones (Siddeeqeen), and the martyrs (Shuhada) on the Day of Judgment.(Mishkat al-Masabih, Hadith 2828)') }}
+
                         </p>
                         <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
                      </div>
@@ -160,10 +160,11 @@
                             <img src="{{ url('upload/company_documents/'.$job->companyProfile->company_logo) }}" alt="Company Logo" class="company-logo mb-3" style="max-height: 50px;">
 
                             <!-- Job Title (with character limit) -->
-                            <h5 class="job-card-title fw-bold">{{ Str::limit($job->job_title, 50) }}</h5> <!-- Limit to 50 chars -->
+                            <h5 class="job-card-title fw-bold">{{ \Illuminate\Support\Str::limit($job->job_title, 50) }}</h5> <!-- Limit to 50 chars -->
 
                             <!-- Address instead of Description -->
-                            <p class="text-muted mt-2 job-location">{{ Str::limit($job->cities->name . ', ' . $job->states->name, 50) }}</p> <!-- Limit the address length -->
+                            <p class="text-muted mt-2 job-location">{{ Str::limit(($job->cities->name ?? '') . ', ' . ($job->states->name ?? ''), 50) }}
+                            </p>
 
                             <!-- Job Details -->
                             <div class="job-details d-flex flex-wrap gap-2 mt-3">
@@ -171,7 +172,8 @@
                                     <span class="badge">{{ $job->job_type }}</span>
                                 @endif
                                 @if($job->exp_req)
-                                    <span class="badge">{{ 'Min. ' . $job->exp_req . ' Year' }}</span>
+                                <span class="badge">{{ 'Min. ' . ($job->exp_req ?? '') . ' Year' }}</span>
+
                                 @endif
                                 @if($job->job_mode)
                                     <span class="badge">{{ $job->job_mode }}</span>
@@ -180,13 +182,13 @@
 
                             <!-- Apply Now Button -->
                             <div class="mt-auto text-left">
-                                <a href="{{ route('jobsdetails', $job->id)}}" class="btn btn-primary w-20 apply-now-button">Apply Now</a>
+                                <a href="{{ route('jobsdetails', $job->id)}}" class="btn btn-primary w-20 apply-now-button">{{ __('messages.Apply Now') }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 @empty
-                    <p>No job opportunities available.</p>
+                    <p>{{ __('messages.Comming Soon') }}</p>
                 @endforelse
             </div>
 

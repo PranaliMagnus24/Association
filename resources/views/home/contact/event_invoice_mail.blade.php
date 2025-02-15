@@ -93,21 +93,43 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td style="border: 1px solid #ddd; padding: 10px;"> {{ $invoiceData['event_title'] }}</td>
-                <td style="border: 1px solid #ddd; padding: 10px; text-align: right;">
-                    Rs. {{ number_format($invoiceData['event_amount'], 2) }}
-                </td>
-            </tr>
+    <tr>
+        <td style="border: 1px solid #ddd; padding: 10px;"> {{ $invoiceData['event_title'] }}</td>
+        <td style="border: 1px solid #ddd; padding: 10px; text-align: right;">
+            Rs. {{ number_format($invoiceData['event_amount'], 2) }}
+        </td>
+    </tr>
 
-        </tbody>
+
+    @if ($invoiceData['cgst_amount'] > 0 && $invoiceData['sgst_amount'] > 0)
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 10px;">CGST</td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: right;">
+                Rs. {{ number_format($invoiceData['cgst_amount'], 2) }}
+            </td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 10px;">SGST</td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: right;">
+                Rs. {{ number_format($invoiceData['sgst_amount'], 2) }}
+            </td>
+        </tr>
+    @else
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 10px;">IGST</td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: right;">
+                Rs. {{ number_format($invoiceData['igst_amount'], 2) }}
+            </td>
+        </tr>
+    @endif
+</tbody>
     </table>
 
     <table style="width: 100%; max-width: 600px; margin: 20px auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-        <tr>
-            <td style="font-size: 18px; font-weight: bold; padding: 10px; width: 50%;">Total Paid</td>
-            <td style="font-size: 18px; font-weight: bold; padding: 10px; text-align: right;">
-                Rs. {{ number_format($invoiceData['event_amount'], 2) }}
+    <tr>
+            <td style="font-size: 18px; font-weight: bold; padding: 10px; border-top: 2px solid #000;">Total Paid</td>
+            <td style="font-size: 18px; font-weight: bold; padding: 10px; text-align: right; border-top: 2px solid #000;">
+                Rs. {{ number_format($invoiceData['event_amount'] + $invoiceData['cgst_amount'] + $invoiceData['sgst_amount'] + $invoiceData['igst_amount'], 2) }}
             </td>
         </tr>
     </table>

@@ -5,91 +5,206 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <meta name="x-apple-disable-message-reformatting" />
     <title>Event Confirmation PDF</title>
-    <style type="text/css">
-        * { -webkit-font-smoothing: antialiased; padding: 0; margin: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        img { max-width: 100%; height: auto; }
-        h5 { font-size: 16px; font-weight: bold; margin: 0 0 10px; }
-        ol { margin: 0 0 20px 30px; padding: 0; }
-        li { margin: 0 0 10px; }
-        .wrapper { width: 100%; max-width: 600px; margin: 0 auto; background-color: #fff; padding: 20px; }
-        .content { font-size: 14px; color: #333; line-height: 24px; text-align: left; }
-        .qrcode { text-align: center; margin: 20px 0; }
-        .footer { font-size: 14px; color: #666; text-align: center; padding: 5px 0; margin: 0; }
-        @media only screen and (max-width: 599px) {
-            .wrapper { width: 100%; padding: 15px; }
+    <style>
+   @page {
+            size: statement; /* Fix Page Size */
+            margin: 15mm; /* Proper spacing */
         }
-    </style>
+
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: white !important;
+        width: 100%;
+    }
+
+    .wrapper {
+        width: 100%;
+        padding: 5px;
+        margin: 0 auto;
+        background: white;
+        text-align: center;
+    }
+
+    .content {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+        margin: auto;
+    }
+
+    .header {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .event-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .name, .id-number {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .qrcode {
+        text-align: center;
+        margin: 15px 0;
+    }
+
+    .qrcode img {
+        max-width: 150px;
+        display: block;
+        margin: auto;
+    }
+
+    .self-employee {
+        background-color: green;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .validity {
+        color: red;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .footer {
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 15px;
+    }
+
+    .event-address {
+        color: red;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .event-address::before {
+        content: '\1F4CD';
+        margin-right: 5px;
+    }
+
+    .event-link {
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 10px;
+        color: blue;
+    }
+    .container {
+        width: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    h1, p {
+        font-size: 16px;
+    }
+
+    @media only screen and (max-width: 599px) {
+        .wrapper {
+            width: 90%;
+            padding: 15px;
+        }
+        .event-title {
+            font-size: 16px;
+        }
+        .name, .id-number {
+            font-size: 14px;
+        }
+        .self-employee {
+            font-size: 12px;
+            padding: 8px;
+        }
+        .validity {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        body {
+            font-size: 14px;
+        }
+        .container {
+            width: 100%;
+            padding: 10px;
+        }
+    }
+    @media (min-width: 769px) {
+        body {
+            font-size: 16px;
+        }
+        .container {
+            width: 80%;
+            padding: 20px;
+        }
+    }
+    @media (max-width: 375px) {
+        body {
+            font-size: 12px;  /* Smaller text for mobile */
+        }
+        h1 {
+            font-size: 18px;
+        }
+        .container {
+            padding: 10px;
+        }
+    }
+</style>
+
 </head>
 <body>
-    <table class="wrapper" width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-            <td style="background: #082027;">
-                <!-- <img src="https://telad.ridersrally.in/images/madmax-hdr-email.jpg" alt="logo"> -->
-            </td>
-        </tr>
-        <tr>
-            <td class="content">
-                <p>Dear {{ $mailData['name'] }},</p>
-                <p>{!! $mailData['event_introduction'] !!}</p>
-                <p>Here's all you need for the entry – let the anticipation rev up!</p>
+<div class="wrapper">
+    <div class="header">
+        <img src="https://assoc.mytasks.in/homecss/assets/images/email/email-banner.png" alt="Header Image" style="max-width: 150px;">
+    </div>
 
+    <p style="color:blue;">{{ $mailData['valid_period'] }}</p>
 
-      <!--- depends on online-->  @if($mailData['qr_code'])
-        <p><strong>QR Code:</strong></p>
-                <div class="qrcode">
-                    <img src="{{ $mailData['qr_code'] }}" alt="Event QR Code">
-                </div>
-                @endif
-                <h5>Details:</h5>
-                @if($mailData['qr_code']) {{-- Check if QR code exists --}}
-    <ol>
-        <li>QR code is mandatory at the entry gate.</li>
+    @if($mailData['event_address'])
+        <p class="event-address">{{ $mailData['event_address'] }}</p>
+    @elseif($mailData['event_link'])
+        <p class="event-link">Join Link: <a href="{{ $mailData['event_link'] }}" target="_blank">{{ $mailData['event_link'] }}</a></p>
+    @endif
 
-        @if($mailData['event_address'] || $mailData['event_link']) {{-- Show only if address or link exists --}}
-            <li>
-                @if($mailData['event_address'])
-                    Event Location: {{ $mailData['event_address'] }}<br/>
-                    <a href="https://www.google.com/maps/search/{{ urlencode($mailData['event_address']) }}"
-                       target="_blank"
-                       style="color: #31b0e5; font-weight: bold;">
-                        {{ $mailData['event_address'] }}
-                    </a>
-                @endif
+    <h3 class="event-title">{{ $mailData['event_title'] }}</h3>
 
-                @if($mailData['event_link'])
-                    <br/>
-                    Join Link: <a href="{{ $mailData['event_link'] }}" target="_blank">{{ $mailData['event_link'] }}</a>
-                @endif
-            </li>
-        @endif
+    <hr style="margin-bottom: 10px;">
 
-        <li>
-            Event Start Time: <strong>{{ \Carbon\Carbon::parse($mailData['event_time'])->format('d F Y h:i A') }}</strong>.
-        </li>
-    </ol>
-@else
-    <ol>
-        @if($mailData['event_link'])
-            <li>
-                Join Link: <a href="{{ $mailData['event_link'] }}" target="_blank">{{ $mailData['event_link'] }}</a>
-            </li>
-        @endif
+    <p class="name" style="margin-bottom: 10px; color:blue;"><strong>{{ $mailData['name'] }}</strong></p>
 
-        <li>
-            Event Start Time: <strong>{{ \Carbon\Carbon::parse($mailData['event_time'])->format('d F Y h:i A') }}</strong>.
-        </li>
-    </ol>
-@endif <!----end online--->
+    <p style="margin-bottom: 10px; color:blue;">{{ $mailData['city'] }}</p>
+    <hr style="margin-top: 10px; margin-bottom: 10px;">
 
-                <p>Thanks & Regards,<br /><strong>MIMA</strong></p>
-            </td>
-        </tr>
-        <tr>
-            <td class="footer">
-                &#xA9; <?= date("Y") ?> Event Platform. All rights reserved.
-            </td>
-        </tr>
-    </table>
+    @if(!$mailData['event_link'] && $mailData['qr_code'])
+        <div class="qrcode" style="margin-top: 10px;">
+            <img src="{{ $mailData['qr_code'] }}" alt="Event QR Code" style="max-width: 150px;">
+        </div>
+    @endif
+
+    <div class="self-employee">Self Employee</div>
+
+    <p class="validity" style="margin-top: 10px;">*Valid from {{ $mailData['valid_period'] }}</p>
+
+    <p class="footer" style="margin-top: 10px;">Welcome to {{ $mailData['event_title'] }}.<br>Thank you for Registering yourself.!</p>
+</div>
+
 </body>
 </html>

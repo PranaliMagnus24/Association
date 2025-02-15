@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "5balloons/laravel-smart-ads": "^1.2",
         "barryvdh/laravel-dompdf": "^3.1",
         "dompdf/dompdf": "^3.1",
         "guzzlehttp/guzzle": "^7.2",
@@ -18,7 +19,8 @@
         "php-flasher/flasher-toastr-symfony": "^1.15",
         "razorpay/razorpay": "^2.9",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "spatie/image": "^2.2"
+        "spatie/image": "^2.2",
+        "stichoza/google-translate-php": "^5.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="section-title">
-                            <h2>Our Responsibility</h2>
+                            <h2>{{ GoogleTranslate::trans('Our Responsibility', app()->getLocale()) }}</h2>
                         </div>
                     </div>
                 </div>
@@ -36,8 +36,8 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-responsibility">
                             <img src="{{asset('homecss/assets/images/responsibility/01.png')}}" alt="Responsibility">
-                            <h4>Scholarship</h4>
-                            <p>De create building thinking about your requirment and latest treand on our marketplace area</p>
+                            <h4>{{ GoogleTranslate::trans('Scholarship', app()->getLocale()) }}</h4>
+                            <p>{{ GoogleTranslate::trans('De create building thinking about your requirment and latest treand on our marketplace area', app()->getLocale()) }}</p>
                         </div>
                     </div>
                     <!--== Single Responsibility End ==-->
@@ -46,8 +46,8 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-responsibility">
                             <img src="{{asset('homecss/assets/images/responsibility/02.png')}}" alt="Responsibility">
-                            <h4>Help Current Students</h4>
-                            <p>De create building thinking about your requirment and latest treand on our marketplace area</p>
+                            <h4>{{ GoogleTranslate::trans('Help Current Students', app()->getLocale()) }}</h4>
+                            <p>{{ GoogleTranslate::trans('De create building thinking about your requirment and latest treand on our marketplace area', app()->getLocale()) }}</p>
                         </div>
                     </div>
                     <!--== Single Responsibility End ==-->
@@ -56,8 +56,8 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-responsibility">
                             <img src="{{asset('homecss/assets/images/responsibility/03.png')}}" alt="Responsibility">
-                            <h4>Help Our University</h4>
-                            <p>De create building thinking about your requirment and latest treand on our marketplace area</p>
+                            <h4>{{ GoogleTranslate::trans('Help Our University', app()->getLocale()) }}</h4>
+                            <p>{{ GoogleTranslate::trans('De create building thinking about your requirment and latest treand on our marketplace area', app()->getLocale()) }}</p>
                         </div>
                     </div>
                     <!--== Single Responsibility End ==-->
@@ -66,8 +66,8 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-responsibility">
                             <img src="{{asset('homecss/assets/images/responsibility/04.png')}}" alt="Responsibility">
-                            <h4>Build Our Community</h4>
-                            <p>De create building thinking about your requirment and latest treand on our marketplace area</p>
+                            <h4>{{ GoogleTranslate::trans('Build Our Community', app()->getLocale()) }}</h4>
+                            <p>{{ GoogleTranslate::trans('De create building thinking about your requirment and latest treand on our marketplace area', app()->getLocale()) }}</p>
                         </div>
                     </div>
                     <!--== Single Responsibility End ==-->

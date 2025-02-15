@@ -16,6 +16,7 @@ class EventForm extends Model
         'phone',
         'country',
         'state',
+        'usergst_number',
         'city',
         'check_in',
         'check_out'

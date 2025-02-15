@@ -6,12 +6,12 @@
                <div class="row">
                   <div class="col-lg-8 m-auto text-center">
                      <div class="page-title-content">
-                        <h1 class="h2">Frequently Asked Questions</h1>
+                        <h1 class="h2">{{ __('messages.Frequently Asked Questions') }}</h1>
                         <p>
                             <strong>
-                            Honesty and Integrity:
+                            {{ __('messages.Honesty and Integrity') }} :
                             </strong>
-                        Traders are encouraged to be truthful in their dealings, avoid deception, and provide full information about the products they are selling.
+                            {{ __('messages.Traders are encouraged to be truthful in their dealings, avoid deception, and provide full information about the products they are selling.') }}
                         </p>
                         <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
                      </div>
@@ -30,7 +30,7 @@
                 @foreach($datas as $faq)
                     <div class="accordion-item">
                         <button id="accordion-button-1" aria-expanded="false">
-                            <span class="accordion-title">{{$faq->question}}</span>
+                            <span class="accordion-title">{{ $faq->question }}</span>
                             <span class="icon" aria-hidden="true"></span>
                         </button>
                         <div class="accordion-content">

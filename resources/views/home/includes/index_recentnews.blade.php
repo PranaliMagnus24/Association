@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="section-title">
-                            <h2>Recent News</h2>
+                            <h2>{{ GoogleTranslate::trans('Recent News', app()->getLocale()) }}</h2>
                         </div>
                     </div>
                 </div>
@@ -28,22 +28,22 @@
                                             <img src="https://via.placeholder.com/200x200" alt="Author">
                                         </div>
                                         <div class="author-info">
-                                            <h5>Daney williams</h5>
-                                            <p>2 hours Ago</p>
+                                            <h5>{{ GoogleTranslate::trans('Daney williams', app()->getLocale()) }}</h5>
+                                            <p>{{ GoogleTranslate::trans('2 hours Ago', app()->getLocale()) }}</p>
                                         </div>
                                     </a>
                                     <div class="like-comm pull-right">
-                                        <a href="#"><i class="fa fa-comment-o"></i>77</a>
-                                        <a href="#"><i class="fa fa-heart-o"></i>12</a>
+                                        <a href="#"><i class="fa fa-comment-o"></i>{{ GoogleTranslate::trans('77', app()->getLocale()) }}</a>
+                                        <a href="#"><i class="fa fa-heart-o"></i>{{ GoogleTranslate::trans('12', app()->getLocale()) }}</a>
                                     </div>
                                 </figcaption>
                             </figure>
 
                             <div class="blog-content">
-                                <h3><a href="single-blog.html">Recently we create a maassive project that</a></h3>
-                                <p>This is a big project of our company, we are happy to completed this type projec which are
-                                    get world famous award</p>
-                                <a href="single-blog.html" class="btn btn-brand">More</a>
+                                <h3><a href="single-blog.html">{{ GoogleTranslate::trans('Recently we create a maassive project that', app()->getLocale()) }}</a></h3>
+                                <p>T{{ GoogleTranslate::trans('his is a big project of our company, we are happy to completed this type projec which are
+                                    get world famous award', app()->getLocale()) }}</p>
+                                <a href="single-blog.html" class="btn btn-brand">{{ GoogleTranslate::trans('More', app()->getLocale()) }}</a>
                             </div>
                         </article>
                     </div>

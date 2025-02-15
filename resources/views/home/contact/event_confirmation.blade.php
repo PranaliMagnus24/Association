@@ -23,7 +23,9 @@
 
         @if($mailData['qr_code'])
             <p>Scan the QR code below for quick access to your event details:</p>
-            <img src="{{ $message->embed($mailData['qr_code']) }}" alt="Event QR Code" style="width: 200px; height: 200px;">
+            <div style="text-align: center;">
+        <img src="{{ $message->embed($mailData['qr_code']) }}" alt="Event QR Code" style="width: 200px; height: 200px; display: block; margin: 0 auto;">
+    </div>
         @endif
 
         <p>We look forward to seeing you!</p>

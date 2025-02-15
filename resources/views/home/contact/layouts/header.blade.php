@@ -73,6 +73,6 @@
                     <!-- Header -->
                     <tr>
                         <td class="header">
-                            <img src="https://assoc.mytasks.in/public/homecss/assets/images/email/email-banner.png" alt="Header Image">
+                            <img src="https://assoc.mytasks.in/homecss/assets/images/email/email-banner.png" alt="Header Image">
                         </td>
                     </tr>

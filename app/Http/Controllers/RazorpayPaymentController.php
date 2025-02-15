@@ -43,7 +43,8 @@ class RazorpayPaymentController extends Controller
         $event = Event::findOrFail($eventId);
         $eventform = EventForm::findOrFail($eventformId);
         $generalSetting = GeneralSetting::first();
-        return view('home.razorpay_payment', compact('event', 'eventform','generalSetting'));
+        $stateId = session('event_form_data')['state'] ?? null;
+        return view('home.razorpay_payment', compact('event', 'eventform','generalSetting','stateId'));
     }
 
     /**
@@ -53,6 +54,7 @@ class RazorpayPaymentController extends Controller
      */
     public function store(Request $request): RedirectResponse
 {
+
     try {
         $input = $request->all();
 
@@ -74,16 +76,32 @@ class RazorpayPaymentController extends Controller
         // Store event form data
         $eventform = EventForm::create($eventFormData);
 
-        // Store Razorpay payment details
-        $razorpayPayment = new RazorpayPayment();
-        $razorpayPayment->event_id = $eventform->event_id;
-        $razorpayPayment->eventform_id = $eventform->id;
-        $razorpayPayment->event_amount = $payment['amount'] / 100;
-        $razorpayPayment->payment_date = now();
-        $razorpayPayment->status = 'Paid';
-        $razorpayPayment->save();
+        //GST Logic
+         $eventAmount = $request->input('event_amount');
+         $gstRate = 18;
+         $cgst_amount = 0;
+         $sgst_amount = 0;
+         $igst_amount = 0;
 
-        // Clear session data
+         if (isset($eventFormData['state']) && $eventFormData['state'] == 4008) {
+             $cgst_amount = ($eventAmount * $gstRate / 100) / 2;
+             $sgst_amount = $cgst_amount;
+         } else {
+             $igst_amount = ($eventAmount * $gstRate / 100);
+         }
+
+         $razorpayPayment = new RazorpayPayment();
+         $razorpayPayment->event_id = $eventform->event_id;
+         $razorpayPayment->eventform_id = $eventform->id;
+         $razorpayPayment->event_amount = $eventAmount;
+         $razorpayPayment->cgst_amount = $cgst_amount;
+         $razorpayPayment->sgst_amount = $sgst_amount;
+         $razorpayPayment->igst_amount = $igst_amount;
+         $razorpayPayment->total_amount = $eventAmount + $cgst_amount + $sgst_amount + $igst_amount;
+         $razorpayPayment->payment_date = now();
+         $razorpayPayment->status = 'Paid';
+         $razorpayPayment->save();
+
         session()->forget('event_form_data');
 
         // Fetch event details
@@ -111,9 +129,14 @@ class RazorpayPaymentController extends Controller
             'name' => $eventform->name,
             'phone' => $eventform->phone,
             'email' => $eventform->email,
+            'city' => optional($eventform->cities)->name,
             'event_title' => $event->title,
             'event_introduction' => $event->introduction,
             'event_time' => $event->eventstartdatetime,
+            'valid_period' => $event->eventstartdatetime && $event->eventenddatetime
+            ? Carbon::parse($event->eventstartdatetime)->format('d F') . ' - ' .
+              Carbon::parse($event->eventenddatetime)->format('d F Y')
+            : null,
             'event_address' => $event->mode === 'Offline' ? $event->event_address : null,
             'event_link' => $event->mode === 'Online' ? $event->event_link : null,
             'qr_code' => $event->mode === 'Offline' ? public_path($qrCodePath) : null,
@@ -122,31 +145,35 @@ class RazorpayPaymentController extends Controller
         // Generate Confirmation PDF
         $pdfPath = storage_path('app/public/event_confirmation_' . $eventform->id . '.pdf');
         $pdf = PDF::loadView('home.contact.event_pdf', ['mailData' => $data]);
+        $pdf->setPaper([0, 0, 375, 667], 'portrait');
         $pdf->save($pdfPath);
 
-        // Generate Invoice PDF
-        $invoiceData = [
-            'name' => $eventform->name,
-            'phone' => $eventform->phone,
-            'email' => $eventform->email,
-            'event_title' => $event->title,
-            'event_introduction' => $event->introduction,
-            'event_amount' => $razorpayPayment->event_amount,
-            'event_address' => $event->mode === 'Offline' ? $event->event_address : null,
-            'event_link' => $event->mode === 'Online' ? $event->event_address : null,
-            'event_date' => Carbon::parse($event->eventstartdatetime)
-                            ->setTimezone('Asia/Kolkata')
-                            ->format('d F Y, h:i A'),
-            'event_payment_date' => Carbon::parse($razorpayPayment->payment_date)
-                            ->setTimezone('Asia/Kolkata')
-                            ->format('d F Y, h:i A'),
-            'association_name' => $generalSetting->association_name ?? 'N/A',
-            'association_address' => $generalSetting->address ?? 'N/A',
-            'gst_number' => $generalSetting->gst_number ?? 'N/A',
-            'association_logo' => $generalSetting->association_logo
-            ? public_path('upload/general_setting/' . $generalSetting->association_logo)
-            : null,
-        ];
+       // Generate Invoice PDF
+$invoiceData = [
+    'name' => $eventform->name,
+    'phone' => $eventform->phone,
+    'email' => $eventform->email,
+    'event_title' => $event->title,
+    'event_introduction' => $event->introduction,
+    'event_amount' => $razorpayPayment->event_amount,
+    'cgst_amount' => $razorpayPayment->cgst_amount,
+    'sgst_amount' => $razorpayPayment->sgst_amount,
+    'igst_amount' => $razorpayPayment->igst_amount,
+    'event_address' => $event->mode === 'Offline' ? $event->event_address : null,
+    'event_link' => $event->mode === 'Online' ? $event->event_link : null,
+    'event_date' => Carbon::parse($event->eventstartdatetime)
+                    ->setTimezone('Asia/Kolkata')
+                    ->format('d F Y, h:i A'),
+    'event_payment_date' => Carbon::parse($razorpayPayment->payment_date)
+                    ->setTimezone('Asia/Kolkata')
+                    ->format('d F Y, h:i A'),
+    'association_name' => $generalSetting->association_name ?? 'N/A',
+    'association_address' => $generalSetting->address ?? 'N/A',
+    'gst_number' => $generalSetting->gst_number ?? 'N/A',
+    'association_logo' => $generalSetting->association_logo
+    ? public_path('upload/general_setting/' . $generalSetting->association_logo)
+    : null,
+];
 
         $invoicePdfPath = storage_path('app/public/event_invoice_' . $eventform->id . '.pdf');
         $invoicePdf = PDF::loadView('home.contact.event_invoice_pdf', ['invoiceData' => $invoiceData]);

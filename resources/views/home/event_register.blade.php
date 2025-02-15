@@ -129,7 +129,7 @@
                <div class="row">
                   <div class="col-lg-8 m-auto text-center">
                      <div class="page-title-content">
-                        <h1 class="h2">Event Register</h1>
+                        <h1 class="h2">{{ GoogleTranslate::trans('Event Register', app()->getLocale()) }}</h1>
                      </div>
                   </div>
                </div>
@@ -152,7 +152,8 @@
                                         <div class="card text-center" style="width: 100%; max-width: 400px; margin: 20px auto; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
                                             <div class="card-body">
                                             <div class="ribbon ribbon-top-right {{ $event->type == 'Free' ? 'ribbon-free' : 'ribbon-paid' }}">
-                                                <span>{{ ucfirst($event->type) }}</span>
+                                            <span>{{ ucfirst($event->type) }}</span>
+
                                             </div>
                                                 <img
                                                     src="{{ $event->upload ? url('upload/events/'.$event->upload) : url('upload/download.png') }}"
@@ -170,19 +171,20 @@
                                     <div class="card-body">
 
                                         <p class="card-text mt-3" style="font-size: 16px; color: #555;">
-                                            <strong>Venue</strong> <br>
+                                            <strong>{{ __('messages.Venue') }}</strong> <br>
                                             {{ $event->event_address }}
                                         </p>
 
                                         @if($event->type === 'Paid')
                                         <p class="card-text mt-3" style="font-size: 16px; color: #555;">
-                                            <strong>Event Amount</strong> <br>
+                                            <strong>{{ __('messages.Event Amount') }}</strong> <br>
                                             {{ $event->event_amount }} Rs
+
                                         </p>
                                         @else
                                         <p class="card-text mt-3" style="font-size: 16px; color: #555;">
 
-                                            Free
+                                           {{ __('messages.Free') }}
                                         </p>
                                         @endif
 
@@ -223,20 +225,22 @@
                                             <!----loader----------->
                                         <div id="formLoader" class="d-none position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white" style="opacity: 0.7;">
                                             <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-                                                <span class="visually-hidden">Loading...</span>
+                                                <span class="visually-hidden">{{ __('messages.Loading') }} ...</span>
                                             </div>
                                         </div>
                                             <!----end loader---->
                                         <form action="{{route('eventstore')}}" method="POST" id="eventForm" class="row g-3 needs-validation">
                                             @csrf
-                                            <h5 class="fw-normal mb-3 pb-3 text-center text-dark" style="letter-spacing: 1px;"><strong>Event Register</strong> </h5>
+                                            <h5 class="fw-normal mb-3 pb-3 text-center text-dark" style="letter-spacing: 1px;"><strong>
+                                            {{ __('messages.Event Register') }}
+                                            </strong> </h5>
 
                                             <div class="row mb-3">
                                             <div class="col-12 col-md-6">
                                                 <input type="hidden" name="event_id" value="{{ $event->id }}">
                                                 <input type="hidden" name="form_type" value="event_form">
                                                 <div class="form-group">
-                                                    <label for="cbxname" class="form-label">Name <span style="color: red">*</span></label>
+                                                    <label for="cbxname" class="form-label">{{ __('messages.Name') }} <span style="color: red">*</span></label>
                                                     <input type="text" name="name" id="cbxname" placeholder="Your Full Name" class="form-control fs-4">
                                                 </div>
                                                 @error('name')
@@ -245,7 +249,7 @@
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="cbxphone" class="form-label">Phone <span style="color: red">*</span></label>
+                                                    <label for="cbxphone" class="form-label"> {{ __('messages.Phone') }}  <span style="color: red">*</span></label>
                                                     <input type="text" name="phone" id="cbxphone" placeholder="Your Phone" class="form-control fs-4">
                                                 </div>
                                                 @error('phone')
@@ -256,7 +260,7 @@
                                             <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="cbxemail" class="form-label">Email <span style="color: red">*</span></label>
+                                                    <label for="cbxemail" class="form-label">{{ __('messages.Email') }} <span style="color: red">*</span></label>
                                                     <input type="email" name="email" id="cbxemail" placeholder="Your Email" class="form-control fs-4">
                                                 </div>
                                                 @error('email')
@@ -267,7 +271,7 @@
                                             <div class="row">
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="cbxcountry" class="form-label">Country</label>
+                                                    <label for="cbxcountry" class="form-label">{{ __('messages.Country') }}</label>
                                                     <select name="country" id="country-dropdown" class="form-select" aria-label="Default select example" value="{{ old('country') }}">
                                                         <option value="">-- Select Country --</option>
                                                         @foreach ($countries as $country)
@@ -281,9 +285,9 @@
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="cbxstate" class="form-label">State</label>
+                                                    <label for="cbxstate" class="form-label">{{ __('messages.State') }}</label>
                                                     <select name="state" id="state-dropdown" class="form-select" aria-label="Default select example" value="{{ old('state')}}">
-                                                        <option selected>Select State</option>
+                                                        <option selected> -- Select State -- </option>
                                                         <option value=""></option>
                                                     </select>
                                                     @error('state')
@@ -295,9 +299,9 @@
                                             <div class="row">
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="cbxcity" class="form-label">City</label>
+                                                    <label for="cbxcity" class="form-label">{{ __('messages.City') }}</label>
                                                     <select name="city" id="city-dropdown" class="form-select" aria-label="Default select example" value="{{ old('city')}}">
-                                                        <option selected>Select City</option>
+                                                        <option selected> -- Select City -- </option>
                                                         <option value=""></option>
                                                     </select>
                                                     @error('city')
@@ -307,7 +311,7 @@
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                <label for="cbxgst" class="form-label">GST Number(optional)</label>
+                                                <label for="cbxgst" class="form-label">{{ __('messages.GST Number(optional)') }} </label>
                                                 <input type="text" name="usergst_number" id="cbxgst" placeholder="Your GST Number" class="form-control fs-4">
                                                     @error('usergst_number')
                                                     <span class="text-danger">{{$message}}</span>
@@ -316,7 +320,7 @@
                                             </div>
                                             <div class="row">
                                             <div class="col-12 text-center">
-                                                <button class="btn btn-primary send-btn fs-4" type="submit">Send</button>
+                                                <button class="btn btn-primary send-btn fs-4" type="submit">{{ __('messages.Send') }}</button>
                                             </div>
                                             </div>
                                         </form>

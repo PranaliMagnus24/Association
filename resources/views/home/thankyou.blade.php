@@ -95,13 +95,12 @@ h1{
                <div class="row">
                   <div class="col-lg-8 m-auto text-center">
                      <div class="page-title-content">
-                        <h1 class="h2">Thank You</h1>
-                        <p>
-                        The believer is like the bee, which produces honey; it is beneficial and productive.
-                        <br> Hadith
-                        (A metaphor for a productive, beneficial business.)
+                        <h1 class="h2">{{ GoogleTranslate::trans('Thank You', app()->getLocale()) }}</h1>
+                        {{ GoogleTranslate::trans('The believer is like the bee, which produces honey; it is beneficial and productive.', app()->getLocale()) }}
+                        <br>{{ GoogleTranslate::trans(' Hadith
+                            (A metaphor for a productive, beneficial business.)', app()->getLocale()) }}
                         </p>
-                        <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
+                        <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">{{ GoogleTranslate::trans('Let&apos;s See', app()->getLocale()) }}</a>
                      </div>
                   </div>
                </div>
@@ -115,12 +114,12 @@ h1{
         <div class="content mb-5">
   <div class="wrapper-1">
     <div class="wrapper-2">
-      <h1>Thank you !</h1>
-      <h4>Thank you for registering with the Muslim Industrialist and Merchant Association.</h4>
-      <p>We are excited to have you as a valued member and look forward to working together to foster growth, collaboration, and ethical business practices. Welcome to the community!</p>
+      <h1>{{ __('messages.Thank you') }}! }}</h1>
+      <h4>{{ __('messages.Thank you for registering with the Muslim Industrialist and Merchant Association') }}.</h4>
+      <p>{{ __('messages.We are excited to have you as a valued member and look forward to working together to foster growth, collaboration, and ethical business practices. Welcome to the community') }}!</p>
 
       <button class="go-home">
-      <a href="{{route('home.index')}}">Back to home</a>
+      <a href="{{route('home.index')}}">{{ __('messages.Back to home') }}</a>
       </button>
     </div>
 </div>

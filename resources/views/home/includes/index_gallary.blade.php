@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="section-title">
-                            <h2>Our gallery</h2>
+                            <h2>{{ __('messages.Our gallery') }}</h2>
                         </div>
                     </div>
                 </div>
@@ -19,11 +19,11 @@
                         <div class="col-lg-12">
                             <!-- Gallery Menu Start -->
                             <div class="gallery-menu text-center">
-                                <span class="active" data-filter="*">All</span>
-                                <span data-filter=".old">Old Memories</span>
-                                <span data-filter=".event">Event</span>
-                                <span data-filter=".pic">Our Picnic</span>
-                                <span class="d-none d-sm-inline-block" data-filter=".recent">Recent</span>
+                                <span class="active" data-filter="*">{{ __('messages.All') }}</span>
+                                <span data-filter=".old">{{ __('messages.Old Memories') }}</span>
+                                <span data-filter=".event">{{ __('messages.Event') }}</span>
+                                <span data-filter=".pic">{{ __('messages.Our Picnic') }}</span>
+                                <span class="d-none d-sm-inline-block" data-filter=".recent">{{ __('messages.Recent') }}</span>
                             </div>
                             <!-- Gallery Menu End -->
 
@@ -34,8 +34,8 @@
                                     <div class="single-gallery-item gallery-bg-1">
                                         <div class="gallery-hvr-wrap">
                                             <div class="gallery-hvr-text">
-                                                <h4>University Cumpus</h4>
-                                                <p class="gallery-event-date">28 Oct, 2018</p>
+                                                <h4>{{ University Cumpus' }}</h4>
+                                                <p class="gallery-event-date">{{ 28 Oct, 2018' }}</p>
                                             </div>
                                             <a href="{{asset('homecss/assets/images/gallery/gellary-img-1.jpg')}}" class="btn-zoom image-popup">
                                                 <img src="{{asset('homecss/assets/images/zoom-icon.png')}}" alt="a">
@@ -58,8 +58,8 @@
                                     <div class="single-gallery-item gallery-bg-3">
                                         <div class="gallery-hvr-wrap">
                                             <div class="gallery-hvr-text">
-                                                <h4>University Cumpus</h4>
-                                                <p class="gallery-event-date">28 Oct, 2018</p>
+                                                <h4>{{ University Cumpus' }}</h4>
+                                                <p class="gallery-event-date">{{ 28 Oct, 2018' }}</p>
                                             </div>
                                             <a href="{{asset('homecss/assets/images/gallery/gellary-img-1.jpg')}}" class="btn-zoom image-popup">
                                                 <img src="{{asset('homecss/assets/images/zoom-icon.png')}}" alt="a">
@@ -74,8 +74,8 @@
                                     <div class="single-gallery-item gallery-bg-4">
                                         <div class="gallery-hvr-wrap">
                                             <div class="gallery-hvr-text">
-                                                <h4>University Cumpus</h4>
-                                                <p class="gallery-event-date">28 Oct, 2018</p>
+                                                <h4>{{ University Cumpus' }}</h4>
+                                                <p class="gallery-event-date">{{ 28 Oct, 2018' }}</p>
                                             </div>
                                             <a href="{{asset('homecss/assets/images/gallery/gellary-img-1.jpg')}}" class="btn-zoom image-popup">
                                                 <img src="{{asset('homecss/assets/images/zoom-icon.png')}}" alt="a">
@@ -90,8 +90,8 @@
                                     <div class="single-gallery-item gallery-bg-5">
                                         <div class="gallery-hvr-wrap">
                                             <div class="gallery-hvr-text">
-                                                <h4>University Cumpus</h4>
-                                                <p class="gallery-event-date">28 Oct, 2018</p>
+                                                <h4>{{ University Cumpus' }}</h4>
+                                                <p class="gallery-event-date">{{ 28 Oct, 2018' }}</p>
                                             </div>
                                             <a href="{{asset('homecss/assets/images/gallery/gellary-img-1.jpg')}}" class="btn-zoom image-popup">
                                                 <img src="{{asset('homecss/assets/images/zoom-icon.png')}}" alt="a">
@@ -106,8 +106,8 @@
                                     <div class="single-gallery-item gallery-bg-6">
                                         <div class="gallery-hvr-wrap">
                                             <div class="gallery-hvr-text">
-                                                <h4>University Cumpus</h4>
-                                                <p class="gallery-event-date">28 Oct, 2018</p>
+                                                <h4>{{ University Cumpus' }}</h4>
+                                                <p class="gallery-event-date">{{ 28 Oct, 2018' }}</p>
                                             </div>
                                             <a href="{{asset('homecss/assets/images/gallery/gellary-img-1.jpg')}}" class="btn-zoom image-popup">
                                                 <img src="{{asset('homecss/assets/images/zoom-icon.png')}}" alt="a">
@@ -130,8 +130,8 @@
                                     <div class="single-gallery-item gallery-bg-8">
                                         <div class="gallery-hvr-wrap">
                                             <div class="gallery-hvr-text">
-                                                <h4>University Cumpus</h4>
-                                                <p class="gallery-event-date">28 Oct, 2018</p>
+                                                <h4>{{ University Cumpus' }}</h4>
+                                                <p class="gallery-event-date">{{ 28 Oct, 2018' }}</p>
                                             </div>
                                             <a href="{{asset('homecss/assets/images/gallery/gellary-img-1.jpg')}}" class="btn-zoom image-popup">
                                                 <img src="{{asset('homecss/assets/images/zoom-icon.png')}}" alt="a">

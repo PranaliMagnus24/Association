@@ -18,6 +18,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyRegistrationController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Member\JobController;
+use App\Http\Controllers\Member\AdsManagerController;
 use App\Http\Controllers\Events\EventController;
 use App\Http\Controllers\Events\EventDetailsController;
 use App\Http\Controllers\CommitteeController;
@@ -33,6 +34,8 @@ use App\Http\Controllers\RazorpayPaymentController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Category\SubCategoryController;
 use App\Http\Controllers\Category\SubSubCategoryController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\Form_Registration\RegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -295,6 +298,7 @@ Route::get('/jobs', [HomeController::class, 'jobs'])->name('home.jobs');
 Route::get('/jobs/{id}/details', [HomeController::class, 'jobdetails'])->name('jobsdetails');
 Route::get('/thankyou', [HomeController::class, 'thankyou'])->name('thankyou');
 Route::get('/events', [HomeController::class, 'homeevents'])->name('home.events');
+Route::get('/directory/list', [HomeController::class, 'directory_list'])->name('directory.list');
 
 Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
 Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
@@ -302,6 +306,10 @@ Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
 //Directory Controller
 Route::get('/directory', [DirectoryController::class, 'directory'])->name('home.directory');
 Route::get('/directory_details/{id}', [DirectoryController::class, 'show'])->name('directory.view');
+Route::post('/review/store', [DirectoryController::class, 'store'])->name('review.store');
+Route::get('/verify-review/{token}', [DirectoryController::class, 'verify'])->name('review.verify');
+Route::get('comments/{id}', [DirectoryController::class, 'showComments'])->name('comments.show');
+
 
 //Company Registration
 Route::get('/comapny/registration/{id?}', [CompanyRegistrationController::class, 'companyregistration'])->name('home.companyregistration');
@@ -343,6 +351,11 @@ Route::get('apply-details/{id}', [JobController::class, 'jobapplydetails'])->nam
 Route::post('/interview', [JobController::class, 'interview'])->name('interviewstore');
 
 
+//Ads Manager Controller
+Route::get('create/ads', [AdsManagerController::class, 'index'])->name('create.ads');
+Route::post('/create/ads', [AdsManagerController::class, 'store'])->name('ads.store');
+
+
 
 //Event Details Controller
 Route::get('event_details/{id}', [EventDetailsController::class, 'eventdetails'])->name('eventdetails');
@@ -362,3 +375,11 @@ Route::post('/send-contact', [MailController::class, 'sendContact'])->name('send
 Route::get('/razorpay-payment', [RazorpayPaymentController::class, 'razorpayindex'])->name('razorpay.payment.index');
 Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');
 
+//LanguageController;
+Route::get('lang/home', [LanguageController::class, 'index']);
+Route::get('lang/change', [LanguageController::class, 'change'])->name('changeLang');
+
+
+//Form Registration Controller
+Route::get('registration', [RegistrationController::class, 'index'])->name('registration.index');
+Route::post('registration', [RegistrationController::class, 'registrationstore'])->name('registration.store');

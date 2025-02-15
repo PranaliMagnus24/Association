@@ -143,10 +143,9 @@
                <div class="row">
                   <div class="col-lg-8 m-auto text-center">
                      <div class="page-title-content">
-                        <h1 class="h2">Directory</h1>
+                        <h1 class="h2">{{ __('messages.Directory') }}</h1>
                         <p>
-                        The truthful and honest businessman will be in the company of the Prophets, the truthful ones (Siddeeqeen), and the martyrs (Shuhada) on the Day of Judgment.
-                        (Mishkat al-Masabih, Hadith 2828)
+                        {{ __('messages.The truthful and honest businessman will be in the company of the Prophets, the truthful ones (Siddeeqeen), and the martyrs (Shuhada) on the Day of Judgment.(Mishkat al-Masabih, Hadith 2828)') }}
                         </p>
                         <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
                      </div>
@@ -183,7 +182,7 @@
                                     <option value="">-- Select State --</option>
                                     @foreach ($states as $state)
                                     <option value="{{ $state->id }}" {{ request('state_id') == $state->id ? 'selected' : '' }}>
-                                        {{ $state->name }}
+                                    {{ $state->name}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -198,7 +197,7 @@
                                     <option value="">-- Select City --</option>
                                     @foreach ($cities as $city)
                                     <option value="{{ $city->id }}" {{ request('city_id') == $city->id ? 'selected' : '' }}>
-                                        {{ $city->name }}
+                                    {{ $city->name }}
                                     </option>
                                     @endforeach
                                 </select>
@@ -208,7 +207,7 @@
 
                         <!-- Search Button -->
                         <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary fs-4 w-100 form-control">Search</button>
+                            <button type="submit" class="btn btn-primary fs-4 w-100 form-control">{{ __('messages.Search') }}</button>
                         </div>
                     </div>
                 </form>
@@ -244,17 +243,35 @@
                                     </div>
                                 </div>
                                 <h6>{{ $companypro->company_name }}</h6>
+                                     <!-- Display Average Rating -->
+                                      <div class="average-rating mt-2">
+                                      <div class="rated">
+                                      @php
+    $averageRating = $companypro->reviews()->where('status', 'active')->avg('star_rating') ?? 0;
+    $totalComments = $companypro->reviews()->where('status', 'active')->count();
+@endphp
+
+@if($totalComments > 0)
+    <span>{{ number_format($averageRating, 1) }}</span>
+    @for ($i = 1; $i <= 5; $i++)
+        <label class="star-rating-complete" style="font-size:20px; color: {{ $i <= round($averageRating) ? 'gold' : '#ddd' }};">&#9733;</label>
+    @endfor
+@endif
+
+                                    </div>
+                                    </div>
+                                   <!--End Display Average Rating -->
                                 <p> {{ $companypro->states->name }} &nbsp; {{ $companypro->cities->name }}</p>
                                 <p>{{ strip_tags($companypro->about_company) }}</p>
                             </div>
                             <div class="button-group">
-                                <a href="{{ url('directory_details', $companypro->id)}}" class="btn btn-companypro">View Details</a>
+                                <a href="{{ url('directory_details', $companypro->id)}}" class="btn btn-companypro">{{ __('messages.View Details') }}</a>
                             </div>
                         </div>
                     </div>
                 @empty
-                    <div class="col-12">
-                        <p>No companies found.</p>
+                    <div class="col-12 text-center fs-2">
+                        <p>{{ __('messages.No companies found') }}.</p>
                     </div>
                 @endforelse
             </div>
@@ -359,7 +376,21 @@ $('#state-dropdown').on('change', function () {
 
 });
 
-
+$(document).ready(function() {
+        $('.view-comments').on('click', function() {
+            var companyId = $(this).data('id');
+            $.ajax({
+                url: '/comments/' + companyId, // Adjust the URL as needed
+                method: 'GET',
+                success: function(data) {
+                    $('#commentsContent').html(data.html);
+                },
+                error: function() {
+                    $('#commentsContent').html('<p>Error loading comments.</p>');
+                }
+            });
+        });
+    });
 </script>
 
 

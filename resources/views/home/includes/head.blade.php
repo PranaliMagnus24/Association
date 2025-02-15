@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html @if(app()->getLocale()=='en') translate="no" @else lang="{{ app()->getLocale() }}" @endif dir="{{ in_array(app()->getLocale(), ['ar', 'ur']) ? 'rtl' : 'ltr' }}">
 <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -24,7 +24,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     $getSetting = \App\Models\GeneralSetting::first();
 @endphp
 @if($getSetting)
-    <title>{{$getSetting->association_name}}</title>
+<title>{{ $getSetting ? $getSetting->association_name : 'Mi.Association' }}</title>
     @else
 <h1>Mi.Association</h1>
 @endif
@@ -34,6 +34,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="twitter:creator" content="@mimaindia">
     <meta name="twitter:url" content="http://mimaindia.org">
     <meta name="twitter:title" content="{{$getSetting->association_name}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="content-language" content="en" />
     <!-- maximum 140 char -->
     <meta name="twitter:description" content="{{$getSetting->description}}">
     <!-- maximum 140 char -->
@@ -95,6 +97,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     </head>

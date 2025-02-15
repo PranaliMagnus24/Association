@@ -6,13 +6,12 @@
                <div class="row">
                   <div class="col-lg-8 m-auto text-center">
                      <div class="page-title-content">
-                        <h1 class="h2">Our Gallery</h1>
+                        <h1 class="h2">{{ __('messages.Our Gallery') }}</h1>
                         <p>
-                        The believer is like the bee, which produces honey; it is beneficial and productive.
-                        <br> Hadith
-                        (A metaphor for a productive, beneficial business.)
+                        {{ __('messages.The believer is like the bee, which produces honey; it is beneficial and productive') }}.
+                        <br> {{ __('messages.Hadith (A metaphor for a productive, beneficial business.)') }}
                         </p>
-                        <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
+                        <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">{{ GoogleTranslate::trans('Let&apos;s See', app()->getLocale()) }}</a>
                      </div>
                   </div>
                </div>
@@ -30,7 +29,7 @@
                     @if(is_array($gallery) && count($gallery) > 0)
                         <button class="btn btn-default filter-button" data-filter="all">All</button>
                         @foreach($gallery as $galkey => $gal)
-                            <button class="btn btn-default filter-button" data-filter="{{ str_replace(' ', '_', strtolower($gal['name'])) }}">{{ $gal['name'] }}</button>
+                            <button class="btn btn-default filter-button" data-filter="{{ str_replace(' ', '_', strtolower($gal['name'])) }}">{{ $gal['name']  }}</button>
                         @endforeach
                     @endif
                 </div>
@@ -45,7 +44,7 @@
                             @endforeach
                         @endforeach
                     @else
-                        <h2 align="center" style="font-weight: bold;">Coming Soon</h2>
+                        <h2 align="center" style="font-weight: bold;">{{ __('messages.Coming Soon') }}</h2>
                     @endif
                 </div>
             </div>

@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -25,7 +26,7 @@ use Razorpay\Api\Api;
 use App\Mail\EventConfirmationMail;
 use SimpleQrcode;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use PDF;
+
 use Str;
 use File;
 
@@ -94,10 +95,15 @@ class EventDetailsController extends Controller
         $data = [
             'name' => $eventform->name,
             'phone' => $eventform->phone,
+            'city' => optional($eventform->cities)->name,
             'email' => $eventform->email,
             'event_title' => $event->title,
             'event_introduction' => $event->introduction,
             'event_time' => $event->eventstartdatetime,
+            'valid_period' => $event->eventstartdatetime && $event->eventenddatetime
+            ? Carbon::parse($event->eventstartdatetime)->format('d F') . ' - ' .
+              Carbon::parse($event->eventenddatetime)->format('d F Y')
+            : null,
             'event_address' => $event->mode === 'Offline' ? $event->event_address : null,
             'event_link' => $event->mode === 'Online' ? $event->event_link : null,
             'qr_code' => null,
@@ -119,6 +125,7 @@ class EventDetailsController extends Controller
 
         // Generate PDF
         $pdf = PDF::loadView('home.contact.event_pdf', ['mailData' => $data]);
+        $pdf->setPaper([0, 0, 375, 667], 'portrait');
         $pdfPath = storage_path('app/public/event_confirmation_' . $eventform->id . '.pdf');
         $pdf->save($pdfPath);
 

@@ -46,7 +46,7 @@
                                     <div class="event-thumb-item event-thumb-img-1" style="background-image: url('{{ $event->upload ? url('upload/events/'.$event->upload) : 'upload/No-Image.png' }}'); min-height: 500px; max-height: 500px; background-size: cover; background-position: center; position: relative;
   z-index: 1;">
                                             <div class="event-meta">
-                                                <h3>{{$event->title}}</h3>
+                                                <h3>{{ $event->title }}</h3>
                                                 @if(!empty($event->event_address))
                                                 <a class="event-address" href="#">
                                                     <i class="fa fa-map-marker"></i>{{ $event->event_address }}
@@ -55,39 +55,42 @@
                                                  @endif
                                                  <!-- Event Type (capitalized, bold, and with dynamic color) -->
                                                   <span class="event-type" style="color: {{ $event->type == 'Free' ? 'green' : ($event->type == 'Paid' ? 'red' : 'black') }}; font-weight: bold;">
-                                                    {{ strtoupper($event->type) }}
+                                                  {{ strtoupper($event->type ?? '') }}
+
+
                                                 </span>
-                                                <a href="{{route('eventregister',$event->id)}}" class="btn btn-brand btn-join">Join</a>
+                                                <a href="{{route('eventregister',$event->id)}}" class="btn btn-brand btn-join">{{ __('messages.Join') }}</a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="event-countdown">
                                             <div class="event-countdown-counter" data-date="{{ \Carbon\Carbon::parse($event->eventstartdatetime)->format('Y/m/d H:i:s') }}">
-                                                <span class="countdown-text">Loading...</span>
+                                                <span class="countdown-text">{{ __('messages.Loading') }} ...</span>
                                             </div>
-                                            <p>Remaining</p>
+                                            <p>{{ __('messages.Remaining') }}</p>
                                         </div>
                                 </div>
                                 <div class="mt-3">
                                     <div class="event-details">
-                                        <span><strong>Event Start Day:</strong> {{ \Carbon\Carbon::parse($event->eventstartdatetime)->format('d F Y') }}</span> |
-                                        <span><strong>Start Time:</strong> {{ \Carbon\Carbon::parse($event->eventstartdatetime)->format('h:i A') }}</span> |
-                                        <span><strong>Event End Day:</strong> {{ \Carbon\Carbon::parse($event->eventenddatetime)->format('d F Y') }}</span> |
-                                        <span><strong>End Time:</strong> {{ \Carbon\Carbon::parse($event->eventenddatetime)->format('h:i A') }}</span>
+                                        <span><strong>{{ __('messages.Event Start Day') }}:</strong> {{ \Carbon\Carbon::parse($event->eventstartdatetime)->format('d F Y') }}</span> |
+                                        <span><strong>{{ __('messages.Start Time') }} :</strong> {{ \Carbon\Carbon::parse($event->eventstartdatetime)->format('h:i A') }}</span> |
+                                        <span><strong>{{ __('messages.Event End Day') }} :</strong> {{ \Carbon\Carbon::parse($event->eventenddatetime)->format('d F Y') }}</span> |
+                                        <span><strong>{{ __('messages.End Time') }} :</strong> {{ \Carbon\Carbon::parse($event->eventenddatetime)->format('h:i A') }}</span>
                                     </div>
                                 </div>
                                 <div class="mt-3 text-left">
-                                    <h2>Introduction</h2>
-                                    {!! $event->introduction !!}
-                                </div>
+    <h2>{{ __('messages.Introduction') }}</h2>
+    {!! $event->introduction !!}
+</div>
 
-                                <div class="mt-3 text-left">
-                                    <h2>Details all Thing About This Event</h2>
-                                    {!! $event->description !!}
-                                </div>
+<div class="mt-3 text-left">
+    <h2>{{ __('messages.All Details About This Event') }}</h2>
+    {!! $event->description !!}
+</div>
+
 
                                 <div class="event-schedul">
-                                    <h3>Event Schedule</h3>
+                                    <h3>{{ __('messages.Event Schedule') }}</h3>
 
                                   {{--  <div class="row justify-content-center">
                                         <div class="col-md-10">

@@ -60,10 +60,9 @@
                <div class="row">
                   <div class="col-lg-8 m-auto text-center">
                      <div class="page-title-content">
-                        <h1 class="h2">{{$job->company}}</h1>
+                        <h1 class="h2">{{ $job->company }}</h1>
                         <p>
-                        The truthful and honest businessman will be in the company of the Prophets, the truthful ones (Siddeeqeen), and the martyrs (Shuhada) on the Day of Judgment.
-                        (Mishkat al-Masabih, Hadith 2828)
+                        {{ __('messages.The truthful and honest businessman will be in the company of the Prophets, the truthful ones (Siddeeqeen), and the martyrs (Shuhada) on the Day of Judgment.(Mishkat al-Masabih, Hadith 2828)') }}
                         </p>
                         <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Let&apos;s See</a>
                      </div>
@@ -102,12 +101,13 @@
                         <div class="row">
                             @if(!empty($job->exp_req))
                         <div class="col-6 job-detail">
-                        <strong><i class="fas fa-briefcase"></i> Experience:-</strong>
-                        <span>{{ $job->exp_req }} years</span>
+                        <strong><i class="fas fa-briefcase"></i> {{ __('messages.Experience') }}:-</strong>
+                        <span>{{ ($job->exp_req ?? '') . ' years' }}</span>
+
                         </div>
                         @endif
                         <div class="col-6 job-detail">
-                            <strong><i class="fas fa-map-marker-alt"></i> Location:-</strong>
+                            <strong><i class="fas fa-map-marker-alt"></i> {{ __('messages.Location') }}:-</strong>
                             <span>{{ $job->cities->name }}</span>
                         </div>
                         </div>
@@ -115,13 +115,13 @@
                         <div class="row">
                         @if(!empty($job->vacancy))
                         <div class="col-6 job-detail">
-                            <strong><i class="fa fa-tasks"></i> No. Of Position:-</strong>
+                            <strong><i class="fa fa-tasks"></i> {{ __('messages.No. Of Position') }}:-</strong>
                             <span>{{ $job->vacancy }}</span>
                         </div>
                         @endif
                         @if(!empty($job->salary))
                         <div class="col-6 job-detail">
-                        <strong><i class="fa fa-rupee-sign"></i> Salary:-</strong>
+                        <strong><i class="fa fa-rupee-sign"></i> {{ __('messages.Salary') }}:-</strong>
                         <span>{{ $job->salary }}</span>
 
                         </div>
@@ -129,12 +129,12 @@
                         </div>
                         <div class="row">
                         <div class="col-6 job-detail">
-                        <strong><i class="fa fa-briefcase"></i> Job Type</strong>
+                        <strong><i class="fa fa-briefcase"></i> {{ __('messages.Job Type') }}:-</strong>
 
                         <span>{{ $job->job_type }}</span>
                         </div>
                         <div class="col-6 job-detail">
-                        <strong><i class="fa fa-laptop-house"></i> Job Mode</strong>
+                        <strong><i class="fa fa-laptop-house"></i>{{ __('messages.Job Mode') }}:-</strong>
 
                         <span>{{ $job->job_mode }}</span>
                         </div>
@@ -153,12 +153,12 @@
                         </div>--}}
 
                         <div class="job-detail">
-                        <strong><i class="fas fa-tools"></i> Skills:-</strong>
-                            <span>{{ strip_tags($job->skill) }}</span>
+                        <strong><i class="fas fa-tools"></i> {{ __('messages.Skills') }}:-</strong>
+                        <span>{{ strip_tags($job->skill ?? '') }}</span>
                         </div>
                         <hr class="job_hr">
                         <div class="job-detail">
-                        <strong><i class="fas fa-file-alt"></i> Job Description:-</strong>
+                        <strong><i class="fas fa-file-alt"></i> {{ __('messages.Job Description') }}:-</strong>
                             <span>{!! $job->job_desc !!}</span>
                         </div>
                     </div>
@@ -180,13 +180,13 @@
                                             <!----loader----------->
                                         <div id="formLoader" class="d-none position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white" style="opacity: 0.7;">
                                             <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-                                                <span class="visually-hidden">Loading...</span>
+                                                <span class="visually-hidden">{{ __('messages.Loading') }} ...</span>
                                             </div>
                                         </div>
                                             <!----end loader---->
                                         <form action="{{ route('job.apply') }}" method="POST" id="JobApply" class="row g-3 needs-validation" enctype="multipart/form-data">
                                             @csrf
-                                            <h5 class="fw-normal mb-3 pb-3 text-center text-dark" style="letter-spacing: 1px;"><strong>Apply Now</strong></h5>
+                                            <h5 class="fw-normal mb-3 pb-3 text-center text-dark" style="letter-spacing: 1px;"><strong>{{ __('messages.Apply Now') }}</strong></h5>
 
                                             <div class="row mb-3">
                                             <div class="col-12 col-md-6">
@@ -194,8 +194,8 @@
                                                 <input type="hidden" name="company_id" value="{{ $job->company_id }}">
                                                 <input type="hidden" name="job_id" value="{{ $job->id }}">
                                                 <div class="form-group">
-                                                    <label for="cbxname" class="form-label">Full Name<span style="color: red">*</span></label>
-                                                    <input type="text" name="name" id="cbxname" placeholder="Your Full Name" class="form-control fs-4">
+                                                    <label for="cbxname" class="form-label">{{ __('messages.Full Name') }}<span style="color: red">*</span></label>
+                                                    <input type="text" name="name" id="cbxname" placeholder="{{ GoogleTranslate::trans('Your Full Name', app()->getLocale()) }}" class="form-control fs-4">
                                                 </div>
                                                 @error('name')
                                                 <span class="text-danger">{{$message}}</span>
@@ -203,8 +203,8 @@
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="cbxphone" class="form-label">Contact No. <span style="color: red">*</span></label>
-                                                    <input type="text" name="phone" id="cbxphone" placeholder="Your Phone" class="form-control fs-4">
+                                                    <label for="cbxphone" class="form-label">{{ __('messages.Contact') }} <span style="color: red">*</span></label>
+                                                    <input type="text" name="phone" id="cbxphone" placeholder="{{ GoogleTranslate::trans('Your Phone', app()->getLocale()) }}" class="form-control fs-4">
                                                 </div>
                                                 @error('phone')
                                                 <span class="text-danger">{{$message}}</span>
@@ -216,7 +216,7 @@
                                             <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="cbxemail" class="form-label">Email <span style="color: red">*</span></label>
+                                                    <label for="cbxemail" class="form-label">{{ __('messages.Email') }} <span style="color: red">*</span></label>
                                                     <input type="email" name="to" id="cbxemail" placeholder="Your Email" class="form-control fs-4">
                                                 </div>
                                                 @error('to')
@@ -229,8 +229,8 @@
                                             <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="cbxsubject" class="form-label">Subject <span style="color: red">*</span></label>
-                                                    <input type="subject" name="subject" id="cbxsubject" placeholder="Your Subject" class="form-control fs-4">
+                                                    <label for="cbxsubject" class="form-label">{{ __('messages.Subject') }} <span style="color: red">*</span></label>
+                                                    <input type="subject" name="subject" id="cbxsubject" placeholder="{{ GoogleTranslate::trans('Your Subject', app()->getLocale()) }}" class="form-control fs-4">
                                                 </div>
                                                 @error('subject')
                                                 <span class="text-danger">{{$message}}</span>
@@ -241,15 +241,15 @@
                                             <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="cbxmessage" class="form-label">Message</label>
-                                                    <textarea name="message" id="message" rows="10" cols="80" placeholder="Your Message" class="form-control fs-4" style="height: 120px;"></textarea>
+                                                    <label for="cbxmessage" class="form-label">{{ __('messages.Message') }}</label>
+                                                    <textarea name="message" id="message" rows="10" cols="80" placeholder="{{ GoogleTranslate::trans('Your Message', app()->getLocale()) }}" class="form-control fs-4" style="height: 120px;"></textarea>
                                                 </div>
                                             </div>
                                             </div>
                                             <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="cbxresume" class="form-label">Upload Resume <span style="color: red">*</span></label>
+                                                    <label for="cbxresume" class="form-label">{{ __('messages.Upload Resume') }} <span style="color: red">*</span></label>
                                                     <input type="file" name="upload_resume" id="cbxresume"  class="form-control fs-4">
                                                 </div>
                                                 @error('upload_resume')
@@ -259,7 +259,7 @@
                                             </div>
                                             <div class="row">
                                             <div class="col-12 text-center">
-                                                <button class="btn btn-primary send-btn fs-4" type="submit">Apply</button>
+                                                <button class="btn btn-primary send-btn fs-4" type="submit">{{ __('messages.Apply') }}</button>
                                             </div>
                                             </div>
 

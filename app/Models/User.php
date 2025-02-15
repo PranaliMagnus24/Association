@@ -101,5 +101,12 @@ public function zips()
 public function eventform()
 {
     return $this->hasMany(EventForm::class, 'user_id', 'id');
+
 }
+
+public function reviews() {
+    return $this->hasMany(CompanyReview::class, 'company_id');
 }
+
+}
+
