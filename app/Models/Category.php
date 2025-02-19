@@ -17,7 +17,7 @@ class Category extends Model
 
     public function subcategory()
     {
-        return $this->hasMany(SubCategory::class);
+        return $this->hasMany(SubCategory::class,'company_type');
     }
 
     public function subsubcategory()
@@ -29,4 +29,12 @@ class Category extends Model
     {
         return $this->hasMany(Job::class, 'category_id', 'id');
     }
+
+    public function companies()
+{
+
+    return $this->hasMany(CompanyPro::class, 'company_type', 'category_name');
+}
+
+
 }

@@ -99,7 +99,7 @@
                 <td>{{$loop->iteration}}</td>
                 <td>{{ $data->membership_id}}</td>
                 <td>{{$data->company_name}}</td>
-                <td>{{$data->company_type}}</td>
+                <td>{{ $data->category ? $data->category->category_name : 'N/A' }}</td>
                 <td>{{$data->membership_type}}</td>
                 <td>{{$data->renewal_date}}</td>
 

@@ -216,7 +216,7 @@ $getUser = App\Models\User::first();
           <hr class="dropdown-divider">
         </li>
 
-        <li>
+        <li class="d-flex justify-content-center mb-3 mt-3">
         <form method="POST" action="{{ route('logout') }}">
                 @csrf
 

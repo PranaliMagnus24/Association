@@ -18,47 +18,58 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\SubSubCategory;
 use Str;
 use File;
 
 class DirectoryController extends Controller
 {
+
     public function directory(Request $request)
 {
     $selectedCategory = $request->get('category');
+    $selectedSubCategory = $request->get('subcategory_id');
+    $selectedCharacter = $request->get('character');
+
     $query = CompanyPro::query();
-    if ($selectedCategory) {
+
+    if (!empty($selectedCategory)) {
         $query->where('company_type', $selectedCategory);
     }
 
-    // Search filter
-    if ($request->has('search') && !empty($request->search)) {
-        $query->where('company_name', 'like', '%' . $request->search . '%')
-              ->orWhere('about_company', 'like', '%' . $request->search . '%');
+    if (!empty($selectedSubCategory)) {
+        $query->where('subcategory_id', $selectedSubCategory);
     }
 
-    // Filter by state name
+    if ($request->has('search') && !empty($request->search)) {
+        $query->where(function ($q) use ($request) {
+            $q->where('company_name', 'like', '%' . $request->search . '%')
+              ->orWhere('about_company', 'like', '%' . $request->search . '%');
+        });
+    }
+
     if ($request->has('state_id') && !empty($request->state_id)) {
         $query->where('state', $request->state_id);
     }
 
-    // Filter by city name
     if ($request->has('city_id') && !empty($request->city_id)) {
         $query->where('city', $request->city_id);
     }
 
+    if (!empty($selectedCharacter)) {
+        $query->where('company_name', 'like', $selectedCharacter . '%');
+    }
+
     $companyprofiles = $query->inRandomOrder()->paginate(12);
 
-
     $states = State::where('country_id', 101)->get();
+    $categories = Category::all();
 
+    $cities = $request->has('state_id') ? City::where('state_id', $request->state_id)->get() : collect();
 
-    $cities = $request->has('state_id')
-        ? City::where('state_id', $request->state_id)->get()
-        : collect();
-
-    return view('home.directory', compact('companyprofiles', 'states', 'cities','selectedCategory'));
+    return view('home.directory', compact('companyprofiles', 'states', 'cities', 'categories', 'selectedCategory', 'selectedSubCategory', 'selectedCharacter'));
 }
+
 
 
     //directory details page
@@ -156,6 +167,14 @@ public function showComments($id)
     }
 
     return response()->json(['html' => $output]);
+}
+
+
+public function getSubcategories($category_id)
+{
+    $subcategories = SubCategory::where('category_id', $category_id)->get();
+
+    return response()->json($subcategories);
 }
 
 

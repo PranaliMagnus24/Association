@@ -15,6 +15,7 @@ use App\Models\Country;
 use App\Models\City;
 use App\Models\State;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\Membershipyear;
 use App\Models\Membership;
 use App\Models\Documentupload;
@@ -105,14 +106,16 @@ class MemberController extends Controller
 {
     $companyProfile = CompanyPro::find($id);
 
-    // Check if the company profile exists
     if (!$companyProfile) {
         toastr()->timeOut(5000)->closeButton()->addError('Company profile not found!');
         return redirect()->route('profile.index', ['tab' => 'company']);
     }
 
     $request->validate([
-        'company_type' => 'nullable|string',
+        'company_type' => 'required|string',
+        'other_category' => 'required_if:company_type,other|string|nullable',
+        'subcategory_id' => 'required|string',
+        'other_subcategory' => 'required_if:subcategory_id,other|string|nullable',
         'company_name' => 'required|string',
         'aadharcard_number' => 'nullable|string',
         'registration_date' => 'required|date',
@@ -124,24 +127,43 @@ class MemberController extends Controller
         'about_company' => 'required',
     ]);
 
-    // Handle company logo upload
+    // Handle company type selection
+    if ($request->company_type === 'other' && $request->other_category) {
+        $newCategory = Category::firstOrCreate([
+            'category_name' => $request->other_category,
+            'status' => 'active',
+        ]);
+        $companyProfile->company_type = $newCategory->id;
+    } else {
+        $companyProfile->company_type = $request->company_type;
+    }
+
+    // Handle subcategory selection
+    if ($request->subcategory_id === 'other' && $request->other_subcategory) {
+        $newSubcategory = SubCategory::firstOrCreate([
+            'subcategory_name' => $request->other_subcategory,
+            'category_id' => $companyProfile->company_type,
+            'status' => 'active',
+        ]);
+        $companyProfile->subcategory_id = $newSubcategory->id;
+    } else {
+        $companyProfile->subcategory_id = $request->subcategory_id;
+    }
+
+    // Handle logo upload
     if ($request->hasFile('company_logo')) {
-        // Delete the existing logo if it exists
         if (!empty($companyProfile->company_logo) && file_exists(public_path('upload/company_documents/' . $companyProfile->company_logo))) {
             unlink(public_path('upload/company_documents/' . $companyProfile->company_logo));
         }
 
-        // Upload the new logo
         $file = $request->file('company_logo');
-        $randomStr = Str::random(30);
-        $filename = $randomStr . '.' . $file->getClientOriginalExtension();
+        $filename = Str::random(30) . '.' . $file->getClientOriginalExtension();
         $file->move(public_path('upload/company_documents/'), $filename);
-        $companyProfile->company_logo = $filename; // Update the company logo
+        $companyProfile->company_logo = $filename;
     }
 
     // Update other fields
-    $input = $request->except('company_logo'); // Exclude company_logo from the input
-    $companyProfile->update($input);
+    $companyProfile->update($request->except(['company_logo', 'other_category', 'other_subcategory']));
 
     // Handle document uploads
     $documents = ['company_identity', 'company_address', 'aadharcard', 'authority_letter'];
@@ -154,7 +176,7 @@ class MemberController extends Controller
 
             $file = $request->file($document);
             $fileName = uniqid() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('upload/company_documents/' . $id), $fileName);
+            $file->move(public_path("upload/company_documents/$id"), $fileName);
 
             Documentupload::updateOrCreate(
                 ['company_id' => $id, 'file_type' => $document],
@@ -212,4 +234,11 @@ class MemberController extends Controller
             'companyProfile' => $companyProfile
         ]);
     }
+
+
+    public function getSubcategories($category_id)
+{
+    $subcategories = SubCategory::where('category_id', $category_id)->get();
+    return response()->json($subcategories);
+}
 }

@@ -15,6 +15,7 @@ use App\Models\Membershipyear;
 use App\Models\Zipcode;
 use App\Models\Membership;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\Documentupload;
 use Str;
 use File;
@@ -53,12 +54,39 @@ class CompanyRegistrationController extends Controller
             'company_address' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
             'aadharcard' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
             'authority_letter' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
+            'subcategory_id' => 'nullable|string',
+            'other_category' => 'nullable|string',
+            'other_subcategory' => 'nullable|string',
         ]);
 
+// **1. Handling "Other" Category**
+if ($request->company_type === 'other' && $request->other_category) {
+    $newCategory = Category::create([
+        'category_name' => $request->other_category,
+        'status' => 'active',
+    ]);
+    $request->company_type = $newCategory->id;
+}
 
+// **2. Handling "Other" Subcategory**
+if ($request->subcategory_id === 'other' && $request->other_subcategory) {
+    $existingSubcategory = SubCategory::where('subcategory_name', $request->other_subcategory)->first();
+
+    if (!$existingSubcategory) {
+        $newSubcategory = SubCategory::create([
+            'subcategory_name' => $request->other_subcategory,
+            'category_id' => $request->company_type,
+            'status' => 'active',
+        ]);
+        $request->subcategory_id = $newSubcategory->id;
+    } else {
+        $request->subcategory_id = $existingSubcategory->id;
+    }
+}
        $data = new CompanyPro;
        $data->company_type = $request->company_type;
        $data->company_name = $request->company_name;
+       $data->subcategory_id = $request->subcategory_id;
        $data->aadharcard_number = $request->aadharcard_number;
        $data->registration_date = $request->registration_date;
        $data->renewal_date = $request->renewal_date;
@@ -365,5 +393,16 @@ class CompanyRegistrationController extends Controller
         return view('admin.membership.company_profile.show', compact('data'));
     }
 
+
+    public function getSubcategories($category_id)
+{
+    $subcategories = SubCategory::where('category_id', $category_id)->get();
+
+    if ($subcategories->isEmpty()) {
+        return response()->json(['error' => 'No subcategories found'], 404);
+    }
+
+    return response()->json($subcategories);
+}
 
 }

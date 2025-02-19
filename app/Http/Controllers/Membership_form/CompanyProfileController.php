@@ -17,6 +17,7 @@ use App\Models\Membershipyear;
 use App\Models\Zipcode;
 use App\Models\Membership;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\Documentupload;
 use Str;
 use File;
@@ -27,8 +28,7 @@ class CompanyProfileController extends Controller
 
 public function index()
 {
-
-    $datas = CompanyPro::paginate(12);
+    $datas = CompanyPro::with('category', 'subcategory')->paginate(12);
     return view('admin.membership.company_profile.index', compact('datas'));
 }
 
@@ -65,12 +65,39 @@ public function companystore(Request $request){
         'company_address' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
         'aadharcard' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
         'authority_letter' => 'nullable|mimes:jpg,png,jpeg,gif,svg,pdf,doc|max:2048',
-        'technologies' => 'nullable|array',
-        'technologies.*' => 'string',
+        'subcategory_id' => 'nullable|string',
+        'other_category' => 'nullable|string',
+        'other_subcategory' => 'nullable|string',
     ]);
+
+ // **1. Handling "Other" Category**
+ if ($request->company_type === 'other' && $request->other_category) {
+    $newCategory = Category::create([
+        'category_name' => $request->other_category,
+        'status' => 'active',
+    ]);
+    $request->company_type = $newCategory->id;
+}
+
+// **2. Handling "Other" Subcategory**
+if ($request->subcategory_id === 'other' && $request->other_subcategory) {
+    $existingSubcategory = SubCategory::where('subcategory_name', $request->other_subcategory)->first();
+
+    if (!$existingSubcategory) {
+        $newSubcategory = SubCategory::create([
+            'subcategory_name' => $request->other_subcategory,
+            'category_id' => $request->company_type,
+            'status' => 'active',
+        ]);
+        $request->subcategory_id = $newSubcategory->id;
+    } else {
+        $request->subcategory_id = $existingSubcategory->id;
+    }
+}
 
    $data = new CompanyPro;
    $data->company_type = $request->company_type;
+   $data->subcategory_id = $request->subcategory_id;
    $data->company_name = $request->company_name;
    $data->aadharcard_number = $request->aadharcard_number;
    $data->registration_date = $request->registration_date;
@@ -84,10 +111,8 @@ public function companystore(Request $request){
    $data->employee_number = $request->employee_number;
    $data->company_year = $request->company_year;
    $data->about_company = $request->about_company;
-//    dd($request->services);
    $data->services = $request->services;
    $data->website_url = $request->website_url;
-   $data->technologies = json_encode($request->technologies);
    $data->zipcode = $request->zipcode;
    $data->state_id = $request->state_id;
    $data->city_id = $request->city_id;
@@ -238,7 +263,38 @@ public function edit($id){
         'company_year' => 'required',
         'membership_year' => 'required',
         'about_company' => 'required',
+
     ]);
+
+    if ($request->company_type === 'other' && $request->other_category) {
+        $newCategory = Category::create([
+            'category_name' => $request->other_category,
+            'status' => 'active',
+        ]);
+        $data->company_type = $newCategory->id;
+    } elseif ($request->company_type !== 'other') {
+        $data->company_type = $request->company_type;
+    }
+
+
+    if ($request->subcategory_id === 'other' && $request->other_subcategory) {
+        $existingSubcategory = SubCategory::where('subcategory_name', $request->other_subcategory)->first();
+
+        if (!$existingSubcategory) {
+            $newSubcategory = SubCategory::create([
+                'subcategory_name' => $request->other_subcategory,
+                'category_id' => $data->company_type,
+                'status' => 'active',
+            ]);
+            $data->subcategory_id = $newSubcategory->id;
+        } else {
+            $data->subcategory_id = $existingSubcategory->id;
+        }
+    } elseif ($request->subcategory_id !== 'other') {
+        $data->subcategory_id = $request->subcategory_id;
+    }
+
+
 
     if ($request->hasFile('company_logo')) {
         if (!empty($data->company_logo) && file_exists(public_path('upload/company_documents/' . $data->company_logo))) {
@@ -366,13 +422,25 @@ public function delete($id)
 
 public function show($id)
 {
-    $data = CompanyPro::with('cities', 'states', 'countries', 'technologies', 'documents')->find($id);
+    $data = CompanyPro::with('cities', 'states', 'countries', 'technologies', 'documents','category', 'subcategory')->find($id);
 
     if (!$data) {
         abort(404, 'Company profile not found');
     }
 
     return view('admin.membership.company_profile.show', compact('data'));
+}
+
+
+public function getSubcategories($category_id)
+{
+    $subcategories = SubCategory::where('category_id', $category_id)->get();
+
+    if ($subcategories->isEmpty()) {
+        return response()->json(['error' => 'No subcategories found'], 404);
+    }
+
+    return response()->json($subcategories);
 }
 
 

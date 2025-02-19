@@ -11,7 +11,7 @@ class CompanyPro extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'companyprofile';
     protected $fillable = [
-'company_type','company_name','aadharcard_number','address_one','address_two','registration_date','renewal_date','city','state','country','landline','employee_number','company_year','about_company','website_url','technologies','company_logo','state_id','city_id','zip_id','country_id','tech_id','user_id', 'membership_year','membership_id','membership_type','membershiptype_id','default_year','designation','services',
+'company_type','company_name','aadharcard_number','address_one','address_two','registration_date','renewal_date','city','state','country','landline','employee_number','company_year','about_company','website_url','technologies','company_logo','state_id','city_id','zip_id','country_id','tech_id','user_id', 'membership_year','membership_id','membership_type','membershiptype_id','default_year','designation','services','subcategory_id',
     ];
 
 public function technologies()
@@ -71,6 +71,17 @@ public function jobs()
 public function reviews() {
     return $this->hasMany(CompanyReview::class, 'company_id');
 }
+
+public function category()
+    {
+        return $this->belongsTo(Category::class, 'company_type');
+    }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class, 'subcategory_id');
+    }
+
 
 
 

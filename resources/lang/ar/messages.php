@@ -301,6 +301,10 @@ return [
     'Enter your skills' => 'أدخل مهاراتك',
     'Add Location' => 'إضافة الموقع',
     'Enter your experience' => 'أدخل تجربتك',
+    'My Profile' => 'الملف الشخصي الخاص بي',
+    'Logout' => 'تسجيل الخروج',
+    'Membership' => 'العضوية',
+    'hadith_business' => 'حديث (استعارة لعمل تجاري منتج ومفيد)',
 
 
 

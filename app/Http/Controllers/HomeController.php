@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\MembershipPlan;
+use App\Models\GeneralSetting;
 use Illuminate\Support\Facades\DB;
 use Str;
 use File;
@@ -207,7 +209,6 @@ public function homeevents()
 public function directory_list(Request $request)
 {
     $selectedCharacter = $request->get('character');
-
     $query = Category::query();
 
     if ($selectedCharacter) {
@@ -217,9 +218,19 @@ public function directory_list(Request $request)
     $categories = $query->get();
 
     foreach ($categories as $category) {
-        $category->company_count = CompanyPro::where('company_type', $category->category_name)->count();
+        $category->company_count = CompanyPro::where('company_type', $category->id)->count();
     }
 
     return view('home.directory_list', compact('categories', 'selectedCharacter'));
 }
+
+
+public function membership()
+{
+    $membership = MembershipPlan::paginate(2);
+    $generalSetting = GeneralSetting::first();
+    return view('home.membership.membership', compact('membership','generalSetting'));
+}
+
+
 }

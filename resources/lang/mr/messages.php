@@ -300,6 +300,10 @@ return [
     'Enter your skills' => 'तुमच्या कौशल्यांचा समावेश करा',
     'Add Location' => 'स्थान जोडा',
     'Enter your experience' => 'तुमचा अनुभव एंटर करा',
+    'My Profile' => 'प्रोफाइल',
+    'Logout' => 'लॉगआउट',
+    'Membership' => 'सदस्यता',
+    'hadith_business' => 'हदीस (उत्पादक, फायदेशीर व्यवसायाचा एक रूपक)',
 
 
 

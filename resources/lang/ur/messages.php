@@ -301,4 +301,8 @@ return [
 'Enter your skills' => 'اپنی مہارتیں درج کریں',
 'Add Location' => 'مقام شامل کریں',
 'Enter your experience' => 'اپنا تجربہ درج کریں۔',
+'My Profile' => 'میرا پروفائل',
+'Logout' => 'لاگ آؤٹ',
+'Membership' => 'رکنیت',
+'hadith_business' => 'حدیث (ایک پیداواری، فائدہ مند کاروبار کے لیے ایک استعارہ)',
 ];

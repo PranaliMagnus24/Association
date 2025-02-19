@@ -49,24 +49,24 @@
                 </div>
             </div>
              <!---- End filter by character---->
-            <!-- Categories in columns -->
             <div class="row">
-    @foreach($categories as $category)
-        <div class="col-md-4 mb-3">
-            <ul class="list-unstyled">
-                <li class="mb-2">
-                    <a href="{{ route('home.directory', ['category' => $category->category_name]) }}" class="d-flex justify-content-between align-items-center text-dark text-decoration-none">
-                        <span>{{ $category->category_name }}</span>
-                        @if($category->company_count > 0)
-                            <span class="badge bg-white text-dark" style="border: 1px;">
-                               <strong>{{ $category->company_count }}</strong>
-                            </span>
-                        @endif
-                    </a>
-                </li>
-            </ul>
-        </div>
-    @endforeach
+            @foreach($categories as $category)
+    <div class="col-md-4 mb-3">
+        <ul class="list-unstyled">
+            <li class="mb-2">
+                <a href="{{ route('home.directory', ['category' => $category->id]) }}" class="d-flex justify-content-between align-items-center text-dark text-decoration-none">
+                    <span>{{ $category->category_name }}</span>
+                    @if($category->company_count > 0)
+                        <span class="badge bg-white text-dark" style="border: 1px solid;">
+                            <strong>{{ $category->company_count }}</strong>
+                        </span>
+                    @endif
+                </a>
+            </li>
+        </ul>
+    </div>
+@endforeach
+
 </div>
 
 

@@ -59,14 +59,7 @@
                                     <a href="tel:{{ $getSetting->phone }}">{{ __('messages.Phone') }} : {{ $getSetting->phone }}</a><br>
                                         <!-- <a href="#">Fax: +88474 156 362</a> <br> -->
                                         <a href="mailto:{{ $getSetting->email }}">{{ __('messages.Email') }} : {{ $getSetting->email }}</a>
-                                        <!-- <form id="cbx-subscribe-form">
-                                            <input name="email" type="email" placeholder="Enter Your Email" id="subscribe" required>
-                                            <button type="submit">
-                                                <i class="far fa-paper-plane"></i>
-                                            </button>
 
-                                            <p id="cbx-subscribe-form-error"></p>
-                                        </form> -->
                                     </div>
                                     <div class="footer-social-icons">
                                         <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -82,7 +75,7 @@
                         <!-- Single Widget Start -->
                         <div class="col-lg-3 col-sm-6">
                             <div class="single-widget-wrap">
-                                <h4 class="widget-title">{{ GoogleTranslate::trans($getSetting->association_name) }}</h4>
+                                <h4 class="widget-title">{{ $getSetting->association_name }}</h4>
                                 <div class="widgei-body">
                                     <ul class="double-list footer-list clearfix">
                                         <li><a href="{{route('home.about')}}">{{ __('messages.About') }}</a></li>
@@ -162,10 +155,12 @@
 
     <!-- Dependency Scripts -->
 
-    <!-- <script class="script-js" src="{{asset('homecss/assets/vendors/jquery/jquery.min.js')}}"></script>
-    <script class="script-js" src="{{asset('homecss/assets/vendors/bootstrap/js/bootstrap.bundle.min.js')}}"></script> -->
+    {{--<script class="script-js" src="{{asset('homecss/assets/vendors/jquery/jquery.min.js')}}"></script>
+    <script class="script-js" src="{{asset('homecss/assets/vendors/bootstrap/js/bootstrap.bundle.min.js')}}"></script>--}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
     <script class="script-js" src="{{asset('homecss/assets/vendors/owl-carousel/js/owl.carousel.min.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/isotope/isotope.pkgd.min.js')}}"></script>

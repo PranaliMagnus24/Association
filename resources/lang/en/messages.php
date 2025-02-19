@@ -300,4 +300,8 @@ return [
 'Enter your skills' => 'Enter your skills',
 'Add Location' => 'Add Location',
 'Enter your experience' => 'Enter your experience',
+'My Profile' => 'My Profile',
+'Logout' => 'Logout',
+'Membership' => 'Membership',
+'hadith_business' => 'Hadith (A metaphor for a productive, beneficial business)',
 ];

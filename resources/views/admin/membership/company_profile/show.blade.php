@@ -41,7 +41,7 @@
         </div>
         <div class="col-md-4 col-lg-4">
             <label class="col-form-label"><strong>Company Type</strong></label>
-            <p>{{ $data->company_type }}</p>
+            <p>{{ $data->category ? $data->category->category_name : 'N/A' }}</p>
         </div>
         <div class="col-md-4 col-lg-4">
             <label class="col-form-label"><strong>Company Name</strong></label>

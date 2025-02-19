@@ -12,6 +12,7 @@ use App\Http\Controllers\Master_Settings\MembershipYearController;
 use App\Http\Controllers\Master_Settings\EmailController;
 use App\Http\Controllers\Membership_form\MembershipController;
 use App\Http\Controllers\Membership_form\CompanyProfileController;
+use App\Http\Controllers\Membership_form\MembershipPlanController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\CMSController;
 use App\Http\Controllers\HomeController;
@@ -104,7 +105,6 @@ Route::get('delete_tax/{id}', [TaxController::class, 'delete'])->name('tax.delet
 Route::get('tax/{id}', [TaxController::class, 'show'])->name('tax.show');
 Route::get('tax_search', [TaxController::class, 'tax_search']);
 
-
 //Master Setting Membership Year
 Route::get('membershipyear', [MembershipYearController::class, 'index'])->name('membershipyear.index');
 Route::get('membershipyear/add', [MembershipYearController::class, 'add'])->name('membershipyear.add');
@@ -143,6 +143,7 @@ Route::put('companyregistration/{id}', [CompanyProfileController::class, 'update
 
 Route::get('delete_company/{id}', [CompanyProfileController::class, 'delete'])->name('company.delete');
 Route::get('companylist/{id}', [CompanyProfileController::class, 'show'])->name('company.show');
+Route::get('/subcategory-get/{category_id}', [CompanyProfileController::class, 'getSubcategories']);
 
 
 
@@ -267,6 +268,14 @@ Route::get('event_show/{id}', [EventController::class, 'eventshow'])->name('view
 Route::get('event/{event}/registrations', [EventController::class, 'viewRegistrations'])->name('view.registrations');
 Route::get('export-registrations/{eventId}', [EventController::class, 'exportRegistrations'])->name('export.registrations');
 
+//Membership Plan Controller
+Route::get('plan/list', [MembershipPlanController::class, 'list'])->name('membershipplan.list');
+Route::get('plan', [MembershipPlanController::class, 'create'])->name('membershipplan.create');
+Route::post('plan', [MembershipPlanController::class, 'store'])->name('membershipplan.store');
+Route::get('plan/{id}/edit', [MembershipPlanController::class, 'edit'])->name('membershipplan.edit');
+Route::post('plan/{id}', [MembershipPlanController::class, 'update'])->name('membershipplan.update');
+Route::get('plan_delete/{id}', [MembershipPlanController::class, 'delete'])->name('membershipplan.delete');
+Route::get('plan/{id}', [MembershipPlanController::class, 'show'])->name('membershipplan.show');
 
 
 });
@@ -299,7 +308,7 @@ Route::get('/jobs/{id}/details', [HomeController::class, 'jobdetails'])->name('j
 Route::get('/thankyou', [HomeController::class, 'thankyou'])->name('thankyou');
 Route::get('/events', [HomeController::class, 'homeevents'])->name('home.events');
 Route::get('/directory/list', [HomeController::class, 'directory_list'])->name('directory.list');
-
+Route::get('/membership', [HomeController::class, 'membership'])->name('home.membership');
 Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
 Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
 
@@ -309,6 +318,10 @@ Route::get('/directory_details/{id}', [DirectoryController::class, 'show'])->nam
 Route::post('/review/store', [DirectoryController::class, 'store'])->name('review.store');
 Route::get('/verify-review/{token}', [DirectoryController::class, 'verify'])->name('review.verify');
 Route::get('comments/{id}', [DirectoryController::class, 'showComments'])->name('comments.show');
+Route::get('/directory-subcategory/{category_id}', [DirectoryController::class, 'getSubcategories']);
+
+
+
 
 
 //Company Registration
@@ -321,6 +334,7 @@ Route::put('companyregistration/{id}', [CompanyRegistrationController::class, 'u
 
 Route::get('delete_company/{id}', [CompanyRegistrationController::class, 'delete'])->name('company.delete');
 Route::get('companylist/{id}', [CompanyRegistrationController::class, 'show'])->name('company.show');
+Route::get('/company-subcategory/{category_id}', [CompanyRegistrationController::class, 'getSubcategories']);
 
 Route::post('api/fetch-states', [CompanyRegistrationController::class, 'fetchState']);
 Route::post('api/fetch-cities', [CompanyRegistrationController::class, 'fetchCity']);
@@ -333,6 +347,7 @@ Route::post('/member-profile', [MemberController::class, 'memberprofileupdate'])
 Route::post('/member-profile/{id}', [MemberController::class, 'companyprofileupdate'])->name('update.companyprofile');
 Route::post('/update-password', [MemberController::class, 'updatePassword'])->middleware(['auth', 'role:user'])->name('updatePassword');
 Route::get('/my-account', [MemberController::class, 'myaccount'])->middleware(['auth', 'role:user'])->name('myaccount');
+Route::get('/member-subcategory/{category_id}', [MemberController::class, 'getSubcategories']);
 
 //Job Controller
 Route::get('joblist', [JobController::class, 'index'])->name('joblist');

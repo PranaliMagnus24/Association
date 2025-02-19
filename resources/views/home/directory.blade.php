@@ -159,55 +159,69 @@
          <section>
     <div class="container">
         <div class="row mb-4" style="justify-content: flex-end;">
-            <div class="col-md-8" style="margin-top: 50px;">
+            <div class="col-md-12" style="margin-top: 50px;">
                 <!-- Search Form -->
                 <form method="GET" action="{{ url('/directory') }}">
-                    <div class="row">
+                    <div class="row d-flex align-items-center g-2">
                         <!-- Search Input -->
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <input
-                                    type="text"
-                                    name="search"
-                                    class="form-control fs-"
-                                    placeholder="Search here.."
-                                    value="{{ request('search') }}" />
-                            </div>
+                        <div class="col-md-2">
+                            <input type="text" name="search" class="form-control" placeholder="Search here..." value="{{ request('search') }}" />
+                        </div>
+                           <!-- Category Dropdown -->
+                        <div class="col-md-2">
+                            <select name="category" class="form-control" id="category-dropdown">
+                                <option value="">-- Select Category --</option>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->category_name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                         <!-- Subcategory Dropdown -->
+                        <div class="col-md-2">
+                            <select name="subcategory_id" id="subcategory-dropdown" class="form-control">
+                                <option value="">-- Select Subcategory--</option>
+                                @if (!empty($selectedCategory))
+                                @foreach (\App\Models\SubCategory::where('category_id', $selectedCategory)->get() as $subcategory)
+                                <option value="{{ $subcategory->id }}" {{ request('subcategory_id') == $subcategory->id ? 'selected' : '' }}>
+                                    {{ $subcategory->subcategory_name }}
+                                </option>
+                                @endforeach
+                                @endif
+                            </select>
                         </div>
 
-                        <!-- State Dropdown -->
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <select name="state_id" id="state-dropdown" class="form-control">
-                                    <option value="">-- Select State --</option>
-                                    @foreach ($states as $state)
-                                    <option value="{{ $state->id }}" {{ request('state_id') == $state->id ? 'selected' : '' }}>
-                                    {{ $state->name}}
-                                    </option>
-                                    @endforeach
-                                </select>
 
-                            </div>
+                        <!-- State Dropdown -->
+                        <div class="col-md-2">
+                            <select name="state_id" id="state-dropdown" class="form-control">
+                                <option value="">-- Select State --</option>
+                                @foreach ($states as $state)
+                                    <option value="{{ $state->id }}" {{ request('state_id') == $state->id ? 'selected' : '' }}>
+                                        {{ $state->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <!-- City Dropdown -->
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <select name="city_id" id="city-dropdown" class="form-control">
-                                    <option value="">-- Select City --</option>
-                                    @foreach ($cities as $city)
+                        <div class="col-md-2">
+                            <select name="city_id" id="city-dropdown" class="form-control">
+                                <option value="">-- Select City --</option>
+                                @foreach ($cities as $city)
                                     <option value="{{ $city->id }}" {{ request('city_id') == $city->id ? 'selected' : '' }}>
-                                    {{ $city->name }}
+                                        {{ $city->name }}
                                     </option>
-                                    @endforeach
-                                </select>
-
-                            </div>
+                                @endforeach
+                            </select>
                         </div>
 
                         <!-- Search Button -->
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary fs-4 w-100 form-control">{{ __('messages.Search') }}</button>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-primary w-100 fs-4 form-control">
+                                {{ __('messages.Search') }}
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -220,6 +234,26 @@
 
 
 
+<!-- Filter by Character -->
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center my-5 mb-0">
+            <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                    <a href="{{ route('home.directory') }}" class="text-decoration-none" style="font-size: 22px;">All</a>
+                </li>
+                @foreach(range('A', 'Z') as $char)
+                <li class="list-inline-item">
+                    <a href="{{ route('home.directory', ['character' => $char]) }}" class="text-decoration-none" style="font-size: 20px;">
+                        {{ $char }}
+                    </a>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Filter by Character -->
 
 <section id="job-opportunity" class="section-padding">
     @php
@@ -229,6 +263,7 @@
         <!-- Job Opportunities Section -->
         <div class="job-opportunity-wrapper">
             <div class="row">
+
                 @forelse($companyprofiles as $companypro)
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-job-opportunity">
@@ -236,30 +271,31 @@
                                 <div class="companypro-oppor-logo">
                                     <div class="display-table">
                                         <div class="display-table-cell">
-                                            <a href="{{ $companypro->company_logo }}">
-                                                <img src="{{ $companypro->company_logo ? url('upload/company_documents/'.$companypro->company_logo) : url('upload/download.png') }}" alt="Company Logo">
-                                            </a>
-                                        </div>
+                                        @php
+                                        $imagePath = 'upload/company_documents/' . $companypro->company_logo;
+                                        $imageUrl = !empty($companypro->company_logo) && file_exists(public_path($imagePath)) ? asset($imagePath) : asset('upload/download.png');
+                                        @endphp
+                                        <a href="{{ !empty($companypro->company_logo) && file_exists(public_path($imagePath)) ? asset($imagePath) : '#' }}">
+                                            <img src="{{ $imageUrl }}" alt="Company Logo">
+                                        </a>
                                     </div>
                                 </div>
+                            </div>
                                 <h6>{{ $companypro->company_name }}</h6>
-                                     <!-- Display Average Rating -->
-                                      <div class="average-rating mt-2">
-                                      <div class="rated">
-                                      @php
-    $averageRating = $companypro->reviews()->where('status', 'active')->avg('star_rating') ?? 0;
-    $totalComments = $companypro->reviews()->where('status', 'active')->count();
-@endphp
-
-@if($totalComments > 0)
-    <span>{{ number_format($averageRating, 1) }}</span>
-    @for ($i = 1; $i <= 5; $i++)
-        <label class="star-rating-complete" style="font-size:20px; color: {{ $i <= round($averageRating) ? 'gold' : '#ddd' }};">&#9733;</label>
-    @endfor
-@endif
-
+                                <!----rating review---->
+                                <div class="average-rating mt-2">
+                                    <div class="rated">
+                                        @php
+                                        $averageRating = $companypro->reviews()->where('status', 'active')->avg('star_rating') ?? 0;$totalComments = $companypro->reviews()->where('status', 'active')->count();
+                                        @endphp
+                                        @if($totalComments > 0)
+                                        <span>{{ number_format($averageRating, 1) }}</span>
+                                        @for ($i = 1; $i <= 5; $i++)
+                                        <label class="star-rating-complete" style="font-size:20px; color: {{ $i <= round($averageRating) ? 'gold' : '#ddd' }};">&#9733;</label>
+                                        @endfor
+                                        @endif
                                     </div>
-                                    </div>
+                                </div>
                                    <!--End Display Average Rating -->
                                 <p> {{ $companypro->states->name }} &nbsp; {{ $companypro->cities->name }}</p>
                                 <p>{{ strip_tags($companypro->about_company) }}</p>
@@ -380,7 +416,7 @@ $(document).ready(function() {
         $('.view-comments').on('click', function() {
             var companyId = $(this).data('id');
             $.ajax({
-                url: '/comments/' + companyId, // Adjust the URL as needed
+                url: '/comments/' + companyId,
                 method: 'GET',
                 success: function(data) {
                     $('#commentsContent').html(data.html);
@@ -391,6 +427,29 @@ $(document).ready(function() {
             });
         });
     });
+
+    $(document).ready(function () {
+    $('#category-dropdown').change(function () {
+        var category_id = $(this).val();
+
+        if (category_id) {
+            $.ajax({
+                url: '/directory-subcategory/' + category_id,
+                type: 'GET',
+                success: function (response) {
+                    $('#subcategory-dropdown').html('<option value="">-- Select Subcategory --</option>');
+                    $.each(response, function (key, value) {
+                        $('#subcategory-dropdown').append('<option value="' + value.id + '">' + value.subcategory_name + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('#subcategory-dropdown').html('<option value="">-- Select Subcategory --</option>');
+        }
+    });
+});
+
+
 </script>
 
 

@@ -37,15 +37,15 @@
 
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Update Profile</h5>
+        <h5 class="card-title">Profile</h5>
 
         <!-- Bordered Tabs Justified -->
-        <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+         <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
             <li class="nav-item flex-fill" role="presentation">
-                <button class="nav-link w-100 {{ request('tab') == 'member' ? 'active' : '' }}" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="{{ request('tab') == 'member' ? 'true' : 'false' }}">Update Member Profile</button>
+                <button class="nav-link w-100 {{ request('tab', 'member') == 'member' ? 'active' : '' }}" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="{{ request('tab', 'member') == 'member' ? 'true' : 'false' }}">Member Profile</button>
             </li>
             <li class="nav-item flex-fill" role="presentation">
-                <button class="nav-link w-100 {{ request('tab') == 'company' ? 'active' : '' }}" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="{{ request('tab') == 'company' ? 'true' : 'false' }}">Update Company Profile</button>
+                <button class="nav-link w-100 {{ request('tab') == 'company' ? 'active' : '' }}" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="{{ request('tab') == 'company' ? 'true' : 'false' }}">Company Profile</button>
             </li>
             <li class="nav-item flex-fill" role="presentation">
                 <button class="nav-link w-100 {{ request('tab') == 'password' ? 'active' : '' }}" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="{{ request('tab') == 'password' ? 'true' : 'false' }}">Change Password</button>
@@ -54,7 +54,7 @@
         <div class="tab-content pt-2" id="borderedTabJustifiedContent">
 
             <!-- Company Info Form -->
-            <div class="tab-pane fade{{ request('tab') == 'member' ? 'show active' : '' }}" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade{{ request('tab', 'member') == 'member' ? ' show active' : '' }}" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
                 <form action="{{route('update.profile')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
@@ -134,28 +134,56 @@
                         @enderror
                     </div>
 
-                        <label for="companyType" class="col-md-4 col-lg-3 col-form-label">Company Type <span style="color: red">*</span></label>
+                    <label class="col-md-4 col-lg-3 col-form-label">Company Type</label>
                         <div class="col-md-8 col-lg-3">
-                        <select class="form-select" aria-label="Default select example" name="company_type">
-                        <option selected>Company Type</option>
-                    @foreach($categories as $category)
-                    <option value="{{ $category->category_name }}"
-                    @if(isset($companyProfile->company_type) && $category->category_name == $companyProfile->company_type)
-                            selected="selected"
-                        @endif>
-                        {{ $category->category_name }}
-                    </option>
-                    @endforeach
+                            <select class="form-select" aria-label="Default select example" name="company_type" id="companycategory-dropdown">
+                                <option selected>-- Company Type --</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id }}"
+                                @if(old('company_type', $companyProfile->company_type ?? '') == $category->id) selected @endif>
+                                {{ $category->category_name }}
+                            </option>
+                            @endforeach
+                            <option value="other" @if(old('company_type', $companyProfile->company_type ?? '') == 'other') selected @endif>Other</option>
                         </select>
                         @error('company_type')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="companysubcategory_id" class="col-md-4 col-lg-3 col-form-label">Subcategory</label>
+                    <div class="col-md-8 col-lg-3">
+                        <select name="subcategory_id" class="form-select" id="companysubcategory-dropdown">
+                            <option value="">-- Subcategory --</option>
+                            <option value="other">Other</option>
+                        </select>
+                        @error('subcategory_id')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="row mb-3">
-
-                        <label for="MembershipYear" class="col-md-4 col-lg-3 col-form-label">Membership Year <span style="color: red">*</span></label>
-                        <div class="col-md-8 col-lg-3">
+                    <!-- Hidden input field for "Other" category -->
+                    <label for="companycategory_id" class="col-md-4 col-lg-3 col-form-label"></label>
+                    <div class="col-md-8 col-lg-3 mt-2" id="other-category-input" style="display: none;">
+                        <input type="text" name="other_category" id="other-category" class="form-control" placeholder="Enter New Category" value="{{ old('other_category') }}">
+                        @error('other_category')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-3">
+                     <!-- Hidden input field for "Other" SubCategory -->
+                    <label for="other-subcategory" class="col-md-4 col-lg-3 col-form-label"></label>
+                    <div class="col-md-8 col-lg-3 mt-2" id="other-subcategory-input" style="display: none;">
+                        <input type="text" name="other_subcategory" id="other-subcategory" class="form-control" placeholder="Enter New Subcategory" value="{{ old('other_subcategory') }}">
+                        @error('other_subcategory')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="MembershipYear" class="col-md-4 col-lg-3 col-form-label">Membership Year <span style="color: red">*</span></label>
+                    <div class="col-md-8 col-lg-3">
                         <select class="form-select membership_year" aria-label="Default select example" name="membership_year" id="membershipYearSelect" onchange="updateRenewalDate()">
                             <option selected>Membership</option>
                             @foreach($memberships as $membership)
@@ -164,22 +192,22 @@
                             data-default-year="{{ $membership->default_year }}"
                             {{ $membership->id == 8 ? 'selected' : 'disabled' }}>
                             {{ $membership->membership_year }} - {{ $membership->default_year }}
-                        </option>
-                        @endforeach
-                    </select>
+                           </option>
+                           @endforeach
+                        </select>
+                        <input type="hidden" name="default_year" id="defaultYearInput">
                         @error('membership_year')
                         <span class="text-danger">{{$message}}</span>
-                         @enderror
+                        @enderror
                     </div>
-
-                        <label for="Company Name" class="col-md-4 col-lg-3 col-form-label">Company Name <span style="color: red">*</span></label>
-                        <div class="col-md-8 col-lg-3">
+                    <label for="Company Name" class="col-md-4 col-lg-3 col-form-label">Company Name <span style="color: red">*</span></label>
+                    <div class="col-md-8 col-lg-3">
                         <input name="company_name" type="text" class="form-control" placeholder="your company name" value="{{ old('company_name', $companyProfile->company_name ?? '') }}">
                         @error('company_name')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    </div>
+                </div>
                     <div class="row mb-3">
                             <label for="AadharNumber" class="col-md-4 col-lg-3 col-form-label">Registration No/Udyog Aadhaar No. <span style="color: red">*</span></label>
                             <div class="col-md-8 col-lg-3">
@@ -568,6 +596,77 @@ $(document).ready(function () {
 
 
 
+///dependent category and subcategory
+var selectedCategory = $('#companycategory-dropdown').val();
+    var selectedSubcategory = "{{ old('subcategory_id', $companyProfile->subcategory_id ?? '') }}";
+    if(selectedCategory === 'other'){
+        $('#other-category-input').show();
+    } else {
+        $('#other-category-input').hide();
+    }
+    function loadSubcategories(category_id, selectedSub) {
+        var subcategoryDropdown = $('#companysubcategory-dropdown');
+        subcategoryDropdown.empty().append('<option value="">-- Subcategory --</option>');
+
+        $.ajax({
+            url: '/member-subcategory/' + category_id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                $.each(response, function (index, subcategory) {
+                    var isSelected = (subcategory.id == selectedSub) ? ' selected' : '';
+                    subcategoryDropdown.append('<option value="' + subcategory.id + '"' + isSelected + '>' + subcategory.subcategory_name + '</option>');
+                });
+
+                var otherSelected = (selectedSub == 'other') ? ' selected' : '';
+                subcategoryDropdown.append('<option value="other"' + otherSelected + '>Other</option>');
+
+                if(selectedSub === 'other'){
+                    $('#other-subcategory-input').show();
+                } else {
+                    $('#other-subcategory-input').hide();
+                }
+            },
+            error: function () {
+                subcategoryDropdown.append('<option value="other">Other</option>');
+            }
+        });
+    }
+
+    if(selectedCategory && selectedCategory !== 'other'){
+        loadSubcategories(selectedCategory, selectedSubcategory);
+    } else {
+        var subcategoryDropdown = $('#companysubcategory-dropdown');
+        subcategoryDropdown.empty().append('<option value="">-- Subcategory --</option><option value="other">Other</option>');
+        if(selectedSubcategory === 'other'){
+            $('#other-subcategory-input').show();
+        } else {
+            $('#other-subcategory-input').hide();
+        }
+    }
+
+    $('#companycategory-dropdown').change(function () {
+        var category_id = $(this).val();
+        var subcategoryDropdown = $('#companysubcategory-dropdown');
+        subcategoryDropdown.empty().append('<option value="">-- Subcategory --</option>');
+
+        if (category_id === 'other') {
+            $('#other-category-input').show().focus();
+            subcategoryDropdown.append('<option value="other">Other</option>');
+        } else {
+            $('#other-category-input').hide();
+            loadSubcategories(category_id, '');
+        }
+    });
+
+    $('#companysubcategory-dropdown').change(function () {
+        if ($(this).val() === 'other') {
+            $('#other-subcategory-input').show().focus();
+        } else {
+            $('#other-subcategory-input').hide();
+        }
+    });
+
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -631,6 +730,12 @@ function updateRenewalDate() {
     renewalDateInput.value = `${year}-${month}-${day}`;
 }
 
+// Add event listener for the membership dropdown
+document.getElementById('membershipYearSelect').addEventListener('change', function () {
+    const selectedOption = this.options[this.selectedIndex];
+    const defaultYear = selectedOption.getAttribute('data-default-year');
+    document.getElementById('defaultYearInput').value = defaultYear || '';
+});
 // $(window).on("load", function() {
 //         var idCountry = $('#country-dropdown').val();
 //         //alert(idCountry);

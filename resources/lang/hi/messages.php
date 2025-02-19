@@ -302,5 +302,9 @@ return [
     'Enter your skills' => 'अपनी क्षमताएँ दर्ज करें',
     'Add Location' => 'स्थान जोड़ें',
     'Enter your experience' => 'अपना अनुभव दर्ज करें',
+    'My Profile' => 'प्रोफ़ाइल',
+    'Logout' => 'लॉगआउट',
+    'Membership' => 'सदस्यता',
+    'hadith_business' => 'हदीस (एक उत्पादक, लाभदायक व्यवसाय के लिए एक रूपक)',
 
 ];

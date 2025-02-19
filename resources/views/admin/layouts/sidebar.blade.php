@@ -89,6 +89,11 @@
                     <i class="bi bi-circle"></i><span>Company list</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('membershipplan.list') }}">
+                    <i class="bi bi-circle"></i><span>Membership Plan</span>
+                </a>
+            </li>
         </ul>
     </li><!----------End Membership section----------->
     <li class="nav-item">

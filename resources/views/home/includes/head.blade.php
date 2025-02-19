@@ -90,6 +90,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link class="script-css" rel="stylesheet" href="{{asset('homecss/assets/vendors/nice-select/nice-select.css')}}" type="text/css">
     <link class="script-css" rel="stylesheet" href="{{asset('homecss/assets/vendors/awesome-notifications/style.css')}}" media="all">
 
+    <link href="https://mimaindia.org/usercss/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="https://mimaindia.org/usercss/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+
     <!-- Site Stylesheet -->
     <link id="cbx-style" rel="stylesheet" href="{{asset('homecss/assets/css/style-default.css')}}?@php echo time(); @endphp" type="text/css">
     <!-- Google Web Fonts -->

@@ -25,100 +25,119 @@
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
-
- <!---Add Member--->
-         <div class="container">
-         <div class="text-end mb-3">
-        <a href="{{ url('admin/companylist')}}" class="btn btn-primary">Back</a>
-         </div>
-          <div class="card">
+    </div>
+    <!------Add Company----->
+    <div class="container">
+        <div class="text-end mb-3">
+            <a href="{{ url('admin/companylist')}}" class="btn btn-primary">Back</a>
+        </div>
+        <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Company Registration</h5>
-              @if (isset($data))
-
-    <form action="{{ route('company.update', $data->id) }}" method="POST" enctype="multipart/form-data">
-            @method('PUT')
-            @else
-              <form action="{{ route('company.register')}}" method="POST" enctype="multipart/form-data">
-              @endif
-              @csrf
-
-        <div class="row mb-3">
-        <label class="col-md-4 col-lg-3 col-form-label">Member's Name<span style="color: red">*</span></label>
-
-<div class="col-md-8 col-lg-3">
-  <select class="form-select member_name" aria-label="Default select example" name="member_name" id="member_name">
-     <option selected>Name</option>
-    @foreach($users as $user)
-  <option value="{{ $user->id }}" @if((isset($user_id) && $user->id == $user_id) || (isset($data->user_id) && $user->id == $data->user_id)) selected="selected" @endif>
-    {{ $user->first_name }}&nbsp;{{ $user->last_name }}
-  </option>
-        @endforeach
-     </select>
-    @error('membership_type')
-    <span class="text-danger">{{ $message }}</span>
-     @enderror
-</div>
-        <label class="col-md-4 col-lg-3 col-form-label">Membership Type<span style="color: red">*</span></label>
-
-           <div class="col-md-8 col-lg-3">
-             <select class="form-select membership_type" aria-label="Default select example" name="membership_type" id="membership_type">
-                <option selected>Membership Type</option>
-                   @foreach($membershipstype as $membershiptype)
-                    <option value="{{ $membershiptype->title }}"
-                        @if(isset($data->membership_type) && $membershiptype->title == $data->membership_type)
-                            selected="selected"
-                        @endif>
-                        {{ $membershiptype->title }}
-                    </option>
-                @endforeach
-                </select>
-               @error('membership_type')
-               <span class="text-danger">{{ $message }}</span>
-                @enderror
-           </div>
-</div>
-        <div class="row mb-3">
-            <label class="col-md-4 col-lg-3 col-form-label">Company Type</label>
-
-            <div class="col-md-8 col-lg-3">
-                <select class="form-select" aria-label="Default select example" name="company_type">
-                    <option selected>Company Type</option>
-                    @foreach($categories as $category)
-                    <option value="{{ $category->category_name }}"
-                    @if(isset($data->company_type) && $category->category_name == $data->company_type)
-                            selected="selected"
-                        @endif>
-                        {{ $category->category_name }}
-                    </option>
-                    @endforeach
-                </select>
-                @error('company_type')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-
-            <label class="col-md-4 col-lg-3 col-form-label">Membership<span style="color: red">*</span></label>
-            <div class="col-md-8 col-lg-3">
-                <select class="form-select membership_year" aria-label="Default select example" name="membership_year" id="membershipYearSelect" onchange="updateRenewalDate()">
-                    <option selected>Membership</option>
-                     @foreach($memberships as $membership)
-                    <option value="{{ $membership->membership_year }}"
-                    data-default-year="{{ $membership->default_year }}"
-                    {{ (old('membership_year') == $membership->membership_year || (isset($data) && $data->membership_year == $membership->membership_year)) ? 'selected' : '' }}>
-            {{ $membership->membership_year }} - {{ $membership->default_year }}
-        </option>
-        @endforeach
-            </select>
-            <input type="hidden" name="default_year" id="defaultYearInput">
-    @error('membership_year')
-    <span class="text-danger">{{ $message }}</span>
-    @enderror
-             </div>
-
-       </div>
-
+                <h5 class="card-title">Company Registration</h5>
+                @if (isset($data))
+                <form action="{{ route('company.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+                    @method('PUT')
+                    @else
+                    <form action="{{ route('company.register')}}" method="POST" enctype="multipart/form-data">
+                        @endif
+                        @csrf
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-lg-3 col-form-label">Member's Name<span style="color: red">*</span></label>
+                            <div class="col-md-8 col-lg-3">
+                                <select class="form-select member_name" aria-label="Default select example" name="member_name" id="member_name">
+                                    <option selected>Name</option>
+                                    @foreach($users as $user)
+                                    <option value="{{ $user->id }}" @if((isset($user_id) && $user->id == $user_id) || (isset($data->user_id) && $user->id == $data->user_id)) selected="selected" @endif>
+                                        {{ $user->first_name }}&nbsp;{{ $user->last_name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('membership_type')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <label class="col-md-4 col-lg-3 col-form-label">Membership Type<span style="color: red">*</span></label>
+                            <div class="col-md-8 col-lg-3">
+                                <select class="form-select membership_type" aria-label="Default select example" name="membership_type" id="membership_type">
+                                    <option selected>Membership Type</option>
+                                    @foreach($membershipstype as $membershiptype)
+                                    <option value="{{ $membershiptype->title }}"
+                                    @if(isset($data->membership_type) && $membershiptype->title == $data->membership_type)
+                                    selected="selected"
+                                    @endif>
+                                    {{ $membershiptype->title }}
+                                </option>
+                                @endforeach
+                            </select>
+                            @error('membership_type')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-lg-3 col-form-label">Company Type</label>
+                        <div class="col-md-8 col-lg-3">
+                            <select class="form-select" aria-label="Default select example" name="company_type" id="companycategory-dropdown">
+                                <option selected>-- Company Type --</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id }}"
+                                @if(isset($data->company_type) && $category->id == $data->company_type) selected="selected"
+                                @endif>
+                                {{ $category->category_name }}
+                            </option>
+                            @endforeach
+                            <option value="other" @if(isset($data->company_type) && $data->company_type === 'other') selected="selected" @endif>Other</option>
+                        </select>
+                        @error('company_type')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <label for="companysubcategory_id" class="col-md-4 col-lg-3 col-form-label">Subcategory</label>
+                    <div class="col-md-8 col-lg-3">
+                        <select name="subcategory_id" class="form-control" id="companysubcategory-dropdown">
+                            <option value="">-- Subcategory --</option>
+                            <option value="other">Other</option>
+                        </select>
+                        @error('subcategory')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <!-- Hidden input field for "Other" category -->
+                 <div class="row mb-3">
+                    <label for="companycategory_id" class="col-md-4 col-lg-3 col-form-label"></label>
+                    <div class="col-md-8 col-lg-3 mt-2" id="other-category-input" style="display: none;">
+                        <input type="text" name="other_category" id="other-category" class="form-control" placeholder="Enter New Category" value="{{ old('other_category') }}">
+                        @error('other_category')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <!-- Hidden input field for "Other" SubCategory -->
+                     <label for="other-subcategory" class="col-md-4 col-lg-3 col-form-label"></label>
+                     <div class="col-md-8 col-lg-3 mt-2" id="other-subcategory-input" style="display: none;">
+                        <input type="text" name="other_subcategory" id="other-subcategory" class="form-control" placeholder="Enter New Subcategory" value="{{ old('other_subcategory') }}">
+                        @error('other_subcategory')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Membership<span style="color: red">*</span></label>
+                    <div class="col-md-8 col-lg-3">
+                        <select class="form-select membership_year" aria-label="Default select example" name="membership_year" id="membershipYearSelect" onchange="updateRenewalDate()">
+                            <option selected>Membership</option>
+                            @foreach($memberships as $membership)
+                            <option value="{{ $membership->membership_year }}" data-default-year="{{ $membership->default_year }}" {{ (old('membership_year') == $membership->membership_year || (isset($data) && $data->membership_year == $membership->membership_year)) ? 'selected' : '' }}>
+                                {{ $membership->membership_year }} - {{ $membership->default_year }}
+                            </option>
+                            @endforeach
+                        </select>
+                        <input type="hidden" name="default_year" id="defaultYearInput">
+                        @error('membership_year')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
 
         <div class="row mb-3">
             <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Company Name <span style="color: red">*</span></label>
@@ -270,14 +289,14 @@
         </div>
 
         <div class="row mb-3">
-            <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Technologies</label>
+           {{-- <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Technologies</label>
             <div class="col-md-8 col-lg-3">
                 <select name="technologies[]" id="technology" class="selectpicker" multiple aria-label="size 3 select example">
                @foreach($technologies as $technology)
                 <option value="{{ $technology->title }}">{{ $technology->title }}</option>
                @endforeach
         </select>
-            </div>
+            </div>--}}
             <label for="logo" class="col-md-4 col-lg-3 col-form-label" style="margin-bottom: 0;">Company Logo</label>
             <div class="col-md-8 col-lg-3">
                 <input id="logo" name="company_logo" type="file" class="form-control" accept="image/*" value="{{ old('company_logo', $data->company_logo ?? '') }}">
@@ -448,6 +467,56 @@ $(document).ready(function () {
     if ($('#country-dropdown').val()) {
         $('#country-dropdown').trigger('change');
     }
+
+    $('#companycategory-dropdown').change(function() {
+    var category_id = $(this).val();
+    var subcategory_dropdown = $('#companysubcategory-dropdown');
+    subcategory_dropdown.empty();
+    subcategory_dropdown.append('<option value="">-- Subcategory --</option>');
+
+    // Show/hide the other category input field
+    if (category_id === 'other') {
+        $('#other-category-input').show();
+        $('#other-category').focus();
+    } else {
+        $('#other-category-input').hide();
+    }
+
+    if (category_id && category_id !== 'other') {
+        $.ajax({
+            url: '/admin/subcategory-get/' + category_id,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.error) {
+                    alert(response.error);
+                } else {
+                    $.each(response, function(index, subcategory) {
+                        subcategory_dropdown.append('<option value="' + subcategory.id + '">' + subcategory.subcategory_name + '</option>');
+                    });
+                }
+                subcategory_dropdown.append('<option value="other">Other</option>');
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+                subcategory_dropdown.append('<option value="other">Other</option>');
+            }
+        });
+    } else {
+        subcategory_dropdown.append('<option value="other">Other</option>');
+    }
+});
+
+$('#companysubcategory-dropdown').change(function() {
+    var otherSubcategoryInput = $('#other-subcategory-input');
+    if (this.value === 'other') {
+        otherSubcategoryInput.show();
+        $('#other-subcategory').focus();
+    } else {
+        otherSubcategoryInput.hide();
+    }
+});
+
 });
 
 
@@ -534,6 +603,11 @@ document.getElementById('membershipYearSelect').addEventListener('change', funct
     const defaultYear = selectedOption.getAttribute('data-default-year');
     document.getElementById('defaultYearInput').value = defaultYear || '';
 });
+
+
+
+
+
 
 </script>
 
