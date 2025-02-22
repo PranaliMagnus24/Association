@@ -14,6 +14,8 @@ class Membershipyear extends Model
     protected $fillable = [
         'membership_year',
         'membership_fee',
+        'numberof_year',
+        'membership_plan_id',
         'default_year',
         'status',
     ];

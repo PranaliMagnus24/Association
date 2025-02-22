@@ -1,6 +1,33 @@
 @include('admin.layouts.head')
   @include('admin.layouts.header')
   @include('admin.layouts.sidebar')
+  <style>
+     .membership-row {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Select, Input, and Button ke beech space */
+        margin-bottom: 10px; /* Rows ke beech space */
+    }
+
+    .membership_year {
+        flex: 1; /* Dropdown ko flexible width dena */
+    }
+
+    .membership_fee {
+        flex: 1; /* Input field ko flexible width dena */
+    }
+
+    .numberof_year {
+        flex: 2; /* Input field ko flexible width dena */
+    }
+
+    .membership-row button {
+        flex: 0 0 40px; /* Fixed width for buttons */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+  </style>
   <main id="main" class="main">
     <div class="pagetitle">
       <h1>Dashboard</h1>
@@ -51,7 +78,7 @@
         </div>
 
         <!-- One Year Membership Fee -->
-        <div class="d-flex flex-column">
+       {{-- <div class="d-flex flex-column">
             <input type="text" name="oneyear_fee" class="form-control" placeholder="One Year Membership" value="{{ old('oneyear_fee', $plan->oneyear_fee) }}">
             @error('oneyear_fee')
                 <span class="text-danger">{{ $message }}</span>
@@ -64,11 +91,11 @@
             @error('fiveyear_fee')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
-        </div>
+        </div>--}}
     </div>
 </div>
 
-<div class="row mb-3">
+{{--<div class="row mb-3">
     <label for="fee_structure" class="col-md-4 col-lg-3 col-form-label">Lifetime (year)</label>
     <div class="col-md-8 col-lg-9 d-flex gap-5">
         <!-- No. Of Years -->
@@ -86,7 +113,7 @@
             @enderror
         </div>
     </div>
-</div>
+</div>--}}
 
     <div class="row mb-3">
         {{--<label for="package_term" class="col-md-4 col-lg-3 col-form-label">Package term <span style="color:red;">*</span></label>
@@ -134,6 +161,44 @@
         </div>
     </div>
 <br><br>
+
+<div class="row mb-3">
+    <label class="col-md-4 col-lg-3 col-form-label">Membership Year</label>
+    <div class="col-md-8 col-lg-6">
+        <div id="membershipContainer">
+            @foreach ($membershipYears as $key => $membershipYear)
+                <div class="membership-row d-flex gap-2">
+                    <select class="form-select membership_year" name="membership_year[]" onchange="handleMembershipChange(this)">
+                        <option disabled>-- Membership Year --</option>
+                        <option value="1 year" {{ $membershipYear->membership_year == '1 year' ? 'selected' : '' }}>1 year</option>
+                        <option value="2 year" {{ $membershipYear->membership_year == '2 year' ? 'selected' : '' }}>2 year</option>
+                        <option value="3 year" {{ $membershipYear->membership_year == '3 year' ? 'selected' : '' }}>3 year</option>
+                        <option value="4 year" {{ $membershipYear->membership_year == '4 year' ? 'selected' : '' }}>4 year</option>
+                        <option value="5 year" {{ $membershipYear->membership_year == '5 year' ? 'selected' : '' }}>5 year</option>
+                        <option value="6 year" {{ $membershipYear->membership_year == '6 year' ? 'selected' : '' }}>6 year</option>
+                        <option value="7 year" {{ $membershipYear->membership_year == '7 year' ? 'selected' : '' }}>7 year</option>
+                        <option value="8 year" {{ $membershipYear->membership_year == '8 year' ? 'selected' : '' }}>8 year</option>
+                        <option value="9 year" {{ $membershipYear->membership_year == '9 year' ? 'selected' : '' }}>9 year</option>
+                        <option value="10 year" {{ $membershipYear->membership_year == '10 year' ? 'selected' : '' }}>10 year</option>
+                        <option value="lifetime" {{ $membershipYear->membership_year == 'lifetime' ? 'selected' : '' }}>Lifetime</option>
+                    </select>
+
+                    <input name="numberof_year[]" type="text" class="form-control numberof_year" placeholder="Number of year"
+                        value="{{ $membershipYear->numberof_year }}"
+                        style="{{ in_array($membershipYear->membership_year, ['1 year', 'lifetime']) ? 'display:none;' : '' }}">
+
+                    <input name="membership_fee[]" type="text" class="form-control membership_fee" placeholder="Enter Fee"
+                        value="{{ $membershipYear->membership_fee }}">
+
+                    <button type="button" class="btn btn-danger" onclick="removeMembershipRow(this)">-</button>
+                </div>
+            @endforeach
+        </div>
+        <button type="button" class="btn btn-primary mt-2" onclick="addMembershipRow()">+</button>
+    </div>
+</div>
+
+ <!----End Membership year Plan------------>
     <div class="row mb-3">
         <label for="meta_keyword" class="col-md-4 col-lg-3 col-form-label">Meta Keywords</label>
         <div class="col-md-8 col-lg-9">
@@ -179,6 +244,81 @@
         const trialSelect = document.getElementById('trial');
         toggleTrialDays(trialSelect.value);
     });
+
+
+    function addMembershipRow() {
+    const container = document.getElementById("membershipContainer");
+    const firstRow = container.querySelector(".membership-row");
+
+    const newRow = firstRow.cloneNode(true);
+
+    newRow.querySelector(".membership_year").value = "";
+    newRow.querySelector(".numberof_year").style.display = "none";
+    newRow.querySelector(".membership_fee").value = "";
+
+    const button = newRow.querySelector("button");
+    button.textContent = "−";
+    button.classList.remove("btn-primary");
+    button.classList.add("btn-danger");
+    button.setAttribute("onclick", "removeMembershipRow(this)");
+
+    container.appendChild(newRow);
+    updateDropdowns();
+}
+
+function removeMembershipRow(button) {
+    button.closest(".membership-row").remove();
+    updateDropdowns();
+}
+
+function handleMembershipChange(select) {
+    let selectedValue = select.value;
+    let numberInput = select.closest(".membership-row").querySelector(".numberof_year");
+
+    if (selectedValue === "lifetime") {
+        numberInput.style.display = "block";
+    } else {
+        numberInput.style.display = "none";
+    }
+
+    updateDropdowns();
+}
+
+function updateDropdowns() {
+    const allSelects = document.querySelectorAll(".membership_year");
+    let selectedValues = new Set();
+    let maxSelectedYear = 0;
+    let isLifetimeSelected = false;
+
+    allSelects.forEach(select => {
+        if (select.value === "lifetime") {
+            isLifetimeSelected = true;
+        } else if (select.value) {
+            let numericValue = parseInt(select.value);
+            if (!isNaN(numericValue)) {
+                maxSelectedYear = Math.max(maxSelectedYear, numericValue);
+            }
+            selectedValues.add(select.value);
+        }
+    });
+
+    allSelects.forEach(select => {
+        let options = select.querySelectorAll("option");
+
+        options.forEach(option => {
+            let optionValue = option.value;
+            let numericOptionValue = parseInt(optionValue);
+
+            if (isLifetimeSelected) {
+                option.hidden = false;
+            } else if (!isNaN(numericOptionValue) && numericOptionValue < maxSelectedYear) {
+                option.hidden = true;
+            } else {
+                option.hidden = false;
+            }
+        });
+    });
+}
 </script>
   <!-- ======= Footer ======= -->
 

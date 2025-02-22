@@ -13,7 +13,7 @@ use App\Models\Technology;
 use App\Models\CompanyPro;
 use App\Models\Membershipyear;
 use App\Models\Zipcode;
-use App\Models\Membership;
+use App\Models\MembershipPlan;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Documentupload;
@@ -28,13 +28,14 @@ class CompanyRegistrationController extends Controller
     public function companyregistration(Request $request, $id=null)
     {
         $user_id = ($id != null)? $id: $request->session()->get('user_id');
+        $package_id = $request->query('package_id');
         $technologies = Technology::all();
         $countries = Country::get(["name", "id"]);
         $memberships = Membershipyear::all();
-        $membershipstype = Membership::all();
+        $membershipstype = MembershipPlan::all();
         $categories = Category::all();
         $users = User::where('role', 'user')->get();
-        return view('home.company_register', compact('technologies', 'countries','memberships','membershipstype', 'users', 'user_id','categories'));
+        return view('home.company_register', compact('technologies', 'countries','memberships','membershipstype', 'users', 'user_id','categories','package_id'));
     }
 
     public function companystore(Request $request){
@@ -212,7 +213,6 @@ if ($request->subcategory_id === 'other' && $request->other_subcategory) {
             if (!empty($documents)) {
                 Documentupload::insert($documents);
             }
-
             return redirect()->route('thankyou');
 
 

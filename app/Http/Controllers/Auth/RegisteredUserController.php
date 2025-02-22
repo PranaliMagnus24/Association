@@ -18,10 +18,11 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
+        $packageId = $request->query('package_id');
 
-        return view('auth.register');
+        return view('auth.register', compact('packageId'));
     }
 
     /**
@@ -31,34 +32,44 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-          'phone' => ['required', 'numeric', 'digits:10'],
+            'phone' => ['required', 'numeric', 'digits:10'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password_confirmation' => ['required'],
         ]);
 
-        $user = User::create([
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name,
-            'last_name' => $request->last_name,
-            'name' => $request->first_name.' '. $request->last_name,
-            'email' => $request->email,
-            'gender' => $request->gender,
-            'phone' => $request->phone,
-            'date_birth' => $request->date_birth,
-            'password' => Hash::make($request->password),
-        ]);
 
+            $user = User::create([
+                'first_name' => $request->first_name,
+                'middle_name' => $request->middle_name,
+                'last_name' => $request->last_name,
+                'name' => $request->first_name.' '. $request->last_name,
+                'email' => $request->email,
+                'gender' => $request->gender,
+                'phone' => $request->phone,
+                'date_birth' => $request->date_birth,
+                'role' => $request->role,
+                'password' => Hash::make($request->password),
+
+            ]);
         event(new Registered($user));
 
         Auth::login($user);
 
         $request->session()->put('user_id', $user->id);
-        return redirect()->route('home.companyregistration', ['user_id' => $user->id])
-        ->with('success', 'Member registered successfully. Please complete your company registration.');
 
+        if ($request->role === 'bazar') {
+            return redirect()->route('bazar.registration')->with('success', 'Registration successful.');
+        } else {
+            return redirect()->route('home.companyregistration', [
+                'user_id' => $user->id,
+                'package_id' => $request->package_id,
+            ])->with('success', 'Member registered successfully. Please complete your company registration.');
+        }
     }
+
+
 }

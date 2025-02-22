@@ -24,15 +24,7 @@ class MembershipYearController extends Controller
     }
 
 //Store membership year form
-    public function store(Request $request){
-        $request->validate([
-            'membership_year' => 'required|array',
-            'membership_year.*' => 'numeric',
-            'default_year' => 'required',
-            'membership_fee' => 'required|array',
-            'membership_fee.*' => 'numeric',
-            'status' => 'required',
-        ]);
+ public function store(Request $request){
 
 
     $membershipYears = $request->input('membership_year');
@@ -74,12 +66,12 @@ class MembershipYearController extends Controller
  //update
      public function update(Request $request,$id){
         $request->validate([
-            'membership_year' => 'required',
-            'membership_year.*' => 'numeric',
-            'default_year' => 'required',
-            'membership_fee' => 'required',
+            'membership_year' => 'nullable',
+            'membership_year.*' => 'nullable',
+            'default_year' => 'nullable',
+            'membership_fee' => 'nullable',
             'membership_fee.*' => 'numeric',
-            'status' => 'required',
+            'status' => 'nullable',
         ]);
         $data = Membershipyear::find($id);
         $data->membership_year = $request->membership_year;

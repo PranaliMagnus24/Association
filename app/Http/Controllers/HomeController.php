@@ -227,10 +227,12 @@ public function directory_list(Request $request)
 
 public function membership()
 {
-    $membership = MembershipPlan::paginate(2);
+    $membership = MembershipPlan::paginate(3);
     $generalSetting = GeneralSetting::first();
     return view('home.membership.membership', compact('membership','generalSetting'));
 }
+
+
 
 
 }

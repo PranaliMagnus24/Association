@@ -306,5 +306,7 @@ return [
     'Logout' => 'लॉगआउट',
     'Membership' => 'सदस्यता',
     'hadith_business' => 'हदीस (एक उत्पादक, लाभदायक व्यवसाय के लिए एक रूपक)',
+    'Bazar Registration' => 'बाजार पंजीकरण',
+    'Ramzan Bazar' => 'रमज़ान बाज़ार',
 
 ];

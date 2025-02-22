@@ -99,6 +99,11 @@ select.form-select {
 
 <!-- MultiStep Form -->
  <section>
+ @if(session('info'))
+    <div class="alert alert-info">
+        {{ session('info') }}
+    </div>
+@endif
 <div id="container" class="container mt-5">
   <div class="progress px-1" style="height: 3px;">
     <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -117,31 +122,34 @@ select.form-select {
             <label class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Membership Type') }}<span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-3">
                 <select class="form-select membership_type" aria-label="Default select example" name="membership_type" id="membership_type">
-                    <option selected>{{ __('messages.Membership Type') }}</option>
+                    <option disabled selected>{{ __('messages.Membership Type') }}</option>
                     @foreach($membershipstype as $membershiptype)
-                    <option value="{{ $membershiptype->title }}"
-                    @if(isset($data->membership_type) && $membershiptype->title == $data->membership_type)
-                            selected="selected"
+                    <option value="{{ $membershiptype->id }}"
+                    @if((isset($data->membership_type) && $membershiptype->id == $data->membership_type)
+                    || (request()->has('package_id') && request('package_id') == $membershiptype->id))
+                    selected="selected"
                     @endif>
-                    {{ $membershiptype->title }}
-                    </option>
-                    @endforeach
-                </select>
-                @error('membership_type')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
+                    {{ $membershiptype->package_title }}
+                </option>
+                @endforeach
+            </select>
+            @error('membership_type')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+
             <label class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Membership') }}<span style="color: red">*</span></label>
             <div class="col-md-8 col-lg-3">
-                <select class="form-select membership_year" aria-label="Default select example" name="membership_year" id="membershipYearSelect" onchange="updateRenewalDate()">
-                    <option selected>{{ __('messages.Membership') }}</option>
-                    @foreach($memberships as $membership)
-                    <option value="{{ $membership->membership_year }}" data-default-year="{{ $membership->default_year }}" {{ $membership->id == 8 ? 'selected' : 'disabled' }}>
-                    {{ $membership->membership_year}} - {{ $membership->default_year }}
-                    </option>
-                    @endforeach
-                </select>
-                <input type="hidden" name="default_year" id="defaultYearInput">
+            <select class="form-select membership_year" aria-label="Default select example" name="membership_year" id="membershipYearSelect" onchange="updateRenewalDate()">
+    <option selected>{{ __('messages.Membership') }}</option>
+    @foreach($memberships as $membership)
+        <option value="{{ $membership->membership_year }}" data-default-year="{{ $membership->default_year }}">
+            {{ $membership->membership_year }} - {{ $membership->default_year }}
+        </option>
+    @endforeach
+</select>
+<input type="hidden" name="default_year" id="defaultYearInput">
+
                 @error('membership_year')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -604,7 +612,7 @@ function updateRenewalDate() {
     const renewalDateInput = document.getElementById('ren_date');
 
     if (!selectedOption || selectedOption.value === "Membership") {
-        renewalDateInput.value = ""; // Clear the field if no valid membership is selected
+        renewalDateInput.value = "";
         return;
     }
 

@@ -304,4 +304,6 @@ return [
 'Logout' => 'Logout',
 'Membership' => 'Membership',
 'hadith_business' => 'Hadith (A metaphor for a productive, beneficial business)',
+'Bazar Registration' => 'Bazar Registration',
+'Ramzan Bazar' => 'Ramzan Bazar',
 ];

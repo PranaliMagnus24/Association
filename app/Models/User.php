@@ -30,6 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'gender',
         'profile_pic',
         'password',
+        'role',
     ];
 
     /**
@@ -73,7 +74,10 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
+    public function company()
+    {
+        return $this->hasOne(CompanyPro::class);
+    }
     public function companyprofile()
     {
         return $this->hasMany(CompanyPro::class, 'membershiptype_id', 'id');

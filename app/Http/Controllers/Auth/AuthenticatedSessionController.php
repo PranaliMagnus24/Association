@@ -26,33 +26,39 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
-        $request->session()->regenerate();
+{
+    $request->authenticate();
+    $request->session()->regenerate();
 
-        if ($request->user()->role === 'admin') {
-            return redirect('/admin/dashboard');
-        } elseif ($request->user()->role === 'user') {
+    if ($request->user()->role === 'bazar') {
+        return redirect()->route('catalog.list')->with('success', 'Welcome to Bazar!');
+    } elseif ($request->user()->role === 'user') {
+        if (!$request->user()->company) {
+            return redirect()->route('home.companyregistration', ['user_id' => $request->user()->id])
+                             ->with('info', 'Please complete your company profile.');
+        } else {
             return redirect('/member');
-        } elseif ($request->user()->role === 'eventmanager') {
-            $eventform_id = session('eventform_id');
-            print($eventform_id);
-            die();
-
-            if (!$eventform_id) {
-                return redirect()->route('admin.dashboard');
-            }
-
-            return redirect()->route('qrpage', ['eventform_id' => $eventform_id]);
         }
-
-        return redirect()->intended(url('/'));
     }
 
+    //End condition
 
-    /**
-     * Destroy an authenticated session.
-     */
+    if ($request->user()->role === 'admin') {
+        return redirect('/admin/dashboard');
+    } elseif ($request->user()->role === 'eventmanager') {
+        $eventform_id = session('eventform_id');
+
+        if (!$eventform_id) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return redirect()->route('qrpage', ['eventform_id' => $eventform_id]);
+    }
+
+    return redirect()->intended(url('/'));
+}
+
+
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();

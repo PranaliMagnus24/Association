@@ -83,6 +83,9 @@
 .total-gst{
     color: red;
 }
+ .pagination{
+        --bs-pagination-font-size: 2rem;
+    }
   </style>
  <section id="page-title-area">
             <div class="container">
@@ -101,12 +104,12 @@
          </section>
          <div class="container mt-5 mb-5">
     @foreach ($membership as $plan)
-    <div class="card custom-card bg-white mb-4"> <!-- mb-4 yahan add kiya hai -->
+    <div class="card custom-card bg-white mb-4">
         <div class="card-body-main">
             <h4 class="card-title text-primary">{{ $plan->package_title }}</h4>
             <p class="card-text">{{ $plan->plan_description }}</p>
 
-            <div class="row g-4 mt-4"> <!-- g-4 yahan add kiya hai -->
+            <div class="row g-4 mt-4">
                 <div class="col-md-4">
                     <div class="option-card">
                         <div class="option-title custom-option-title p-2 rounded">
@@ -137,10 +140,10 @@
                             </span>
                         </div>
                         <div class="btn-group-custom d-flex gap-2 justify-content-center mt-3" style="max-width: 500px; margin: 0 auto;">
-                            <a href="{{ route('register') }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
+                            <a href="{{ route('register', ['package_id' => $plan->id]) }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
                                 {{ $plan->trial_days }} Day's Trial
                             </a>
-                            <a href="{{ route('register') }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
+                            <a href="{{ route('register', ['package_id' => $plan->id]) }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
                                 Register
                             </a>
                         </div>
@@ -177,13 +180,13 @@
                             </span>
                         </div>
                         <div class="btn-group-custom d-flex gap-2 justify-content-center mt-3" style="max-width: 500px; margin: 0 auto;">
-                            <a href="{{ route('register') }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
-                                {{ $plan->trial_days }} Day's Trial
-                            </a>
-                            <a href="{{ route('register') }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
-                                Register
-                            </a>
-                        </div>
+    <a href="{{ route('register', ['package_id' => $plan->id]) }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
+        {{ $plan->trial_days }} Day's Trial
+    </a>
+    <a href="{{ route('register', ['package_id' => $plan->id]) }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
+        Register
+    </a>
+</div>
                     </div>
                 </div>
 
@@ -218,13 +221,13 @@
                             </span>
                         </div>
                         <div class="btn-group-custom d-flex gap-2 justify-content-center mt-3" style="max-width: 500px; margin: 0 auto;">
-                            <a href="{{ route('register') }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
-                                {{ $plan->trial_days }} Day's Trial
-                            </a>
-                            <a href="{{ route('register') }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
-                                Register
-                            </a>
-                        </div>
+    <a href="{{ route('register', ['package_id' => $plan->id]) }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
+        {{ $plan->trial_days }} Day's Trial
+    </a>
+    <a href="{{ route('register', ['package_id' => $plan->id]) }}" class="btn btn-outline-primary btn-sm fs-4 px-4 flex-fill text-center">
+        Register
+    </a>
+</div>
                     </div>
                 </div>
                 @endif

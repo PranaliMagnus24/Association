@@ -304,6 +304,9 @@ return [
     'Logout' => 'लॉगआउट',
     'Membership' => 'सदस्यता',
     'hadith_business' => 'हदीस (उत्पादक, फायदेशीर व्यवसायाचा एक रूपक)',
+    'Bazar Registration' => 'बाजार नोंदणी',
+    'Ramzan Bazar' => 'रमजान बाजार',
+
 
 
 

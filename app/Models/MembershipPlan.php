@@ -12,4 +12,9 @@ class MembershipPlan extends Model
     protected $fillable = [
        'package_title','plan_price','package_term','trial','meta_keyword','plan_image','meta_description','status','yearly_fee','numberof_year',
     ];
+
+    public function membershipYears()
+    {
+        return $this->hasMany(Membershipyear::class);
+    }
 }

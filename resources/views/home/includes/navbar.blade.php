@@ -28,32 +28,41 @@
                         @endif
                         <div class="col-lg-6 col-sm-5 col-5 text-end">
                             <div class="preheader-right">
-                                @if(Auth::check())
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-primary dropdown-toggle fs-4" type="button" id="userDropdown" data-bs-auto-close="true" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ ucfirst(Auth::user()->name) }}
+                            @if(Auth::check())
+    <div class="dropdown d-inline-block">
+        <button class="btn btn-primary dropdown-toggle fs-4" type="button" id="userDropdown" data-bs-auto-close="true" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ ucfirst(Auth::user()->name) }}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li>
+                @if(Auth::user()->role === 'admin')
+                    <a class="dropdown-item fs-4" href="{{ url('/admin/dashboard') }}">{{ __('messages.My Profile') }}</a>
+                @elseif(Auth::user()->role === 'bazar')
+                    <a class="dropdown-item fs-4" href="{{ route('catalog.list') }}">{{ __('messages.My Profile') }}</a>
+                @elseif(Auth::user()->role === 'user')
+                    @if(Auth::user()->company)
+                        <a class="dropdown-item fs-4" href="{{ url('/member') }}">{{ __('messages.My Profile') }}</a>
+                    @else
+                        <span class="dropdown-item fs-4 text-muted" onclick="showProfileCompletionAlert()">{{ __('messages.My Profile') }}</span>
+                    @endif
+                @else
+                    <a class="dropdown-item fs-4" href="{{ url('/member') }}">{{ __('messages.My Profile') }}</a>
+                @endif
+            </li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger fs-4">{{ __('messages.Logout') }}</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+@else
+    <a href="{{ route('bazar')}}" class="btn-auth btn-auth-rev" title="Login">{{ __('messages.Bazar Registration') }}</a>
+    <a href="{{ route('login') }}" class="btn-auth btn-auth-rev" title="Login">{{ __('messages.Login') }}</a>
+    <a title="Register" class="btn-auth btn-auth" href="{{ route('register') }}">{{ __('messages.Become a member') }}</a>
+@endif
 
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                        <li>
-                                            @if(Auth::user()->role === 'admin')
-                                            <a class="dropdown-item fs-4" href="{{ url('/admin/dashboard') }}">{{ __('messages.My Profile') }}</a>
-                                            @else
-                                            <a class="dropdown-item fs-4" href="{{ url('/member') }}">{{ __('messages.My Profile') }}</a>
-                                            @endif
-                                        </li>
-                                        <li>
-                                            <form method="POST" action="{{ route('logout') }}">
-                                                @csrf
-                                                <button type="submit" class="dropdown-item text-danger fs-4">{{ __('messages.Logout') }}</button>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                                @else
-                                <a href="{{ route('login') }}" class="btn-auth btn-auth-rev" title="Login">{{ __('messages.Login') }}</a>
-                                <a title="Register" class="btn-auth btn-auth" href="{{ route('register') }}">{{ __('messages.Become a member') }}</a>
-                                @endif
                                 <div class="language-selector d-inline-block">
                                     <select class="form-select changeLang" style="width: 100px; height: 39px; line-height: 12px;">
                                         <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
@@ -119,7 +128,14 @@
                                 {{-- <li><a href="{{route('home.directory')}}">{{ __('messages.Directory') }}</a></li>--}}
                                 <li><a href="{{route('directory.list')}}">{{ __('messages.Directory') }}</a></li>
                                  <li><a href="{{route('home.jobs')}}">{{ __('messages.Jobs') }}</a></li>
-                                 <li><a href="{{route('home.events')}}">{{ __('messages.Events') }}</a></li>
+                                 <!-------------Events------------>
+                                 <li class="has-submenu menu-item-depth-0">
+                                    <a href="javascript:void(0)">{{ __('messages.Events') }}</a>
+                                    <ul class="sub-menu">
+                                    <li><a href="{{route('home.events')}}">{{ __('messages.Events') }}</a></li>
+                                    <li><a href="{{ route('homebazar')}}">{{ __('messages.Ramzan Bazar') }}</a></li>
+                                    </ul>
+                                </li>
                                  <li><a href="{{ route('home.gallery')}}">{{ __('messages.Gallery') }}</a></li>
                                  <li><a href="{{ route('home.islamictijarat')}}">{{ __('messages.Islamic Tijarat') }}</a></li>
                                 <li class="menu-item-depth-0">
@@ -128,36 +144,49 @@
                                 <li class="menu-item-depth-0">
                                     <a href="{{ route('registration.index')}}">{{ __('messages.Upload CV') }}</a>
                                 </li>
+
                             </ul>
                             <!-------------Responsive display login and register button----------->
                             <div class="mobile-auth-buttons">
-                                @if(Auth::check())
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-primary dropdown-toggle fs-4" type="button" id="userDropdown" data-bs-auto-close="true" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ ucfirst(Auth::user()->name) }}
+                            @if(Auth::check())
+    <div class="dropdown d-inline-block">
+        <button class="btn btn-primary dropdown-toggle fs-4" type="button" id="userDropdown" data-bs-auto-close="true" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ ucfirst(Auth::user()->name) }}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li>
+                @if(Auth::user()->role === 'admin')
+                    <a class="dropdown-item fs-4" href="{{ url('/admin/dashboard') }}">{{ __('messages.My Profile') }}</a>
+                @elseif(Auth::user()->role === 'bazar')
+                    <a class="dropdown-item fs-4" href="{{ route('catalog.list') }}">{{ __('messages.My Profile') }}</a>
+                @elseif(Auth::user()->role === 'user')
+                    @if(Auth::user()->company)
+                        <a class="dropdown-item fs-4" href="{{ url('/member') }}">{{ __('messages.My Profile') }}</a>
+                    @else
+                        <span class="dropdown-item fs-4 text-muted" onclick="showProfileCompletionAlert()">{{ __('messages.My Profile') }}</span>
+                    @endif
+                @else
+                    <a class="dropdown-item fs-4" href="{{ url('/member') }}">{{ __('messages.My Profile') }}</a>
+                @endif
+            </li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger fs-4">{{ __('messages.Logout') }}</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+@else
+<div class="d-flex flex-nowrap gap-3 align-items-center">
+    <a href="{{ route('bazar')}}" class="btn-auth btn-auth-rev" title="Login">{{ __('messages.Bazar Registration') }}</a>
+    <a href="{{ route('login') }}" class="btn-auth btn-auth-rev" title="Login">{{ __('messages.Login') }}</a>
+    <a title="Register" class="btn-auth btn-auth" href="{{ route('register') }}">{{ __('messages.Become a member') }}</a>
+</div>
 
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                        <li>
-                                            @if(Auth::user()->role === 'admin')
-                                            <a class="dropdown-item fs-4" href="{{ url('/admin/dashboard') }}">{{ __('messages.My Profile') }}</a>
-                                            @else
-                                            <a class="dropdown-item fs-4" href="{{ url('/member') }}">{{ __('messages.My Profile') }}</a>
-                                            @endif
-                                        </li>
-                                        <li>
-                                            <form method="POST" action="{{ route('logout') }}">
-                                                @csrf
-                                                <button type="submit" class="dropdown-item text-danger fs-4">{{ __('messages.Logout') }}</button>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                                @else
-                                <a href="{{ route('login') }}" class="btn-auth btn-auth-rev" title="Login">{{ __('messages.Login') }}</a>
-                                <a title="Register" class="btn-auth btn-auth" href="{{ route('register') }}">{{ __('messages.Become a member') }}</a>
-                               {{-- <a title="Register" class="btn-auth btn-auth" href="{{ route('home.membership') }}">{{ __('messages.Become a member') }}</a>--}}
-                                @endif
+
+@endif
+
                                 <div class="language-selector mt-3">
                                     <select class="form-select changeLang">
                                         <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
@@ -207,4 +236,16 @@
 
         $('.dropdown-toggle').dropdown();
     });
+
+
+    function showProfileCompletionAlert() {
+        swal({
+            title: "Profile Incomplete",
+            text: "Please complete your company profile.",
+            icon: "warning",
+            buttons: {
+                cancel: "Close",
+            },
+        });
+    }
     </script>

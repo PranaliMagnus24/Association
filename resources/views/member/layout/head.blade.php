@@ -20,9 +20,13 @@
 
   <!-- Favicons -->
 
-  <link href="{{ $companyProfile->company_logo ? url('upload/company_documents/' . $companyProfile->company_logo) : asset('homecss/assets/images/logo/logo.jpg') }}" rel="icon">
-<link href="{{ $companyProfile->company_logo ? url('upload/company_documents/' . $companyProfile->company_logo) : asset('homecss/assets/images/logo/logo.jpg') }}" rel="apple-touch-icon">
-
+  @if(!empty($companyProfile->company_logo))
+    <link href="{{ url('upload/company_documents/' . $companyProfile->company_logo) }}" rel="icon">
+    <link href="{{ url('upload/company_documents/' . $companyProfile->company_logo) }}" rel="apple-touch-icon">
+@else
+    <link href="{{ asset('homecss/assets/images/logo/logo.jpg') }}" rel="icon">
+    <link href="{{ asset('homecss/assets/images/logo/logo.jpg') }}" rel="apple-touch-icon">
+@endif
 
 
   <!-- Google Fonts -->

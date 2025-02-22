@@ -305,6 +305,9 @@ return [
     'Logout' => 'تسجيل الخروج',
     'Membership' => 'العضوية',
     'hadith_business' => 'حديث (استعارة لعمل تجاري منتج ومفيد)',
+    'Bazar Registration' => 'تسجيل البازار',
+    'Ramzan Bazar' => 'بازار رمضان',
+
 
 
 

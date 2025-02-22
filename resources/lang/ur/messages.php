@@ -305,4 +305,6 @@ return [
 'Logout' => 'لاگ آؤٹ',
 'Membership' => 'رکنیت',
 'hadith_business' => 'حدیث (ایک پیداواری، فائدہ مند کاروبار کے لیے ایک استعارہ)',
+'Bazar Registration' => 'بازار رجسٹریشن',
+'Ramzan Bazar' => 'رمضان بازار',
 ];

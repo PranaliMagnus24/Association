@@ -33,8 +33,8 @@ class JobController extends Controller
 
     public function index(Request $request)
     {
-        $user = auth()->user(); // Get the authenticated user
-        $companyProfile = CompanyPro::where('user_id', $user->id)->first(); // Retrieve the company profile
+        $user = auth()->user();
+        $companyProfile = CompanyPro::where('user_id', $user->id)->first();
 
         // Get the search, category, and sort values from the request
         $search = $request->get('search');

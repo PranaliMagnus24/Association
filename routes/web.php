@@ -20,6 +20,8 @@ use App\Http\Controllers\CompanyRegistrationController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Member\JobController;
 use App\Http\Controllers\Member\AdsManagerController;
+use App\Http\Controllers\Member\CatalogController;
+use App\Http\Controllers\Member\CatalogCategoryController;
 use App\Http\Controllers\Events\EventController;
 use App\Http\Controllers\Events\EventDetailsController;
 use App\Http\Controllers\CommitteeController;
@@ -37,6 +39,7 @@ use App\Http\Controllers\Category\SubCategoryController;
 use App\Http\Controllers\Category\SubSubCategoryController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Form_Registration\RegistrationController;
+use App\Http\Controllers\Bazar\BazarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -365,11 +368,18 @@ Route::get('/jobapplylist/{job_id}', [JobController::class, 'jobApplyList'])->na
 Route::get('apply-details/{id}', [JobController::class, 'jobapplydetails'])->name('jobapplydetails');
 Route::post('/interview', [JobController::class, 'interview'])->name('interviewstore');
 
-
 //Ads Manager Controller
 Route::get('create/ads', [AdsManagerController::class, 'index'])->name('create.ads');
 Route::post('/create/ads', [AdsManagerController::class, 'store'])->name('ads.store');
 
+//Catalog Controller
+Route::get('catalog', [CatalogController::class, 'index'])->name('catalog.list');
+Route::get('catalog/create', [CatalogController::class, 'create'])->name('catalog.create');
+Route::post('catalog/create', [CatalogController::class, 'store'])->name('catalog.store');
+Route::get('catalog/edit/{id}', [CatalogController::class, 'edit'])->name('catalog.edit');
+Route::post('catalog/{id}', [CatalogController::class, 'update'])->name('catalog.update');
+Route::get('catalog/delete/{id}', [CatalogController::class, 'delete'])->name('catalog.delete');
+Route::get('/get-subcategories', [CatalogController::class, 'getSubcategories'])->name('get.subcategories');
 
 
 //Event Details Controller
@@ -398,3 +408,11 @@ Route::get('lang/change', [LanguageController::class, 'change'])->name('changeLa
 //Form Registration Controller
 Route::get('registration', [RegistrationController::class, 'index'])->name('registration.index');
 Route::post('registration', [RegistrationController::class, 'registrationstore'])->name('registration.store');
+
+
+//Bazar Controller
+Route::get('/ramzan-bazar', [BazarController::class, 'ramzanbazar'])->name('homebazar');
+Route::get('/bazar-details/{id}', [BazarController::class, 'bazardetails'])->name('homebazar.details');
+Route::get('/bazar_registration', [BazarController::class, 'bazarregistration'])->name('bazar.registration');
+Route::post('/bazar_registration', [BazarController::class, 'store'])->name('bazarregistration.store');
+
