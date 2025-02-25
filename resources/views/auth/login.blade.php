@@ -63,7 +63,7 @@ font-size: 15px !important;
                   </div> -->
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsername" class="form-label">Username <span style="color:red;">*</span></label>
                       <div class="input-group has-validation">
                         <input type="text" name="email" class="form-control fs-4" id="yourUsername":value="old('email')" required autofocus autocomplete="username" >
                       </div>
@@ -73,13 +73,26 @@ font-size: 15px !important;
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
+                      <label for="yourPassword" class="form-label">Password <span style="color:red;">*</span></label>
                       <input type="password" name="password" class="form-control fs-4" id="yourPassword"
                             required autocomplete="current-password">
                         </div>
                         @error('password')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
+
+                        <div class="col-6">
+                        <label for="captcha" class="form-label">Captcha <span style="color:red;">*</span></label>
+                                <div class="captcha">
+                                    <span>{!! captcha_img() !!}</span>
+                                    <button type="button" class="btn btn-secondary btn-sm fs-2" id="refresh-captcha">
+                                        &#x21bb;
+                                    </button>
+                                </div>
+                                <input type="text" name="captcha" id="captcha" class="form-control fs-4 mt-2" required>
+                                @error('captcha')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
 
                     <div class="col-12">
                       <div class="form-check">
@@ -111,5 +124,14 @@ font-size: 15px !important;
     </div>
   </div>
 </section>
+<script>
+    document.getElementById('refresh-captcha').addEventListener('click', function() {
+        fetch("{{ route('captcha.reload') }}")
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('.captcha span').innerHTML = data.captcha;
+            });
+    });
+</script>
 
 @include('home.includes.footer')

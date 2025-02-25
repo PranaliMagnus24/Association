@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Mews\Captcha\Facades\Captcha;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Master_Settings\MembershiptypeController;
 use App\Http\Controllers\Master_Settings\GeneralSettingController;
@@ -415,4 +416,7 @@ Route::get('/ramzan-bazar', [BazarController::class, 'ramzanbazar'])->name('home
 Route::get('/bazar-details/{id}', [BazarController::class, 'bazardetails'])->name('homebazar.details');
 Route::get('/bazar_registration', [BazarController::class, 'bazarregistration'])->name('bazar.registration');
 Route::post('/bazar_registration', [BazarController::class, 'store'])->name('bazarregistration.store');
+Route::get('/shop/{id}/{name}', [BazarController::class, 'show'])->name('shop.profile');
+Route::post('/shop', [BazarController::class, 'shopform'])->name('shop-form');
+Route::post('/product-inquiry', [BazarController::class, 'productinquiry'])->name('productinquiry');
 

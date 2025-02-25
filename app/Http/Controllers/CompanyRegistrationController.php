@@ -44,7 +44,7 @@ class CompanyRegistrationController extends Controller
             'company_type' => 'required|string',
             'company_name' => 'required|string',
             'services' => 'required|string',
-            'aadharcard_number' => 'required|string',
+            'aadharcard_number' => 'nullable|string',
             'registration_date' => 'required|date',
             'renewal_date' => 'required|date',
             'address_one' => 'required',

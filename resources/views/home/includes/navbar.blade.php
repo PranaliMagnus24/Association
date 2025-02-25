@@ -128,21 +128,23 @@
                                 {{-- <li><a href="{{route('home.directory')}}">{{ __('messages.Directory') }}</a></li>--}}
                                 <li><a href="{{route('directory.list')}}">{{ __('messages.Directory') }}</a></li>
                                  <li><a href="{{route('home.jobs')}}">{{ __('messages.Jobs') }}</a></li>
+                                 <li><a href="{{route('home.events')}}">{{ __('messages.Events') }}</a></li>
                                  <!-------------Events------------>
-                                 <li class="has-submenu menu-item-depth-0">
+                                {{-- <li class="has-submenu menu-item-depth-0">
                                     <a href="javascript:void(0)">{{ __('messages.Events') }}</a>
                                     <ul class="sub-menu">
                                     <li><a href="{{route('home.events')}}">{{ __('messages.Events') }}</a></li>
                                     <li><a href="{{ route('homebazar')}}">{{ __('messages.Ramzan Bazar') }}</a></li>
                                     </ul>
-                                </li>
+                                </li>--}}
                                  <li><a href="{{ route('home.gallery')}}">{{ __('messages.Gallery') }}</a></li>
                                  <li><a href="{{ route('home.islamictijarat')}}">{{ __('messages.Islamic Tijarat') }}</a></li>
+
                                 <li class="menu-item-depth-0">
-                                    <a href="{{ route('home.contact')}}">{{ __('messages.Contact') }}</a>
+                                <a href="{{ route('homebazar')}}">{{ __('messages.Ramzan Bazar') }}</a>
                                 </li>
                                 <li class="menu-item-depth-0">
-                                    <a href="{{ route('registration.index')}}">{{ __('messages.Upload CV') }}</a>
+                                    <a href="{{ route('home.contact')}}">{{ __('messages.Contact') }}</a>
                                 </li>
 
                             </ul>

@@ -16,9 +16,11 @@ class CatalogController extends Controller
     public function index()
    {
     $user = auth()->user();
-    $companyProfile = ShopRegistration::where('user_id', $user->id)->first();
-    $catalogs = Catalog::with('category')->paginate(10);
-    return view('member.catalog.list-catalog',compact('companyProfile', 'user','catalogs'));
+    $shop = ShopRegistration::where('user_id', $user->id)->first();
+    $catalogs = Catalog::with('category')
+                        ->where('shop_id', $shop->id)
+                        ->paginate(10);
+    return view('member.catalog.list-catalog',compact('shop', 'user','catalogs'));
    }
 
    public function create()
@@ -38,7 +40,7 @@ class CatalogController extends Controller
         'description' => 'nullable|string',
         'price' => 'nullable|string',
         'catalog_category_id' => 'nullable|string',
-     'shop_id' => 'nullable',
+        'shop_id' => 'nullable',
         'brands' => 'nullable|string',
         'images.*' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         'video' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:10240',

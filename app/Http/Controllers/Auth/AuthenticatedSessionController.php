@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -27,6 +28,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
 {
+    $request->validate([
+        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        'password' => ['required', 'confirmed','max:8'],
+        'captcha' => 'required|captcha',
+    ]);
+
     $request->authenticate();
     $request->session()->regenerate();
 

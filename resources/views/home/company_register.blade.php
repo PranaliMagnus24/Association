@@ -214,7 +214,7 @@ select.form-select {
         </div>
 
         <div class="row mb-3">
-            <label for="company" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Registration No/Udyog Aadhaar No') }}.<span style="color: red">*</span></label>
+            <label for="company" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Registration No/Udyog Aadhaar No') }}.</label>
             <div class="col-md-8 col-lg-9">
                 <input name="aadharcard_number" type="text" class="form-control" id="aadhar" value="{{ old('aadharcard_number', $data->aadharcard_number ?? '') }}" placeholder="Registration or Aadhar number">
                 @error('aadharcard_number')

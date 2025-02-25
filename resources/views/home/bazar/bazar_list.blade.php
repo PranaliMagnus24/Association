@@ -96,7 +96,7 @@
         <div class="row">
             <div class="col-lg-8 m-auto text-center">
                 <div class="page-title-content">
-                    <h1 class="h2">{{ __('messages.Ramzan Bazar Category') }}</h1>
+                    <h1 class="h2">{{ __('messages.Ramzan Bazar') }}</h1>
                     <p>
                         {{ __('messages.The truthful and honest businessman will be in the company of the Prophets, the truthful ones (Siddeeqeen), and the martyrs (Shuhada) on the Day of Judgment.(Mishkat al-Masabih, Hadith 2828)') }}
                     </p>
@@ -189,6 +189,16 @@
         @if (!empty($images) && is_array($images))
         <div class="col-md-4 mb-4">
             <div class="card product-card border-0 shadow-sm">
+                <!-- Shop Name -->
+                @if($catalog->shop)
+                <div class="shop-name text-center mt-2 mb-2">
+                <a href="{{ route('shop.profile', ['id' => $catalog->shop->id, 'name' => Str::slug($catalog->shop->shop_name)]) }}" class="text-dark">
+    <strong>{{ $catalog->shop->shop_name }}</strong>
+</a>
+
+
+                </div>
+                @endif
                 <!-- Bootstrap Carousel -->
                 <div id="carousel{{ $catalog->id }}" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -236,7 +246,6 @@
 </div>
 </section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
  document.addEventListener("DOMContentLoaded", function() {
     let scrollContainer = document.getElementById("category-scroll");

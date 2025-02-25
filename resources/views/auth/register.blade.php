@@ -130,6 +130,21 @@ font-size: 15px !important;
                             </div>
 
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="captcha" class="form-label">Captcha <span style="color:red;">*</span></label>
+                                <div class="captcha">
+                                    <span>{!! captcha_img() !!}</span>
+                                    <button type="button" class="btn btn-secondary btn-sm fs-2" id="refresh-captcha">
+                                        &#x21bb;
+                                    </button>
+                                </div>
+                                <input type="text" name="captcha" id="captcha" class="form-control fs-4 mt-2" required>
+                                @error('captcha')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="pt-1 mb-6 text-center">
                             <x-primary-button class="btn btn-primary btn-lg btn-block w-50 form-control fs-4" data-mdb-button-init data-mdb-ripple-init>
@@ -160,7 +175,15 @@ font-size: 15px !important;
         });
     </script>
 @endif
-
+<script>
+    document.getElementById('refresh-captcha').addEventListener('click', function() {
+        fetch("{{ route('captcha.reload') }}")
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('.captcha span').innerHTML = data.captcha;
+            });
+    });
+</script>
 
 
 

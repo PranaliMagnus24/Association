@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Mews\Captcha\Facades\Captcha;
 
 class RegisteredUserController extends Controller
 {
@@ -37,8 +38,9 @@ class RegisteredUserController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'numeric', 'digits:10'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'password_confirmation' => ['required'],
+            'password' => ['required', 'confirmed','max:8', Rules\Password::defaults()],
+            'password_confirmation' => ['required','max:8'],
+            'captcha' => 'required|captcha',
         ]);
 
 

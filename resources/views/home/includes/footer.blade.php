@@ -86,6 +86,7 @@
                                         <li><a href="{{route('home.faq')}}">{{ __('messages.FAQ') }}</a></li>
                                         <li><a href="javascript:void(0)">{{ __('messages.Terms & Condition') }}</a></li>
                                         <li><a href="javascript:void(0)">{{ __('messages.Privacy Policy') }}</a></li>
+                                        <li><a href="{{ route('registration.index')}}">{{ __('messages.Upload CV') }}</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -155,6 +156,8 @@
 
     <!-- Dependency Scripts -->
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
     {{--<script class="script-js" src="{{asset('homecss/assets/vendors/jquery/jquery.min.js')}}"></script>
     <script class="script-js" src="{{asset('homecss/assets/vendors/bootstrap/js/bootstrap.bundle.min.js')}}"></script>--}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -182,6 +185,7 @@
     <!-- Site Scripts -->
     <script src="{{asset('homecss/assets/js/app.js')}}?@php echo time(); @endphp"></script>
     <script src="{{ asset('vendor/smart-ads/js/smart-banner.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 
     </body>
 
